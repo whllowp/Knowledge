@@ -14,6 +14,7 @@ from __future__ import annotations
 
 from collections import defaultdict
 from dataclasses import asdict, dataclass
+from typing import Protocol
 
 from .context_bus import Artifact, ContextBus
 from .coordination import CoordinationBudget, CoordinationPolicy
@@ -42,6 +43,23 @@ class NodeSpec:
     idle_ms: int = 0
     wait_ms: int = 0
     rework_count: int = 0
+    input_artifacts: tuple[str, ...] = ()
+
+
+@dataclass(frozen=True)
+class NodeExecution:
+    tokens: int
+    wall_clock_ms: int
+    tool_calls: int = 0
+    human_minutes: float = 0.0
+    success: bool = True
+    artifact_content: str = ""
+    note: str = ""
+
+
+class NodeExecutor(Protocol):
+    def execute(self, node: NodeSpec, task: TaskProfile) -> NodeExecution:
+        ...
 
 
 @dataclass(frozen=True)
@@ -112,10 +130,19 @@ class TeamRuntime:
         quality_base: float,
         coordination_ratio: float = 0.2,
         on_exceed: str = "degrade",
+        executor: NodeExecutor | None = None,
+        graph: GraphSpec | None = None,
+        initial_artifacts: dict[str, str] | None = None,
+        record_aggregate: bool = True,
     ) -> RuntimeResult:
-        graph = build_graph(manifest, role_metrics)
+        graph = graph or build_graph(manifest, role_metrics)
+        node_by_id = {node.id: node for node in graph.nodes}
         context = ContextBus()
-        context.put(Artifact("task", f"{task.name} | {' '.join(task.required_capabilities)}", "system"))
+        initial = initial_artifacts or {
+            "task": f"{task.name} | {' '.join(task.required_capabilities)}"
+        }
+        for artifact_id, content in initial.items():
+            context.put(Artifact(artifact_id, content, "system"))
         handoffs = HandoffBus()
         planned_tokens = max(1, sum(node.tokens for node in graph.nodes))
         budget = CoordinationBudget(
@@ -157,12 +184,13 @@ class TeamRuntime:
 
             blocked = False
             for dependency in node.depends_on:
+                source_artifact = node_by_id[dependency].output_artifact
                 handoff = Handoff(
                     id=f"{dependency}->{node.id}",
                     from_role=dependency,
                     to_role=node.role,
-                    intent=f"handoff {node.output_artifact} for {node.id}",
-                    artifacts=(f"artifact-{dependency}",),
+                    intent=f"handoff {source_artifact} for {node.id}",
+                    artifacts=(source_artifact,),
                 )
                 record = handoffs.send(handoff)
                 status = budget.record(record.tokens)
@@ -198,12 +226,41 @@ class TeamRuntime:
                 break
 
             self._record("node.started", run=run_id, node=node.id, role=node.role)
-            input_ids = ("task",) + tuple(f"artifact-{dependency}" for dependency in node.depends_on)
+            input_ids = node.input_artifacts or (
+                ("task",) + tuple(node_by_id[dependency].output_artifact for dependency in node.depends_on)
+            )
             fetch = context.fetch(node.role, input_ids)
             self._record("context.fetched", run=run_id, role=node.role, fetch=asdict(fetch))
 
-            content = f"{node.output_artifact} produced by {node.role}; " + (
-                "evidence " * max(1, node.tokens // 200)
+            if executor is not None:
+                execution = executor.execute(node, task)
+                tokens = execution.tokens
+                wall_clock_ms = execution.wall_clock_ms
+                tool_calls = execution.tool_calls
+                human_minutes = execution.human_minutes
+                artifact_content = execution.artifact_content
+                note = execution.note
+                if not execution.success:
+                    self._record(
+                        "node.failed",
+                        run=run_id,
+                        node=node.id,
+                        role=node.role,
+                        note=note,
+                    )
+                    skipped = [item.id for item in remaining]
+                    break
+            else:
+                tokens = node.tokens
+                wall_clock_ms = node.wall_clock_ms
+                tool_calls = node.tool_calls
+                human_minutes = node.human_minutes
+                artifact_content = ""
+                note = ""
+
+            content = artifact_content or (
+                f"{node.output_artifact} produced by {node.role}; "
+                + ("evidence " * max(1, tokens // 200))
             )
             context.put(Artifact(node.output_artifact, content, node.role))
             self._record(
@@ -211,8 +268,9 @@ class TeamRuntime:
                 run=run_id,
                 node=node.id,
                 role=node.role,
-                tokens=node.tokens,
-                wall_clock_ms=node.wall_clock_ms,
+                tokens=tokens,
+                wall_clock_ms=wall_clock_ms,
+                note=note,
             )
             if node.wait_ms:
                 self._record("node.wait.started", run=run_id, node=node.id, wait_ms=node.wait_ms)
@@ -221,10 +279,10 @@ class TeamRuntime:
                 self._record("artifact.reworked", run=run_id, role=node.role, node=node.id)
 
             totals = role_totals[node.role]
-            totals["tokens"] += node.tokens
-            totals["wall_clock_ms"] += node.wall_clock_ms
-            totals["tool_calls"] += node.tool_calls
-            totals["human_minutes"] += node.human_minutes
+            totals["tokens"] += tokens
+            totals["wall_clock_ms"] += wall_clock_ms
+            totals["tool_calls"] += tool_calls
+            totals["human_minutes"] += human_minutes
             totals["idle_ms"] += node.idle_ms
             totals["wait_ms"] += node.wait_ms
             totals["rework_count"] += node.rework_count
@@ -262,7 +320,7 @@ class TeamRuntime:
         for role in roles:
             self._record("role.assigned", run=run_id, role=role.role, metrics=asdict(role))
         self._record("graph.completed", run=run_id, graph=graph.id, executed=executed, skipped=skipped)
-        if self.ledger is not None:
+        if self.ledger is not None and record_aggregate:
             vector = self.ledger.record_aggregate(run_id, metrics)
         else:
             vector = EfficiencyVector.from_run(metrics, CostModel())

@@ -7,7 +7,7 @@
 
 本文基于本地 `meta-harness-main` 的 README、ONBOARDING、reference_examples 与 Harbor pilot，以及工作区已有的 Harness²、dsh-superagent、Multica、Ziyan 材料。运行底座与领域模型见 [ziyan-harness.md](ziyan-harness.md)。  
 这是设计文档与实验计划，不是已完成的实现；文中的目标值是待校准的初始值，不是实验结果。  
-评审记录见 [`hes/REVIEW.md`](hes/REVIEW.md)，P0/P1/P2 参考实现见 [`hes/`](hes/)。
+评审记录见 [`hes/REVIEW.md`](hes/REVIEW.md)，P0/P1/P2/P3 参考实现见 [`hes/`](hes/)。
 
 ---
 
@@ -779,6 +779,8 @@ efficiency.measured
 - JobBench / LAB / WorkBuddy 子集（专业工作）。
 - 自建团队任务（多源调研、跨文件重构、事故复盘）。
 
+已落地的微型 TeamBench 子集：`slugify`（7 个隐藏检查）与 `dedupe_events`（5 个隐藏检查），见 [`hes/team_bench/`](hes/team_bench/)。
+
 每个任务需要：单 Agent 基线、团队基线、验收标准、隐藏测试、成本预算。
 
 ### 8.5 消融
@@ -826,12 +828,14 @@ efficiency.measured
 | P0 度量 | 效率账本、EfficiencyVector、基线 | 30+ 任务可算 E；单 Agent/团队基线可复现 |
 | P1 决策 | Necessity Gate、Minimal Team Compiler | 能解释“为什么组队/为什么这么大”；固定团队基线可对照 |
 | P2 运行时 | Context Bus、Handoff Protocol、Scheduling、Coordination Budget | 协调开销/等待/重复可测量并下降 |
-| P3 搜索 | TeamHarness 候选、分层搜索、Pareto、canary | 至少一个团队 harness 晋级；搜索成本可算 |
-| P4 复利 | 团队性能库、迁移、自愈/知识接线 | warm start 降低搜索成本；回归可自愈 |
+| P3 真实执行 | TeamBench 子集、隐藏测试、真实 Agent executor、失败/超时/配额处理 | 至少一个真实任务跑通；隐藏测试评分可入账；失败可降级 |
+| P4 搜索 | TeamHarness 候选、分层搜索、Pareto、canary | 至少一个团队 harness 晋级；搜索成本可算 |
+| P5 复利 | 团队性能库、迁移、自愈/知识接线 | warm start 降低搜索成本；回归可自愈 |
 
 顺序不能反：**先能测量，再能决策，再能优化，最后才是自动搜索。**
 
-P2 的最小参考实现见 [`hes/runtime.py`](hes/runtime.py)：确定性 GraphRun/TeamRun、Context Bus、Handoff、Coordination Budget。它只验证调度与计量，不验证真实模型质量。
+P2 的最小参考实现见 [`hes/runtime.py`](hes/runtime.py)：确定性 GraphRun/TeamRun、Context Bus、Handoff、Coordination Budget。  
+P3 的参考实现见 [`hes/team_bench/`](hes/team_bench/)：2 个微型任务、隐藏测试、真实 Codex Agent executor；一次真实运行 7/7，verifier 因 402 配额失败被跳过。它验证真实调用与评分接线，不构成统计结论。
 
 ---
 

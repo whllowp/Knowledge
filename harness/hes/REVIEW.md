@@ -6,7 +6,7 @@
 
 Direction is sound. The problem definition, cost model, three gates, and efficiency-aware search are coherent enough to start P0/P1. The first executable slice is in this directory.
 
-This review does **not** claim that AgentTeam efficiency has been empirically improved. P0/P1 are decision and accounting foundations; P2 is a deterministic runtime slice; P3–P4 and production integration remain.
+This review does **not** claim that AgentTeam efficiency has been empirically improved. P0/P1 are decision and accounting foundations; P2 is a deterministic runtime slice; P3 is a single real run with a quota-truncated verifier; P4+ and production integration remain.
 
 ## Scope
 
@@ -49,14 +49,15 @@ Also checked 5–7 and 10 for consistency with the above.
 - **P0**: `RunMetrics` → `EfficiencyVector`; append-only JSONL facts; derived `efficiency_summary.jsonl`.
 - **P1**: Team Necessity Gate with structural checks + history baseline + team premium; Minimal Team Compiler with capability coverage, lead/worker/verifier defaults, specialist insertion, size cap, edge budget.
 - **P2**: deterministic GraphRun/TeamRun scheduler (topological dependencies), Context Bus with global duplication accounting, structured Handoff validation/accounting, Coordination Budget with degrade-on-exceed.
+- **P3**: TeamBench subset (2 tasks) with hidden tests outside the agent workspace; real Codex Agent executor per node; hidden-test score replaces the placeholder quality before ledger aggregate.
 - **Scenarios**: simple bugfix (single), multi-file feature (team), security audit (team + specialist), research synthesis (5 roles), authority-sensitive deploy (single + human gate).
 
 ## Validation
 
-- `python -m unittest discover -s hes/tests -t . -v` → 25 tests, exit 0.
+- `python -m unittest discover -s hes/tests -t . -v` → 30 tests, exit 0.
 - `python -m hes --ledger runs/hes-demo.jsonl` → 5 decisions; 46 ledger facts; 5 summary vectors.
 - `python -m hes --p2 --ledger runs/hes-p2-demo.jsonl` → 4 P2 runs; 173 ledger facts; 9 summary vectors; one tight-budget run degrades (`verifier` skipped).
-- `python -m hes --json` → results JSON parseable.
+- `python -m hes.team_bench --task slugify --ledger runs/team-bench/ledger.jsonl` → real Codex calls: lead + worker completed; hidden test **7/7, score 1.0**; verifier skipped on an external **402 Payment Required**; 22 ledger facts; normalized cost 55.088; CDR 49.05%.
 
 ## P2 implementation note
 
@@ -69,12 +70,26 @@ The P2 runtime is a **deterministic scheduler with synthetic node work**, not a 
 
 It does not measure model quality, execute tools, or call an LLM.
 
+## P3 implementation note
+
+P3 replaces the synthetic node metrics with **real Codex CLI calls**:
+
+- `lead`, `worker`, `verifier` are separate Codex invocations in the same workspace.
+- Hidden tests live outside the workspace and run only after the team run.
+- Token usage is parsed from Codex output; wall-clock and failure/timeout are recorded.
+- The hidden-test score replaces the placeholder quality before the final ledger aggregate.
+- The captured run: `slugify` hidden test **7/7**; lead + worker completed; verifier failed with provider **402 Payment Required** and was skipped; normalized cost 55.088, CDR 49.05%.
+
+This is one run, not a statistical benchmark. The verifier did not execute, so the run is not a clean three-role team result. The Codex workspace/hidden-test separation is path-based, not a hardened security boundary.
+
 ## What remains open
 
-- Real TeamBench and hidden test runner.
+- A larger, statistical TeamBench; repeated trials and confidence intervals.
+- Hardened hidden-test isolation (separate container/user, not just path separation).
 - Attribution of team quality to individual roles.
 - Production integration with Ziyan GraphEngine / Mandate / effect gates.
-- Full sync/merge/status overhead accounting (P2 counts handoff tokens + context duplication).
+- Full sync/merge/status overhead accounting (P2/P3 count handoff tokens + context duplication).
 - Canary/rollback and policy integration.
-- Search loop (P3) and team performance library (P4).
+- Search loop (P4) and team performance library (P5).
 - Precise pricing of human attention and coordination.
+- More real runs, including a completed verifier when quota is available.
