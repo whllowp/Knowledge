@@ -6,6 +6,8 @@
 
 Ziyan 是「自研」的工作代号；下文用它指代这套架构。
 
+> 工程化与搜索层见 [harness-engineering-system.md](harness-engineering-system.md)（HES）：它把 TeamHarness 变成可搜索、可度量、可治理的工件。
+
 这份文档不介绍三个系统，而是回答一个问题：**如果我们自己造一个 Harness，应该继承什么、拒绝什么、用什么把它们缝在一起而不缝成一个怪物。**
 
 阅读前提：
