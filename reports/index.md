@@ -506,3 +506,13 @@
 - 字数：正文 2997 汉字，一次成型后 6 轮句级删减（从 3271 降到 2997），2600 预算策略本期失效（素材密度过高），下期回到"先列证据再写、每段不超 4 句"
 - 注意：ACE 亚秒恢复/无密钥/定价节奏来自 TechTarget 与行业周报转述，Google 官方博客未直接取得；Infinity 75,000/8GB 为 AWS 自述基准；Skills 三数字为 Anthropic 口径未独立核实；hqwc.cn/lpqz.cn/mzlw.cn/wmrh.cn/kwkr.cn 本次大面积命中且文风专业，均为 AI 内容农场，未采信
 - 下期候选：agent_instance 语义的 OTel 提案路径／恢复一致率的最小可测定义（三元组对齐算法）／沙箱秒与 vCPU 秒的换算账本／"平台停摆日"演练剧本与验收判据／版本 digest 的分层回退协议／训练负载与生产负载的资源隔离配额设计
+
+## 2026-11-03 第 38 期（AI-SRE技术洞察-20261103-0000.md）
+
+- 主线：写入面（副作用面）运维——智能体的每一次写都是一次生产变更（第二十九条主线；与第 37 期分界=那期管进程载体与"恢复不撤销交易"钩子，本期管对外部世界的写入语义；与第 26 期分界=那期管智能体改写自身，本期管它改写我们的系统）
+- 时点锚点：Grafana ObservabilityCON 2026（Managed Sandboxes 修复以 PR 收尾；Agent Observability OTel GA；68% 已入试点/生产，只读舒适度 85% vs 自主修复 52%，信任差 33pp）；Dynatrace Perform 发布 Intelligence（确定性+智能体双轨，外部 SRE agent 协作后 12x 解决率/3x 速度/半成本）；阿里云 AgenticOps 全栈（云效数字分身权限=使用者本人）；IETF Idempotency-Key 草案 08（10-22，400/422/409 语义+载荷指纹防换内容重放）
+- 核心新提法：写入被重新路由进变更流水线／重复写入+丢失更新两老 bug 复发（双退款+标签整写回案例，两次 200、trace 干净、状态错误）／智能体三重放大器（不信任首响重发/检查点恢复重放/HTTP 层与推理层重试同时开火）／写工具生产准入双证制（幂等键+If-Match，缺一不发凭据）／幂等键生成权归属（模型不参与：run_id+步骤+目标+意图字段派生；参数哈希因自由文本改写漂移）／回滚计划不允许由智能体定义／变更信封五字段（intent_id/policy_digest/idempotency_key/evidence_age_ms/rollback_owner）／2am 测试／按证据晋升自主级
+- SDK 写入门禁对比：OpenAI needs_approval+RunState（shell/apply_patch 默认免审批）；Anthropic 五级评估（hooks 先于 allow 规则、plan 模式强制回调）；判读=审批环节四厂商已收敛（调查自主、变更人批），幂等与并发防护无一家内建，是最大市场空白
+- 本地新启用：陈忻（XTransfer）25 页首次开采——AST 确定性红线拦截先于 LLM 复审、统一代码指纹跨引擎一致率 100%（548/548）、反馈回流采纳率 40-50%→67%、全仓扫描 2-3 周→3-4 天
+- 有效方法：检索"agent write actions idempotency"单发命中 opennash/safeguard/sekin/hotmolts 四条高密度源；ObservabilityCON 与 Perform 两大会本周双窗；polarpoint 的 PR 模板与 80% 置信度默认高风险规则可直接引用
+- 下期候选：变更信封字段的落地顺序／幂等键 TTL 与重放窗口标定／补偿事务（saga）在自愈剧本的准入／写入审计账本与第 32 期轨迹面合流／陈忻 EvalHub/EagleEye 飞轮的跨期深挖
