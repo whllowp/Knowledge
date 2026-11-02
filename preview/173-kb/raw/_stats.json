@@ -1,0 +1,250 @@
+[
+  {
+    "idx": 1,
+    "orig": "casa-AI 时代的一人公司：从 Idea 到 Growth的完整工作流.pdf",
+    "safe": "01_casa-AI__Idea__Growth.pdf.txt",
+    "pages": 25,
+    "chars": 4083,
+    "density": 163.3
+  },
+  {
+    "idx": 2,
+    "orig": "何伟-从生码到可信交付：Harness For Hybrid Coding 实践.pdf",
+    "safe": "02_-Harness_For_Hybrid_Coding_.pdf.txt",
+    "pages": 33,
+    "chars": 11353,
+    "density": 344.0
+  },
+  {
+    "idx": 3,
+    "orig": "余锦泽-Agent的记忆不在对话里.pdf",
+    "safe": "03_-Agent.pdf.txt",
+    "pages": 52,
+    "chars": 17950,
+    "density": 345.2
+  },
+  {
+    "idx": 4,
+    "orig": "刘中兵-AI 时代架构往哪走？&mdash;&mdash;快手 AI 时代的架构演进思路.pdf",
+    "safe": "04_-AI_&mdash;&mdash;_AI_.pdf.txt",
+    "pages": 45,
+    "chars": 10993,
+    "density": 244.3
+  },
+  {
+    "idx": 5,
+    "orig": "刘凯宁-蚂蚁 SRE 基于 Agent 的应急根因定位实践与踩坑.pdf",
+    "safe": "05_-_SRE__Agent_.pdf.txt",
+    "pages": 33,
+    "chars": 3584,
+    "density": 108.6
+  },
+  {
+    "idx": 6,
+    "orig": "刘宗明-端云协同下的 Agentic 多端互联实践.pdf",
+    "safe": "06_-_Agentic_.pdf.txt",
+    "pages": 34,
+    "chars": 6941,
+    "density": 204.1
+  },
+  {
+    "idx": 7,
+    "orig": "刘春晓-从环采数据到产业落地：具身&ldquo;最强大脑&rdquo;的技术演进之路.pdf",
+    "safe": "07_-&ldquo;&rdquo;.pdf.txt",
+    "pages": 25,
+    "chars": 1338,
+    "density": 53.5
+  },
+  {
+    "idx": 8,
+    "orig": "刘杨-从 Trace 到规模化实时评估：面向生产流量的 Agent 可观测实践.pdf",
+    "safe": "08_-_Trace__Agent_.pdf.txt",
+    "pages": 34,
+    "chars": 11022,
+    "density": 324.2
+  },
+  {
+    "idx": 9,
+    "orig": "吴垚-从接住告警到自我进化：快手智能运维助手实践.pdf",
+    "safe": "09_-.pdf.txt",
+    "pages": 33,
+    "chars": 622,
+    "density": 18.8
+  },
+  {
+    "idx": 10,
+    "orig": "周昕毅-AI + SRE ≠ AISRE：AI 如何真正进入生产运维闭环.pdf",
+    "safe": "10_-AI_+_SRE_=_AISREAI_.pdf.txt",
+    "pages": 38,
+    "chars": 6290,
+    "density": 165.5
+  },
+  {
+    "idx": 11,
+    "orig": "孙鹏_重塑大模型评价体系，构建全自动、可进化的&ldquo;探测式&rdquo;评测管线.pdf",
+    "safe": "11__&ldquo;&rdquo;.pdf.txt",
+    "pages": 21,
+    "chars": 6895,
+    "density": 328.3
+  },
+  {
+    "idx": 12,
+    "orig": "张凯寓-从通用 Agent 到用户自己的工作系统：用户级 Harness 与 CLOAK 产品实践.pdf",
+    "safe": "12_-_Agent__Harness__CLOAK_.pdf.txt",
+    "pages": 48,
+    "chars": 47,
+    "density": 1.0
+  },
+  {
+    "idx": 13,
+    "orig": "徐文浩-技术人的下一站：从局部优化到主动探索.pdf",
+    "safe": "13_-.pdf.txt",
+    "pages": 58,
+    "chars": 57,
+    "density": 1.0
+  },
+  {
+    "idx": 14,
+    "orig": "施宏斌-金融 Agent 开放问题 Eval：从专家经验到可验证的持续改进.pdf",
+    "safe": "14_-_Agent__Eval.pdf.txt",
+    "pages": 37,
+    "chars": 4147,
+    "density": 112.1
+  },
+  {
+    "idx": 15,
+    "orig": "朱革-百度 SRE Agent 规模化落地实践&mdash;&mdash;大模型 Agent 的安全托管与自主进化探索.pdf",
+    "safe": "15_-_SRE_Agent_&mdash;&mdash;_Agent_..txt",
+    "pages": 25,
+    "chars": 5197,
+    "density": 207.9
+  },
+  {
+    "idx": 16,
+    "orig": "李东东-端云协同调度在B端应用的工程实践.pdf",
+    "safe": "16_-B.pdf.txt",
+    "pages": 30,
+    "chars": 8936,
+    "density": 297.9
+  },
+  {
+    "idx": 17,
+    "orig": "李峥峰 -Open Code Review：百万真实任务验证的确定性工程与 Agent 协同.pdf",
+    "safe": "17__-Open_Code_Review_Agent_.pdf.txt",
+    "pages": 37,
+    "chars": 4151,
+    "density": 112.2
+  },
+  {
+    "idx": 18,
+    "orig": "泠乐-AI 写完代码，谁来验证？&mdash;&mdash;手淘 TEKO &ldquo;写&mdash;验&mdash;修&rdquo;自主闭环的工程实践.pdf",
+    "safe": "18_-AI_&mdash;&mdash;_TEKO_&ldquo;&md.txt",
+    "pages": 38,
+    "chars": 37,
+    "density": 1.0
+  },
+  {
+    "idx": 19,
+    "orig": "温睦宁-欢迎来到自进化的时代.pdf",
+    "safe": "19_-.pdf.txt",
+    "pages": 35,
+    "chars": 5084,
+    "density": 145.3
+  },
+  {
+    "idx": 20,
+    "orig": "王上淇--从对话框到生产线-企业的AI工作台.pdf",
+    "safe": "20_---AI.pdf.txt",
+    "pages": 35,
+    "chars": 34,
+    "density": 1.0
+  },
+  {
+    "idx": 21,
+    "orig": "王浩男-飞猪 AI Native 交付大脑：用超级流程重构需求交付.pdf",
+    "safe": "21_-_AI_Native_.pdf.txt",
+    "pages": 25,
+    "chars": 3670,
+    "density": 146.8
+  },
+  {
+    "idx": 22,
+    "orig": "肖汉松-从 Harness 到 Loop：阿福 Agent 小队如何处理持续涌入的线上 Badcase.pdf",
+    "safe": "22_-_Harness__Loop_Agent__Badcase.pdf.txt",
+    "pages": 36,
+    "chars": 7657,
+    "density": 212.7
+  },
+  {
+    "idx": 23,
+    "orig": "蒋烁淼-千亿数据秒查到真正的AgentOps：AI时代中国自研可观测平台的演进.pdf",
+    "safe": "23_-AgentOpsAI.pdf.txt",
+    "pages": 38,
+    "chars": 2965,
+    "density": 78.0
+  },
+  {
+    "idx": 24,
+    "orig": "袁彬航-让 Agent 越用越强：AReaL 2.0 构建 Agent 在线强化学习闭环.pdf",
+    "safe": "24_-_Agent_AReaL_2.0__Agent_.pdf.txt",
+    "pages": 27,
+    "chars": 4981,
+    "density": 184.5
+  },
+  {
+    "idx": 25,
+    "orig": "赵恒-如何构建 AI Native 的数据语义层：从 Data Agent 实践到可执行的 Semantic Runtime.pdf",
+    "safe": "25_-_AI_Native__Data_Agent__Semantic_.txt",
+    "pages": 37,
+    "chars": 18600,
+    "density": 502.7
+  },
+  {
+    "idx": 26,
+    "orig": "赵钰莹-从 Agent 到自主智能：2026 AI 技术演进与 2027 趋势前瞻.pdf",
+    "safe": "26_-_Agent_2026_AI__2027_.pdf.txt",
+    "pages": 33,
+    "chars": 8246,
+    "density": 249.9
+  },
+  {
+    "idx": 27,
+    "orig": "赵雨森-Code Agent 的 Loop 工程实践.pdf",
+    "safe": "27_-Code_Agent__Loop_.pdf.txt",
+    "pages": 74,
+    "chars": 73,
+    "density": 1.0
+  },
+  {
+    "idx": 28,
+    "orig": "闪英迪-AgentENV：面向智能体的超大规模智能体执行环境架构与实践.pdf",
+    "safe": "28_-AgentENV.pdf.txt",
+    "pages": 31,
+    "chars": 6191,
+    "density": 199.7
+  },
+  {
+    "idx": 29,
+    "orig": "陈忻-可控可测可进化_B2B跨境支付AI驾驭实践.pdf",
+    "safe": "29_-_B2BAI.pdf.txt",
+    "pages": 25,
+    "chars": 7393,
+    "density": 295.7
+  },
+  {
+    "idx": 30,
+    "orig": "陶炳哲-智能路由不只是选模型：Harness、任务评测与成本优化实践.pdf",
+    "safe": "30_-Harness.pdf.txt",
+    "pages": 32,
+    "chars": 4489,
+    "density": 140.3
+  },
+  {
+    "idx": 31,
+    "orig": "马云雷-让轨迹成为数字资产-Agent持续优化实践.pdf",
+    "safe": "31_--Agent.pdf.txt",
+    "pages": 25,
+    "chars": 12096,
+    "density": 483.8
+  }
+]

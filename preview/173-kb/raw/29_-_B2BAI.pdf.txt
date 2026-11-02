@@ -1,0 +1,487 @@
+可控、可测、可进化
+B2B跨境支付的AI驾驭实践
+陈忻
+XTransfer 高级技术总监
+目录
+01
+02
+03
+04
+06
+05
+业务/技术背景
+打造AI基建的“三飞轮”
+Agentic Coding Loop
+Developer Feedback Loop
+External Feedback Loop
+分享总结
+全球领先 B2B跨境贸易支付平台
+100    + 200+ ～60
+持续专注B2B跨境贸易支付 全球客户信赖之选 国家/地区支付服务覆盖 本地收款覆盖的国家/地区
+10年近 万
+通过先进技术连接全球顶尖金融机构，我们致力于让全球贸易
+的中坚力量——中小企业，享受安全合规、高效便捷的跨境金
+融服务，获得与跨国大企业同等甚至更好的金融服务体验。
+打造AI基建的“三飞轮”
+业务及技术趋势
+业务特点
+种类多  
+各国个人及企业证照
+质量参差  
+手机摄像头拍摄件
+格式非标  
+交易 · 物流 · 资金三类凭证
+制裁 侵权·商标 冒用身份 行业风险
+企业经营风险
+深度学习
+证照识别 · 质量检测
+LLM
+单证抽取 · 语义核对
+多模态
+图文联合理解
+风险识别模型
+制裁 · 欺诈识别
+多维图谱
+关系 · 资金穿透
+智能体
+尽调核查
+   信息流 － 物流 － 资金流
+业务趋势
+业务趋势
+风控审核 风险模型 视觉信息抽取 智能客服 智能运营 素材生成 销售匹配 AI建站 ......
+技术趋势
+机器学习
+聚类 · 降维 · 异常检测
+图算法 · 时序预测等
+机器视觉
+图像检测 · 分割
+图像识别· VQA等
+NLP
+文本分类 · 序列标注 · 生
+成
+向量化· 检索与重排
+强化学习
+Reward Modeling
+PPO · GRPO · DPO
+大模型
+文本 · 多模态 · 全模态
+图像 / 视频生成
+Agent
+Agent · Multi-Agent
+记忆 · 工具 · 技能
+自进化
+当前主战场：大模型 + Agent
+AI场景渗透 AI基建迭代 AI治理成熟度 「可控 · 可测 · 可进化」
+技术趋势
+Phase 1 · 2023-2024
+Narrow AI / Chatbot
+AI 单一能力：识别、对话、总结
+典型应用
+OCR 识别 · 聊天对话
+内容总结 · 代码辅助 ...
+基建能力
++ 大模型训练部署（LLM）
++ LLM 网关：限流/降级/敏感词
++ 提示词管理 · AI 知识库 · 推理服务
+Phase 2 · 2024-2025
+Workflow Agent
+AI 流程+决策：可类比更灵活的自动化
+典型应用
+AI 审核运营 · 素材生成
+AI 运维巡检 · 生产走查 ...
+基建能力
++ Agent Workflow 编排
++ Agent 管理（版本/发布审批）
++ Agent 评测 · MCP 网关 · 搭建平台
+Phase 3 · 2025 —
+Agentic Agent
+AI 主导：目标驱动、任务驱动、调用工具
+典型应用
+AI Coding · 办公助手
+AI 原生客服 · 深度调研
+自主 Agent ...
+基建能力
++ 沙箱实验 · 权限管控 · 安全围栏
++ 工具&技能 · 上下文&记忆管理
++ Agent 观测
+三大趋势　① Harness 工程（编排·治理·围栏·AgentOps）　② 企业知识库（数据·知识·工具·流程）　③ 持续迭代（Data → Train → Eval → 
+Observe）
+范式迁移
+Karpathy《Software Is Changing (Again)》 · 2025.06 Andrew Ng《Three Key Loops for Building Great Software》 · 2026.06
+范式迁移 ｜ Karpathy · Software 1.0 → 2.0 → 3.0 [2025]
+1.0 金融/交易...      严肃软件 —— 确定性，强逻辑驱动
+2.0 模型/AI应用...   柔性软件 —— 概率性，数据算法驱动
+3.0 市场/分析...      即时软件—— 自然语言 · 生成驱动
+“LLM 是新型计算机 —— Build for Agents”
+循环飞轮 ｜ Andrew Ng · Three Key Loops  [2026]
+Agentic Coding Loop —— 分钟级 · 代码开发自闭环
+Developer Feedback Loop —— 小时级 · 内部评测验证
+External Feedback Loop —— 天级 · 真实外部反馈回流
+代码变快 ≠ 业务变快
+构建软件的来源变化
+市场 · 销售 · 风控 · 运营 · 合规 · 客服 —— 各职能构建 AI 应用
+软件风险及治理问题未变
+质量 · 技术债 · 风险仍是关键命题 - AI会加速复杂性及破窗腐化
+  如何在「可控、可测」之上，让 AI 应用持续「进化」？
+统一基建 三层飞轮
+三飞轮：统一基建，分治优化
+前端 FRONTEND　｜　后端 BACKEND　｜　算法 MODEL　｜　智能体 AGENT
+核心策略　 「统一」基建    一套基建：支撑 Software 1.0/2.0/3.0
+「分治」优化　 三层飞轮：构建可控、可测、可进化的 AI 工程基座
+分钟级
+Agentic Coding Loop
+CodeLynx
+结构化规则 + 轻重推理引擎
+增量规范 红线治理 高效覆盖
+可控
+小时级
+Developer Feedback Loop
+EvalHub
+评测集 · 评分器 · 评测任务
+数据飞轮 AI 准出质量
+可测
+天级
+External Feedback Loop
+EagleEye
+OpenTelemetry 全链路观测
+网关 / 模型 / 业务效果 + Badcase 回流
+可进化
+编码  · 质检 · 单测 · 验证 · 门禁 训练 · 环境 · 评测 · 观测 · 优化 提示 · 工具 · 技能 · 部署 · 管控
+结构化 × 轻重引擎 × 分层路由
+Agentic Coding Loop
+Agentic Coding V1：AST × CodeLM
+核心变化：Sonar Scan → CodeLM Scan ｜ 规则泛化性提升
+AST 引擎　确定性扫描基座
+Sonar 扫描基座，融合 PMD· P3C等行业规范
+扩展 XTransfer 专属架构与红线规范
+语法级模式匹配 · 确定性拦截
+确定性 高吞吐 零幻觉
+CodeLM 引擎　语义泛化突破
+Dify + RAG 检索增强
+上下文扩展：渠道 · 国家 等 业务/技术知识
+ReACT 模式：初审 → 工具调用 → 复审
+语义理解 强泛化 上下文感知
+＋
+触发扫描 上下文加工 LLM 初审 工具调用 知识检索 复审输出 标注回流
+挑战 40%~50%
+问题采纳率
+2–3 周
+全仓扫描耗时（~1000个仓库）
+* 采纳率：代码门禁/1000+问题MR/专家标注反馈（待确认 / 误报 / 已修复）
+Agentic Coding V2： 上下文 × 管算分离
+核心变化：Workflow Agent → AI Native ｜ 上下文工程 更快的代码定位 · 更准的记忆 · 更强的正确性
+① 管算分离
+控制面：仓库 · 技能 · 任务 · CICD
+执行集群：XCR · Codex · OpenCR（OpenCodeReview） ...
+手脑分开，支持大规模扫描，弹性伸缩
+② 正确性工程
+Phase 1 工具粗筛：用 glob / grep / semgrep 粗筛，宁多勿漏
+Phase 2 LLM 精查：对候选执行结构化 SOP（五段式）
+Phase 3 交叉裁决：FAIL / PASS / UNCERTAIN
+五段式 + 三层判定
+③ 统一代码指纹
+代码上下文双重定位
+抹平 XCR · OpenCR· Codex等不同Agent输出差异
+源码注入评估，跨引擎一致率 100%（548/548)
+④ 反馈记忆闭环
+历史 CR 融入扫描上下文
+专家反馈（确认 / 误报）持续标注，误报的不会再报
+越扫越准的记忆飞轮
+✓ 收益
+40～50% → 67%
+问题采纳率
+2–3 周 → 3-4天
+全仓扫描耗时
+挑战
+语言异构：JS · Java · Python · DSL
+自定义规则 · 增量 / 存量治理卡点
+Agentic Coding V3：轻重引擎 × 分层路由
+轻重扫描引擎
+0
+1
+2
+3
+4
+5
+准确
+成本全面
+XCR OpenCodeReview 原生 Coding Agent
+XCR → 全仓治理 · 红线卡点 （强准确率）
+OpenCR → MR 增量扫描 · 泛化规则（强召回率）
+原生Agent → 个人编码辅助 
+三层路由策略
+L1
+场景路由
+存量治理（全仓扫描）⇆ 增量卡点（MR 拦截）
+L2
+引擎路由
+智能分发 XCR · OpenCR· Coding Agent
+L3
+规则路由
+规则 × Skill × 大模型 的最佳组合
+输出：最佳 场景 × 引擎 × 规则 组合
+问题采纳率：40% → 67% → 85%
+CR持续迭代
+• 持续优化：MR/全量（分钟级） →   优化 →  评估 →  观测
+• 标注成本：专家反馈（确认/误报） →  代码指纹 → 记忆 
+案例1：Agentic Coding Loop 
+扫描时效　
+MR 增量 小时级  →  分钟级
+仓库级全仓 数天  →  分钟级
+AI采纳率（%）
+40%
+67% 85%
+0
+50
+100
+V1 V2 V3
+AI 扫描规则数（条）
+10 50
+195
+0
+500
+V1 V2 V3
+示例规则 ｜ RecursiveCalling （五段式+三层判定）
+■ 元信息
+MAJOR Java architecture · correctness model: codelm glob *.java ｜ semgrep *
+■ 规则描述
+禁止方法递归（直接 / 间接） 
+规则背景 ｜ 规则描述｜  豁免约束：重载（同名不同签名）不属于递归，不受此规则限制
+■ 判定 SOP ■ 判定正反例
+Phase 1 ｜ 工具粗筛
+找候选 同名方法 自调用
+(Tool Use) 
+Phase 2 ｜ LLM 精查
+声明参数 · 作用域 
+调用对象 · 间接递归
+(精查匹配）
+Phase 3 ｜ 状态裁判
+FAIL ｜ PASS ｜ UNCERTAIN
+❌ FAIL  populate(…) → populate(…)
+签名类型列表一致 → 直接递归
+✅ PASS  process(int) ↔ process(String)
+重载互调：签名不同 → 放行
+■ 变更历史
+v1.0 
+初版发布
+v1.1
+SOP 定型：粗筛 + LLM 精查验证
+v1.2
+重载判定，扩展实参类型
+v1.3
+豁免规则优化 
+数据 × 环境 × 评分指标
+Developer Feedback Loop
+Developer Feedback V1：一套基建 多形态
+评测集 · 各形态对象 评测环境基座 · 管算分离
+统一调用 ｜ 评测数据
+评测协议 ｜ 交互配置
+Worker执行 ｜ 评分器
+评分指标 · 门禁产出
+门禁：严格指标 100% 通过放行
+挑战 数据流转 ｜环境模拟（MCP / Tool / RAG）
+快照 滚动 基准 ｜ 自建 开放 回流
+前后端
+ML / LLM
+多模态
+智能体
+Agent 轨迹
+RAG 知识库
+算法模型
+Developer Feedback V2：数据飞轮 × 沙箱模拟
+① 数据｜来源
+线上 Trace 实时回流 · 数据集只追加
+滚动 · 快照 · 基准集三种形态
+② 标注｜质量
+LLM 预标 + 人工复核
+badcase 分析归因入库
+③ 执行｜比对
+离线单次 · 在线定时
+双跑对比 · 门禁拦截
+④ 反馈｜回流
+报告即门禁
+低分样本自动回流评测集
+环境
+评测case ｜环境 Mock 
+MCP · Tool · RAG 仿真
+✓ 数据飞轮
+评测集，规模与速率
+✓ 沙箱仿真
+评测环境 ≈ 生产环境（录制回放）
+案例2：Developer Feedback Loop
+一 ｜ 评测收益 
+· 一套基建：多模态-准确率 · 全对率等 智能体-轨迹 · 参数 · 工具调用等
+· 持续优化：Badcase：自动回流扩展　· 归因分析：LLM 预标 + 人工复核
+二 ｜ 扩展成本
+① 添加评测集 ② 配置调用协议 ③ LLM 配置 · 扩展指标
+基础设施
+存储
+元数据 · 对象存储
+调度
+任务调度
+队列
+MQ · 分发
+控制面　
+evalhub-webapp
+评测定义 · 查询
+DispatchPublisher
+保存定义 · 元数据
+任务调度器
+单次 · 周期触发
+环境仿真器
+沙箱 · 录制 · 模拟 · 配置化
+计算面
+集群节点
+evalhub-worker · 弹性扩展
+执行器
+Ragas Deepeval...
+评分器
+内置 扩展 LLM...
+数据集成　评测集
+自建评测集
+滚动 · 快照 · 基准
+公共数据集
+OpenCompass 等
+LLM/标注
+模型 · 算法服务
+知识库 · 数仓 · 文件
+资产接入
+数据面　评测 · 回流
+Metrics
+metric-engine 指标
+Trace
+Langfuse 
+Log
+报告生成
+回流
+badcase → 评测集
+1
+2 任务入队
+3 调度分发
+4
+5
+①
+数据集
+滚动 · 快照 · 基准三形态，badcase回流扩
+展
+②
+评估器
+LM交叉模型，自定义指标 ③
+分析归因
+LLM 预标 ＋ 人工复核，归因
+采 × 建 × 管 × 用
+External Feedback Loop
+External Feedback Loop V1：可观测基座
+挑战：针对AI 应用与智能体的增长 —— 新建观测体系，还是在原有基建上集成复用？
+监控对象 数据存储 EagleEye · 可观测平台 通知对象 看板
+业务监测
+任务运行 · 数据状态
+应用服务
+Java · Python · Node
+中间件
+Kafka · ES · Doris · Flink
+PaaS
+K8S · RDS · Redis · Mongo
+IaaS
+ECS · CEN · EIP
+Metrics
+Prometheus
+Trace
+SkyWalking
+Log
+ES
+规则管理
+数据分析
+服务 SLA 服务 SLA 大盘
+告警通知 静默 → 收敛 → 升级
+告警大盘 活跃告警 · 告警报表 · 历史告警
+告警管理 通知群组 · 值班 · 事件｜通知 · 静默 · 收敛 · 升级策略
+DevOps 自定义监控 · 巡检 · 自愈
+CMDB｜负责人 · 领域群 · 值班团队
+电话通知
+服务 / 领域负责人
+值班人
+钉钉通知
+领域群
+SRE 监控
+P1 / P2 / P3
+Grafana
+业务 · 服务 · 中
+间件
+Kibana
+服务日志
+SkyWalking
+服务调用链
+External Feedback Loop V2：可观测基建「采建管用」
+采
+统一采集
+· 协议：OpenTelemetry 统一协议
+· 模型：Metrics · Logging · Trace 
+· Agent 无侵入 
+建
+全链串联
+· 微服务 ↔ Agent ↔ 算法服务
+· AI 网关 · MCP 工具调用
+· 会话 ID 全链路 Trace 串联
+管
+统一治理
+· 监控规则 · 告警投放
+· 告警运营：收敛 · 升级 · 值班
+· 故障定位 · 变更管控
+· 复用EagleEye
+用
+多角色赋能
+· 前端 · 后端 · 算法
+· 数据 · 产品 · 业务
+· Token 成本核算
+案例3：External Feedback Loop
+▪  AI 网关平滑接入，无需改造
+▪  Token 消耗 · 模型调用 · 成本监控
+▪  三层分离治理：AI 办公 / AI 评测 / 业务观测
+基础设施扩展 · 无缝接入 全链路 Trace / 观测模型
+前后端服务
+AI 网关
+算法模型
+Agent
+MCP 工具
+▪  能力：告警 · 故障定位 变更关联 · 应急预案
+▪  基建：EagleEye复用  ·  灰度发布与监测关联
+▪  稳定性：变更三板斧（可监控-可灰度-可应急）
+观测基建复用
+基础设施
+智能体层 AI 网关层 平台层
+AI 办公智能体 AI 办公网关
+AI 工程智能体 AI 内部网关
+AI 业务智能体 AI 生产网关
+监控平台
+告警 · 故障定
+位
+变更发布平台
+可监控 · 可灰
+度 · 可应急
+全链路 观测基建
+总结
+Agentic Coding Loop
+CodeLynx · 分钟级 · 可控
+Developer Feedback Loop
+EvalHub · 小时级 · 可测
+External Feedback Loop
+EagleEye · 天级 · 可进化
+Phase 1
+Phase 2
+Phase 3
+质检基座
+（AST · CodeLM 规则）
+评测基座
+（评测集 · 环境 · 评估）
+可观测基座
+（对象 · 存储 · 规则 · 通知 · 看板）
+上下文 × 管算分离
+（元信息 · 描述 · 判定 · 正反 · 历史） 构建数据飞轮 × 沙箱环境模拟 Otel统一协议 × 「采建管用」扩展
+轻重引擎 · 分层路由  · 代码指纹记忆 LM交叉 · Human-in-Loop 归因 三层治理 · 定位 ·  关联 · 恢复
+从「让 AI 做更多」到「让 AI 稳定做对」 
+
+THANKS
+大模型正在重新定义软件
+Large Language Model Is Redefining The 
+Software

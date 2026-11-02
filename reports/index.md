@@ -393,3 +393,15 @@
 - 有效方法：agentpatterns.ai 两篇（Latency-Budgeted Repair 与 Long-Running Agents）是本期最高密度双源，前者给 Google 全套硬数字、后者给"检查点不证明世界仍成立"的关键句；wojciech.io 11-01 五产品横评（"什么终止一个你忘了的 agent"）是选型新维度；火山方舟 background-tool-tasks 官方文档比新闻稿精确（unknown 语义/不要轮询 Session）；DeepSeek Harness 腾讯新闻稿含完整 p50/p95 与 Router 批处理数字
 - 注意：hqwc.cn/lqnn.cn/mzlw.cn/sheratonhq.com 等站点本次大量命中且内容看似专业，但均为疑似 AI 生成的 SEO 农场（同一批站点互相转载、无作者），本期一律不引；本地 173 库赵雨森《Code Agent 的 Loop 工程实践》PDF 为图片型（文本仅 146 字节），需 OCR 才可用
 - 下期候选：人在不在的采集手段（在线状态/响应间隔分布）／过期成果回收机制（结果过期通知与重算预算）／任务级 deadline 传播（跨 MCP/子智能体）／unknown 处置剧本标准化／等待预算的分位数目标设定方法
+
+
+## 2026-11-02 第 29 期（AI-SRE技术洞察-20261102-1300.md）
+
+- 本期主线：协同面运维——多智能体编队的"接缝"（第二十条主线；前 29 期管单个智能体，本期管智能体之间的交接/仲裁/拓扑；属全新未覆盖平面）
+- 核心数据：61 起多智能体失败中 50 起是交接失败仅 11 起推理失败；MuleSoft 2026 企业平均 12 个 agent 两年 +67% 且一半孤岛；BigPanda 估 2028 年 40+ 运维 agent；Scout 承诺理论案例——坏承诺发现 3.2h→8s、交接核验 40min→1.4s、人工解堵 34/周→6/周、无人值守 41%→78%；去编排器省 50% 成本、7B 两调用胜五 agent 流水线
+- 关键提法：交接契约三问（决定了什么/假设了什么/没检查什么）／Manifest 范围清单作交接契约（本地李峥峰）／交接=一等 OTel span（FutureAGI 三评分点）／仲裁真空（协议能传结论不能调和 CMDB 四个名字）／编队规模税／信念状态不对称与压缩失真偏伤例外／隐藏协同（Anthropic 群体共谋）／多 PR 合并级联
+- 本地新启用：李峥峰《OpenCodeReview》37 页全篇首次使用（Manifest/反思模型 30.09%→52.63% 5s→500ms/定位模型 37.35%→85.65%/AACR-Bench/RSI 人审节点）
+- 对比表：火山 AgentKit A2A 中心/腾讯云多智能体诊断/BigPanda/AWS Bedrock AgentCore 戴姆勒参考/LangGraph/Scout Promise Engine/FutureAGI span/阿里 OCR，判读=编排入口被云厂商占住、接缝度量由评测厂商定义、跨厂商仲裁层只有中立上下文厂商正面作答
+- 泠乐 TEKO PDF 确认为图片型（抽取失败），需 OCR
+- 有效方法："multi-agent handoff failure" 单检索式一次命中五条高密度源（BigPanda+moltbook 二件套+futureagi+scout+algofuse）；ai-sota-feed-bot topic 页聚合 36 条源含 Anthropic/AWS/Spotify 一手结论；国内编队动态查火山 AgentKit A2A 文档+腾讯云开发者社区
+- 下期候选：交接契约 schema 的组织级标准化与 OTel 提案路径／仲裁层产品形态（determination 独立于厂商的最小实现）／编队准入基准设计（多智能体须击败单 agent 基线）／隐藏协同检测／交接 SLO（选对目标率/完成率/payload 充分率）

@@ -1,0 +1,307 @@
+Read, Don't Write: 重塑大模
+型评价体系
+孙 鹏（大剩）
+阿里巴巴高级技术专家
+个人介绍 & 内容概述
+BoRP（Bootstrapped Regression Probing）
+解决问题
+传统行为指标在以LUI时代的失效问题：开放式对话的用户满意度难
+以规模化评估，难以支撑全量监控和敏感 A/B 测试
+核心思路
+摒弃了生成式的老路，而是采用读取模型隐藏状态的思路，用轻量
+回归器直接预测会话满意度分数
+主要成果
+在特定数据集的评测效果，基于4B模型可以持平 Qwen3-Max 的效
+果，成本大幅下降
+千问智能体开放服务-业务架构负责人
+过往经历：
+         信息流业务（推荐业务架构、ABTest ）
+BoRP的提出背景：LUI 时代的度量缺口
+可度量是可迭代的重要前提
+A/B Test 要回答策略是否有效，离不开一个好指
+标：
+GUI 时代｜行为可以代理体验
+ 界面交互将用户意图转化为结构化动作
+ 通过结构化的动作，用户行为可以转换成为可观测的效果
+指标（人均点击次数、人均刷新数）
+ 基于这些隐式的指标，我们可以完成用户满意度的评估
+LUI 时代｜轮次无法证明满意
+ 用户转向用自然语言表达需求，传统的界面行为信号减少
+ 会话轮次、对话时长等指标很难说明用户是否真正得到满足
+ 聊得更久，可能是用户更愿意对话也可能是问题迟迟没有得
+到解决，只能不断补充、纠正和重问
+Metric  Gap
+ 表征准确：指标的变化能否真正代表用户体验的升
+降，能否与北极星目标保持逻辑同向
+ 检测灵敏：指标能否在统计学意义上快速检出显著差
+异，正向衡量改进，反向建立护栏
+ 反馈及时：从策略上线到拿到指标的周期要足够短，
+以配合敏捷迭代
+存量方案&BoRP的设计三原则
+方案 核心问题
+专用微调 Judge
+（如Prometheus）
+需要大量高质量评估数据，构建和迁移成本高；底座
+升级时通常需重新准备数据并微调；作为生成式 
+Judge，仍需处理生成开销与输出协议问题
+通用 LLM Judge
+评分易受提示词与生成协议影响；存在中心化倾向、
+评分校准偏差等问题；逐条生成判断，推理成本高
+人工评估
+质量高，但成本高、吞吐有限；难以支撑大规模、持
+续性的全量评估与快速 A/B Test
+设计三原则
+低成本高覆盖
+评估成本要足够低，进而可以提升覆盖，以便支持全量监控
+和ABTest，同时提升检测灵敏度
+高人类对齐
+评分向人工对齐：模型评分贴近业务专家的判断
+标准随场景定义：不同场景可以定义不同的满意度标准
+底座可演进
+基础模型持续迭代时，评价标准与评估体系应能平滑迁移，
+避免每次升级都从头建设
+给模型同一个评分任务，哪种输出方式效果更好？
+A 先理由、后分数　　B 先分数、后理由　　C 只给分数
+存量方案（截止去年底）
+不同模型的评分协议实验
+可以看到，生成式 Judge 的评分效果会随模型和输出协议变化。
+BoRP 的思路不是寻找一套最优提示词，而是先把评分标准显式化，再从模型表征中读取评分。
+BoRP实现思路-低成本：Read, Don’t write
+�diff � = �� �  �pos − �� �  �neg 
+其中，�� �  表示模型最后一层、最后一个 token 隐藏状
+态
+生成式评估的两个阶段
+ Prefill：并行处理输入，形成上下文表征
+ Decode：逐 token 自回归生成评语 / 分数
+不生成评语，直接读取表征
+ Attention： 汇聚上下文信息
+ FFN： 通过非线性变换重组特征
+ Residual： 保留并传递前层表征
+ 隐向量 ℎ：模型在当前上下文下形成的分
+布式表征
+https://towardsdatascience.com/meet-gpt-the-decoder-only-transformer-12f4a7918b36/
+差值向量提供评价相关信号
+ 正向提示：该对话针对Rubric的整体表现评分为：5
+ 负向提升：该对话针对Rubric的整体表现评分为：1
+Burns et al., Discovering Latent Knowledge in Language Models Without Supervision
+BoRP实现思路-高人类对齐：Rubric为媒
+BoRP 把顺序倒过来：先从流量里找两端案例，
+再由案例归纳评分标准
+Rubric｜业务标准的显式表达和沟通媒介
+ 通用模型内化的偏好，不一定对齐具体业务想衡量的目
+标
+ 不同业务场景下有不同的“好”标准：有的看准确性，有
+的看简洁性，有的看是否解决了用户问题
+ Rubric 把评价维度、1–5 分档标准和可观察信号明确下
+来，作为业务标准与模型评分的对齐接口
+冷启成本｜不只是“写几条规则”
+ 目标澄清： 把模糊的业务诉求转成可评价维度
+ 分档定义： 说明 1–5 分的边界，避免相邻分档含义
+重叠
+ 覆盖真实案例： 考虑线上表达、边界案例和长尾情形
+ 专家校准： 让不同标注者对标准理解一致，并随业务
+变化维护更新
+先定义什么是“好”，才能让评分对齐业务目标
+基于Rubric：把业务标准变成明确的评分契约
+BoRP实现思路： Blind Probing
+�diff � = �� �  �pos − �� �  �neg 
+按 PI 排序，从两端挖掘高、低极化候选样本，供后
+续 Rubric 归纳
+ 正向提示：该对话的整体表现很优秀
+ 负向提升：该对话的整体表现很糟糕
+PI � = �​  �diff �  2 ×
+ �diff � − � 1
+�dist
+BoRP实现思路：Rubric冷启动
+Probe-Guided Bootstrapping
+01｜从无标注流量中找两端
+用 Blind Probing 提取初始表征，结合 PI 挖掘高、低满意度的
+候选会话。PI 用于筛选候选样本，不直接给出真实分数
+02｜让案例带出评分标准
+将高、低端会话提供给 Teacher LLM，让它比较两组案例，归
+纳评分维度与 1–5 分档标准，并生成多个 Rubric 草案
+03｜融合草案，形成可校准的 Rubric
+融合多个草案的共性、抽象具体场景特征，再由业务人员补充领
+域逻辑，形成最终评分标准
+BoRP实现思路：基于Rubric评分
+Geometry-Aware Probing Engine
+01｜Rubric 约束下提取对比表征
+将同一段对话分别接上 1 分与 5 分评分提示，提取模型隐藏状
+态并做差，得到该会话的评分方向表征
+02｜用专家评分校准标准
+专家依据 Rubric 对约 700 条会话进行 1–5 分标注，作为唯一
+监督信号；标注者间一致性达到 k-α > 0.90
+03｜用 PLS 学习评分映射
+对训练数据进行逆密度采样，降低中间分数密集区的影响、补足
+分布尾部；再用 PLS 回归学习隐藏表征与人工评分之间的关
+系，输出校准后的 1–5 分
+
+BoRP实现思路：高性能低成本
+Quantizati
+on
+Middle-out
+Prefix 
+Cache
+直接从模型隐藏状态提取评分信号，省去逐 token 
+生成评语或分数的解码开销
+01｜不生成，只读隐藏状态
+对长会话按意图切分，并采用 middle-out 压缩保
+留对话头尾和目标回答；论文报告预填充成本降低
+约 64%
+03｜压缩长对话，降低预填成本
+多个 Rubric 共用同一段对话上下文；利用 KV 
+Cache 复用前缀计算，只处理各自不同的提示后
+缀
+02｜共享前缀，避免重复计算
+结合模型规模与显存、吞吐需求部署：论文采用 
+>10B 模型 AWQ-Int4、<10B 模型 BF16 的混合
+策略
+04｜按模型规模选择部署精度
+Read, Don't Write
+BoRP实现思路：总结
+未标注对话 → 通用提示提取对比
+向量 → 用 PI 挖掘高低极端样本 
+→ 教师模型归纳 rubric → 专家按 
+rubric 标注约 700 个样本 → 用详
+细提示提取表示并做逆密度采>样 
+→ PLS 回归预测 1–5 分 → 用中
+间层与末层分歧筛出高风险样本 → 
+通过共享前缀缓存和压缩部署到全
+量流量
+BoRP实际效果：如何衡量
+� = 1 − ��
+��
+� = Cov �model, �human �model�human
+�� ：评估者之间实际观察到的分歧；
+�� ：假设评分随机分配时预期出现的分歧；
+针对 1–5 分这类有序评分，分差越大，分歧惩罚越重
+� − � 高：模型评分与人工评分在分数等级上更一致 푃푒푎�  왠 高：模型能跟上人工评分的趋势；但不保证分数本身一致
+结果组合 可以说明什么
+K-α 高，Pearson 高 分数等级较一致，整体趋势也对齐
+Pearson 高，K-α 低 趋势同向，但分数可能存在系统性偏移、尺度不匹配或档位判断差异
+K-α 高，Pearson 低 分档一致性尚可，但整体线性变化关系较弱
+Cov �model, �human  ：模型评分与人工评分的协方差
+�model�human： 两组评分各自的标准差
+BoRP实际效果：BoRP对生成式 Judge 的超越
+模型 / 方法分类 评测方法 K-�(一致性) Pearson (趋势)
+专用微调 Judge M-Prometheus（Qwen2.5-14B） 0.49 0.53
+通用生成式 
+Judge
+Gen (Qwen3-14B) 0.62 0.62
+Gen (Qwen3-Max) 0.73 0.74
+判别式探针 
+(Ours)
+BoRP（Qwen3-4B） 0.73 0.73
+BoRP（Qwen2.5-14B） 0.69 0.70
+BoRP（Qwen3-14B） 0.80 0.81
+ 同底座对照，BoRP全面超越生成式和专用微调模型（黄色+绿
+色）
+ BoRP仅用4B的小模型，就可以复刻Qwen3-Max的效果
+ BoRP(Qwen3-14B)取得全场最佳，从绝对值来看具备很高的人
+类对齐
+ 底座可演进的优势可以持续追踪模型升级带来的红利，BoRP由
+Qwen2.5-14B升级成Qwen3-14B以后，效果取得了显著的提升
+方法 吞吐量（会话/小时） 每 10 万会话成本 相对成本
+Qwen3-Max（API） — $124 100%
+Gen（14B） 7,300 $28 22.6%
+M-Prometheus
+（14B） 6,200 $34 27.4%
+BoRP（8B） 57,800 $4 3.2%
+BoRP实际效果：与Jev的效果比较
+模型 / 设置 评分方式 K-α（一致性） Pearson（趋势）
+BoRP（Qwen3-14B） 0.80 0.81
+Jev + Rubric 连续分 0.70 0.75
+Jev + Rubric 整数分 0.64 0.68
+Jev w/o Rubric 连续分 0.52 0.59
+BoRP（Qwen3-4B） 0.73 0.72
+Kev-4B 连续分 0.52 0.74
+ BoRP（14B）的评测效果要优于Jev，但由于不确定Jev的参数规
+模，所以比较并不公平
+ 单纯看Jev，连续分要比整数分要好，带Rubric要比不带Rubric效
+果好，证明了Rubric在对齐过程中发挥的作用
+ BoRP（4B）与开源的Kev（4B）进行比较，Kev对于趋势的追踪
+要比BoRP略好，但是一致性水位较低
+BoRP --- >
+< --- Jev
+BoRP实际效果：消融分析
+ 几何重采样不可或缺：若直接在真实长尾偏置分布上训练，K-
+� 从 0.80 骤降至 0.62
+ 有监督 PLS 远胜无监督 PCA：用 PCA 替代 PLS 会进一步跌
+至 0.55
+ 自举 Rubric 具备极高可用性：BoRP 在 AI 自动生成的 Rubric 
+下取得 0.67，逼近人工专家编写的 0.70，验证了无标注流量
+冷启的可行性
+ 对生成式亦有正向增益：自举 Rubric 让 Gen (Qwen3-Max) 
+的 K-� 从 0.15 提升至 0.22
+实验设置 K-�(一致性) Pearson (趋势)
+(a) 训练策略消融 
+(Based on Industrial 
+Dataset)
+BoRP (Full) 0.80 0.81
+-移除几何重采样 0.62 0.69
+-用无监督PCA替代有监督
+PLS 0.55 0.58
+(b) Rubric 来源对比 
+(Based on HelpSteer2)
+Gen (Max) + 原始人工标准 0.15 0.62
+Gen (Max) + AI 自举标准 0.22 0.66
+BoRP (14B) + 原始人工标
+准 0.70 0.70
+BoRP (14B) + AI 自举标准 0.67 0.67
+BoRP实际效果：消融分析
+无监督的盲区（PCA = 0.55）
+ 语言模型隐藏层中，方差最大的方向往往是“讨论的话题是什
+么”，而不是“用户满不满意”。
+ 纯无监督方法抓到的往往是“领域噪音”，导致 K-� 崩塌至 
+0.55
+极小代价的高回报（PLS = 0.80）
+ 仅用几百条专家样本提供的监督信号，是提升人类对齐度的
+高性价比手段
+ 同时少量的监督样本，是消除主观业务评估歧义的重要手段
+设置 拼接 Token 
+数
+K-α
+生成式 Judge（对照组） 0 0.620
+P-Tuning v2 1 0.696
+P-Tuning v2 5 0.712
+Qwen3-14B：P-Tuning v2 实验结果
+微调确实有效
+ 通过 P-Tuning注入Prefix Token，K-�从0.62升至 0.71
+ 证明模型内部确实有这种判别倾向，只是需要被激发
+为什么依然选择 BoRP
+ 上限差异：即使做了参数级对齐，生成式依然难以匹敌
+ 推理硬伤：P-Tuning 改变的是前缀表征，但依然需要
+Decoding，无法享受吞吐红利
+BoRP Limitations & Discussion
+ 模态范围有限： 当前仅面向文本对话，尚未覆盖语音等包含声
+学信息的场景
+ 复杂推理能力受限： 依赖基座模型隐状态；若复杂推理信息未
+充分编码，线性探针可能难以恢复
+ 对话结构敏感： 单轮、缺少用户反馈，或频繁话题切换的长尾
+会话，可能降低评估效果
+ 部署依赖模型访问权限： 需要读取基座模型隐状态，不适用于
+纯黑盒 API 场景
+Limitations Beyond generate(): Rethinking the Foundation Model API
+参考资料
+BoRP (本文方法)
+Sun et al., BoRP: Bootstrapped Regression Probing for Scalable and Human-Aligned LLM Evaluation
+Jev (决策式裁判模型)
+Deußer et al., Evaluating and Benchmarking the System One Model Jev
+Evaluating and Benchmarking the System One Model Jev
+文档参考：TypeSafe AI Jev Documentation — Introduction - TypeSafe
+Prometheus (专用微调裁判基准)
+Kim et al., Prometheus: Inducing Fine-grained Evaluation Capability in Language Models (ICLR 2024)
+M-Prometheus (多语言专用裁判模型)
+Pombal et al., M-Prometheus: A Suite of Open Multilingual LLM Judges (COLM 2025)
+P-Tuning v2 (深度提示微调方法)
+Liu et al., P-Tuning v2: Prompt Tuning Can Be Comparable to Fine-tuning Universally Across Scales and 
+Tasks (ACL 2022)
+Kev
+https://github.com/jaredpalmer/kev
+千问内推请联系我
+备注“QCon”
+
+THANKS
+大模型正在重新定义软件
+Large Language Model Is Redefining The 
+Software

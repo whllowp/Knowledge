@@ -1,0 +1,360 @@
+>frontier
+⾦融开放问题 
+的 Eval 与 
+Agent 设计实践 施宏斌Frontier 联合创始⼈
+>frontier
+⽬录
+01 ⾦融市场 Agent 的真问题
+02 ⾦融市场 Agent 的 Eval 与 Loop
+03 ⾦融市场 Agents 设计实践
+>frontier
+01  提出问题
+⾦融 Agent 的真问题
+从“业绩会总结”第⼀⻚该放什么开始
+>frontier
+业绩会总结
+显⽽易⻅的
+进步部分
+过去
+现状
+>frontier
+4.4 Bn vs 13 GW，AI 总结与专家期待
+默认 AI 总结
+这份财报罗列什么：
+14.6 / 4.4 Bn
+业绩超预期，SI 超算成
+为收⼊主引擎
+没有错，但是不关⼼（没有增量）
+SPCX US 3Q26
+Rev / Net Income
+太空连接
+SI 算⼒
+  -     13 GW
+Capex
+ARR
+……
+投资者/专家期待
+捕捉增量的信息
+13 GW
+⼤还是⼩
+产业影响 
+是不是放卫星
+>frontier
+你说你的，我看我的
+>frontier
+信号：从识别、展开、质疑到验证
+BofA 预期：3 GW
+ "maybe it is a small possibility at 
+this point, but it is not zero, of 
+having SpaceX having over 20 
+gigawatts of SI compute online next  
+year." 
+ "I would be surprised if we're 
+brought on less than 13 gigawatts 
+of compute by the end of next 
+year."
+Musk 原话 多/空解读
+乐观：
+Musk 融资
+对折也很⾼的预期
+悲观：
+电和场地够吗？
+卖给谁？
+⼀半⾃⽤？Grok 的 ARR？
+13 GW 怎么融资？
+>frontier
+信号：从识别、展开、质疑到验证
+01 会前判断 信号来源
+BofA：3 GW
+02
+买⽅质疑
+需要被展开
+如何表达 13 / 20
+03
+Elon 原话
+惊讶到质疑
+分歧持续放⼤
+04 价格反馈 7% 先涨为敬
+还缺什么证据？再来延续
+13 GW 
+是⼀个数字，更是⼊⼝ →
+场外
+专家
+主观
+实时
+>frontier
+随着时间展开 
+ 
+钱从哪⾥来，13 GW 的⼆阶导
+>frontier
+随着时间展开：融资问题在 Meta 业绩会后（D2）进⼀步发酵
+>frontier
+补充：Meta 的股权融资故事进⼀步放⼤
+>frontier
+总结是否 
+Insightful 
+来⾃于⽂本外部
+
+>frontier
+业绩会总结，本质是更新整个局势
+01
+AI 总结
+复述业绩会
+收⼊、利润与指引说了什么？
+复述事实、⼝径与管理层表述。
+02
+现实专家
+更新市场框架
+相对预期，什么发⽣了变化？
+哪些判断要更新，哪些证据待验证？
+>frontier
+如果总结停留在⽂本内……超过 60% 的噪⾳
+发射业务
+星链业务
+营收相关
+>frontier
+总结业绩会，先放下业
+绩会脚本本身
+Takeaway
+>frontier
+市场 Agent ⾯临的处境是开放的
+开放 
+Context 边界
+实时 主观
+总之：与标准⽆关，与 Taste 有关
+实时权重⼤ 价值判断
+>frontier
+更⼤的困难：两个结构性的⽭盾
+Alpha 
+vs 模型的收敛
+反身性
+vs Coding 对抗性
+>frontier
+02  定位问题
+⾦融 Agent 的 Eval 与 Loop
+以“信噪⽐”为⾦融问题的元问题
+>frontier
+01 02 03
+⾦融 Agent 实战中的三类问题
+执⾏能⼒
+通⽤能⼒的⾦融应⽤
+按给定公式计算估值
+按⾦融规范整理表格与排版
+Type I  计算 DCF
+⾦融底线
+合格实习⽣的基本功
+分清时期、币种、单位与⼝径
+避免事实错误与 Context 混⽤
+Type II  使⽤ PE / PS
+价值判断
+专家的⾦融 sense
+结合已有判断、预期与新证据
+识别信噪⽐与共识
+Type III  PE or PS
+>frontier
+他⼭之⽯：Bridgewater 的⾦融 Agent 进阶定义
+01
+检索全部数据
+将⾮结构化数据
+结构化、时序化
+包括观点与事实
+02
+使⽤全部⼯具
+⼈类分析师使⽤的
+每⼀种研究⼯具
+Agent 都能调⽤
+03
+过程可⻅度
+能追溯它做了什么
+以及为什么这样做
+便于核对与纠正
+04
+环境感知度
+理解市场共识与结构
+了解市场注意⼒
+对⻬⽅法论
+05
+持续学习
+从每⼀次交互
+与专家反馈中学习
+持续改善后续回答
+参考 Bridgewater PAT 的五项能⼒要求；这些条件相互配合，并⾮顺序步骤。
+>frontier
+Eval 对象：Harness、
+LLM，
+还是整体（包括环境）？
+>frontier
+专家现场：研究过程即 Context Loop
+01 已有判断
+02 新信号
+03 更新判断
+04 继续验证
+
+>frontier
+回到⼯程 1：环境问题可以归⼀为信噪⽐问题
+
+>frontier
+回到⼯程 1：环境问题可以归⼀为信噪⽐问题
+元问题
+信噪⽐
+指标分解
+•是否有⽤
+•是否相关
+⽅法选择
+•Embedding vs LLM
+•JEV vs LLM
+•内部判定 vs 相对判定
+•Prompt vs Post-training
+⼯程
+卖⽅与机构反馈
+卖⽅如何解读会议？
+机构是否调整预期？
+判断与⾏动有哪些变化？
+⼯程框架
+•Entities Layer
+•Ontology Layer 
+•Retrieval Layer
+•测试集更新
+•内部专家反馈
+•社区专家反馈
+>frontier
+回到⼯程 2：时间问题可以归⼀为注意⼒问题
+
+>frontier
+回到⼯程 2：时间问题可以归⼀为注意⼒问题
+
+>frontier
+回到⼯程 2：时间问题可以归⼀为注意⼒问题
+
+>frontier
+回到案例：真实专家社区的 60 ⼩时标注
+459 条社区专家标注及会议 · 会前⾄会后约 60 ⼩时（截⾄ 10/23 16:00）
+T0 会前
+会前预期
+• 算⼒、收⼊⻔槛
+• Starlink、Capex
+• 买⽅个⼈预期
+• 卖⽅预测
+T1  财报刚出
+增⻓与初判
+• 收⼊增⻓
+• 季末 1.7 GW
+• Starlink ⽤户
+• 提价推断？
+T2 ⾸⽇会后
+⽐较与纠错
+• 现货与⻓约
+• Oracle 对⽐
+• 提价推断修正
+• 利⽤率与爬坡
+T3 次⽇
+融资与供给
+• 融资、信⽤⻛险
+• 建不出：增⻓受限
+• 建成：租⾦承压
+• ⾏业回报
+Tn10/23
+⾏业需求情景
+• ⾏业约 50 GW
+• 最终付费需求
+• 订单削减或递延
+• 租⾦、现⾦流
+T1.5 电话会中
+扩产可信度
+• 13GW交付能⼒ 
+• 远期 ARR 
+• 客户是谁
+• 钱哪⾥来
+>frontier
+回到产品：⽤户如何成为 SOTA 贡献者
+通过 SOTA / 内部专家，提升信噪⽐判定并优化 Ontology
+对⻬注意⼒、依据、⼝径与条件，补⻬ Context
+市场变化作为 Eval，升级 Context 进⼊下⼀轮⽣成。
+Tn 10/23模型判定
+02 内部提升
+03 专家社区标注
+04 市场验证
+信噪⽐判定和 Context 结构⽣成
+社区即 Eval 
+市场即 Loop
+>frontier
+03 解决问题
+市场 Agents
+设计实践
+从 Desktop Agent 到云端 Agent Swarm
+>frontier
+Agent 即 UI
+但只是冰⼭⼀⻆
+>frontier
+⾦融 Agent 所独特的开放、博弈环境
+Context
+动态性
+实时变化
+静⽌/可冻结
+低 ⾼外部参与博弈
+Coding Agent
+git 状态管理与环境约束
+AI4S
+实验条件/假设与证据链
+企业 Agent
+经营⽬标与经营反馈
+⾦融 Agent
+市场预期、分歧与反身性
+>frontier
+LLM 嵌⼊⾦融⼯作流的 Adoption 趋势
+Workflow
+⼯作流内嵌
+Prompt 节点
+Agent Node
+节点⾃主调⽤⼯具
+完成局部任务
+Desktop Agent
+在桌⾯环境中
+与⼈协作、助⼒
+Cloud Agent
+在云端异步执⾏
+任务与状态持久化
+Agent Swarm
+领域 Agents
+⾃动持续协作
++ 实时 Context+ COT + ⻓程任务LLM 推理 + 读写 Accessibility
+Long Context Effective Context
+>frontier
+完整的领域 Context，需提前持续积累
+Agent Swarm
+持续积累领域 Context 持续跟踪与更新
+Cloud Based
+云端常驻协作
+Domain Based
+围绕领域分⼯
+7×24
+>frontier
+State 驱动的 Market Context Agents 框架
+事件 Feed
+场景 Agents / 负责事件
+解析研报、业绩会与市场信号，
+按⾏业、公司判断信噪⽐，触发状态更新。
+State 更新
+状态 Agents / 负责实体
+判断信息信噪⽐，聚合事实与预期，
+保留证据和版本，按⾏业、公司独⽴运⾏。
+⽤户反馈
+⽤户 Agents
+捕捉⽤户注意⼒与反馈，
+主要负责 Retrieval 与按需 Action。
+共识对⻬
+Market Agents / 负责结构
+定期 Review 信号、社媒与专家⽹络，
+总结注意⼒，触发新循证流程，
+持续更新 Context 结构。
+持久化
+State
+Agent Swarm
+㲗 㲗
+>frontier
+
+>frontier
+THANKS ⼤模型正在重新定义软件
+Large Language Models
+Are Redefining Software施宏斌
+Frontier 联合创始⼈

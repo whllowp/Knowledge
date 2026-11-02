@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Multica 系统解读 · 架构图 / 流程图 / 设计理论</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --ink:#1f2430; --muted:#5b6472; --line:#e3e7ee;
+    --blue:#2f6df6; --blue-soft:#eaf1ff; --teal:#0f9d8f; --teal-soft:#e4f6f3;
+    --orange:#e8833a; --orange-soft:#fdeede; --purple:#7a5cf0; --purple-soft:#efeaff;
+    --green:#2e9e4f; --red:#d64545; --gray:#8893a4;
+    --shadow:0 1px 3px rgba(20,30,50,.06),0 8px 24px rgba(20,30,50,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.65;}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 20px 80px;}
+  header.hero{background:linear-gradient(135deg,#233056,#34406e);color:#fff;border-radius:18px;
+    padding:34px 34px 30px;box-shadow:var(--shadow);}
+  header.hero .tag{display:inline-block;font-size:12px;letter-spacing:.08em;background:rgba(255,255,255,.16);
+    padding:4px 10px;border-radius:999px;margin-bottom:14px;}
+  header.hero h1{margin:0 0 8px;font-size:30px;line-height:1.25;}
+  header.hero p{margin:6px 0 0;color:#cdd6ee;font-size:15px;max-width:760px;}
+  header.hero .sub{margin-top:16px;font-size:13px;color:#aebbe0;}
+  h2{font-size:22px;margin:46px 0 6px;display:flex;align-items:center;gap:10px;}
+  h2 .num{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--blue);
+    color:#fff;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex:0 0 auto;}
+  .lead{color:var(--muted);margin:0 0 18px;font-size:15px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;
+    box-shadow:var(--shadow);margin:16px 0;}
+  .diagram-box{padding:10px;overflow-x:auto;}
+  svg{display:block;width:100%;height:auto;}
+  .figcaption{color:var(--muted);font-size:13px;margin-top:10px;padding:0 6px;}
+
+  /* toggle */
+  .toggle{display:flex;gap:8px;margin:18px 0 6px;flex-wrap:wrap;}
+  .toggle button{border:1px solid var(--line);background:#fff;color:var(--muted);
+    padding:8px 16px;border-radius:999px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s;}
+  .toggle button:hover{border-color:var(--blue);color:var(--blue);}
+  .toggle button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+
+  /* dual explanation */
+  .dual{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px;}
+  .panel{border-radius:12px;padding:16px 18px;border:1px solid var(--line);}
+  .panel.novice{background:var(--blue-soft);border-color:#d4e2ff;}
+  .panel.expert{background:#1d2330;color:#e7ecf5;border-color:#2c3445;}
+  .panel h4{margin:0 0 8px;font-size:14px;display:flex;align-items:center;gap:8px;}
+  .panel.novice h4{color:#1c4fc0;}
+  .panel.expert h4{color:#9fb4ff;}
+  .panel ul{margin:6px 0 0;padding-left:18px;}
+  .panel li{margin:5px 0;font-size:13.5px;}
+  .panel.expert code{background:#2c3445;color:#a9ecd6;padding:1px 6px;border-radius:5px;
+    font-family:"SFMono-Regular",Consolas,Menlo,monospace;font-size:12.5px;}
+  .panel.expert .mono{font-family:"SFMono-Regular",Consolas,Menlo,monospace;font-size:12.5px;color:#cdd6e6;}
+
+  body.show-novice .expert-panel{display:none;}
+  body.show-expert .novice-panel{display:none;}
+  body.show-novice .dual,body.show-expert .dual{grid-template-columns:1fr;}
+
+  /* theory cards */
+  .theory{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .tcard{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff;}
+  .tcard .ic{font-size:20px;}
+  .tcard h4{margin:6px 0 6px;font-size:15.5px;}
+  .tcard p{margin:0;color:var(--muted);font-size:13.5px;}
+
+  table.tech{width:100%;border-collapse:collapse;font-size:13.5px;}
+  table.tech th,table.tech td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);}
+  table.tech th{background:#f1f4f9;color:var(--muted);font-weight:600;}
+  table.tech td code{background:#eef2fb;padding:1px 6px;border-radius:5px;font-family:Consolas,monospace;font-size:12.5px;}
+  .pill{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:999px;background:var(--purple-soft);
+    color:#5a3fd0;margin:2px 3px 0 0;}
+
+  footer{margin-top:50px;color:var(--gray);font-size:12.5px;text-align:center;}
+  .note{background:#fff7e6;border:1px solid #ffe2a8;color:#8a5a00;border-radius:10px;
+    padding:12px 16px;font-size:13px;margin:14px 0;}
+  @media(max-width:760px){.dual,.theory{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="tag">系统解读 · 给小白也能听，给专家能抓重点</span>
+    <h1>Multica 是什么：把 AI 智能体变成看板上的同事</h1>
+    <p><strong>Multica = Multiplexed Information and Computing Agent（多路复用的信息与计算智能体）</strong>，
+    一个源码公开、可自托管的团队工作区。你把任务交给 Claude Code、Codex、Cursor、Kimi 等 26 种 AI 编码智能体，
+    它们像同事一样接活、边做边汇报、卡住主动说、做完交回来给你审——所有上下文、决定和代码改动都挂在同一个任务下。</p>
+    <p class="sub">一句话设计哲学：把 Multics 的「分时」带回今天——被多路复用的「用户」，既是人，也是能自己干活的智能体。
+    小团队不该因为人少，就只能干出小团队的量。</p>
+  </header>
+
+  <!-- ============ 1. 架构图 ============ -->
+  <h2><span class="num">1</span>系统架构图</h2>
+  <p class="lead">三层客户端 → Go 后端 + PostgreSQL（服务端）→ 本地守护进程 → 你机器上的智能体 CLI。
+  关键信任边界：<strong>后端和数据库在「服务端」，守护进程和智能体 CLI 在你「自己的机器」上跑，代码与密钥不出本机</strong>。</p>
+
+  <div class="card diagram-box">
+    <svg viewBox="0 0 1000 720" role="img" aria-label="Multica 系统架构图">
+      <defs>
+        <marker id="ar" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#5b6472"/>
+        </marker>
+        <style>
+          .bx{fill:#fff;stroke:#c7cfdb;stroke-width:1.4;rx:12}
+          .t{font-family:-apple-system,Segoe UI,PingFang SC,sans-serif;fill:#1f2430}
+          .ts{font-size:13px;fill:#5b6472}
+          .tt{font-size:15px;font-weight:700;fill:#1f2430}
+          .cls{font-size:12px;font-weight:700;fill:#1c4fc0}
+        </style>
+      </defs>
+
+      <!-- Clients -->
+      <rect class="bx" x="60" y="40" width="240" height="72" rx="12" fill="#eaf1ff"/>
+      <text class="tt" x="180" y="70" text-anchor="middle">Web 浏览器</text>
+      <text class="ts" x="180" y="92" text-anchor="middle">Next.js 16 (App Router)</text>
+
+      <rect class="bx" x="380" y="40" width="240" height="72" rx="12" fill="#eaf1ff"/>
+      <text class="tt" x="500" y="70" text-anchor="middle">桌面端</text>
+      <text class="ts" x="500" y="92" text-anchor="middle">Electron（复用 Web UI 包）</text>
+
+      <rect class="bx" x="700" y="40" width="240" height="72" rx="12" fill="#eaf1ff"/>
+      <text class="tt" x="820" y="70" text-anchor="middle">移动端</text>
+      <text class="ts" x="820" y="92" text-anchor="middle">Expo / RN（iPhone · iPad）</text>
+
+      <!-- clients -> backend -->
+      <line x1="500" y1="112" x2="500" y2="166" stroke="#5b6472" stroke-width="2" marker-end="url(#ar)"/>
+      <text class="ts" x="508" y="143" fill="#2f6df6" font-weight="700">HTTPS + WebSocket（双向实时）</text>
+
+      <!-- region label server -->
+      <text x="60" y="150" font-size="12" font-weight="700" fill="#8893a4">▲ 服务端 / 云端（Multica 托管 或 自托管）</text>
+
+      <!-- Backend -->
+      <rect class="bx" x="120" y="170" width="760" height="210" rx="14" fill="#eef3ff" stroke="#b9c8ee"/>
+      <text class="tt" x="500" y="198" text-anchor="middle">Go 后端 —— Chi router · sqlc · gorilla/websocket</text>
+
+      <text class="cls" x="150" y="228">接入与实时</text>
+      <text class="ts" x="150" y="250">· HTTP Handler (Chi)</text>
+      <text class="ts" x="150" y="270">· Realtime Hub → 客户端 WS</text>
+      <text class="ts" x="150" y="290">· DaemonWS Hub → 守护进程 WS</text>
+      <text class="ts" x="150" y="310">· Middleware / Auth</text>
+      <text class="ts" x="150" y="330">· Feature Flags</text>
+
+      <text class="cls" x="405" y="228">业务核心</text>
+      <text class="ts" x="405" y="250">· Dispatch（派发决策）</text>
+      <text class="ts" x="405" y="270">· Scheduler（cron 自动化）</text>
+      <text class="ts" x="405" y="290">· Issue Workflow / Status</text>
+      <text class="ts" x="405" y="310">· Issue Guard（权限）</text>
+      <text class="ts" x="405" y="330">· Skills（复用）</text>
+
+      <text class="cls" x="660" y="228">集成与数据</text>
+      <text class="ts" x="660" y="250">· Integrations（Git/IM）</text>
+      <text class="ts" x="660" y="270">· Attribution（审计）</text>
+      <text class="ts" x="660" y="290">· Storage（文件）</text>
+      <text class="ts" x="660" y="310">· Analytics / Metrics</text>
+      <text class="ts" x="660" y="330">· Entitlement</text>
+
+      <!-- backend -> PostgreSQL -->
+      <line x1="300" y1="380" x2="300" y2="402" stroke="#5b6472" stroke-width="2" marker-end="url(#ar)"/>
+      <rect class="bx" x="120" y="404" width="360" height="84" rx="12" fill="#e4f6f3" stroke="#9fd9cf"/>
+      <text class="tt" x="300" y="434" text-anchor="middle">PostgreSQL 17</text>
+      <text class="ts" x="300" y="456" text-anchor="middle">pgcrypto · pg_trgm</text>
+      <text class="ts" x="300" y="476" text-anchor="middle">迁移：CREATE INDEX CONCURRENTLY</text>
+
+      <!-- trust boundary -->
+      <line x1="40" y1="470" x2="960" y2="470" stroke="#d64545" stroke-width="2" stroke-dasharray="8 6"/>
+      <text x="500" y="464" text-anchor="middle" font-size="12.5" font-weight="700" fill="#d64545">
+        ⛔ 信任边界：以下在你的机器上运行，代码与密钥不出本机
+      </text>
+      <text x="60" y="500" font-size="12" font-weight="700" fill="#0f9d8f">▼ 本地运行时（你的笔记本 / 云主机）</text>
+
+      <!-- backend -> daemon (tunnel across boundary) -->
+      <path d="M700,380 V492" stroke="#0f9d8f" stroke-width="2" marker-end="url(#ar)" fill="none"/>
+      <text x="712" y="438" font-size="12.5" font-weight="700" fill="#0f9d8f">WebSocket 下发运行（服务端 → 本地）</text>
+
+      <!-- Daemon -->
+      <rect class="bx" x="120" y="494" width="760" height="112" rx="14" fill="#e9f7f1" stroke="#9fd9cf"/>
+      <text class="tt" x="500" y="522" text-anchor="middle">本地守护进程（Daemon）—— 跑在你的机器上，紧挨你的代码</text>
+      <text class="ts" x="150" y="546">· 启动即探测本机 Agent CLI，按 workspace 注册 runtime</text>
+      <text class="ts" x="150" y="566">· 收到 WS 唤醒 / 30s 轮询兜底 → 批量认领任务</text>
+      <text class="ts" x="150" y="586">· 拉起 Agent CLI 执行；心跳 15s；看门狗防卡死（空闲 2h / 工具）</text>
+      <text class="ts" x="560" y="546">· 共享 bare git clone + git worktree（任务隔离沙箱）</text>
+      <text class="ts" x="560" y="566">· 运行时隔离、磁盘/Git GC、MCP broker</text>
+
+      <!-- daemon -> agent CLIs -->
+      <line x1="500" y1="606" x2="500" y2="630" stroke="#5b6472" stroke-width="2" marker-end="url(#ar)"/>
+      <rect class="bx" x="120" y="632" width="760" height="74" rx="12" fill="#fdeede" stroke="#f3c08a"/>
+      <text class="tt" x="500" y="660" text-anchor="middle">Agent CLI（26 种，厂商无关）</text>
+      <text class="ts" x="500" y="682" text-anchor="middle">Claude Code · Codex · Cursor · Kimi · Qwen · DeepSeek · Copilot · OpenCode · Trae · 华为 CodeArts …</text>
+    </svg>
+    <p class="figcaption">图 1：Multica 分层架构。三个客户端经 HTTPS/WebSocket 连到 Go 后端与 PostgreSQL；后端再经一条
+    WebSocket「隧道」把任务下发给运行在用户本机的守护进程，由守护进程拉起任意一种智能体 CLI。</p>
+  </div>
+
+  <div class="toggle" id="t-arch">
+    <button data-mode="both" class="active">对照看</button>
+    <button data-mode="novice">小白视角</button>
+    <button data-mode="expert">专家视角</button>
+  </div>
+  <div class="dual" id="d-arch">
+    <div class="panel novice novice-panel">
+      <h4>🧑 小白怎么理解</h4>
+      <ul>
+        <li>想象一个公司群：你在网页/电脑/手机上发任务，就像在群里@一个同事。</li>
+        <li>「服务端」是公司的中央办公室（存数据、记台账），「你的机器」是你自己的工位。</li>
+        <li>那个真正干活的 AI（比如 Claude Code）不是 Multica 养的，它住在<strong>你自己的电脑</strong>里——所以你的代码不会上传到别人那里。</li>
+        <li>Multica 的角色是把活派下去、盯着进度、把结果摆回看板给你审。</li>
+      </ul>
+    </div>
+    <div class="panel expert expert-panel">
+      <h4>🔧 专家抓重点</h4>
+      <ul>
+        <li><code>views → core + ui</code> 严格分层：core 无 UI/无 <code>react-dom</code>/无 <code>localStorage</code>，靠 <code>StorageAdapter</code> 注入；ui 不准写业务逻辑。</li>
+        <li>客户端态用 <code>TanStack Query</code>（服务端数据）+ <code>Zustand</code>（客户端态）；<strong>WebSocket 事件只打补/失效 Query 缓存，不写 Zustand</strong>。</li>
+        <li>服务端两条 WS 通道分离：<code>realtime</code> hub 推送给客户端，<code>daemonws</code> hub 与守护进程做 RPC（dispatch / completion / runtime_gone）。</li>
+        <li>数据库零外键、零级联；索引一律 <code>CONCURRENTLY</code> 且独立迁移文件——为在线 DDL 与零停机迁移设计。</li>
+        <li><code>X-Workspace-ID</code> 选租户，所有查询按 <code>workspace_id</code> 过滤，membership 门控访问。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 2. 流程图 ============ -->
+  <h2><span class="num">2</span>任务流程图（一次任务的生命周期）</h2>
+  <p class="lead">从「人创建议题」到「人验收合并」，全程留痕、人在回路。智能体干完不直接上线，先进入「审核中」等你拍板；
+  运行中你能随时插话；失败有看门狗和自动重试。</p>
+
+  <div class="card diagram-box">
+    <svg viewBox="0 0 1000 860" role="img" aria-label="Multica 任务流程图">
+      <defs>
+        <marker id="ar2" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+          <path d="M0,0 L7,3 L0,6 Z" fill="#5b6472"/>
+        </marker>
+        <style>
+          .fb{fill:#fff;stroke:#c7cfdb;stroke-width:1.4}
+          .ft{font-family:-apple-system,Segoe UI,PingFang SC,sans-serif}
+          .ftt{font-size:14px;font-weight:700;fill:#1f2430}
+          .fts{font-size:12.5px;fill:#5b6472}
+          .dia{fill:#fff7e6;stroke:#f3c08a;stroke-width:1.6}
+        </style>
+      </defs>
+
+      <!-- start -->
+      <ellipse cx="500" cy="42" rx="160" ry="28" fill="#eaf1ff" stroke="#b9c8ee"/>
+      <text class="ftt" x="500" y="39" text-anchor="middle">创建议题</text>
+      <text class="fts" x="500" y="57" text-anchor="middle">人 或 自动化日程(Autopilot/cron)</text>
+
+      <line x1="500" y1="70" x2="500" y2="92" stroke="#5b6472" stroke-width="2" marker-end="url(#ar2)"/>
+      <rect class="fb" x="320" y="92" width="360" height="46" rx="10"/>
+      <text class="ftt" x="500" y="115" text-anchor="middle">① 进入看板：Backlog / Todo</text>
+
+      <line x1="500" y1="138" x2="500" y2="160" stroke="#5b6472" stroke-width="2" marker-end="url(#ar2)"/>
+      <rect class="fb" x="290" y="160" width="420" height="46" rx="10"/>
+      <text class="ftt" x="500" y="183" text-anchor="middle">② 指派智能体为负责人（assignee 多态：人或智能体）</text>
+
+      <line x1="500" y1="206" x2="500" y2="228" stroke="#5b6472" stroke-width="2" marker-end="url(#ar2)"/>
+      <rect class="fb" x="280" y="228" width="440" height="46" rx="10" fill="#eef3ff"/>
+      <text class="ftt" x="500" y="251" text-anchor="middle">③ 服务端 Dispatch → WebSocket 唤醒守护进程</text>
+
+      <line x1="500" y1="274" x2="500" y2="296" stroke="#5b6472" stroke-width="2" marker-end="url(#ar2)"/>
+      <rect class="fb" x="280" y="296" width="440" height="46" rx="10" fill="#eef3ff"/>
+      <text class="ftt" x="500" y="319" text-anchor="middle">④ 守护进程认领任务（WS 唤醒 / 30s 轮询兜底）</text>
+
+      <line x1="500" y1="342" x2="500" y2="364" stroke="#5b6472" stroke-width="2" marker-end="url(#ar2)"/>
+      <rect class="fb" x="230" y="364" width="540" height="62" rx="10" fill="#e9f7f1" stroke="#9fd9cf"/>
+      <text class="ftt" x="500" y="388" text-anchor="middle">⑤ 执行中 In Progress</text>
+      <text class="fts" x="500" y="408" text-anchor="middle">本地拉起 Agent CLI；每次工具调用/命令/报错带时间戳，可回放</text>
+
+      <!-- decision -->
+      <polygon class="dia" points="500,452 590,492 500,532 410,492"/>
+      <text class="ftt" x="500" y="488" text-anchor="middle">完成？</text>
+      <text class="ftt" x="500" y="508" text-anchor="middle" font-size="11"></text>
+
+      <!-- yes -> in_review -->
+      <line x1="500" y1="532" x2="500" y2="566" stroke="#2e9e4f" stroke-width="2" marker-end="url(#ar2)"/>
+      <text x="510" y="552" font-size="12" fill="#2e9e4f" font-weight="700">是</text>
+      <rect class="fb" x="320" y="566" width="360" height="46" rx="10" fill="#eaf1ff"/>
+      <text class="ftt" x="500" y="589" text-anchor="middle">⑥ 审核中 In Review（不直接进 main）</text>
+
+      <!-- human decision -->
+      <line x1="500" y1="612" x2="500" y2="646" stroke="#5b6472" stroke-width="2" marker-end="url(#ar2)"/>
+      <polygon class="dia" points="500,646 590,686 500,726 410,686"/>
+      <text class="ftt" x="500" y="682" text-anchor="middle">人类验收？</text>
+
+      <line x1="500" y1="726" x2="500" y2="758" stroke="#2e9e4f" stroke-width="2" marker-end="url(#ar2)"/>
+      <text x="510" y="748" font-size="12" fill="#2e9e4f" font-weight="700">通过</text>
+      <rect class="fb" x="330" y="758" width="340" height="46" rx="10" fill="#e4f6f3" stroke="#9fd9cf"/>
+      <text class="ftt" x="500" y="781" text-anchor="middle">⑦ Done —— 生成 PR / 合并</text>
+      <text class="fts" x="500" y="800" text-anchor="middle">人类负最终责任</text>
+
+      <!-- no -> blocked (left) -->
+      <line x1="410" y1="492" x2="180" y2="492" stroke="#d64545" stroke-width="2" marker-end="url(#ar2)"/>
+      <text x="300" y="482" font-size="12" fill="#d64545" font-weight="700">否 / 卡住</text>
+      <rect class="fb" x="40" y="462" width="200" height="62" rx="10" fill="#fdecec" stroke="#eaa9a9"/>
+      <text class="ftt" x="140" y="486" text-anchor="middle">Blocked</text>
+      <text class="fts" x="140" y="506" text-anchor="middle">需人类决策 / 重试</text>
+
+      <!-- blocked back to in_progress (retry loop) -->
+      <path d="M40,493 C20,493 20,420 230,420" fill="none" stroke="#d64545" stroke-width="1.8" marker-end="url(#ar2)"/>
+      <text x="60" y="455" font-size="11.5" fill="#d64545" font-weight="700">失败 → 看门狗/超时 → 自动重试</text>
+
+      <!-- human reject back to in_progress -->
+      <path d="M410,686 C320,686 250,560 230,426" fill="none" stroke="#e8833a" stroke-width="1.8" marker-end="url(#ar2)"/>
+      <text x="250" y="620" font-size="11.5" fill="#e8833a" font-weight="700">打回 → 继续推进</text>
+
+      <!-- interject annotation -->
+      <rect class="fb" x="780" y="364" width="200" height="62" rx="10" fill="#efeaff" stroke="#c9bdf5"/>
+      <text class="ftt" x="880" y="388" text-anchor="middle">运行中插话</text>
+      <text class="fts" x="880" y="408" text-anchor="middle">消息进入当前 run</text>
+      <line x1="780" y1="395" x2="770" y2="395" stroke="#7a5cf0" stroke-width="1.8" marker-end="url(#ar2)"/>
+    </svg>
+    <p class="figcaption">图 2：任务生命周期。状态键为 <code>backlog → todo → in_progress → in_review → blocked</code>（外加工作流自定义步骤）。
+    关键设计：智能体完成只进「审核中」，不自动上线；失败由看门狗/超时触发自动重试或停下说明原因；运行中人可插话。</p>
+  </div>
+
+  <div class="toggle" id="t-flow">
+    <button data-mode="both" class="active">对照看</button>
+    <button data-mode="novice">小白视角</button>
+    <button data-mode="expert">专家视角</button>
+  </div>
+  <div class="dual" id="d-flow">
+    <div class="panel novice novice-panel">
+      <h4>🧑 小白怎么理解</h4>
+      <ul>
+        <li>你建一个任务，把它交给某个 AI 同事，它就开始干。</li>
+        <li>它干活的每一步（用了什么工具、跑了什么命令、报了什么错）都被记下来，像监控录像，可回放。</li>
+        <li>它干完不会自己把代码发上线，而是先放到「审核中」等你点头——这就叫<strong>人在回路</strong>。</li>
+        <li>卡住了它会喊你；中途你想改主意，直接发消息它就收到，不用等它下一轮。</li>
+      </ul>
+    </div>
+    <div class="panel expert expert-panel">
+      <h4>🔧 专家抓重点</h4>
+      <ul>
+        <li>状态机在 <code>issueworkflow</code>：固定锚点 <span class="mono">backlog / blocked</span> + 工作流自定义步骤；<code>issueguard</code> 做转移权限校验。</li>
+        <li>派发是<strong>推拉结合</strong>：服务端 WS 唤醒（<code>daemonws</code> RPC dispatch），守护进程再批量 claim；30s 轮询仅是丢信号/断连的兜底，不抬升常规认领延迟。</li>
+        <li>可观测性来自 <code>attribution</code>：每次工具调用/命令/错误带时间戳、可完整回放；用量按智能体/任务统计。</li>
+        <li>弹性：空闲看门狗 2h、工具看门狗、Codex 语义不活跃超时；失败自动重试或停下报因（<code>delegatedrecoverybackfill</code>）。</li>
+        <li>验收是硬边界：<code>in_review</code> 不自动合 main，上不上线由人决定（<code>issueactivity</code> 记录）。</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ 3. 设计理论 ============ -->
+  <h2><span class="num">3</span>设计理论（为什么这样造）</h2>
+  <p class="lead">Multica 不是又一个聊天机器人，而是一套「人机协作的操作系统」。下面 10 条原则，前几条是哲学，后几条是工程落地。</p>
+
+  <div class="theory">
+    <div class="tcard"><div class="ic">🔁</div><h4>1. 多路复用（Multiplexing）</h4>
+      <p>向 Multics 致敬：当年多人共享一台机器却像独占；今天多个人和多个智能体共享一个工作区却各忙各的。小团队也能跑出大团队的吞吐。</p></div>
+    <div class="tcard"><div class="ic">🤝</div><h4>2. 智能体即队友</h4>
+      <p>负责人是「多态」的——人或智能体都能被指派。它们共用同一块看板、同一条任务生命周期，没有特殊通道。</p></div>
+    <div class="tcard"><div class="ic">🔒</div><h4>3. 代码不出本机</h4>
+      <p>智能体的「工位」是你的机器。守护进程跑在本地，Agent CLI 在你的环境里执行，代码与密钥不离开你的基础设施。</p></div>
+    <div class="tcard"><div class="ic">🧑‍⚖️</div><h4>4. 人在回路 / 可审计</h4>
+      <p>任何东西不经人点头不能上线。每次工具调用、命令、报错都带时间戳；把智能体也算进去的审计记录完整保留。</p></div>
+    <div class="tcard"><div class="ic">🎛️</div><h4>5. 厂商无关</h4>
+      <p>Multica 不自带模型，它驱动你已装好的 26 种 Agent CLI。换提供方就是切个下拉框，谈不上迁移。</p></div>
+    <div class="tcard"><div class="ic">🗂️</div><h4>6. 工作区隔离</h4>
+      <p>按团队隔离智能体、任务与设置。<code>X-Workspace-ID</code> 选租户，membership 门控，所有查询按 workspace 过滤。</p></div>
+    <div class="tcard"><div class="ic">🧠</div><h4>7. 保存共同理解</h4>
+      <p>目标、决定、diff、产出全部挂在同一个任务下，会话结束也不丢。下一个智能体不用从零猜，新人也能看懂为什么走到这里。</p></div>
+    <div class="tcard"><div class="ic">⚡</div><h4>8. 实时推送，而非轮询</h4>
+      <p>服务端经 WebSocket 唤醒守护进程与客户端；<code>realtime</code> 用分片流 + Redis relay 横向扩展，事件直接打补前端 Query 缓存。</p></div>
+    <div class="tcard"><div class="ic">🧱</div><h4>9. 严格分层单体仓库</h4>
+      <p>pnpm + turbo；<code>views→core+ui</code> 单向依赖。core 无 UI、靠适配器注入；ui 不写业务；平台差异用 Navigation/Storage 适配器隔离。</p></div>
+    <div class="tcard"><div class="ic">🏠</div><h4>10. 整套可自托管</h4>
+      <p>Docker Compose / Helm 装在你自己的基础设施；接你自己的 Git（GitHub/GitLab/Gitea/Forgejo）和 IM（Slack/飞书/钉钉/企微/Telegram）。</p></div>
+  </div>
+
+  <!-- ============ 4. 专家速查 ============ -->
+  <h2><span class="num">4</span>专家速查表</h2>
+  <div class="card">
+    <table class="tech">
+      <tr><th>层级</th><th>技术栈 / 关键包</th></tr>
+      <tr><td>Web</td><td><code>Next.js 16 (App Router)</code> · 页面 + API 代理</td></tr>
+      <tr><td>桌面端</td><td><code>Electron</code> 复用 Web 的 UI 包 · 多工作区标签页</td></tr>
+      <tr><td>移动端</td><td><code>Expo / React Native</code>（iOS/iPad，需自编译）</td></tr>
+      <tr><td>后端</td><td><code>Go</code> · <code>Chi</code> router · <code>sqlc</code> · <code>gorilla/websocket</code></td></tr>
+      <tr><td>数据库</td><td><code>PostgreSQL 17</code> · <code>pgcrypto</code> + <code>pg_trgm</code> · 零外键/零级联 · 索引 CONCURRENTLY</td></tr>
+      <tr><td>本地运行时</td><td>守护进程探测并注册 Agent CLI；WS 唤醒 + 30s 轮询兜底；心跳 15s；看门狗(空闲 2h/工具)</td></tr>
+      <tr><td>前端态</td><td><code>TanStack Query</code>(服务端) + <code>Zustand</code>(客户端) · WS 事件只失效/打补 Query 缓存</td></tr>
+      <tr><td>包边界</td><td><code>views → core + ui</code> · core 无 UI/无 localStorage（StorageAdapter）· ui 无业务逻辑</td></tr>
+      <tr><td>关键内部包</td><td><span class="pill">dispatch</span><span class="pill">daemon</span><span class="pill">daemonws</span><span class="pill">realtime</span><span class="pill">scheduler</span><span class="pill">integrations</span><span class="pill">attribution</span><span class="pill">issueworkflow</span><span class="pill">issueguard</span><span class="pill">skill</span><span class="pill">auth</span><span class="pill">storage</span></td></tr>
+      <tr><td>集成</td><td>Git: GitHub/GitLab/Gitea/Forgejo · IM: Slack/飞书/Lark/钉钉/企微/Telegram</td></tr>
+      <tr><td>自托管</td><td>Docker Compose / Helm · <code>DO_NOT_TRACK=1</code> 关闭部署级快照</td></tr>
+    </table>
+  </div>
+
+  <div class="note">
+    <strong>一句话给两类人：</strong><br>
+    🧑 <strong>小白</strong>：Multica 是个「AI 同事排班表」——你把活发到看板，AI 在你自己电脑上干，干完交给你审，全程可回放，换 AI 厂商不费事。<br>
+    🔧 <strong>专家</strong>：它是以 <code>Chi+sqlc+WS</code> 为内核、守护进程做本地执行边界、严格分层 pnpm 单体仓库、以「多路复用 + 人在回路 + 厂商无关 + 工作区隔离」为支柱的人机协作记录系统与行动中枢。
+  </div>
+
+  <footer>
+    本解读基于 multica 仓库 <code>README.zh.md</code> · <code>VISION.zh.md</code> · <code>AGENTS.md</code> · <code>CLI_AND_DAEMON.md</code> 及 <code>server/internal</code> 源码结构整理生成。
+    版本 v0.2.0。
+  </footer>
+</div>
+
+<script>
+  // 双视角切换
+  function bindToggle(id){
+    const box=document.getElementById(id);
+    const buttons=box.querySelectorAll('button');
+    buttons.forEach(b=>b.addEventListener('click',()=>{
+      buttons.forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      const mode=b.dataset.mode;
+      document.body.classList.remove('show-novice','show-expert');
+      if(mode==='novice')document.body.classList.add('show-novice');
+      if(mode==='expert')document.body.classList.add('show-expert');
+    }));
+  }
+  bindToggle('t-arch');
+  bindToggle('t-flow');
+</script>
+</body>
+</html>

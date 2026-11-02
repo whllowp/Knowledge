@@ -1,0 +1,676 @@
+让轨迹成为数字资产
+Agent 持续优化实践
+马云雷
+阿里云 云原生可观测 AgentLoop 
+01 / 24
+目录
+目录
+01 资产基础：从运行记录到可计算轨迹
+02 质量数据：从 Bad Case 到 Benchmark
+03 优化产物：从轨迹生成可执行能力
+04 价值验证：从候选版本到生产闭环
+02 / 24
+Agent 能力边界扩展：从指令跟随到受控优化
+五组数字来自不同评测，仅用于标记各阶段已经达到的能力边界；它们不是同一榜单上的连续增长曲线。
+01
+问答助手
+指令跟随与多轮对话
+以回答质量为主要目标
+85% ± 3%
+人类偏好率
+175B InstructGPT
+vs. 同规模 GPT-3
+Prompt / Response
+02
+Reasoning Model
+在回答前投入更多计算
+处理数学、代码与复杂推理
+12% → 74%
+AIME 2024 pass@1
+GPT-4o → o1
+单样本准确率
+Reasoning / Verifier
+03
+工具调用
+生成结构化调用
+读取并改变外部系统状态
+85.9%
+BFCL overall
+GPT-4-1106-Preview (FC)
+NeurIPS 2024
+Tool Call / Result
+04
+长周期 Agent
+持续规划、执行、观察与恢复
+跨越更多步骤和环境状态
+≈ 12 h @ 50%
+80%成功率：≈ 70 min
+Claude Opus 4.6
+METR TH1.1 · 2026
+Session / Trajectory
+05
+自进化（探索）
+轨迹挖掘、候选生成
+实验门禁与受控发布
+保留集
+120/152 → 134/152
+Benchmark / Candidate / Gate
+能力边界：回答质量 → 推理深度 → 外部系统操作 → 长周期任务完成 → 基于轨迹证据的受控优化
+来源口径：OpenAI InstructGPT、OpenAI o1（AIME 2024）、BFCL（NeurIPS 2024）、METR TH1.1（2026，人类专家任务时长）、AgentLoop 内部开发态实验。
+79% → 88%
+311 题开发态实验
+03 / 24
+Agent 在生产落地中的问题与挑战
+真实流量持续产生长尾问题；模型、工具、上下文和业务规则的变化，使质量治理成为持续性工程。
+04
+生产请求不断暴露未覆盖场景。Bad Case 若未进入数据集与回归体系，同类缺陷会反
+复出现。
+持续在线评估、问题聚类、归因与回归集更新
+01 变更带来未知回归
+Prompt、Skill、Model、Tool 或 Harness 的局部修改，可能破坏其他任务和边界条
+件。
+版本化 Benchmark、变更差异与同题回归
+02 质量随业务环境漂移
+工具接口、知识时效、用户分布和业务规则持续变化，离线通过不代表长期稳定。
+工具契约、环境快照与漂移监控
+03 同一任务结果不稳定
+长周期、多步骤和概率性采样放大路径差异，需要区分偶然波动与系统性缺陷。
+完整 Trajectory、稳定 Harness 与多次 Rollout
+从真实流量中持续发现长尾问题，并把问题转化为可复用资产。
+04 / 24
+生产请求中的长尾问题
+轨迹驱动的 Agent 持续优化飞轮
+在线运行产生轨迹；轨迹经过加工、评估、归因和实验验证形成资产，并用于后续版本优化。
+Agent Runtime
+内层 Loop：完成当前任务
+Observe
+Reason
+Act
+采集在线轨迹
+Trace / Session / Trajectory
+评估、归因与改进建议
+Bad Case / Root Cause / Optimizer
+实验验证
+Benchmark / Baseline / Candidate / Regression
+应用改进
+Prompt / Skill / Experience
+Workflow / Tool / Harness
+飞轮每轮沉淀的跨任务资产
+运行证据 Trace / Session / Trajectory
+环境与版本快照
+质量数据 Bad Case / Ground Truth
+Golden / Regression
+优化产物 Prompt / Skill / Experience
+Workflow / Tool / Harness
+验证记录 Benchmark / Experiment
+Gate / Version / Rollback
+运行产生轨迹，轨迹形成资产，经过验证的资产用于下一轮优化。
+05 / 24
+调优方式：静态调优与经验沉淀，缺一不可
+共同基础 Agent 运行产生轨迹与证据；评估、实验、经验库为两类调优共用
+两类调优缺一不可：静态调优夯实基线，经验沉淀持续进化；同一 Agent 可叠加使用。
+静态调优 · 修改静态资源
+调优 Prompt / Skill / Harness 等静态资产，版本化改动
+修改资产 评估与实验 迭代采用
+调整 Prompt、Skill、
+Harness，形成候选
+版本
+固定题集复跑、对比
+实验，验证效果与回
+归面
+不通过继续调优，通
+过后发布新版本
+不是改完就放那：评估与实验反复迭代，形成闭环
+动态调优 · 沉淀与召回经验
+持续沉淀业务 SOP 与经验，标注后入经验库，动态召回
+沉淀经验 标注入库 动态召回
+把有效做法整理为业
+务 SOP / 经验条目
+标注适用场景与条件，
+写入经验库成为资产
+按当前任务召回已标
+注经验，注入上下文
+沉淀+标注即调优；按任务动态召回，越用越准
+互补
+06 / 24
+AgentLoop 数据飞轮原子能力底座
+从行动证据、数据评估到上下文调优，组成持续改进的能力底座。
+观测与证据
+Trace 采集
+OTel · 探针 · SDK
+Session 会话
+多轮上下文聚合
+Trajectory 轨迹
+Step · Tool 过程还原
+Agent 可观测
+调用链 · 时延 · 错误
+Cost / Audit
+Token 效率 · 留痕 · 风险查询
+数据与评估
+Pipeline / Builder
+清洗 · 过滤 · 采样 · 合成轨迹
+Dataset
+黄金集 · Badcase · 回归集
+Evaluation / Builder
+Session · Trace · Trajectory · Dataset
+Experiment
+本地实验 · 拨测 · Bench 评测
+Attribution
+归因到具体标签
+优化
+SOP / Knowledge
+任务步骤、领域知识、恢复经验
+Memory
+用户事实、偏好、连续上下文
+Prompt Patch / Guardrail
+提示词补丁、调用前约束
+Skill / Workflow / Tool
+能力包、任务 DAG、工具封装
+Runtime Policy
+路由、缓存、裁剪、预算策略
+采集证据 → 评估归因 → 调整资产 → 复跑验证
+含已有能力与探索方向，应用前需评估验证
+07 / 24
+轨迹数据可以形成哪些可复用资产
+Trace 与 Trajectory 保存运行事实；评估、归因、模式挖掘和实验验证进一步形成五类长期资产。
+资产形成过程 前两项保存运行事实；后三步形成并验证衍生资产
+01 原始运行证据资产
+Span / Trace / Tool I/O
+02 完整任务轨迹资产
+Session / Trajectory
+03 识别问题与规律
+Bad Case / Root Cause
+04 生成可复用产物
+Evaluator / Skill / Policy
+05 实验验证与版本化
+Benchmark / Experiment / Gate
+五类衍生资产：如何形成，以及用于什么
+资产类型 如何从轨迹中形成 主要产物与用途
+质量与验证资产 结果信号、状态快照与人工判决，经评估、标注和复核后版本化 Evaluator / Rubric / Bad Case / Golden / Benchmark / Regression发现问题、校准标准、回归门禁
+Agent 优化资产 成功、失败、纠正和恢复轨迹，经聚类、归因和成败对照生成候选 Prompt / Skill / Experience / SOP / Workflow / Tool & Harness Fix优化 Agent 的决策与执行
+训练数据资产 筛选高质量成功轨迹、失败对和人工纠正，构造监督样本与偏好对 SFT Sample / Preference Pair / Verifier / Reward Model Dataset训练与奖励模型校准
+成本与效率资产 分析 Token、时延、步骤数、工具调用与上下文利用率，定位冗余路径 Router / Cache / Context Policy / Budget / Parallel Plan降低 Token、时延与调用次数
+产品与组织洞察资产 聚合意图、拒绝、失败、审批与资产命中，识别趋势和能力缺口 Intent / Failure Taxonomy / Capability Gap / Runbook / Roadmap确定能力缺口与优化优先级
+长期复用要求来源可追溯、版本可管理、收益可验证，并能持续进入运行、评估和实验链路。
+08 / 24
+轨迹资产形成｜Trace：完整、可信的运行证据
+覆盖多框架与全栈系统，并把用户、Agent、工具和模型服务关联在同一条证据链上
+覆盖广 通用 Agent / Harness、Agent 框架、高代码 Agent
+LangChain、LlamaIndex、OpenAI、通义
+观测深 用户入口、Agent、LLM、Tool、RAG / MCP
+网关 / 模型服务 / GPU，内容、Token 与 TTFT
+接入轻 OTel，Java / Python / Go 与 eBPF 探针
+一键接入、SDK、注解、环境侧无侵入
+可闭环 同一证据可查询、评估、归因与复跑
+Trace、Trajectory、Dataset、Evaluation、Experiment
+09 / 24
+Trajectory：从调用记录重建状态—动作—结果序列
+真实截图回答“调用了什么”；MDP 表达回答“处于什么状态、采取什么动作、状态如何变化，以及哪一步首次失效”。
+真实轨迹视图
+完整上下文 步骤顺序 Tool Call / Result
+MDP 状态变换
+目标状态 G · 不变量 I
+S   当前状态
+任务目标
+上下文与业务状态
+环境与工具状态
+→
+a   动作
+LLM 推理
+Tool / Screen / API
+用户交互
+→
+S ₊₁
+Observation
+业务状态变化
+工具副作用
+r  = Evaluator(S , a , S ₊₁)
+按状态约束定位首个非法转换，并把“失败结果”归因到具体步骤、组件和修复方向。
+Trace
+离散调用与局部观测 O
+Trajectory
+有序序列 (S , a , O , r , S ₊₁)
+Evaluation
+目标、约束、奖励与首个失效转换
+10 / 24
+Pipeline：将实时轨迹加工为可评估、可沉淀的数据对象
+结束信号驱动增量处理；通过上下文富化、对象组装、价值筛选、AI 标注与条件分发，把异构运行数据转换为下游可消费资产。
+01
+边界触发
+trace_ready / session_sealed
+Watermark、超时与迟到修正
+→
+02
+上下文富化
+用户、租户、组织、业务对象
+Agent / Prompt / Model / Tool 版
+本
+→
+03
+评估对象组装
+按 Session / Task 聚合
+多轮上下文、Tool Call / Result、
+Look-ahead
+→
+04
+价值筛选与 AI 标注
+决策模型过滤重复、噪声与低价值数
+据
+标注意图、质量、风险与归因候选
+→
+05
+条件分发
+Evaluation / Dataset / Bad Case
+Experience / Skill / Cost Mining
+关键难点 Trace 完成不等于任务结束；Session 边界需要综合显式信号、空闲窗口、迟到事件和业务主键判定，并保留修正与补跑能力。
+Pipeline Builder｜以业务语义生成可执行数据管线
+隐藏 SQL / SPL 复杂度，用户描述“组装 Session、补充用户信息、过滤低价值轨迹、按场景分发”，系统完成计划生成与验证。
+业务目标
+描述对象与用途
+→
+模板与拓扑
+推荐 Agent 语义算子
+→
+全链路预览
+逐步比较输入、输出与字段
+→
+执行计划
+编译为 SQL / SPL / LLM / 
+WorkItem
+→
+版本化发布
+Schema、血缘、规则与可重放
+Pipeline 的核心价值是确定任务边界、补全证据、形成评估对象，并把数据送入相应的数据集、评估或优化流程。
+11 / 24
+评估体系：多类 Judge 贯通在线发现与离线验证
+在线评估从真实请求中持续发现 Bad Case，离线评估在固定题集上比较版本。同一对象可组合多类 Evaluator，并保留评分、证据与归因。
+在线评估
+真实流量、开放任务、分布持续变化，持续发现未知 Bad Case
+离线评估
+固定 Dataset、Benchmark 与判定标准，比较候选版本的净收益
+Evaluator 组合    评估对象：Session / Trajectory / Dataset
+Agentic Judge
+多步任务、工具链、状态变化与环境查证
+Code Judge
+Schema、字段、测试、编译、阈值与硬规则
+LLM Judge
+正确性、完整性与事实性，按场景 Rubric 判断
+Multimodal Judge
+PDF、图片、截图、音视频原件与输出对齐
+评估器构建难点
+分布持续变化 用户目标、上下文、工具组合和结果形态无法预先穷举。
+场景标准不同 开放任务不能共用一套固定 Rubric，需要不同证据和判定边界。
+校准成本高 缺少真实分布与反例时，Evaluator 容易出现误报或漏报。
+Evaluator Builder
+读取真实轨迹 聚类任务与问题 生成 Judge / Rubric 固定样本试评 版本发布与回测
+产品
+对话创建与优化 Evaluator
+12 / 24
+从 Bad Case 到黄金数据集：AI 标注、人工复核与版本冻结
+在线评估完成问题发现；补齐准确答案、验证条件、来源证据并经过人工确认后，问题样本进入 Benchmark 与回归体系。
+01 评估筛选
+候选 Bad Case
+轨迹与证据链
+→
+02 AI 标注
+重建题目
+生成 Ground Truth / Verify
+失败分类
+→
+03 人工复核
+核验事实与边界
+修改答案
+剔除证据不足样本
+→
+04 资产打包
+上下文、来源 Trace
+环境 / 版本
+加工血缘
+→
+05 永久存储
+Golden Dataset
+Regression Set
+Benchmark
+AI 标注：生成可核验的准确答案与结构化标签 人工复核：确认事实、边界与样本准入
+永久用途：Evaluator 校准｜Prompt / Skill 调优｜Baseline / Candidate 实验｜发布回归与回滚判定
+13 / 24
+多模态Dataset：将轨迹组织为可复跑的版本化样本
+样本同时保存任务上下文、完整轨迹、正确答案或验证规则、来源与环境版本，使评估、实验和发布回归能够重复执行。
+写入来源
+Trajectory
+任务上下文、步骤和工具证据
+Label / Ground Truth
+AI 标注与人工复核结果
+Evaluator / Verify
+Rubric、验证条件和判定版本
+Environment Version
+Agent / Prompt / Model / Tool / Harness
+→
+Dataset Item vN
+一条可查询、可复跑、可审计的标准样本
+01  Task / Context 输入、多轮上下文、用户与业务对象
+02  Trajectory / Evidence 状态、动作、Observation、Tool Call / 
+Result
+03  Ground Truth / Verify 答案、标签、Rubric、验证条件与复核状
+态
+04  Provenance / 
+Environment source_trace_id、Pipeline、Agent、模型、工具与环境版本
+→
+质量状态
+Candidate
+待筛选
+→
+Reviewed
+已复核
+→
+Golden
+可作为参考标准
+面向不同任务生成消费视图或冻结快照
+Bad Case View
+按失败标签、场景和根
+因筛选的问题样本
+Benchmark 
+Snapshot
+冻结题目、答案、
+Evaluator 与版本口径
+Regression Set
+按风险和覆盖度组织，
+供发布门禁重复执行
+Bad Case 是筛选视图；Golden 是复核后的质量状态；Regression Set 是面向发
+布门禁冻结的数据版本。
+治理能力：准入与去重｜质量与覆盖度｜版本快照｜语义检索｜权限与审计｜API / 导出
+14 / 24
+Trace2X：从运行轨迹生成可验证、可部署、可演化的资产
+同一批轨迹先形成共享分析底座，再生成改善资产与验证资产；二者配对后进入运行时、研发、训练与产品闭环。
+1 轨迹信号 2 共享分析底座 3 资产组合：改善 + 验证 4 消费与反馈
+成功路径
+有效步骤与检查点
+失败与恢复
+异常模式与补救边界
+纠正与接管
+歧义、权限与接管条件
+成本离群
+Token、步数与重复调用
+全量任务分布
+意图、频次与能力缺口
+单条轨迹形成案例型
+资产；跨轨迹聚合才
+能形成稳定规律。
+Trajectory / Dataset
+完整上下文与行为过程
+Intent Taxonomy
+聚合键、抽样框架与路由分类
+Failure / Step Label
+问题分类与首次偏离定位
+State / Action / 
+Dependency
+状态变化、工具依赖与副作用
+频次 × 路径稳定性
+选择固化形态与优化优先级
+共同输出：适用范围 · 来源
+证据 · 版本血缘
+改善资产｜改变 Agent 按频次、路径稳定性和确定性要求选择形态
+能力固化 Knowledge · SOP / Experience · Skill · Workflow · Tool保留更多模型判断  ←  灵活性与确定性的选择  →  提高自动执行程
+度
+稳定性 Guardrail · Recovery · Clarification · Permission · Escalation
+成本效率 Router · Cache · Context Policy · Budget · Parallel Plan
+↓  配对验证：证明收益、检查新增回归、决定发布或退役
+验证资产｜证明改善有效
+Evaluator / 
+Rubric在线发现
+语义判断
+Regression / 
+Replay
+修复、追问与审批回放
+Benchmark + 
+Env
+固定条件下可执行复跑
+Monitor + 
+Baseline
+收益、成本与漂移监测
+典型
+配对
+Skill / Workflow / 
+Tool
+↔ Benchmark + Env
+Guardrail / Recovery
+↔ Regression / 
+Replay
+Router / Cache / 
+Context
+↔ Baseline + Monitor
+Agent Runtime
+检索注入 · 执行 · 拦
+截
+研发闭环
+实验门禁
+版本发布与回滚
+训练管道
+SFT · Preference
+Verifier
+产品与组织
+Capability 
+Gap · Taxonomy
+Runbook
+新轨迹 → 更新 · 降
+权 · 退役
+使用结果生成新轨迹：命中率 · 质量 · Token · 漂移决定更新、降权或退役
+可复用资产包 = X 本体 + 适用范围 + 来源证据 + 版本 + 验证集与指标 + 发布及退役规则
+例：订单取消轨迹 → Skill + Recovery Rule + Regression Case + 可执行 Benchmark → 门禁通过后进入 Runtime → 新轨迹驱动更新或退役
+15 / 24
+成本与效率资产：从消耗事实到可执行策略
+聚合 Token、步数、耗时、模型、工具调用与上下文利用率，识别离群点和关键路径，并生成可量化收益的优化候选。
+Token
+输入 / 输出 / 历史上下文
+Latency
+端到端 / 模型 / 工具耗时
+Steps & Tools
+调用次数、重试、失败与依赖
+Context Utilization
+大段结果实际被使用的比例
+算法链：任务分层 → 能力匹配 → 关键路径 / 离群分析 → 反事实收益估算 → 候选策略与证据
+Router Cache Context Policy Budget / Early Stop Parallel Plan Toolset / Prefetch
+每条建议必须附带：受影响轨迹、预计节省 Token / 时延、质量风险、适用范围与 Benchmark 验证计划。
+16 / 24
+经验资产：提升任务准确率并降低 Token 消耗
+从多条轨迹中抽取可迁移的行动策略，按场景动态召回并注入运行时；每条经验都通过命中、收益与回归证据持续更新。
+轨迹聚类
+按任务、环境、结果与失败类型聚
+合
+→
+模式对齐
+比较成功 / 失败 / 修复前后行动差
+异
+→
+经验抽取
+形成条件、动作、证据与边界
+→
+语义召回
+按当前状态选择最相关经验
+→
+运行时注入
+以 Hint / SOP / Policy 影响下一
+步
+→
+效果回写
+记录命中、收益、冲突与退役信号
+典型经验资产
+SOP
+稳定的操作顺序与检查点
+Tool Route
+场景到工具与参数的选择策略
+Repair Rule
+失败后的补救动作与重试边界
+Anti-pattern
+需要避免的路径、冗余与高风险动作
+经验是否值得长期保留，由四组指标共同决定
+命中率
+在适用场景中被正确召回
+质量收益
+任务通过率 / 错误率变化
+效率收益
+Token / 步数 / 时延变化
+安全边界
+新增回归、冲突与误用
+17 / 24
+经验资产验证：固定实验条件下比较质量与 Token 收益
+固定题目、模型、环境与评估器，只改变经验注入。同题多次回放，比较质量、Token 和新增回归。
+怎么做
+固定条件 Benchmark Model Environment Evaluator Sampling
+Baseline
+不注入经验，使用当前线上版本
+Experiment Runner
+同题多次 Rollout，逐题配对，保留失败证据，检查显著性和新增回归
+Candidate
+注入候选经验，仅改变一个目标变量
+唯一变量：是否注入候选经验资产
+效果如何 5 / 5
+质量提升
+4 / 5
+Token 下降
++29.0pp
+最大质量提升
+−58.2%
+最大 Token 降幅
+Benchmark 质量变化 Token 变化
+StarOps 指标查询 7.1% → 36.1%（+29.0pp） −6.8%
+OpenClaw 24.53% → 30.67%（+6.14pp） −58.16%
+PinchBench 0.2928 → 0.3464（+18.3%） +2.9%
+ClawProBench 74.51% → 78.43%（+3.92pp） −11%
+DataAgentBench +3.13pp −14.0%
+经验注入在 5 个 Benchmark 上均提升质量，但 Token 收益依赖任务与注入策略。成本优化还需要路由、上下文和验证策略共同控制。
+数据边界：五组实验口径不完全一致，数据集版本以及 Token 是否包含工具输出仍需在原始报告中补齐。
+18 / 24
+训练与产品组织资产：让轨迹服务模型改进与业务决策
+同一批轨迹既可转化为 SFT、偏好和 Verifier 数据，也可通过分布、趋势与关联分析形成产品 Roadmap、平台能力缺口和组织 Runbook。
+训练侧资产 把行为证据转换为明确、可复现的训练信号
+高质量成功轨迹 → 去噪 / 去重 /Ground Truth 校验 → SFT Sample → 监督微调 / 蒸馏
+同题成败对
+用户纠正前后 →
+环境对齐 /
+chosen-rejected 配对 → Preference Pair → DPO / RLHF
+Step Label
+状态转换 / 结果断言 →
+首失效点 /
+合法转换标注 →
+Verifier /
+Reward Data → Verifier / RL
+产品与组织洞察资产 把群体分布转换为 Roadmap、Runbook 与治理规则
+运行信号 意图 / 未完成 / 拒绝 / 失败 / 审批接管 / 资产命中
+聚类 + 趋势 + 关联 + Capability Gap
+从单条证据上升到场景分布、变化趋势、系统依赖与能力缺口
+Intent Taxonomy
+业务需求地图
+Failure Taxonomy
+问题分布与优先级
+Capability Gap
+模型 / 工具 / 权限缺口
+Runbook / Roadmap
+处置流程与建设计划
+Permission / Escalation
+审批、接管和升级策略
+Asset Retirement
+漂移与低收益资产退役
+共同要求：来源可追溯｜隐私与权限合规｜训练集与评估集隔离｜分布覆盖可度量｜版本、收益与退役条件明确
+19 / 24
+评测产物
+20 / 24
+策略挖掘
+路由策略
+21 / 24
+RSI：AgentCore × AgentLoop 闭环优化
+AgentCore 提供运行与副本，AgentLoop 提供轨迹、评估和实验验证。
+Benchmark Generator（冷启动）
+读取 Agent 代码、配置和 Skill，生成初始题目与评估器定义
+AgentCore Online
+真实用户请求
+线上轨迹与结果信号
+评估器
+机械规则 / Rubric
+无答案检测器
+结果信号
+线上与回放
+共用同一评估器
+人工确认
+确认 / 驳回候选
+回灌评估器精度
+Badcase
+Benchmark
+评估沉淀与冷启动题目
+AgentCore Pre
+冻结题集与证据
+同拓扑回放候选版本
+优化器
+归因、动作、候选版本
+回放计划与验收判决
+版本库
+Agent 与 Skill 版本
+候选 / 接受 / 已发布
+初始评估器定义
+初始题目
+线上轨迹
+候选
+Badcase
+确认的
+Badcase
+Badcase + 评估结果
+回放轨迹 回放评估 候选版本
+回放：冻结题集、证据与基线对照
+发布门禁
+验收通过的版本进入门禁，人工确认后采用
+开发态 POC：同题验证后的改善
+客服 Agent：311 题 / 1,989 条原子断言，发现集 159 题、保留集 152 题，一次指令修复。
+指标 基线 优化后 验证范围
+整题通过率（全部断言通过） 79% 88% 152 道保留题
+资料不足仍给确定结论（失败率） 8% 1% 85 对，p=0.0156
+未标注资料来源（失败率） 16% 0% 69 对，p=0.0005
+两条评审通道均 PASS，回归检验未见显著退化。单轮问答、隔离测试副本，模型 qwen3.7-plus。
+题目与断言经模型生成和知识核查，仍需人工抽检，效果范围限于本次配对实验。
+copy
+22 / 24
+仿真环境：构建可交互、可重置的任务复现
+仿真环境响应候选 Agent 的新动作、更新状态并返回 Observation，为长周期任务提供可重置、可交互的闭环验证。
+从轨迹提取环境资产
+S₀ 初始状态
+任务输入、业务对象与环境快照
+Tool / API Contract
+参数、返回、错误与权限约束
+Side Effect
+写操作、状态改变与跨系统影响
+Transition
+动作触发的状态变化规则
+User Behavior
+澄清、确认、拒绝与补充信息
+Goal / Invariant / Reset
+目标状态、不可违反约束与重置机制
+→
+可交互 Environment Loop
+Agent
+产生新动作 a
+→
+Simulator
+执行 T(S ,a )
+← Observation + S ₊₁
+Evaluator 校验 Goal / Invariant / Side Effect
+环境构建流程
+轨迹重建
+抽取实体、状态、工具合同与关键副作
+用
+→
+规则生成
+构造状态转换、用户模拟与异常分支
+→
+缺口补齐
+对轨迹未覆盖行为生成合成分支并显式
+标记
+→
+一致性校验
+回放原轨迹、状态断言和工具契约测试
+→
+版本化交付
+每题冻结 S₀、T、G、Invariant、
+Reset 与来源
+仿真环境解决“同题重跑是否仍面对同一世界”的问题，是 Tool、Workflow、Harness 与长周期 Agent 实验的基础。
+23 / 24
+
+THANKS
