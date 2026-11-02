@@ -405,3 +405,15 @@
 - 泠乐 TEKO PDF 确认为图片型（抽取失败），需 OCR
 - 有效方法："multi-agent handoff failure" 单检索式一次命中五条高密度源（BigPanda+moltbook 二件套+futureagi+scout+algofuse）；ai-sota-feed-bot topic 页聚合 36 条源含 Anthropic/AWS/Spotify 一手结论；国内编队动态查火山 AgentKit A2A 文档+腾讯云开发者社区
 - 下期候选：交接契约 schema 的组织级标准化与 OTel 提案路径／仲裁层产品形态（determination 独立于厂商的最小实现）／编队准入基准设计（多智能体须击败单 agent 基线）／隐藏协同检测／交接 SLO（选对目标率/完成率/payload 充分率）
+
+## 2026-11-02 第 30 期（AI-SRE技术洞察-20261102-1400.md）
+
+- 本期主线：知识供给面运维——runbook 作为智能体的教科书，教科书在腐烂（第二十一条主线；与第 22 期分界：那期管智能体自己写的记忆，本期管人写的、组织既有的知识资产；与第 23 期分界：那期管装进来的工具，本期管读进来的知识）
+- 核心数据：腾讯云 ES 知识库 Skill 承载约 70% 使用率（远高于三类可写能力）；Cloud-OpsBench JRA 0.76/0.68 vs ECR 0.38/0.15（"答对≠过程对"）；Tan 2022 19.2% 文档含过期引用、28.9% 项目至少一份过期文档；2026 评测 RAG 15-40% 返回已被取代的旧值；STALE（arXiv:2605.06527）最强模型 55.2%、多数记忆框架 <10%；ForgetEval（arXiv:2606.15903）第三方测试集令分数 63-68%→28-33%
+- 新提法：知识债三科目（缺失债/过期债/冲突债，检测信号完全不同）／检索的时间盲区（向量检索无时间模型，新旧同分，与第 28 期检查点时间盲区镜像）／圆谎效应（文档缺步骤时智能体用记忆补全，摩擦消失→腐化从可见断裂变不可见填充）／复核状态四态 pending_review·supported·superseded·unresolved_conflict + subject·relation 超替键／批准吞吐上限（摄入快于批准，六周后才失信）／可执行性三级（契约型/执行型/故障史，存量多为描述型）／知识 SLO 四指标（库龄比值·引用可解析率·分口径命中率·推翻率）
+- 对比表：Google Cloud（SRE 二版+Triage 实体上下文图）/阿里云（STAROps+UModel+BRiSE）/腾讯云（ES Agentic AIOps+蓝鲸）/字节火山（Viking+AgentKit）/InMobi+StackGen/Sourcegraph/文档同步工具（Swimm·Mintlify·Docs7）/Anthropic·OpenAI（CLAUDE.md 路由器），六维度；判读=云厂商赢"指得准"、工具厂商赢"改得动"、模型厂商赢"读得省"，无人把"知识有效性"做成一等对象；中押语义层+评测集 vs 海外押工作流+工具链
+- 本地 173 库本期未新增开采（本期主货源为联网：StackGen/InMobi、Sourcegraph、agentpatterns、abovetheclouds、腾讯云开发者社区、阿里云云栖实录）
+- 有效方法：stackgen InMobi 篇 + sourcegraph 篇是"文档腐化"最佳双源；agentpatterns"Incident-Time Code Grounding"给出 Tan 2022 与 Cloud-OpsBench 的准确口径；abovetheclouds"Product Brain"是 STALE/TANGLE 与批准吞吐规则的最高密度单源；阿里云云栖实录（10-20，InfoQ 版最全）是三堵墙框架一手
+- 注意：STALE/ForgetEval 测的是智能体记忆而非 runbook，引用须标注边界；Toolbit/Context7/RAVA 等文为厂商 SEO 文，只取"工具能力分类"不取数字
+- 字数教训重复：一次成型 3973 字，11 轮微调才到 3001，仍是低效；下期务必按 2600 预算写、只补不改
+- 下期候选：知识 SLO 四指标的最小仪表盘／join key 自动生成（AST↔文档分类）／冲突检测的 OTel span 提案／未答问题日志的采集埋点标准／知识条目退役的溯源与合规保留
