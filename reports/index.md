@@ -431,3 +431,16 @@
 - 注意：hqwc.cn 本期三篇命中（MCP v2 综述、Agent 运维 SLO、蓝鲸社区活动），文风专业但为 SEO 农场，一律不引；x7peeps 的"七大失败模式占比"（Tool 误用 31%）无法回溯，弃用
 - 字数：本期一次成型 2548 字（上期教训生效，按 2600 预算写、只补不改），零轮删减
 - 下期候选：接口面三轴的最小盘点模板／"读 shell 写目录"双通道的门禁实现／接口漂移与 Skill·模型三元 pin／边级失败标注的遥测字段设计／负测试用例库（每个只读工具的越权断言）／存量系统无接口面的降级路径
+
+## 2026-11-02 第 32 期（AI-SRE技术洞察-20261102-1600.md）
+
+- 本期主线：轨迹面运维——"智能体干过什么"成为一等运维资产（第二十三条主线；与第 22 期分界=那期管智能体自己记的记忆，本期管组织如何留存并榨取智能体做过的轨迹；与第 3 期 OTel 内容分界=那期讲追踪规范，本期讲轨迹的完整性/口径/加工经济学/资产化/合规）
+- 本地新启用（两篇首次开采）：刘杨（蚂蚁）《从 Trace 到规模化实时评估》34 页——"有日志指标和完整 Trace 仍判断不了做对没做对"、L1/L2/L3 前缀白名单门禁+9 类 Span、接入周级→天级、DSL 表达式解耦评估器与埋点、fastText+正则粗筛 99% 流量 token 成本 -99%、置信度路由/三分类概率/规则拆解三条通用路径、MDP 首个非法转换归因、Session 边界判定（watermark/迟到修正/业务主键）；马云雷（阿里云）《让轨迹成为数字资产》25 页——轨迹五类衍生资产（质量验证/优化/训练/成本/组织洞察）、Dataset Item vN 三态（Candidate→Reviewed→Golden）、trace_ready/session_sealed 触发、Trace2X
+- 时点锚点（全在两周内）：OpenAI Decisions API GA（10-22，判定调用独立成 API、宣称 10x 快、0.10 美元/M 输入）——"便宜模型先判"从工程技巧变成 API 品类，判定市场与生成市场分离定价；Langfuse v4 断代（trace 级 judge 11-16 停止产出，强制迁 observation 级）；火山引擎 10 月全栈可观测上线"Agent 轨迹"+ArkClaw 事件级 token/缓存命中率；阿里 AgentCore（Code/LLM/Agent 三类 Judge+AgentLoop）；Google GEAP 双重归因日志（SPIFFE+人类身份同写、is_agentic=true 过滤）；Futurum 批判：Anthropic Managed Agents span 不含思考内容，"轨迹不能单独充当审计记录"；Ramp trace-scoring token -10~20%
+- 新提法：轨迹完整性 SLI（Span 到齐率/迟到乱序率/边界判定准确率/字段合规率）／判定预算／轨迹治理三权（写入=埋点门禁、读取=PII 分级、保留=快照冻结）／"轨迹→回归集"发版门禁／评测基础设施版本 pin
+- 关键数据：人审吞吐 50-100 条轨迹/小时 vs 采样 10-20%（langchain 口径）；Futurum 45% 记录智能体行为、12% 晋级前评估、75% 发生过 AI 参与事故
+- 对比表八方案六维（蚂蚁 AI Vision/阿里 AgentCore/火山 Agent 轨迹/Google GEAP/Anthropic OTel/OpenAI Agents+Decisions/W&B Weave/Langfuse v4）；判读=判定经济学上 OpenAI 产品化收租 vs 蚂蚁自建内化；审计归因只有 Google 正面作答；国内强"轨迹→资产"工程纵深、海外强"轨迹→评测"工具闭环
+- 有效方法：搜索"agent trajectory observability online evaluation"一次命中 Futurum/Langfuse FAQ/W&B 三条高密度源；火山动态查全栈可观测发布记录页（10 月表内藏 Agent 轨迹一级入口）；Google 查 clouddocs 可观测性概览页（双重归因细节远超新闻稿）
+- 字数：正文 2061 汉字一次达标（按 2600 预算写、只补不改策略连续第三期零删减）
+- 推送：报告+索引已 push（仅 add reports/）
+- 下期候选：轨迹完整性 SLI 的采集实现／判定预算的单位成本核算模板／Session 边界判定算法横评／评估器自身漂移的校准基准（judge-of-judge）／轨迹存储分层与冷热策略／双重归因在国内 IAM 体系的落地路径
