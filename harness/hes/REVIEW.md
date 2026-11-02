@@ -6,7 +6,7 @@
 
 Direction is sound. The problem definition, cost model, three gates, and efficiency-aware search are coherent enough to start P0/P1. The first executable slice is in this directory.
 
-This review does **not** claim that AgentTeam efficiency has been empirically improved. P0/P1 are decision and accounting foundations; P2–P4 remain.
+This review does **not** claim that AgentTeam efficiency has been empirically improved. P0/P1 are decision and accounting foundations; P2 is a deterministic runtime slice; P3–P4 and production integration remain.
 
 ## Scope
 
@@ -44,23 +44,37 @@ Also checked 5–7 and 10 for consistency with the above.
 | F7 | “30+ tasks” is too large for the first executable slice | Medium | Prototype uses 5 synthetic scenarios; a real suite remains a P0 exit criterion |
 | F8 | TeamHarness could look like a new domain concept | Low | Doc states it is a Registry artifact that compiles to TeamManifest/TeamRun |
 
-## What the P0/P1 prototype covers
+## What the P0/P1/P2 prototype covers
 
 - **P0**: `RunMetrics` → `EfficiencyVector`; append-only JSONL facts; derived `efficiency_summary.jsonl`.
 - **P1**: Team Necessity Gate with structural checks + history baseline + team premium; Minimal Team Compiler with capability coverage, lead/worker/verifier defaults, specialist insertion, size cap, edge budget.
+- **P2**: deterministic GraphRun/TeamRun scheduler (topological dependencies), Context Bus with global duplication accounting, structured Handoff validation/accounting, Coordination Budget with degrade-on-exceed.
 - **Scenarios**: simple bugfix (single), multi-file feature (team), security audit (team + specialist), research synthesis (5 roles), authority-sensitive deploy (single + human gate).
 
 ## Validation
 
-- `python -m unittest discover -s hes/tests -t . -v` → 14 tests, exit 0.
+- `python -m unittest discover -s hes/tests -t . -v` → 25 tests, exit 0.
 - `python -m hes --ledger runs/hes-demo.jsonl` → 5 decisions; 46 ledger facts; 5 summary vectors.
-- `python -m hes --json` → 5 results, JSON parseable.
+- `python -m hes --p2 --ledger runs/hes-p2-demo.jsonl` → 4 P2 runs; 173 ledger facts; 9 summary vectors; one tight-budget run degrades (`verifier` skipped).
+- `python -m hes --json` → results JSON parseable.
+
+## P2 implementation note
+
+The P2 runtime is a **deterministic scheduler with synthetic node work**, not a production Agent runtime. It demonstrates:
+
+- graph dependencies produce ordered node execution and structured handoffs;
+- Context Bus counts re-read context across roles, producing a real CDR;
+- Coordination Budget can stop scheduling and degrade quality instead of burning tokens;
+- every graph/node/handoff/context event lands in the efficiency ledger.
+
+It does not measure model quality, execute tools, or call an LLM.
 
 ## What remains open
 
 - Real TeamBench and hidden test runner.
 - Attribution of team quality to individual roles.
-- Runtime integration with GraphEngine / Mandate / effect gates.
+- Production integration with Ziyan GraphEngine / Mandate / effect gates.
+- Full sync/merge/status overhead accounting (P2 counts handoff tokens + context duplication).
 - Canary/rollback and policy integration.
 - Search loop (P3) and team performance library (P4).
 - Precise pricing of human attention and coordination.

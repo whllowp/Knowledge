@@ -7,7 +7,7 @@
 
 本文基于本地 `meta-harness-main` 的 README、ONBOARDING、reference_examples 与 Harbor pilot，以及工作区已有的 Harness²、dsh-superagent、Multica、Ziyan 材料。运行底座与领域模型见 [ziyan-harness.md](ziyan-harness.md)。  
 这是设计文档与实验计划，不是已完成的实现；文中的目标值是待校准的初始值，不是实验结果。  
-评审记录见 [`hes/REVIEW.md`](hes/REVIEW.md)，P0/P1 参考实现见 [`hes/`](hes/)。
+评审记录见 [`hes/REVIEW.md`](hes/REVIEW.md)，P0/P1/P2 参考实现见 [`hes/`](hes/)。
 
 ---
 
@@ -732,12 +732,18 @@ interface EvaluationPlan {
 
 ```text
 team.run.started
+graph.started
+node.started
+node.completed
 role.assigned
 handoff.sent
 context.fetched
+coordination.checked
+coordination.degraded
 node.wait.started
 node.wait.ended
 artifact.reworked
+graph.completed
 team.run.completed
 efficiency.measured
 ```
@@ -824,6 +830,8 @@ efficiency.measured
 | P4 复利 | 团队性能库、迁移、自愈/知识接线 | warm start 降低搜索成本；回归可自愈 |
 
 顺序不能反：**先能测量，再能决策，再能优化，最后才是自动搜索。**
+
+P2 的最小参考实现见 [`hes/runtime.py`](hes/runtime.py)：确定性 GraphRun/TeamRun、Context Bus、Handoff、Coordination Budget。它只验证调度与计量，不验证真实模型质量。
 
 ---
 

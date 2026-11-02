@@ -49,8 +49,6 @@ class EfficiencyLedger:
         run: RunMetrics,
         cost_model: CostModel | None = None,
     ) -> EfficiencyVector:
-        model = cost_model or CostModel()
-        vector = EfficiencyVector.from_run(run, model)
         self.record(
             "team.run.started",
             run=run_id,
@@ -79,6 +77,16 @@ class EfficiencyLedger:
         for role in run.roles:
             for _ in range(role.rework_count):
                 self.record("artifact.reworked", run=run_id, role=role.role)
+        return self.record_aggregate(run_id, run, cost_model)
+
+    def record_aggregate(
+        self,
+        run_id: str,
+        run: RunMetrics,
+        cost_model: CostModel | None = None,
+    ) -> EfficiencyVector:
+        model = cost_model or CostModel()
+        vector = EfficiencyVector.from_run(run, model)
         self.record("team.run.completed", run=run_id, quality=run.quality)
         self.record("efficiency.measured", run=run_id, vector=vector.to_dict())
         self.vectors.append({"run": run_id, **vector.to_dict()})
