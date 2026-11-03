@@ -729,3 +729,11 @@
 - 判读：注入层位置成流派分野（HTTP 中间件/协议感知/平台内建）；注入目录覆盖率与演练通过率无一家做成常驻 SLI=第十四个市场空白；三条最小落地=模型降级演练/污染传播演练/策略路径 fail-closed 演练；OTel 方向 fault_injection.* span 家族
 - 注意：kwkr.cn / aitutorialmaker.com 命中为 AI 内容农场未采信；腾讯网与腾讯云社区两篇为二手工程实践，机制可引、内部数据无原始出处只作定性
 - 下期候选：注入目录版本化与退役机制／污染传播三指标（检测时延/触达范围/清除时延）采集口径／fail-closed 演练 YAML 模板／fault_injection.* OTel 提案／韧性分数进采购的合同条款设计／重试风暴聚合模型
+
+## 第 57 期（2026-11-03 23:00）· 指令面（说明书面）运维——AGENTS.md 是智能体读得最勤、组织审得最少的文件
+- 主线：随仓库分发、每会话必装的指令文件（AGENTS.md/CLAUDE.md 等 12+ 载体）成为一等运维对象（第四十八条主线；与 23 期分界=那期管 MCP/Skill 装进前审核，本期管指令文件本体生命周期；与 30 期分界=那期管 runbook 腐烂，本期管"忠实执行反而变贵"的实证反转）
+- 时点锚点：AAIF（Linux 基金会）10-22 收编 Agent Skills/Open Responses/OpenEnv/OpenSandbox（一年 3→10 项目、300+ 成员；AGENTS.md 60k+ 项目、OpenAI 仓库 88 个嵌套文件）+ ETH Zurich arXiv:2602.11988 AGENTbench（LLM 生成指令文件成功率 -0.5~-2pp、成本 +20~23%；人工 +4pp 但 +19% 成本；去掉 repo 文档后生成文件反超 +2.7%）+ SkillsBench（人工策划技能 +16.2pp vs 自生成 0）+ Vercel 1-27 评测（未点名技能 56% 从未被调用）
+- 新提法：忠实执行税（太听话=2.45~3.92 步/推理 token +14~22%）／指令解析链不可观测（无 span 记录装了什么/多大/被谁覆盖）／自生成悖论（/init 默认产出负收益文件）／指令漂移（27 期 tools_changed 指令面镜像）／大小预算硬编码（Codex 32KiB/Anthropic 200 行/Augment 100-150 甜点）／覆盖顺序即语义（最近者胜+聊天最高，各家裁决不一）／指令是最便宜投毒载荷（49 期合流）／指令文件健康度四 SLI=第十五个市场空白
+- 有效方法：agents.md 官网 FAQ 一次给出全部规范语义；AAIF 公告走 mezha/technologypulse 双源；ETH 论文经 stacksweep/mcp.directory/agentic-academy 三家转述交叉取数（含 AGENTbench 138 任务/4 智能体口径）；中文六工具 SSOT 分发走 CSDN
+- 推送：报告+索引已复制至 E:/Knowledge/Knowledge/reports/ 并 push（分支以仓库当前为准，仅 add 两个文件）
+- 下期候选：instructions_loaded span 家族 OTel 提案草案／指令文件过期条目的静态扫描（与重构提交 diff）／三层冲突裁决矩阵跨厂商对照／指令采纳成本 A/B 度量设计／AAIF Agent Skills 安全指引 track 跟踪／SSOT 同步漂移检测
