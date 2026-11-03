@@ -642,3 +642,15 @@
 - 新提法：求助载荷交接（AI Operator 调查史合成投递、接手不从零开始）/提案式求助（Better Stack 求助需审批→求助审批链成新依赖）/策略侧强制求助（STAROps HIL 拦截）/求助 SLI 四指标（错求助率/漏求助率/载荷充分率/响应时延）/废弃队列（正确触发指向无人队列=失败）/接收侧信任折旧/可避免求助=知识债免费清单（联动 30 期）
 - 判读：求助载荷无跨厂商 schema（Google 私有格式）；四项求助质量指标无一家公开披露=市场空白；客服侧度量词汇（重开率/可避免求助率）领先运维侧
 - 主要来源：lottolenghi（Anthropic 中断分布转引）/goo.gle AI in SRE/Better Stack docs/阿里 STAROps 概览/vida.io/superkind/aifrontierpost/vibraniumlabs/bytejournal
+
+## 第 49 期（2026-11-03 12:00）· 对抗面（输入完整性面）运维——遥测是证据，还是指令载体？
+- 主线：输入的"可信性"成为一等运维对象（第四十条主线；与 36 期分界=那期管遥测作为原料的成本/质量/所有权，本期管原料会不会同时是指令载体；与 23 期分界=那期管供应链（装进来之前），本期管运行时数据通道（装进来之后读到的每个字段）；与 34 期分界=那期管确定性边界的构造，本期管边界之外输入侧的信任标注）
+- 时点锚点：USENIX Security '26（8-14）AIOpsDoom/AIOpsShield（存储完整性≠字段完整性、对抗性奖励劫持绕过 PromptShields/PromptGuard-2、89.2% 成功/GPT-4o 97% 易感）+ Straiker Escape from Pod 9（8-24，单个 HTTP POST→伪造 OTEL 告警→特权容器→宿主逃逸→勒索 20 分钟，无漏洞无补丁）+ Ghostjacking（DEF CON，被拦请求原样进日志，Claude Code 9/10）+ 永安/FIDES+OWASP Agentic/LLM Top 10 2026 + Forever Security（11-02，恶意 AGENTS.md 让 Codex 90%+ 遵循并篡改全机 MCP 配置）
+- 核心新提法：证据与指令载体同体／存储完整性≠字段完整性／对抗性奖励劫持（不像攻击的攻击）／被拦截的攻击进入最被信任的日志／检索阻塞=可用性攻击／完整性标签自动传播（FIDES）／"信息来自谁，权限降为谁的权限"（NCSC）／propose-commit 的国内对应物（173 库 casa 首次开采："人决定做什么，AI 交回可查证据"）／输入信任边界 SLO 三指标（字段标注覆盖率·净化误删率·canary 对抗重放通过率）
+- 对比表十方案六维（防护位置/输入信任标注/遥测净化/默认开启/对抗评估数据）：Google Model Armor、微软 FIDES、AWS Guardrails+AGENTSEC08、Splunk deny-first、Datadog AI Guard 四挂载点、PagerDuty 活体故障注入+污染扫描、腾讯云/阿里云/火山、AIOpsShield
+- 判读："证据-解释-权限三者分离"无一家产品化=继 38/39/43/44/45/47 期后第七个市场空白，AIOpsShield 已证明低成本可行；AWS 自认 Bedrock Guardrails 默认不评工具 I/O（用户输入防得严、工具输出/检索/记忆裸奔）；展望 telemetry provenance 进 OTel 语义约定（与 47 期"边没有标准"同构）
+- 本地素材：casa《AI 时代的一人公司》笔记首次启用（173 库 31 篇中最后一个文本可提取且从未用过的主篇目之一）
+- 有效方法：domain_search 对"AI 运维智能体提示注入与遥测投毒"单发拿回论文+演示+厂商+标准四层完整证据链，是本期主力；腾讯新闻可作安全研究中文首发转载源（11-02 Forever Security）
+- 注意：hqwc/sheratonhq/lpqz 本期在"agent 安全"三组检索中再次大面积命中（含伪造的检测脚本细节），一律未采信；微软 FIDES 与 OWASP 榜单细节经多源综合，URL 待逐条核实已在来源中标注
+- 推送：报告+索引已复制至 E:/Knowledge/Knowledge/reports/ 并 push（仅 add 两个文件）
+- 下期候选：净化误删率的标定方法（诊断上下文 A/B 对比）／canary 回归进 CI 的实现／边界标签仿制攻防（自适应攻击）／检索阻塞的拒答风暴率 SLI／telemetry provenance OTel 提案跟踪／AGENTS.md/CLAUDE.md 类磁盘指令文件的信任分级
