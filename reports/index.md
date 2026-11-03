@@ -711,3 +711,12 @@
 - 建议：配置护照四字段（agent_id/变更层/期望态来源引用/回滚键）／豁免租约 TTL 二选一退出／ignoreDifferences 排除项清单进评审／配置面 SLO 四指标（漂移发现时延 p95/期望态覆盖率/PR 化率/回写率）
 - 主要来源：dev.to/aws-builders/微博·搜狐蓝鲸秋季发布/developer.aliyun.com/cloud.tencent.com/argo-cd.readthedocs.io/composio LaunchDarkly MCP/消费日报网腾讯 CloudQ/173 库周昕毅
 - 下期候选：配置护照字段落地顺序/ignoreDifferences 清单静态检查/期望态覆盖率采集口径/豁免租约 TTL 标定/配置层标注进 diff 报告的实现/配置投毒 canary
+
+## 第 55 期（2026-11-03 21:00）· 身份面（凭证面）运维——"谁在动手"决定一切证据的效力
+- 主线：agent 的出站身份与凭证成为一等运维对象（第四十六条主线；与 48 期求助面分界=那期管"索凭据 12%"这一求助载荷，本期管凭证本身的生命周期；与 49 期对抗面分界=那期管输入侧的指令载体，本期管出站侧"以谁的名义调用"；与 54 期配置面分界=那期管"改谁定义的正确"且指出 is_agentic 未进配置层，本期记录 Google 已把它做进 OAuth client 层；与 52 期三权分立分界=那期管授权的动作分级，本期管授权的载体）
+- 时点锚点（8 天硬截止）：10-12 Google 宣布 OAuth client is_agentic 标记、11-11 Workspace MCP 拒绝未标记客户端、11-12 既有客户端永久锁死（不可逆，Apps Script client ID 不可编辑无逃生门）+ MCP 2026-07-28 修订（OAuth 2.1 强制/PKCE/iss 校验/EMA/去 session/12 个月弃用期，野外 5 版并存）+ IETF WIMSE AI agent 适用性草案 + AIMS（SPIFFE+WIMSE+OAuth 组合，不发明新协议）+ NIST 概念论文 + CSA/Okta 剪刀差研究
+- 核心新提法：借用身份是行业默认态（生产 agent 跑在人的 token/共享账号/长期 AK 上，审计里只有人没有 agent）／委托与冒充分界线（RFC 8693 act claim，双主体进每个 token：subject 人+actor agent）／身份三层收敛（池=签发边界·身份=1:1 资产·短时 token=随会话，火山表述最直白且明文禁长期 AK/SK，删 agent 连带删身份=身份生命周期对齐资产生命周期）／凭证不出模型（vault/broker 四家同构：AgentCore token vault、火山四类 Provider、Google auth manager）／无会话化的代价（每请求执法+handle 即凭证："能被注入读到的 handle 就是凭证"）／secretless≠trustless（AWS IAM role 成新根）／sponsor 强制具名（Entra）／不可逆配置决策（is_agentic 11-12 锁死）／吊销演练时延（52 期恢复可复现率的身份镜像：可吊销性不能由当事人自证）
+- 对比表七方案六维（身份对象/agent 自身凭证/用户委托/第三方凭证托管/防冒充/迁移截止）：Entra Agent ID、AWS AgentCore Identity、Google SPIFFE 24h 证书、火山 AgentKit、MCP 2026 规范、Google is_agentic、IETF AIMS/WIMSE；判读=微软管目录治理/AWS 管出站凭证/Google 管密码学不可冒充/火山开箱即用；**跨云 agent 清单+赞助人+访问评审无一家提供=第十三个市场空白**（首个身份治理类空白）
+- 有效方法：Google Workspace 官方 release notes 是硬截止日最硬证据；火山中文文档直接给出三层概念表与"禁长期 AK/SK"明文；NHI Mgmt Group 三篇指南提供厂商文档核对口径（10-27）与共享凭证风险框架；dev.to 两篇分别给 MCP 2026 规范细节与 Entra fmi_path 双跳 token exchange 全流程
+- 注意：agentshield/avatier/zdnetinside/mm-ais 为营销型二手源，只借框架不引数字；"多数 agent 跑在借用身份"为 NHI 口径定性表述；15,465 个 MCP server 测绘为 9 月第三方分析，已标注口径
+- 下期候选：双主体审计四字段落地（日志层/配置层 is_agentic 同名跟进）／吊销演练剧本（owner 离场场景）／handle 纳入密钥审查的静态检查／委托链 act claim 传播的运维胶水（orchestrator→sub-agent）／借用身份占比的采集口径／2027-07 MCP 弃用迁移看板
