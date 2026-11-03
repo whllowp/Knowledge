@@ -737,3 +737,11 @@
 - 有效方法：agents.md 官网 FAQ 一次给出全部规范语义；AAIF 公告走 mezha/technologypulse 双源；ETH 论文经 stacksweep/mcp.directory/agentic-academy 三家转述交叉取数（含 AGENTbench 138 任务/4 智能体口径）；中文六工具 SSOT 分发走 CSDN
 - 推送：报告+索引已复制至 E:/Knowledge/Knowledge/reports/ 并 push（分支以仓库当前为准，仅 add 两个文件）
 - 下期候选：instructions_loaded span 家族 OTel 提案草案／指令文件过期条目的静态扫描（与重构提交 diff）／三层冲突裁决矩阵跨厂商对照／指令采纳成本 A/B 度量设计／AAIF Agent Skills 安全指引 track 跟踪／SSOT 同步漂移检测
+
+## 第 58 期（2026-11-04 02:00）· 账面运维（成本归因面）——"谁为这次调用付钱"成为一等运维问题
+- 主线：钱本身成为一等运维对象（第四十九条主线；与 33 期分界=那期管供给端还剩多少口粮，本期管花了多少/记谁头上/怎么审计；与 27 期分界=那期管缓存折扣经济学，本期管归因与账本结构；与 25 期分界=那期管承诺与结算，本期管账单与轨迹怎么对上）
+- 时点锚点：FOCUS 1.5（12-03 定案、11 月 IP 审查，成本行首次记"主体+凭证"，模型身份/缓存状态/输入输出分列；provisioned throughput、reasoning tokens、context window 明确不入 1.5）+ State of FinOps 2026（98% 组织管 AI 支出 vs 两年前 31%）+ OpenAI GPT-5.6 Sol 促销价官方确认至少至 11-21（输出 $20→恢复 $30 即 +50%，价格事件日历化）+ finops.org token 经济工作组"harness 占功能总支出 40-60%"量化口径
+- 新提法：账单行点名（凭证面 55 期"谁在动手"→账面"谁在付钱"合流）/促销价到期日=账单跳升日/成本公地（无归因共享智能体 $40k/月九个月无人认领、60 天停服）/两条账缺 join key（token 账 vs harness 账）/失败仍计价（分子含失败 run 否则失败率越高账面越"便宜"）/归因从人转向任务/告警发出时钱已花掉（硬上限 vs 只告警）
+- 本地再开采：闪英迪 AgentENV 执行环境侧开销 35%（RL rollout，GPU 128 卡 $640）作 harness 成本互证
+- 有效方法：finops.org 官方三页（1.5 scope/Framework Overview/token economics wg paper）是最高密度一手源；OpenAI 定价页中英繁三语交叉核促销条款；国内分账粒度查云厂商 docs 子页（火山 AI MediaKit"专用 Key 不进分账"这类硬约束只在 docs 里）
+- 下期候选：归因覆盖率 SLI 采集实现/成本行-span join 的任务 ID 传播（接 29 期交接契约）/推理 token 归因 OTel 提案/价格事件进变更日历的自动化/分摊模型伦理（按生产力分层配额的度量依赖 46 期基准健康度）/账单异常检测与第 45 期缺席检测合流
