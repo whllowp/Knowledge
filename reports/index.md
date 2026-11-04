@@ -893,3 +893,15 @@
 - 注意：GB/Z 185 发布日期两说（5 月 vs 6-26），引用时并列标注；百科来源仅作时间线锚定，正文以工信部解读+人民日报为准；Digest.Pro/TechTimes 数字为二手调研口径
 - 推送：报告+索引已复制至 E:/Knowledge/Knowledge/reports/ 并 push（含第 70 期遗留提交 61c30e7 补推成功）
 - 下期候选：agent.identity.* span 家族最小 schema／注册率采集实现（进程扫描×身份码对账）／身份码节点故障演练剧本／信誉记录双写一致性设计／三种决策模式×自治等级映射矩阵／自律公约"合规性测试"细则跟踪
+
+## 第 72 期（2026-11-04 17:00）· 对账面（身份-遥测对齐面）——治理发给的身份与遥测记录的身份，中间没有 join key
+- 产物：AI-SRE技术洞察-20261104-1700.md（正文约 2760 汉字，五章 + 八方案六维对比表 + 11 条来源）
+- 主线：身份在治理/遥测/审计三个世界用三套字典，对不上账是影子智能体存活的机制根源（第六十三条主线；直接深化第 71 期第二十七个市场空白"治理平面与可观测平面无对接"，给出字段级细化与采集实现）
+- 时点/硬素材：OTel semantic-conventions-genai 独立仓库（2026-06-12 随 v1.42.0 拆分，无 tagged release、schema URL TODO、全 Development、MCP 约定随迁、gen_ai.evaluation.* 与记忆 span 家族新增而身份字段最薄）+ IETF draft-klrc-aiagent-auth-00（2026-03，WIMSE/SPIFFE 双主体 client_id=agent/sub=user）+ RFC 8693 act/sub/may_act + AuthZEN + Red Hat 2026-06 全链演示 + SPIFFE SVID 实例级/分钟级 TTL
+- 最强工程证据：Datadog AI Gateway 429 拒绝发生在 tracing 中间件之前→span 标 unknown calling source 延迟排障→改 rejection telemetry 保留调用源——"Observability is incomplete if identity is lost at the point of enforcement"（强制点即断点）
+- 新提法：三套身份口径并排（SPIFFE 密码学实例级 / gen_ai.agent.id 自报自由串 / 审计 actor-delegator 事后记账）／遥测身份四缺（issuer/委托链/expiry/revocation 事件）／强制点即断点／三套粒度不可通约（实例级 vs 注册服务级 vs 会话级，影子智能体注册率 SLI 卡在映射无标准）／三段时间错配（凭证分钟/审计 90 天/合规数年）／对账本身需要第三个系统（观测税第三次征收）／evidence contract（Datadog 私有形态，业界最完整）／agent.identity.* 四字段最小提案（issuer/subject/delegation/credential_expiry）
+- 判读：标准三件套答"身份是什么"、OTel 答"动作怎么记"，中间的桥（身份状态变化进遥测）无一家内建；国内身份码体系管注册不进 OTel 同样为零
+- 建议：强制点前打点／agent.identity.* 自打点四字段／注册率对账月巡检（进程清单×注册表）／evidence contract 进采购条款
+- 本地 173/173-kb 无身份-遥测类素材（grep 零命中），纯联网
+- 注意：besthub 为转述站只借结构；Dash0/Honeycomb/Datadog/Lumenova 四条一手工程源交叉验证语义约定状态
+- 下期候选：agent.identity.* 四字段 OTel 提案起草／注册率对账脚本最小实现（进程扫描×注册表 diff）／强制点打点位置清单（网关/PDP/审批/网关前置）／三段时间错配的取证方案（凭证过期后 span 追认）／evidence contract 采购条款模板／genai 独立仓库首个 tagged release 跟踪
