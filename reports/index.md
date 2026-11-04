@@ -866,3 +866,15 @@
 - 有效方法：tianpan.co 单篇（2026-04-23）给出三级乘性框架与三组量化，是本期骨架；KVGov arXiv abs 页直取比值与 93% 论点；CVE 走 cvereports 拿代码级根因；厂商档位必须回官方 docs（火山 flex 页/阿里 DTU 页含"物理隔离 vs 逻辑隔离 vs 公池"对照表）
 - 注意：ainewstodays 类聚合站含编造细节（配额翻倍）未采；beri 的 OpenAI/Google 条款为搜索引擎索引转述已标注；ravoid 的 p95 数据来自 Artificial Analysis 二手口径已标核
 - 下期候选：邻接字段族进应用层埋点最小实现/隔离不变量测试用例集（工具续轮回归）/p99-p50 比值 SLO 标定/故意劣化登记簿 schema/长上下文邻接注入模板（进 56 期目录）/重算 token 记账科目
+
+## 第 70 期（2026-11-04 15:00）· 能耗面（电力面）运维——算力的可用性最终是电力的函数
+- 产物：AI-SRE技术洞察-20261104-1500.md（正文 2415 汉字一次成型，五章 + 七方案六维对比表 + 14 条来源）
+- 主线：功率/热量/电价作为一等运维约束（第六十一条主线；前 69 期全部在软件与认知层，本期首次下探物理层；与 69 期串扰面分界=那期问同分片谁挤我、本期问插头那一端；与 67 期依赖面分界=API 上游的合同与状态页 vs 电力上游的调度与削峰执行；与 33 期配给分界=token 口粮 vs 功率口粮）
+- 时点锚点：Vertiv Tokenomics 11-03（四指标：TPS/Tokens per Watt/TPD/TTFT，终极指标"每兆瓦每秒 Token"）+ NVIDIA Ian Buck OCP Summit 2026"AI 工厂是电网响应资产" + FERC 10-09 拒绝 PJM 削减优先接入 + 七部门 9-04 双化协同方案（800V HVDC/绿电直连/算电协同）+ Google 1GW 需求响应五家公用事业合同（3 月）+ AI Energy Management Alliance（9 月，Google+NVIDIA+Emerald AI）
+- 技术硬钩子：Festina（arXiv 2606.30391，energy-first 控制面 -56% 能耗 SLO 差<2%）+ ECO（AFD 配置优化 -40.5% 能耗 +20.7% 吞吐，"局部反转"陷阱）+ Erlangen 功率上限错觉（decode 受内存约束不足额定一半，cap 无效；SM 时钟锁定回收 32% decode 能耗）——"cap 已设、仪表已降"是遥测自述性陷阱的能耗版
+- 核心新提法：T0-T3 负载削减分级（T0 交互不可削且恰与电网峰同窗）/三种时钟错配（芯片年/机房两年/电网十年）/局部反转=35 期判据错觉的能耗版/灵活性必须可演示（EPRI DCFlex 计量信任）/削峰双刃（2024-07 北弗吉尼亚 60 座同时掉载 1500MW）/UPS 从备电变电网资产（Meta 10-15MW、微软亚秒频率响应）/第二十六个市场空白=能耗 SLI（tokens/watt、削峰参与率、削峰响应时延、电网事件告警路由）无一内建
+- 国内素材：算电协同首次写入 2026 政府工作报告+2026 绿色算力设施多维标准（PUE 换成能效+碳+水+绿电+上架率）+乌兰察布 0.32-0.36 元/度与词元成本 10-15%+腾讯赤峰 100% 绿电直供成本 -40%+冀北百兆瓦级算电协同调节
+- 有效方法：检索式 "data center demand response flexible load curtailment" 单发命中 Verdantix/OpenNash/ComputeLaw/Guidehouse 四条互补一手源；arXiv abs 页直取量化；国内政策查中国经济时报+腾讯网 DITExpo 双源
+- 注意：kwkr.cn 再次以"每瓦 Token"NVIDIA 文章命中（SEO 农场不引）；ai.chattools.top 聚合站未采（同类数字改用真灼财经）；Epoch/IEA/Dallas Fed 宏观数字为行业转引已标口径
+- 推送：报告+索引已复制至 E:/Knowledge/Knowledge/reports/ 并 push
+- 下期候选：tokens/joule 双相计量实现/削峰演练剧本（电网削减 25% 注入）/T0-T3 分级进容量规划模板/可演示灵活性采购条款 schema/OCP grid-aware 标准跟踪/绿电直连选址与算力布局联动
