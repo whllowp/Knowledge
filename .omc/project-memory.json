@@ -1,0 +1,82 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1793641711341,
+  "projectRoot": "E:\\Knowledge\\Knowledge",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "harness": {
+      "path": "harness",
+      "purpose": null,
+      "fileCount": 7,
+      "lastAccessed": 1793641711303,
+      "keyFiles": [
+        "CONTRIBUTING.md",
+        "harness-engineering-system.md",
+        "HARNESS2_SUMMARY.md",
+        "multica-architecture.html",
+        "README.md"
+      ]
+    },
+    "preview": {
+      "path": "preview",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1793641711305,
+      "keyFiles": []
+    },
+    "reports": {
+      "path": "reports",
+      "purpose": null,
+      "fileCount": 15,
+      "lastAccessed": 1793641711305,
+      "keyFiles": [
+        "AI-SRE技术洞察-20261102-0900.md",
+        "AI-SRE技术洞察-20261102-1000.md",
+        "AI-SRE技术洞察-20261102-1200.md",
+        "AI-SRE技术洞察-20261102-1300.md",
+        "AI-SRE技术洞察-20261102-1400.md"
+      ]
+    },
+    "harness\\docs": {
+      "path": "harness\\docs",
+      "purpose": "Documentation",
+      "fileCount": 12,
+      "lastAccessed": 1793641711307,
+      "keyFiles": [
+        "000-philosophy.md",
+        "001-domain.md",
+        "002-authorization.md"
+      ]
+    }
+  },
+  "hotPaths": [],
+  "userDirectives": []
+}
