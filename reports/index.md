@@ -978,3 +978,17 @@
 - 本地 173/173-kb：grep 证书/到期/过期/续期/凭证 仅命中 29 期"证照种类多"业务口径，非技术语义，未启用（纯联网）
 - 注意：LE 2026-03-17 mass revocation 演练与 Mozilla 年度演练要求经 certguard 二手转述；TWCA 数字为两家台媒一致转载（媒体口径）；github.com 双证案例为第三方工具作者自述；LE 64 天/45 天时间表出自服务商博客转述
 - 下期候选：到期台账最小 schema（四段主键+续期链路最后成功段）／runway 采集点与分桶完成率报表／expected_action_missing 负事件记录格式／续期五段打点与"下一张在路上"心跳探针／封网-到期交集检查器／401 禁止 fallback 的工具契约写法／SM2 证书链续期工具链现状盘点
+
+## 第 79 期（2026-11-06 03:00）· 编制面（席位面）运维——当智能体被写进值班表，"在编"的定义权落在了账单上
+- 产物：AI-SRE技术洞察-20261106-0300.md（正文 2993 汉字，五章 + 八方案六维对比表 + 29 条来源）
+- 主线：首次上探**组织会计层**（第七十条主线；第 70 期下探物理层，前 78 期均在技术语义/系统状态/认知层）；与 21 值班台（人的能力再生产）/58 账面（调用分摊给谁）/42 自治等级（允许到第几级）/55·72 身份·对账（身份是技术前提，编制是组织后果）/65 巡检面 逐条划界
+- 时点红利（最近 30 天同窗）：11-03 Honeycomb Personal/Team Agents 与 PagerDuty Paige **同日发布**、双双弃"工具"叙事改"同事"叙事（Paige "goes on call like any other responder"、virtual responder 进 escalation policy、低优事故不触达人类；Honeycomb 目标驱动常驻、confirmed/hypothesis、"autonomy grows as it earns it"）＋ 阿里 STAROps Agent_Day 10-10 生效（¥19/员工·自然日，创建即计费、删除才停、**未执行任务仍收费**，任务另按 AI_Credit）＋ Google Gemini at Work 10-08（独立 Workspace 账号/邮箱/通讯录、审计归因于 agent 而非人、子智能体独立身份、Cloud Billing 硬上限暂停）＋ 腾讯 10-29/30 CloudQ 升级与共创计划 ＋ 火山响应计划/专家 Agent 自定义 IAM 角色
+- 核心新提法：**"在编"有三种互不兼容的计量单位**（人·天＝阿里 Agent_Day／次＝PagerDuty AI Actions／小时＝Anthropic $0.08 session-hour）→ 定义权不在架构图在计价表／**闲岗不减薪 vs 空转也计费**（阿里闲时收费 vs Anthropic idle 免费）／**自付费回路**（按 AI Action 计费时 agent 自造的 runaway loop 逐次计费，"它越失控账单越准"）／**信任账本单调**（逐事故 earn 累积、事故非独立同分布、无降权/停职/复职接口；confirmed/hypothesis 标结论置信度不标授权信用）／**名册静态、实例动态**（Console 是首张商业化智能体花名册，但爆炸半径按实例数算、审批链按名字数算；virtual responder 仍 Early Access 而自动触发 7-31 已 GA＝名册滞后于能力）／**等效 FTE 幻觉**（40.29 FTE 隐含可替换，但智能体无离岗/交接/记忆连续性）／**签字的人没做过调查**（first responder 是 agent、incident owner 必须是人；postmortem 预填 owner/due date 若 owner 为 agent 则无人承担）／**能力上线了，编制制度还没上线**
+- 第三十三个市场空白：roster drift（在编数↔运行时实例对账差）/自造动作占比/信任账本降权率/席位↔动作换算偏差四项无一内建
+- 判读：美国平台派变现最强编制最弱（折叠进用量，无关系即无 owner）／阿里关系最清楚成本最钝（闲岗收费鼓励少建而非建好）／Google 审计最硬组织最重（发邮箱进通讯录最小权限）／国内平台派可控最好但编制挂在人的 IAM 上／模型层（Anthropic·OpenAI）无编制概念，其中立恰是上层自定义编制的原因；真正分野不在诊断分数（PagerDuty benchmark 为自跑、无第三方复核）而在三问＝具名 sponsor／授权升降依据／固定还是变动预算
+- 硬数据：PagerDuty Essential $12,000/年含 5,000 AI Actions/25 席、Plus $48,000 含 16,000/50 席、一次 Slack 提问 4 actions、额度按年未用作废；阿里 RCA 约 200 积分/$0.0016 每积分、¥19 或 USD 3 每人·日；$47,000/11 天循环"健康检查全绿"；$4,000/8 分钟、50→15,000 请求/min；agentic runaway 占 token 浪费最高 64%、O(K²)；NHI 预算只告警不刹车、计费数据滞后 8–24h
+- 建议：编制台账最小 schema（agent_id/human_sponsor/billing_unit/authority_tier+升降事件/max_instances/oncall_window）／双计量并行披露且动作侧放变动成本／`self_inflicted=true` 打标打破自付费回路／demotion 一等事件＋季度复职演练／名册×IAM×实例 diff 月巡检／等效 FTE 只作参考不作减员依据
+- 本地 173/173-kb：grep 编制/席位/工时/FTE/数字员工/轮值 仅命中 notes/22 肖汉松（阿福"小队"、3 人日修复、Harness→Loop），属多 Agent 协同非组织编制语义，未启用（纯联网）
+- 注意：Paige AI Actions 价目表经 rohitai 第三方整理非官方报价；PagerDuty/Honeycomb benchmark 与 76%/65% 调研均为厂商自述；Google Gemini 安全控制自述未经独立评估、经 krakatech/citreport 二手；$47,000 与 $4,000 为社区/厂商复盘案例；64%/O(K²) 为二手转述仅取机制；40.29 FTE 为第 1 期国内口径
+- 有效方法：「同日双发布」用厂商 newsroom＋官方文档定价页交叉，比新闻稿多拿一层计量单位证据；国内侧查阿里云帮助中心「产品公告/按量付费/常用名词」三页可一次拿全 Agent_Day 语义（这是本期最反直觉单源）；组织侧论点取 Sherlocks.ai + NHIMG + theaiops 三源互补
+- 下期候选：编制台账 schema 进 OTel genai 约定提案／`self_inflicted=true` 采集点最小实现／demotion event 四字段与复职演练剧本／Agent_Day 与 AI Actions 双口径成本对照表／临时子智能体"临时工"登记与存活上限／sponsor 具名化写入采购条款模板
