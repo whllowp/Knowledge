@@ -213,3 +213,18 @@
 - 关键事实：TokenPilot 2606.17016（浙大，6-15；连续模式降本 61%/87%，已并入 LightMem2）；Leyline 2606.01065（serving 端 KV 指令原语，RoPE 闭合修正；splice replay +11.2pp、−241ms；十行截断规则 debug-gym +14.3pp）；Execution-State Unlearning 2609.04875（记忆删除三套件泄露不降、指令式遗忘 Leak@probes=1.00、源涂黑 80% 仍作用于已撤销偏好）；CorpusIQ Hermes 生产实测（45k 字节稳定前缀 → 98.67% 命中；miss=每会话一次冷前缀 1.33%；DeepSeek 价差 50×，命中 98.7% 时账单=未缓存 3–4%）；OpenViking v0.5.3 网关逐字节重放保缓存+thinking signature（11-02）+ query-driven CacheFS（11-04）；MemHub v1.0.6 nightly evolve；TencentDB issue #120 缓存失效未解 + Agent Loadout 使前缀按 agent 分裂；文件轨在缓存轴意外占优（文件不重排=前缀天然稳定），三轨不可能三角新增评分：文件轨最稳、参数轨最险。
 - 判读：①竞争长出第三档位"结算层"——看分→看插座→看账单；②缓存最深的 Leyline 是纯论文、TokenPilot 非 memory 产品，记忆产品自己缺席（能力与产品倒挂第六次）；③同分系统在缓存轴可差 20×成本而 AML 看不见（评测缺口第七次同构）；④参数轨需重新论证（写一次参数=全员缓存作废）。
 - 下期候选：AML 二期榜单口径（11 月中，最高优先）/ injection_version 首个实现 / TTL-演化窗口相位差实测 / CacheBlend 类非前缀 KV 复用在记忆注入的适用性 / doc-ID 排序的质量损失基准
+
+## 第 15 期（2026-11-06 19:00）· 记忆的动作性——从"知道"到"会做"
+
+- 产物：`记忆技术洞察-20261106-1900.md`（正文约 2,850 汉字；五章 + 8 方案六维程序性对比表 + 13 条来源）
+- 与第 1—14 期的关系：前十四期全部默认"记忆是陈述"（被检索后回答"是什么"）。本期拿掉该前提，把"怎么做"独立成一等对象。直接承接第 12 期判读（程序性记忆权限是最大产品空位）并给出兑现证据；给第 1 期三轨加第四轨（技能轨）；给第 5 期价值可观测找一个天生可观测的类型。
+- 主线：**技能是记忆中唯一自带天然反馈信号的类型**——陈述性记忆的"有没有用"要人为构造观测（V0—V4，主流 V1—V2），技能每次调用直接对应任务成败，标签免费。治理化先发生在技能侧不是能力差异而是激励差异：信号在哪里，治理就在哪里。
+- 新框架（第十五批长期工具）：
+  - **两层技能化**：第一层经验→Skill（Zep / TencentDB / OpenViking / dsh-memory-evolve / 阿里云配对）；第二层记忆操作本身→Skill（MemSkill 元层，仅研究无产品）。
+  - **技能轨 = 冻结权重的参数轨**（三轨变四轨）：无梯度但有行为改变；Zep ALFWorld 小模型技能 ≈ 连续微调增益，零训练；与参数轨差别不在效果，在可逆性与可审计性。
+  - **技能治理四件套**：验证 → 门禁 → 使用效果遥测 → 回滚。仅 Zep 配齐前三（遥测改搜索排序为公开系统首例），回滚靠删源级联（第 3 期），全行业无人配齐第四件。
+  - **失败不对称律**：陈述错=答错一次；技能错=可重复做错，每次执行放大一次；撤销事实=改答案，撤销技能≠撤销行为路径。
+  - **覆盖率债**：只收 verified attempts → 无法自动验证的开放任务被系统性排除；验证越严，覆盖率债越大。
+- 关键事实：Zep Agent Skills 2611.01386（11-01；逐字段引用 Trace 事件、Reflector/Curator、admission gates、verified use outcomes 改排序；teacher→weak +4.5~18.8pp；ALFWorld 零训练≈连续微调；Agent Skills 格式由 Anthropic 捐 Agentic AI Foundation）；MemSkill 2602.02474（NeurIPS 2026，11-02 机器之心；四操作封装为 MemorySkills、Controller/Executor/Designer 闭环、RL 任务奖励；LLaMA→Qwen、LoCoMo→HotpotQA 免重训迁移；LLM 调用较 LightMem −70%）；TencentDB-Agent-Memory v2.0.3（Skill 导出、私有 Skill 可检索、提取捕获扩大、路线图 skill generation、29,264★）；TencentDBAgent 运维 Skill 四级权限（只读自动跑/变更需确认/高危拒绝，十万级工单沉淀）；OpenViking v0.5.3 Rules Beta（规则成为可检索层）+ skills 为三类上下文之一；阿里云 Memory 与 Skill 官方分工配对（11-02）；ReMe 自身以 reme_memory/SKILL.md 分发（预载 62 token / 调用 2,237）；Hy-Memory 2.0.13/2.0.14 working/coding 轨（轨迹→会话事实+可复用经验，版本链留被撤回版）；dsh-memory-evolve 技能自进化 vs dsh-continual-evolve 2026-11 起功能冻结（同名分化）；DSH v0.2.2-alpha.3（11-03，宿主级自动化+目标续跑）；AML 二期 11-04 关评测、11 月中出榜（11-06 未出），Coding 轨 CAMBench 12 仓库 150 任务 300 次计分。
+- 判读：①第 12 期"程序性记忆权限空位"判读已兑现一半，但落地在运维 Agent 而非记忆产品（能力与产品倒挂第七次）；②技能侧已有遥测而陈述侧全无门禁——对"会做"严于"知道"，方向正确但反向暴露陈述侧治理赤字；③写入侧独立化（第 1 期）的终点可能是写入侧技能化，产品侧仍硬编码四操作；④技能成为基金会标准后以包流通，投毒面大于陈述性记忆（第 12 期信任半径收缩为"共享技能包"）；⑤AML Coding 轨奖励经验复用却不测技能权限与回滚，会导致删库技能与平庸技能同分（评测缺口第八次同构）。
+- 下期候选：AML 二期榜单口径复核（11 月中，最高优先）/ 技能撤销后的行为残留实测 / verification strength 在开放任务的定义 / MemSkill 元层产品化 / 技能包投毒首个实测

@@ -354,3 +354,15 @@
 - **注入格式锁定**（第二个单向门）：thinking signature 依赖逐字节重放 → 保缓存即锁死注入布局；与第 13 期"换嵌入模型是单向门"并列：换嵌入模型贵、换注入布局同样贵。
 - **三轨缓存评分**（第 5 期不可能三角新增一条）：文件轨最稳（文件不重排=前缀天然稳定，ReMe reindex 显式重建）；分层轨居中（夜间演化窗口）；参数轨最险（写一次参数 = 全部活跃会话 system 段全变）。
 - **待验证 68–72**：68. injection_version / 确定性排序键在主流记忆 SDK 的首个实现；69. TTL（5min/1h）与记忆演化窗口（24h）的相位差实测；70. CacheBlend 类非前缀 KV 复用对记忆注入的任务质量影响；71. doc-ID 排序相对相关性排序的质量损失基准（现有评测均不测）；72. AML 三期是否引入缓存/成本效率维度（评测冷启动命中为零，榜单分数不反映真实账单）。
+
+## 五之七、程序性记忆与技能化事实（第 15 期新增，2026-11-06 19:00）
+
+- **两层技能化**：L1 经验→Skill（产品已落地）；L2 记忆操作本身→Skill（仅 MemSkill 研究，无产品）。
+- **技能治理四件套**：验证（verified attempts）/ 门禁（scan + admission）/ 使用效果遥测（use outcome 改排序）/ 回滚（删源级联）。Zep 前三件配齐，第四件靠级联删除，无人显式实现"技能撤销后的行为残留清除"。
+- **关键数值**：Zep teacher→weak executor +4.5~18.8pp（τ³-bench banking / AppWorld / EnterpriseOps-Gym，各档 reasoning effort 均成立）；ALFWorld 小模型技能增益 ≈ 连续微调（零训练）；MemSkill 较 LightMem LLM 调用 −70%，Top-7 技能组合优于 3/5；token 成本 ReMe reme_memory 预载 62 / 调用 2,237。
+- **权限首个产品实现**：TencentDBAgent（腾讯云数据库运维向，非记忆产品）四级：只读自动跑 / 变更需确认 / 高危直接拒绝；十万级工单沉淀为 Skill。第 12 期"程序性记忆权限是最大空位"判读兑现一半。
+- **资产化现状**：TencentDB-Agent-Memory 四资产（Chat Memory/Skill/Wiki/CodeGraph）+ Skill 导出 + 私有 Skill 可检索 + 路线图 skill generation；OpenViking skills 为三类上下文之一，v0.5.3 增 Rules Beta（openviking_rule_search，规则可检索）；阿里云 Memory 官方配对 Skill（Memory 存画像 / Skill 封装流程 / 执行时调最新画像）；Hy-Memory working+coding 轨输出"会话事实 + 可复用经验"，coding 版本链保留被撤回版本；dsh-memory-evolve 技能自进化 + 人工闸门 + 分支作用域。
+- **同名分化**：dsh-memory-evolve（持续更新）vs dsh-continual-evolve（2026-11 起功能冻结，仅安全修复；模型提议 + 代码门禁 + 单写者 SQLite）——引用时须区分仓库。
+- **标准层**：Agent Skills 格式源自 Anthropic，已捐给 Agentic AI Foundation，任何宿主可加载；检索走词法搜索 + progressive disclosure（API/MCP）。
+- **AML Coding 轨口径**：CAMBench Coding，12 仓库、150 任务、relevant/noisy 两种记忆条件、300 次计分；考"历史经验复用"。二期 11-04 关评测、11 月中出榜（11-06 未出）。
+- **待验证 73–77**：73. "技能撤销后行为残留"的首个实测（含 KV 与提示词双残留）；74. verification strength 在无法自动验证的开放任务中的定义方式；75. 技能库与 CodeGraph/Wiki 是否合并为同一资产层；76. 技能包（基金会标准分发）投毒的首个实测 ASR；77. AML 三期是否引入技能权限/G 类执行维度。
