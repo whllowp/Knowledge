@@ -320,3 +320,25 @@
 59. 群体背书的失效边界：co-scaling 在"多数人已持同一错误"分布下的反转点（模拟与实测）。
 60. 读时鉴权（不复制权限表）在记忆系统的落地成本：每查询一次源权限校验的 p95 增量。
 61. AML 三期是否引入越权/跨主体维度（若仍无，半径能力将长期无分数回报，与弃答/冲突/时效/时延同构）。
+62. MemHub v1.0.6 "safe embedding-model switching" 的实现细节：是否双索引过渡、切后阈值如何重标定、图/缓存层是否同步重建。
+63. TencentDB 路线图 portable memory 的具体形态：是否携带血缘字段与 ID 映射，是否覆盖云向量后端的数据搬迁。
+64. 全库重嵌入的实测价格曲线：$160/8B token 是算例，缺真实库的批价+停机窗口数据（SciXa 模型 vs 实测）。
+65. PAM 类签名协议的首个生产采用：MCP 工具 pam_export/pam_import 有无真实产品接入（当前零）。
+66. 交换格式之争的收敛路径：.vmig.jsonl（Vex）与 PAM artifact 谁先进主流产品；MCP 社区会否出现记忆导出标准提案。
+67. 嵌入模型退役的真实频率：近 24 个月主流 embedder 的 deprecation 记录（"按供应商日程强制迁移"的量化）。
+
+## 五之五、记忆可搬迁性事实（第 13 期新增）
+
+- **嵌入空间绑定律**：向量只对产出它的模型有效；换 embedder = 全库向量作废。三选一：全量重嵌 / 冻结旧索引（形成按年龄分层的两级记忆，检索质量静默依赖记录新旧）/ 迁移窗口双索引（存储翻倍 + 每查询多一步融合）。
+- **重嵌入是资本事件**（SciXa 成本模型）：月写 8,000 万 token 的库重嵌全库 8B token ≈ $160，相当于一次预付 27 个月的写路径账单；应按折旧摊销入容量规划，而非当事故。
+- **不可推导性定理**：文档语料可重建（源文件在），记忆库通常不可推导（源会话可能已按保留策略丢弃 + 抽取含不可复现模型调用）→ 换嵌入模型是单向门。焊死门的两种习惯：存摘要而嵌入另一字符串；只存指向短保留期日志的引用 ID。解药一行 schema：原文与向量同存。
+- **相似度阈值不迁移**：分数不跨嵌入模型可比，切换后全部阈值需重标定，否则"要么全收要么全拒"。
+- **产品化首个信号**：MemHub v1.0.6（11-02，hy-memory==2.0.13）"safe embedding-model switching" 写进 release notes；MemHub 恰是唯一把 L1 原文做成不可删地的方案——"原文随存"与"可切换"共享同一前提。
+- **大厂路线图背书**：TencentDB Agent Memory v2.0.3 稳定版（10-26）路线图把 portable memory 与技能生成、可观测面板并列为下三件事；29.3k★（11-04，tomrochette 口径）；issue #120 prompt 缓存失效未解。
+- **格式层两个候选**：Vex .vmig.jsonl（每行 text+vector+model+dims+namespace+metadata+时间戳，"向量记忆没有 JDBC"）；微软 Portable Agent Memory（arXiv 2605.11032：五组件模型 + Merkle-DAG 血统 + 能力令牌 + 抗注入再水化 + MCP 工具；跨 GPT-4/Claude/Gemini Transfer Continuity 0.83–0.92 vs 无记忆基线 0.28–0.45；pam-sdk 2,500 行 54 测试）。
+- **身份税**（承接第 3 期）：迁移脚本普遍丢 metadata/namespace/时间戳/血缘边，"拿到向量、丢掉意义之图"。
+- **成本算术**（Kunavo，Agent Zero 换嵌入模型）：3M token 重建 $0.06（3-small）–$0.30（ada-002）；30M token $0.60–3.90；**回滚=同费率第二次重建**；恢复（restore）不计费但按量再重建。
+- **企业共识句式**："own the context, rent the model"——厂商记忆功能可当缓存、不可当 system of record（Kai Waehner Q3 景观报告）；嵌入向量被点名"不保留源数据就无处可重嵌"。
+- **锁定无合同化**：不做任何绑定动作，锁定随库存线性加深——"记得越多，改变记忆方式越贵"；vendor deprecation = 按供应商日程的强制迁移。
+- **评测缺口（第六次同构）**：AML 三赛道（Textual/Coding/Multimodal）无一考察迁移/切换/连续性维度。
+- **首期榜单基线**（官网口径，供纵向对比）：MemoraX 58.02 / MemOS 45.89 / NTES-SMART 44.21 / AML-Eval-FLASH 43.65 / Cognee 42.61 / NTES-MQ-LAYER 42.11 / TencentDB 41.48（v2.0.0 Evaluated）/ Mem0 41.40；AML 二期 11-04 关评测、11 月中出榜（11-06 未出，CSDN 预热确认多模态为新变量）。

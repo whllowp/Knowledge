@@ -181,3 +181,18 @@
 - 关键事实：PerMIT（10-20，Stony Brook+AWS；Lean 4 机器验证两条完整性定理；Trojan Hippo 零 ASR；τ²-bench 90 agent 共库；community-confirmed co-scaling）；Airlock（2611.06727，11-04；1,832 testbed+161 真机+24,266 仿真；A2A/LangGraph 原生最多容纳 33.3% 故障或保住 16% 健康工作；Airlock +68~96pp，优化割比全隔离 +46pp）；2610.25707（10-19；AppWorld 单库混 763 条登录 → 84.7% 可取得他人凭证，但极少被使用；加一行 owner 标注阻断多数；"测行为不测暴露"）；GateMem MGS=U×(1−A)×(1−F) 无一方案三项全高；Governed Memory 泄漏 −91%/不一致 −67%（3 案例）；A-MemGuard ASR −97%、间接 −60%、多 agent 0.950；FARMA 2607.05029 伪造推理痕迹 EHRAgent ASR 100%；OWASP Agentic Top 10 (2026) ASI-06 点名共享存储放大效应；Databricks"actor_id 不是 ACL，存储才是边界"；浪潮 Agent DataSpace 把 KV Cache/Memory 可控共享与隔离下沉存储层 + WORM 保险箱；Maximem "never below, never sideways"；Sentra 读时鉴权；MemArena 权限感知全部失败（复用）。
 - 判读：①隔离粒度下移（应用 scope → 存储卷），与第 6 期"接入层上移"方向相反；②缺的不是 ACL 而是 owner 字段，故"归属优先于权限"；③最好的半径能力仍在非产品侧（第五次）；④暴露不可计分 → 无人投入（第五次口径缺口：弃答/冲突/时效/时延/越权）；⑤程序性记忆权限是最大产品空位。
 - 下期候选：AML 二期出榜口径复核（11 月中，最高优先）/ taint dwell time 首个指标 / Skill 类资产权限表首例 / 最小割在双向图上的代价实测 / owner 字段进入 MCP 记忆工具 schema
+
+## 第 13 期（2026-11-06 16:00）· 记忆的搬迁——锁定不在合同，在嵌入空间
+
+- 产物：`记忆技术洞察-20261106-1600.md`（正文约 2,900 汉字；五章 + 10 方案六维可携性对比表 + 21 条来源）
+- 与第 1—12 期的关系：第 6 期"可携性梯度"（声明层可携、运行基底不可携）的纵深下钻——插座解决"进得来"，本期证明真正锁定在**嵌入空间**："换库是搬家，换嵌入模型是换语言"。与第 3 期身份税（血缘断裂）、第 5 期成本三段（重嵌入=资本事件）正交衔接。
+- 主线：**记忆不可推导 → 换嵌入模型是单向门**。文档语料可重建（源在），记忆库通常不可推导（源会话已按保留策略丢弃 + 抽取不可复现）。
+- 新框架（第十三批长期工具）：
+  - **嵌入空间绑定律**：向量只对产出它的模型有效；三选一（全量重嵌 / 冻结旧索引=年龄分层两级记忆 / 双索引窗口）。
+  - **迁移税三段**：格式税（无 JDBC 无 Parquet，Vex .vmig.jsonl 首个交换格式）/ 重算税（8B token ≈ $160 = 27 个月写路径账单，按折旧摊销）/ 身份税（metadata/namespace/时间戳/血缘边丢失）。
+  - **不可推导性定理** + 解药一行 schema：**原文与向量同存**（焊死单向门的两种习惯：存摘要嵌另一串；只存指向短保留期日志的 ID）。
+  - **阈值不迁移**：相似度分数不跨嵌入模型可比，切换后全部阈值重标定。
+  - **锁定无合同化**：不做绑定动作，锁定随库存自动加深——"记得越多，改变记忆方式越贵"。
+- 关键事实：MemHub v1.0.6（11-02）safe embedding-model switching 首次产品化（且 MemHub 恰是唯一把 L1 原文做成不可删地的方案，两能力共享前提）；TencentDB v2.0.3（10-26）路线图把 portable memory 列为下三件事之一；微软 PAM 协议 2605.11032（Merkle-DAG 血统 + 签名 artifact，Transfer Continuity 0.83–0.92 vs 基线 0.28–0.45，MCP 工具 pam_export/import）；Vex .vmig.jsonl；Kunavo Agent Zero 换嵌入模型算术（3M token $0.06–0.30，回滚=同费率二次重建）；"own the context, rent the model" 成企业共识句式；AML 二期 11-04 关评测、11 月中出榜（11-06 未出），首期基线 MemoraX 58.02 / TencentDB 41.48 / Mem0 41.40。
+- 判读：①评测缺口第六次同构（迁移/连续性无分数回报）；②"原文随存"与"嵌入可切换"共享同一前提，能力会成对出现；③格式层 JSONL 阵营（Vex）vs 签名 artifact 阵营（PAM），更简单的先赢；④腾讯两团队分工：一个承诺导出（TencentDB），一个实现切换（MemHub）。
+- 下期候选：AML 二期出榜口径复核（11 月中，最高优先）/ MemHub 安全切换实现细节（双索引？阈值重标定？）/ TencentDB portable memory 是否含血缘字段 / 全库重嵌入实测价格曲线 / PAM 协议首个生产采用
