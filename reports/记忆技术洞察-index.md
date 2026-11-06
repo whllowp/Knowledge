@@ -228,3 +228,13 @@
 - 关键事实：Zep Agent Skills 2611.01386（11-01；逐字段引用 Trace 事件、Reflector/Curator、admission gates、verified use outcomes 改排序；teacher→weak +4.5~18.8pp；ALFWorld 零训练≈连续微调；Agent Skills 格式由 Anthropic 捐 Agentic AI Foundation）；MemSkill 2602.02474（NeurIPS 2026，11-02 机器之心；四操作封装为 MemorySkills、Controller/Executor/Designer 闭环、RL 任务奖励；LLaMA→Qwen、LoCoMo→HotpotQA 免重训迁移；LLM 调用较 LightMem −70%）；TencentDB-Agent-Memory v2.0.3（Skill 导出、私有 Skill 可检索、提取捕获扩大、路线图 skill generation、29,264★）；TencentDBAgent 运维 Skill 四级权限（只读自动跑/变更需确认/高危拒绝，十万级工单沉淀）；OpenViking v0.5.3 Rules Beta（规则成为可检索层）+ skills 为三类上下文之一；阿里云 Memory 与 Skill 官方分工配对（11-02）；ReMe 自身以 reme_memory/SKILL.md 分发（预载 62 token / 调用 2,237）；Hy-Memory 2.0.13/2.0.14 working/coding 轨（轨迹→会话事实+可复用经验，版本链留被撤回版）；dsh-memory-evolve 技能自进化 vs dsh-continual-evolve 2026-11 起功能冻结（同名分化）；DSH v0.2.2-alpha.3（11-03，宿主级自动化+目标续跑）；AML 二期 11-04 关评测、11 月中出榜（11-06 未出），Coding 轨 CAMBench 12 仓库 150 任务 300 次计分。
 - 判读：①第 12 期"程序性记忆权限空位"判读已兑现一半，但落地在运维 Agent 而非记忆产品（能力与产品倒挂第七次）；②技能侧已有遥测而陈述侧全无门禁——对"会做"严于"知道"，方向正确但反向暴露陈述侧治理赤字；③写入侧独立化（第 1 期）的终点可能是写入侧技能化，产品侧仍硬编码四操作；④技能成为基金会标准后以包流通，投毒面大于陈述性记忆（第 12 期信任半径收缩为"共享技能包"）；⑤AML Coding 轨奖励经验复用却不测技能权限与回滚，会导致删库技能与平庸技能同分（评测缺口第八次同构）。
 - 下期候选：AML 二期榜单口径复核（11 月中，最高优先）/ 技能撤销后的行为残留实测 / verification strength 在开放任务的定义 / MemSkill 元层产品化 / 技能包投毒首个实测
+
+## 第 16 期（2026-11-06 20:00）· 记忆的冷启动——零记忆时刻
+
+- 产物：`记忆技术洞察-20261106-2000.md`（正文 2,491 汉字，一次成型无返工；五章 + 8 方案七维冷启动对比表 + 17 条来源）
+- 与第 1—15 期的关系：拿掉最后共享预设——**记忆库非空**。写入/删除/并发/时延/缓存/技能治理都发生在"有记忆"之后；本期证明第一性问题在装机时刻：记忆从哪来。
+- 主线：**导入是"第二次写入"，批量绕过全部在线治理**。导入条目=无出生证明的记忆（无会话/事件链/并发上下文/作用域，比原生写入少两维且不可补）。
+- 新框架（第十六批长期工具）：**零记忆时刻** / **来源三径**（导入=考古过去、自生成=无中生有、内化=不需要库）/ **无出生证明定理** / **注销爆量**（valid_from 语义断裂 → 只能整批重建）/ **导入能力与治理能力负相关** / **冷启动三问**（导入什么/给谁/可否撤销）。
+- 关键事实：11 月第一周四家同做导入（OpenViking v0.5.3 onboarding+history import script / MemHub v1.0.6 多宿主汇入 / TencentDB cold-start import preview / ReMe auto_memory）；DAEDALUS 2610.08048（自生成任务练功，反复成功才接受，+15.9pp/pass^5 2.2×，成本闭合未证明）；Route to Remember 2611.05636（OPSD 内化+verify-then-regenerate 路由，HaluMem 追平文本轨且每查询 token 更少——参数轨首次追平但放弃注销）；FlyHash 2611.05791 负结果（HNSW 常规规模支配哈希）；Hy-Memory 论文评测协议"从空状态自建+跨窗口携带"；AML 二期 11-04 关评测、11 月中出榜（11-06 未出）、新增多模态轨；OpenViking 41.6K★+11-04 CacheFS/ACL 哨兵；ReMe HVTrust 89.0 居类第一；TencentDB 28,887★（口径冲突标注）。
+- 判读：①接入层战争（第 6 期）之后是导入战争——采购新变量从插座覆盖变开箱记忆量；②导入与治理负相关：口子越大，无出生证明占比越高，第 12 期信任半径被导入放大 N 倍；③DAEDALUS 把技能验证闸门前移到冷启动本身（倒挂第八次）；④内化路径复活但与注销死结同现——稳定与可撤销不可兼得（第 2 期×第 14 期×本期交汇于参数轨）；⑤空状态评测协议使冷启动质量长期不可见（评测缺口第九次同构）。
+- 下期候选：AML 二期榜单口径复核（11 月中，最高优先）/ 导入出生元数据首例 / DAEDALUS 成本闭合实测 / OPSD 换人重训成本 / valid_from 重建方案

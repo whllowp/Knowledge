@@ -366,3 +366,18 @@
 - **标准层**：Agent Skills 格式源自 Anthropic，已捐给 Agentic AI Foundation，任何宿主可加载；检索走词法搜索 + progressive disclosure（API/MCP）。
 - **AML Coding 轨口径**：CAMBench Coding，12 仓库、150 任务、relevant/noisy 两种记忆条件、300 次计分；考"历史经验复用"。二期 11-04 关评测、11 月中出榜（11-06 未出）。
 - **待验证 73–77**：73. "技能撤销后行为残留"的首个实测（含 KV 与提示词双残留）；74. verification strength 在无法自动验证的开放任务中的定义方式；75. 技能库与 CodeGraph/Wiki 是否合并为同一资产层；76. 技能包（基金会标准分发）投毒的首个实测 ASR；77. AML 三期是否引入技能权限/G 类执行维度。
+
+## 五之八、记忆冷启动与导入事实（第 16 期新增，2026-11-06 20:00）
+
+- **零记忆时刻**：前十五期共享最后预设"记忆库非空"；记忆系统的第一性问题在装机时刻——记忆从哪来。三条路径：**导入（考古）/ 自生成（造历史）/ 内化（不需要库）**。
+- **无出生证明的记忆**：导入批量绕过全部在线治理件（写入闸门/血统/owner/作用域）；导入条目缺会话、事件链、并发上下文——比原生写入少两维且不可补（第 9 期不可补性定理的导入版）。
+- **注销爆量**：墓碑三字段对导入条目缺 valid_from 正确语义（导入时点≠事件时点），删除权行使只能整批重建。
+- **产品导入首波（11 月第一周四家）**：OpenViking v0.5.3 post-install onboarding + history import script；MemHub v1.0.6 多宿主（Claude Code/Cursor/Codex/OpenCode/Qwen Code）历史与轨迹汇入统一 Runtime；TencentDB cold-start import（preview，出生元数据未披露）；ReMe auto_memory/auto_dream 首日沉淀。
+- **自生成**：DAEDALUS（arXiv 2610.08048，illuin-tech）explorer 生成任务 + solver 失败提取启发式 + **反复成功才接受**；AppWorld/τ²-bench/AutomationBench 最高 +15.9pp、pass^5 2.2×；无需人工任务与 oracle；跨模型家族受益；构建成本 vs 后续节省**未证明抵消**；自生成任务可作模型排序代理基准。
+- **内化**：Route to Remember（arXiv 2611.05636）OPSD 在线策略自蒸馏 + verify-then-regenerate 路由；HaluMem 追平全上下文与检索基线、每查询 token 更少——参数轨在事实记忆上首次追平文本轨，但路由本身承认参数轨只能覆盖可验证稳定子集。
+- **负结果**：FlyHash（2611.05791，11-04）正确匹配位协议下质量优势成立，但常规规模 HNSW 支配两种哈希——检索底座默认不可动摇。
+- **评测口径**：Hy-Memory 论文（2610.22196）规定"每个写入器从空状态自建记忆库、跨窗口携带"——学术以空状态为标准起点，产品导入在制造非空但不透明起点；AML 三轨同为空状态协议 → 导入保真/冷启动时延/零记忆降级无分数回报（评测缺口第九次同构）。
+- **竞争力分层**：有导入产品化（OpenViking/MemHub/TencentDB）/ 仅在线沉淀（ReMe/dsh-memory-evolve）/ 研究侧自生成与内化（DAEDALUS/R2R）；导入能力与治理能力负相关（口子越大，无出生证明占比越高）；DAEDALUS 验证闸门在论文侧（倒挂第八次）。
+- **采购冷启动三问**：导入什么（保真与切分）/ 导入给谁（owner）/ 导入后可否撤销（按事件时间）。三问无答案者，导入越强负债越重。
+- **其他本期事实**：OpenViking 41.6K★、11-04 批次 query-driven CacheFS/ACL 空授权哨兵/prefetch 修复；ReMe v0.4.2.1（10-27）HVTrust 89.0 居 Memory & Knowledge 第一（周下载 28,298）；dsh-memory-evolve 628★、Trendshift 61 天 +296、维护至 10-29；TencentDB 28,887★（gittiger 11-05 口径，与前期 30.3k 口径冲突，标注存疑）；华为/腾讯背书 AI agent 安全公约（MLex，11-05/06）。
+- **待验证 78–82**：78. 导入 API 是否携带出生元数据包（来源类型/事件时间窗/原始宿主/抽取模型版本）的首例；79. 导入条目按事件时间的批量注销实现（valid_from 重建方案）；80. DAEDALUS 探索成本与后续节省的闭合实测；81. OPSD 类内化对新用户/换人的重训成本与增量内化协议；82. AML 三期是否引入导入保真/冷启动维度。
