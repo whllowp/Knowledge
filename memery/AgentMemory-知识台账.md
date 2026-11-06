@@ -10,8 +10,8 @@
 | Hy-Memory 2.0 | 腾讯混元 | SDK `hy-memory` / Apache-2.0 / ~1.9k★ | 2.0 发布 2026-10-15；2.0.13→**2.0.14**（2026-11） | chat / working / coding 三类 | 三型记忆 + 双系统（快回忆/慢图式） |
 | Hy-Memory-30B-A3B | 腾讯混元 | MoE 30B 总参/3B 激活 / Apache-2.0 | 随 2.0 发布，FP8/GGUF 已上 HF | 权重（写入判定） | 单步：memory-write |
 | MemHub | 腾讯混元 | 本地应用（CLI + macOS） | v1.0.6（2026-11） | 汇聚多工具历史会话 | 本地记忆库 |
-| TencentDB Agent Memory | 腾讯云数据库 | 开源 + 托管 / 3 万+★ → **30.3k★（2026-11-01）** / **GitHub 标注 NOASSERTION（许可证不可识别）** / 90 天 5 个 release | v2.0.0 2026-08-03；v2.0.2 10-09；v2.0.3-beta.1 10-13 | 服务端 MemoryCore + 向量库 | L0/L1/L2/L3 + 四类资产（Chat/Skill/Wiki/CodeGraph） |
-| 阿里云 Memory | 阿里云 | 托管服务 | 2026-11-02 升级 | 记忆条目 + 用户画像 | 未强调分层，强调规则可配 |
+| TencentDB Agent Memory | 腾讯云数据库 | 开源 + 托管 / 3 万+★ → **30.3k★（2026-11-01）** / **GitHub 标注 NOASSERTION（许可证不可识别）** / 90 天 5 个 release | v2.0.0 2026-08-03；v2.0.2 10-09；v2.0.3-beta.1 10-13 | 服务端 MemoryCore + 向量库 | L0/L1/L2/L3 + 四类资产（Chat/Skill/Wiki/CodeGraph）；**Memory Proxy 支持 9-10 客户端（Claude Code/CodeBuddy/WorkBuddy/Codex/DSH 桌面端/OpenCode/Hermes/OpenClaw/Pi），协议保留改 base URL，Pi 需专用 PiProfile 解析器（标签行格式）；MongoDB 后端为试验特性** |
+| 阿里云 Memory | 阿里云 | 托管服务 | 2026-11-02 升级 | 记忆条目 + 用户画像 | 未强调分层，强调规则可配；**MCP+CLI 接入 Codex/DSH/Claude Code/OpenClaw；图表署名 Mementis；HaluMem-medium QA 85.15% vs Zep 81.71%（自报未复现，对照分取自 OmniMemEval）** |
 | OpenViking | 火山引擎 | 开源 AGPLv3（CLI/examples Apache-2.0） | v0.5.2.1；最后提交 2026-11-03；41.4k★（近 20 天 +1.5k）；DSH 插件 0.5.32 | `viking://` 虚拟文件系统（AGFS：localfs/s3fs/memory） | L0 摘要 / L1 概览 / L2 原文；Resource/Memory/Skill 三类；**peer = git identity（origin URL 归一化）→ 路径 → user 三级回落；`forget` 为永久删除** |
 | ReMe | agentscope-ai | 开源 Apache-2.0 / ~3.7k★（3,748） | 持续迭代（QwenPaw 2.0 内为 v0.4） | `.reme/` Markdown，文件即真相 | session+resource / daily / digest / metadata |
 | dsh-memory-evolve | csyangwen（社区） | DSH 插件 / MIT / **★数存疑：205（社区盘点）vs 606（早期查询）**；另有 azure5100/huahua-dsh-memory-os 自称同名 | v26092802；最后推送 2026-10-29 | 本地文件，五轨 | 档案/全局事实/项目关键记忆/项目日志/每日日志 |
@@ -130,6 +130,15 @@
 - Coding 轨计分口径：150 个 SWE 任务 ×（相关记忆 + 噪声记忆）= **300 次计分**，Add/Search 为标准化接口，下游 Answer/Eval/Review 由 AML 统一。
 - 当前可引用分：MemoraX Coding 轨 62 分（参赛方自述，较 Claude Mem 解题率 +10%）。
 
+## 五之三、接入层（插槽）事实（第 6 期新增）
+
+- **插座三形态**：①base-URL 代理型（TencentDB Proxy，捕获全量 L0+每轮注入，需按客户端系统提示词格式写解析器）；②MCP 工具总线型（OpenStinger/Mem0 OpenMemory/阿里云，捕获依赖 Agent 主动调用——捕获盲区在接口层）；③文件系统挂载型（OpenViking viking:// AGFS、Hy-MemHub，颗粒度取决于客户端写什么）。
+- **可携性梯度**（braindrip）：声明层记忆（CLAUDE.md/AGENTS.md）可携性最好；hooks/轨迹库/微调 adapter 最差；向量库仅底座可换时可携；轨迹重放跨 harness 基本不可行。代理插座位于梯度最优处（记忆沉淀在 Proxy 侧）。
+- **状态层标准缺位**（Forkast）：Agent 栈四层中 MCP/A2A/PAP 各有标准，状态层 14+ 厂商、约 7 个架构阵营、零记忆序列化格式、零可携协议。AWS AgentCore 无文档化导出工具——锁入是结构性的。
+- **ABC 环测**（OpenStinger v0.7）：OpenClaw→Qwen/Llama→DeerFlow/Grok 往返传播，身份保持；两 Docker 卷整体搬移；LongMemEval-S 公平路径自报 81.0%。
+- **LoCoMo 互不可比**：MemoryLake 94% / Mem0 92.5% / Zep 94.7%，各自调参换嵌入模型，数字不可比。
+- **市场口径**（爱分析，经腾讯云文章转引）：中国智能体记忆市场 2025 年 14.4 亿元 → 2030 年 642.5 亿元，CAGR 超 110%。
+
 
 ## 六、待验证 / 下期问题
 
@@ -154,3 +163,7 @@
 19. 保真度抽样审计的最小样本量与置信区间（当前 39.4% vs 98.4% 均为点估计）。
 20. KV 层记忆（AKV drop）与文本层记忆的一致性对账：两层各留一份时以谁为准。
 21. TencentDB v2.0.3 可插拔决策服务能否接第三方小模型（决定判断成本能否下探到分类器级）。
+22. 分级捕获协议：L0 端侧驻留 + L1 以上上云是否有首例实现（捕获-隐私悖论的解法）。
+23. MCP 会话镜像类标准化上报接口（会抹平代理插座捕获优势）的标准化动向（MCP steering/sampling 之外的扩展）。
+24. 记忆导出格式标准化：Mementis 与 AWS AgentCore 是否披露导出 API。
+25. 接入形态作为实验变量：同库三插座（Proxy/MCP/FS）的记忆质量 A/B/A 对照是否有人做。
