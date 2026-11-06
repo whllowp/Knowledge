@@ -7,13 +7,13 @@
 
 | 方案 | 归属 | 形态/许可 | 版本/时间 | 记忆载体 | 分层 |
 |---|---|---|---|---|---|
-| Hy-Memory 2.0 | 腾讯混元 | SDK `hy-memory` / Apache-2.0 / ~1.9k★ | 2.0 发布 2026-10-15；2.0.13→**2.0.14**（2026-11） | chat / working / coding 三类 | 三型记忆 + 双系统（快回忆/慢图式） |
+| Hy-Memory 2.0 | 腾讯混元 | SDK `hy-memory` / Apache-2.0 / ~1.9k★ | 2.0 发布 2026-10-15；2.0.13→**2.0.14**（2026-11）；MemHub **1.0.6**（11 语言、lite/pro/ultra、**写入失败重试 + provider 宕机暂停排队**） | chat / working / coding 三类 | 三型记忆 + 双系统（快回忆/慢图式） |
 | Hy-Memory-30B-A3B | 腾讯混元 | MoE 30B 总参/3B 激活 / Apache-2.0 | 随 2.0 发布，FP8/GGUF 已上 HF | 权重（写入判定） | 单步：memory-write |
 | MemHub | 腾讯混元 | 本地应用（CLI + macOS） | v1.0.6（2026-11） | 汇聚多工具历史会话 | 本地记忆库 |
-| TencentDB Agent Memory | 腾讯云数据库 | 开源 + 托管 / 3 万+★ → **30.3k★（2026-11-01）** / **GitHub 标注 NOASSERTION（许可证不可识别）** / 90 天 5 个 release | v2.0.0 2026-08-03；v2.0.2 10-09；v2.0.3-beta.1 10-13 | 服务端 MemoryCore + 向量库 | L0/L1/L2/L3 + 四类资产（Chat/Skill/Wiki/CodeGraph）；**Memory Proxy 支持 9-10 客户端（Claude Code/CodeBuddy/WorkBuddy/Codex/DSH 桌面端/OpenCode/Hermes/OpenClaw/Pi），协议保留改 base URL，Pi 需专用 PiProfile 解析器（标签行格式）；MongoDB 后端为试验特性** |
+| TencentDB Agent Memory | 腾讯云数据库 | 开源 + 托管 / 3 万+★ → **30.3k★（2026-11-01）** / **GitHub 标注 NOASSERTION（许可证不可识别）** / 90 天 5 个 release | v2.0.0 2026-08-03；v2.0.2 10-09；v2.0.3-beta.1 10-13（**可插拔决策服务 + 会话轨迹记录**） | 服务端 MemoryCore + 向量库 | L0/L1/L2/L3 + 四类资产（Chat/Skill/Wiki/CodeGraph）；**Memory Proxy 支持 9-10 客户端（Claude Code/CodeBuddy/WorkBuddy/Codex/DSH 桌面端/OpenCode/Hermes/OpenClaw/Pi），协议保留改 base URL，Pi 需专用 PiProfile 解析器（标签行格式）；MongoDB 后端为试验特性** |
 | 阿里云 Memory | 阿里云 | 托管服务 | 2026-11-02 升级 | 记忆条目 + 用户画像 | 未强调分层，强调规则可配；**MCP+CLI 接入 Codex/DSH/Claude Code/OpenClaw；图表署名 Mementis；HaluMem-medium QA 85.15% vs Zep 81.71%（自报未复现，对照分取自 OmniMemEval）** |
 | OpenViking | 火山引擎 | 开源 AGPLv3（CLI/examples Apache-2.0） | v0.5.2.1；最后提交 2026-11-03；41.4k★（近 20 天 +1.5k）；DSH 插件 0.5.32 | `viking://` 虚拟文件系统（AGFS：localfs/s3fs/memory） | L0 摘要 / L1 概览 / L2 原文；Resource/Memory/Skill 三类；**peer = git identity（origin URL 归一化）→ 路径 → user 三级回落；`forget` 为永久删除** |
-| ReMe | agentscope-ai | 开源 Apache-2.0 / ~3.7k★（3,748） | 持续迭代（QwenPaw 2.0 内为 v0.4） | `.reme/` Markdown，文件即真相 | session+resource / daily / digest / metadata |
+| ReMe | agentscope-ai | 开源 Apache-2.0 / ~3.7k★（3,748）；DSH 插件 `@agentscope-ai/reme-dsh-plugin` 0.1.2（11-04） | ReMe 0.4.1.11（QwenPaw 2.0 内为 v0.4） | `.reme/` Markdown，文件即真相 | session+resource / daily / digest / metadata |
 | dsh-memory-evolve | csyangwen（社区） | DSH 插件 / MIT / **★数存疑：205（社区盘点）vs 606（早期查询）**；另有 azure5100/huahua-dsh-memory-os 自称同名 | v26092802；最后推送 2026-10-29 | 本地文件，五轨 | 档案/全局事实/项目关键记忆/项目日志/每日日志 |
 | Mem0 | Mem0(Embedchain) | 开源+托管 / ~67k★ | — | 向量+图+KV 混合 | 用户/会话/Agent 三级作用域 |
 | Zep / Graphiti | Zep | Graphiti Apache-2.0 | — | 时序知识图谱 | 事件子图（双时序） |
@@ -28,6 +28,9 @@
 | MemOS | MemTensor | Apache-2.0 | — | 图服务（Neo4j+Qdrant）/本地 SQLite | 记忆立方 + 文本/激活/参数/偏好四类 |
 | EverOS | EverMind | Apache-2.0 | 原名 EverMemOS | Markdown 源 + 内嵌 SQLite/LanceDB | 案例/技能双轨 |
 | Letta | Letta | 开源 | 原 MemGPT | 运行时（core/recall/archival）+ MemFS | OS 式三层 |
+
+| **KLM（Knowledge Layer Model）** | 规范 / 开放规格（v0.3） | arXiv:2610.42066（2026-11-02），参考实现 SEDIM | — | 推理记录含版本化认知评估 + 证据关系 + **显式 unknowns** | 规范级，无产品 |
+| **MemShift** | 研究原型 | arXiv:2611.02338（2026-11-02） | — | 漂移五分支：源修订/删除/重定义/写入者切换/**导出** | 检测与修复分开打分（确定性打分器） |
 
 ## 二、指标口径基线（供后续期次对比"是否真的变好了"）
 
@@ -112,6 +115,16 @@
 - **价值可观测五级**：V0 无 / V1 计数 / V2 痕迹（substring probe，只证出现不证起作用）/ V3 消融（Scalaris 内部 A/B：91.9% 偏好、4.33 vs 3.18）/ V4 反事实。主流 V1—V2。
 - **计价新单位**：每次正确答案成本（Particle-1 $0.004 vs Opus $0.099，1/23）；LambdaDB 记忆 4,886 token / 96.0% vs 全量 105,183 token / 95.2%；Scalaris 92.2 / 90.77，4,145 token、0.98s，比 Hindsight 少约 10×。
 
+## 四之六、记忆的空集与阴性知识（第 7 期建立）
+
+- **空集四义**：`∅_scope` 未观测 / `∅_store` 未捕获（判定为噪声或写入失败）/ `∅_recall` 存了没取到 / `∅_world` 世界本无。**只有第四种能支撑否定断言**；四种在接口上均返回空数组（同形）。
+- **缺口不可分离定理**：端到端可得率 = 观测覆盖率 × 捕获率 × 召回率，三者相乘且均不可单独测量 → 弃答阈值只能移动错误类型，不能提高正确率（校准曲线无法闭合）。
+- **阴性知识四元组**：`(动作, 前置条件, 结果, 失败原因)` + 作用域 + 时效。形态是清单而非叙事；摘要器偏好连贯，故它第一个被剥除（compaction amnesia）→ 表现为压缩后立即重试已失败动作。
+- **成本四段（修正第 5 期三段）**：判断 → 驻留 → 检索 → **采信**。采信成本为负（干扰成本）。
+- **五段失败诊断**（Codoid，可作排查脚本）：Formation（没写进去）/ Retrieval（没取到）/ Resolution（取到了选错）/ Action grounding（选对了参数传错）/ Execution（外部执行失败）。前两段即 `∅_store` 与 `∅_recall`，目前无系统在接口层区分。
+- **删除-空集同形**：无墓碑硬删（OpenViking `forget`）与静默失效（Zep 边失效）都使"曾有过"降解为"从未有过"；修复位建议 `ever_existed`。
+- **最笨存储最干净**：@guowenzhang/dsh-memory 1.2.0 明示"永不摘要、永不归档、永不删除"，写入仅由模型调工具触发 → 结构上不会产生 `∅_store`（代价：无界膨胀）。
+
 ## 五、安全基线
 
 - OWASP 2026：Memory & Context Poisoning = **ASI06**（与提示注入 ASI01 分列）。
@@ -129,6 +142,10 @@
 - AML 二期：2026-09-20 开放报名；10-31 23:59 截稿；11-04 23:59 关评测队列；**结果预计 11 月中旬**。三轨：Textual / Coding / Multimodal，各设开源方法榜与工业系统榜。
 - Coding 轨计分口径：150 个 SWE 任务 ×（相关记忆 + 噪声记忆）= **300 次计分**，Add/Search 为标准化接口，下游 Answer/Eval/Review 由 AML 统一。
 - 当前可引用分：MemoraX Coding 轨 62 分（参赛方自述，较 Claude Mem 解题率 +10%）。
+- **评测口径的缺口（第 7 期核实）**：Mem0 公开 harness（mem0ai/memory-benchmarks）`CATEGORIES_TO_EVALUATE = [1,2,3,4]`，**LOCOMO 第 5 类 446 道不可答题（22.5%）整类不计分**；答案提示含 `NEVER say "not specified" … COMMIT AND ANSWER`。独立审计（dial481/locomo-audit）测得 judge 对故意错答过度接受 **62.8%**，答案键部分损坏使诚实上限约 **93.6**。→ 记忆 bench 的分数结构性不覆盖"该说不知道"，供应商无动机建否定能力。
+- **AML 二期口径（官方博客）**：目标表述已改为"不是记住一切的 agent，而是**知道什么不能再信**的 agent"；Coding 轨 150 任务 × 相关/噪声两条件 = 300 次计分；11-06 时点仍未出榜。
+- **MEME（arXiv:2605.12477，2026-05）**：六任务含"识别信息不存在"；六系统默认配置缺席推理均约 **1%**、级联依赖 **3%**（经二手转引，未见原文数字）。
+- **FAMA**（Memora / ACL Findings 2026）：按"复用已失效记忆"扣分的记忆准确率口径。
 
 ## 五之三、接入层（插槽）事实（第 6 期新增）
 
