@@ -342,3 +342,15 @@
 - **锁定无合同化**：不做任何绑定动作，锁定随库存线性加深——"记得越多，改变记忆方式越贵"；vendor deprecation = 按供应商日程的强制迁移。
 - **评测缺口（第六次同构）**：AML 三赛道（Textual/Coding/Multimodal）无一考察迁移/切换/连续性维度。
 - **首期榜单基线**（官网口径，供纵向对比）：MemoraX 58.02 / MemOS 45.89 / NTES-SMART 44.21 / AML-Eval-FLASH 43.65 / Cognee 42.61 / NTES-MQ-LAYER 42.11 / TencentDB 41.48（v2.0.0 Evaluated）/ Mem0 41.40；AML 二期 11-04 关评测、11 月中出榜（11-06 未出，CSDN 预热确认多模态为新变量）。
+
+## 五之六、记忆注入的缓存稳定性事实（第 14 期新增，2026-11-06 18:00）
+
+- **字节稳定性定理**：前缀缓存按字节前缀匹配；注入块内一个字节变化即从该字节起全 miss。CorpusIQ 生产实测：system 段插一个 datetime.now() = 永久 0% 命中。
+- **生产基线**（CorpusIQ，Hermes + DeepSeek V4.1 Flash/Pro，两日窗口）：45k token 字节稳定前缀 → 命中 98.67%（Flash 98.70%/Pro 96.81%）；miss ≈ 每会话一次冷前缀（47k token，占发送量 1.33%）；缓存读 0.003 vs 未缓存 0.15 美元/M（50×），命中 98.7% 时账单 ≈ 未缓存流量的 3–4%。
+- **相关性-稳定性对偶**：按相关性分数排序的检索是天然字节不稳定源；工程解药为按确定性键（doc-ID）重排（质量允许时），但质量损失无判据无基准。CacheBlend（EuroSys 2025）提供非前缀位置 KV 复用（需部分重算修交叉注意力，"近似换重用"）。
+- **缓存经济学三文献**：TokenPilot 2606.17016（浙大 6-15；入口压实+批次轮驱逐；连续模式降本 61%/87%；并入 LightMem2）；Leyline 2606.01065（serving 端 KV 指令原语、声明式四元组、RoPE 闭合修正；splice replay +11.2pp、−241ms；十行截断规则 debug-gym +14.3pp；生产 harness 现状=每次编辑全量重 prefill）；Execution-State Unlearning 2609.04875（记忆删除后 KV 残留不除；指令式遗忘 Leak@probes=1.00；源涂黑 80% 仍生效；精确遗忘 ≥ T−τ+1 重算转移；选择性重放等效全重置省 9× token）。
+- **产品化首个承诺**：OpenViking v0.5.3（11-02）网关对注入内容逐字节重放，使 provider prompt 缓存与 thinking signature 保持有效；11-04 批次加 query-driven CacheFS。MemHub v1.0.6 lite/pro/ultra + nightly evolve = 变更集中夜间窗口。TencentDB issue #120 prompt 缓存失效未解（截至 11-06）。
+- **四层失效物**（扩展第 2 期删除 3×3 矩阵）：prompt 前缀 / 压缩记忆文本 / KV cache / thinking signatures。删除语义（摘除/擦除/卸载）在缓存层一个也未兑现。
+- **注入格式锁定**（第二个单向门）：thinking signature 依赖逐字节重放 → 保缓存即锁死注入布局；与第 13 期"换嵌入模型是单向门"并列：换嵌入模型贵、换注入布局同样贵。
+- **三轨缓存评分**（第 5 期不可能三角新增一条）：文件轨最稳（文件不重排=前缀天然稳定，ReMe reindex 显式重建）；分层轨居中（夜间演化窗口）；参数轨最险（写一次参数 = 全部活跃会话 system 段全变）。
+- **待验证 68–72**：68. injection_version / 确定性排序键在主流记忆 SDK 的首个实现；69. TTL（5min/1h）与记忆演化窗口（24h）的相位差实测；70. CacheBlend 类非前缀 KV 复用对记忆注入的任务质量影响；71. doc-ID 排序相对相关性排序的质量损失基准（现有评测均不测）；72. AML 三期是否引入缓存/成本效率维度（评测冷启动命中为零，榜单分数不反映真实账单）。

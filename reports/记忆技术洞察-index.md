@@ -196,3 +196,20 @@
 - 关键事实：MemHub v1.0.6（11-02）safe embedding-model switching 首次产品化（且 MemHub 恰是唯一把 L1 原文做成不可删地的方案，两能力共享前提）；TencentDB v2.0.3（10-26）路线图把 portable memory 列为下三件事之一；微软 PAM 协议 2605.11032（Merkle-DAG 血统 + 签名 artifact，Transfer Continuity 0.83–0.92 vs 基线 0.28–0.45，MCP 工具 pam_export/import）；Vex .vmig.jsonl；Kunavo Agent Zero 换嵌入模型算术（3M token $0.06–0.30，回滚=同费率二次重建）；"own the context, rent the model" 成企业共识句式；AML 二期 11-04 关评测、11 月中出榜（11-06 未出），首期基线 MemoraX 58.02 / TencentDB 41.48 / Mem0 41.40。
 - 判读：①评测缺口第六次同构（迁移/连续性无分数回报）；②"原文随存"与"嵌入可切换"共享同一前提，能力会成对出现；③格式层 JSONL 阵营（Vex）vs 签名 artifact 阵营（PAM），更简单的先赢；④腾讯两团队分工：一个承诺导出（TencentDB），一个实现切换（MemHub）。
 - 下期候选：AML 二期出榜口径复核（11 月中，最高优先）/ MemHub 安全切换实现细节（双索引？阈值重标定？）/ TencentDB portable memory 是否含血缘字段 / 全库重嵌入实测价格曲线 / PAM 协议首个生产采用
+
+## 第 14 期（2026-11-06 18:00）· 记忆的缓存界面——注入一次排序，缓存全盘作废
+
+- 产物：`记忆技术洞察-20261106-1800.md`（正文约 2,030 汉字；五章 + 8 方案五维缓存稳定性对比表 + 22 条来源）
+- 与第 1—13 期的关系：前十三期共享最后一个未写出的假设——记忆"送到"会话即完事。本期补结算层。深化第 5 期（缓存定价）与第 11 期（时延/新鲜度账本），并给第 2 期删除矩阵与第 13 期锁定各加一列。
+- 主线：**相关性最大化的目标与前缀字节稳定的目标方向相反**。前缀缓存按字节匹配，注入块一字节变化即从该字节起全 miss；记忆检索天然按相关性动态排序，每次召回抖动都是一次 KV 缓存清零。
+- 新框架（第十四批长期工具）：
+  - **字节稳定性定理**：一个字节变 = 之后全 miss（CorpusIQ 实测：system 段一个 datetime.now() = 永久 0%）。
+  - **相关性-稳定性对偶**：解药是"按确定性键（doc-ID）重排"——质量换命中，但质量损失无判据无基准（盲走）。
+  - **新鲜度-命中率对偶**：记忆每更新一次，全部活跃会话注入前缀全 miss 一次，写路径成本摊给所有读端（第 11 期新鲜度三件套的孪生物）。
+  - **四层失效物**：prompt 前缀 / 压缩记忆 / KV cache / thinking signatures（扩展第 2 期 3×3 删除矩阵）。
+  - **变更窗口调度**：日间只 append、夜里才结构化（MemHub nightly evolve / TokenPilot 批次轮驱逐）。
+  - **重算账**（第三本账，承接第 11 期钱/时延两账）：遗忘必须延伸到 KV cache——精确遗忘 ≥ T−τ+1 重算转移，选择性重放等效全重置省 9× token。
+  - **注入格式锁定**（第二个单向门，承接第 13 期嵌入锁定）：thinking signature 依赖逐字节重放 → 保缓存即锁死注入布局。
+- 关键事实：TokenPilot 2606.17016（浙大，6-15；连续模式降本 61%/87%，已并入 LightMem2）；Leyline 2606.01065（serving 端 KV 指令原语，RoPE 闭合修正；splice replay +11.2pp、−241ms；十行截断规则 debug-gym +14.3pp）；Execution-State Unlearning 2609.04875（记忆删除三套件泄露不降、指令式遗忘 Leak@probes=1.00、源涂黑 80% 仍作用于已撤销偏好）；CorpusIQ Hermes 生产实测（45k 字节稳定前缀 → 98.67% 命中；miss=每会话一次冷前缀 1.33%；DeepSeek 价差 50×，命中 98.7% 时账单=未缓存 3–4%）；OpenViking v0.5.3 网关逐字节重放保缓存+thinking signature（11-02）+ query-driven CacheFS（11-04）；MemHub v1.0.6 nightly evolve；TencentDB issue #120 缓存失效未解 + Agent Loadout 使前缀按 agent 分裂；文件轨在缓存轴意外占优（文件不重排=前缀天然稳定），三轨不可能三角新增评分：文件轨最稳、参数轨最险。
+- 判读：①竞争长出第三档位"结算层"——看分→看插座→看账单；②缓存最深的 Leyline 是纯论文、TokenPilot 非 memory 产品，记忆产品自己缺席（能力与产品倒挂第六次）；③同分系统在缓存轴可差 20×成本而 AML 看不见（评测缺口第七次同构）；④参数轨需重新论证（写一次参数=全员缓存作废）。
+- 下期候选：AML 二期榜单口径（11 月中，最高优先）/ injection_version 首个实现 / TTL-演化窗口相位差实测 / CacheBlend 类非前缀 KV 复用在记忆注入的适用性 / doc-ID 排序的质量损失基准
