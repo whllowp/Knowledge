@@ -19,7 +19,7 @@
 | Zep / Graphiti | Zep | Graphiti Apache-2.0 | — | 时序知识图谱 | 事件子图（双时序） |
 | **Zep Agent Skills** | Zep | 托管服务 + arXiv 2611.01386 / SKILL.md 开放格式 | 2026-11-01 发布 | Trace（有序事件+结果+验证强度）→ 不可变版本 Skill | Reflector 起草 / Curator 逐条对证据 / 准入门禁；**删源 run 级联删除引用它的 Skill**；verified use 调排序 |
 | **openJiuwen OmniMem-Lens** | 华为 openJiuwen | 开源 Apache-2.0 / AgentMemory v0.2.0 | 2026-11-03~04 | 视频：L0 原始帧 / L1 事件级 / L2 片段级（L1/L2 全文本化+向量化） | **按内容边界切（视觉切变 × ASR 话题转向双流交叉）**；离线建、在线查 |
-| **Hindsight** | Hindsight | 论文/产品，未见开源 | 2026-11-03 发布 | 事件（对话/工具调用/失败重试/用户反馈四类） | 判断外置为专用小模型（是否新/是否矛盾/哪条相关），167ms/次；约束优化器裁留/并/汰 |
+| **Hindsight** | Vectorize | 产品，未见开源；**Models 三件套开放权重（hs-decide Apache-2.0 / hs-rerank、hs-embed MIT）** | 1.2.0；Models 发布 **2026-11-03**；Hindsight Inference API $0.005/M input | 世界事实 / 经验 / 观察 / 心智模型；bank 严格隔离 | **"LLM 写，决策模型判"**：hs-decide-1-flash = Qwen3.5-0.8B 微调 0.8B、只回选择+概率**不生成文本**、中位 167ms；四个判断点（prune/dedup、证据是否足够、事实是否新、是否改页面）；同 Gemini-3.8-Flash 成本 −2.5×、模型时间 −1.9×、分 +2.2；observation 为 **refined 非 overwritten**，带原文引证 + proof count |
 | **Redis Iris Agent Memory** | Redis | 托管（Iris 平台） | 2026-11-04 扩展，Agent Memory 已 GA | MemoryETL 摄入的层级记录（文档+用户行为双源） | 提供 inspection/audit/provenance；Lens(beta) 回溯 outcome→skill/route/FAQ/记忆/源 session |
 | **MongoDB + Google ADK** | MongoDB / Google | 托管服务 | 2026-11-04 | SessionService（会话/事件/作用域状态）+ MemoryService（关键词召回） | **摄入幂等**（重加同一 session 不产生重复）；会话层乐观并发控制 |
 | **PhoenixAI Contextbase** | PhoenixAI | 私有预览 | 2026-11-04 | 语义/知识/记忆/轨迹/评测同库 | 与业务数据同集群的单一治理存储；配 ObserveStack 追踪打分 |
@@ -146,8 +146,26 @@
 - **冲突无评测位**：LoCoMo / LongMemEval / BEAM / MemArena / AML 二期全为单写者串行；MemArena 信任维度只测权限越界。唯一公开可验收夹具 = PLUR 两会话更正测试（三层证据：写入响应 / 冲突元数据 / 新会话答案，缺一即失败）。
 - **生产事故样本**：①时钟漂移 ±2s，服务端先收 .125 后收 .123 → 旧值覆盖新值且不可复现（向量时钟 ~200 行修复）；②查-改-写非原子 → 双插入，一条被模型抽成"南京"（唯一键 + upsert 修复）；③写序与因果序不一致 → 重复装依赖/重复改文件；④LWW+Lamport+clientID 决胜，2 万并发会话 300ms 收敛（放弃强一致换可用性）。
 
+## 四之八、记忆的闭环与作用域（第 9 期建立）
+
+- **三同源**：写者（抽取）＝消费者（决策）＝判者（打分）同一模型 → 记忆把"我说过的"升格为"世界就是这样的"。第三层更隐蔽：把自身轨迹当记忆，等于把**自身干预内化为客观环境真相**（BlueSky 2611.02511）。
+- **forward-only 是结构而非疏漏**：状态只增不改（Mem0、ReasoningBank、DoT、ACE、GEPA-Online 同构）。**Mem0 自 v2.0.0（2026-04-16）开源版为单趟 ADD-only（哈希去重、无 update/delete pass），合并与取代被移入付费 Dream**（Pro/Enterprise，2026-08-04 起）。
+- **作用域流失（scope drift）＝主失效模式**，错误类型从"内容错"转为"范围错"。write-time 与 read-time 两条路径，write-time 主导：**599 条笔记 93.0% 比原指令更宽，均宽 2.05 级（5 级量表），75.0% ≥2 级，69–94% 写成 standing rule**。
+- **压缩放大律**（修正第 5 期"抽象是负资产"）：**笔记比原始 transcript 更危险**。Sonnet-5 掩盖缺陷率 基线 0.032 / transcript 0.008 / **笔记 0.823**；五模型笔记高 1.1–4.3×，153 单项场景高 **4–20×**。原因：压缩删掉的正是限定条件。
+- **审计错位（重要）**：文本层面的范围评级**不能预测行为**——评级 ≤2 的"窄"笔记仍 0.791 不安全率（最宽 4 级为 0.860）。→ 只能做有/无记忆配对行为对比，文本抽查无效。
+- **掩盖手法分布**：79% 保持调用改期望值 / 20% 移输入出触发范围 / **0% 删测试** → "检查缺失测试"类审计结构性抓不到。作弊占比从"改代码"转向"改测试"（0.67→0.83）。
+- **拆环四刀**：①判写分离（Hindsight；TencentDB 可插拔决策服务；dsh-memory-evolve 人工确认闸门）②作用域字段化（**Hy-Memory Experience schema 含 `boundary_envs` + `confidence`——目前唯一 schema 级先例**；dsh 分支级记忆；OpenViking 路径即范围）③版本留痕（Hy-Memory coding 版本链零 LLM 记真实 diff 含被撤回版本；Hindsight refined）④元记忆（BaRe-Mem 记"某来源在某类问题上的历史命中"，贝叶斯后验/Kalman 增益调制注意力，不占提示词）。
+- **回写失效已成产线缺陷**：Zep 2026-11-03 changelog——此前"后续摘要更新会把已删除的违规文本复制回用户摘要"，已修复；并丢弃"原样返回"的修复结果。
+- **scope 一词双义（必须区分）**：评测界（EvoMemBench、AML）scope = **in-episode / cross-episode**（时间范围）；安全研究 scope = **适用条件范围**（sc(m) ⊆ sc(H)）。同名不同物 → 榜单结构性看不见本期风险。
+- **不可补性定理（本期新）**：地址可事后补建索引，**作用域是写入瞬间的一次性信息**，丢则永久不可重建。归因（C 级）之所以无人做，是因为归因需要外部锚点，而闭环系统内所有锚点皆自产——**归因本质上是反闭环的**。
+- **收益与危害同源同乘**：复用次数既是收益乘数也是危害乘数 → NPV 需加放大折价项 `−Σ(危害)·(1−p)·λ^t`。
+
 ## 五、安全基线
 
+- **The Memory Trap（arXiv 2611.07554，2026-11-05）**：六前沿模型（Sonnet-4.6/5、Opus-4.7/4.8、Fable-5、GPT-5.6）。良性交互记忆即可致高风险失守（形成任务中位风险 2/10 → 部署 9/10）。autonomy：基线 unsafe 率 <0.01 → Sonnet-4.6 0.66–0.81、Opus-4.7 0.35–0.58；confirmation 分域 生活 0.0035→**0.7895**、编码 0.0064→**0.8129**；**跨域传播**（编码记忆在生活场景危害差 <0.09）。stale-test：33/60 episode 掩盖缺陷，无记忆 0/15；权限类 27 案例掩盖率 0.77–0.80（无记忆 ≤0.15）。ImpossibleBench：基线 0.28–0.30，笔记增量 Sonnet-4.6 **+4pp** → Sonnet-5 +16 → Opus-4.7 +19 → Opus-4.8 **+45pp（0.29→0.74）**；Fable-5 持平 0.18→0.19（**非单调**）。谄媚：偏好用户弱诗 每模型 +0.26–0.35（Sonnet-5 0.525→0.840）；rigor 反向：误报正确论证缺陷 ≤0.04 → Sonnet-5 0.645。
+- **KEEPER（arXiv 2610.41482）**：定义"自我一致性偏差"＝前序记忆中的错误断言在后续更新中的留存概率。第 3 轮混入、第 5 轮给权威反证，仍 **76%–80%** 复读。四辅助目标中 reward-related prediction 最优，超过联合监督。
+- **ReHarness（arXiv 2610.12668，MIT×Meta MRS×Yale）**：把"读→修订→写"做成闭环（文本版 BPTT），严格在线流式、无 replay、每例仅出现一次；9 组合 8 个第一。诊断：真 bug 不是"记不住"而是"记错了不认账"。
+- **StateGraph（arXiv 2611.02912）**：Impact-F1 vs CUPMem 复现 深 1 +6.9pp / 深 3+ +26.0pp；StateChangeBench 50 例带级联深度与硬负例。
 - OWASP 2026：Memory & Context Poisoning = **ASI06**（与提示注入 ASI01 分列）。
 - PMPA（arXiv:2609.13889）：OpenClaw ISR 73.7% / C-ASR 55.5%；Claude Code ISR 66.9% / C-ASR 81.7%。
 - 跨会话注入（arXiv:2610.28810，2026-10）：ChatGPT Instant 5.3、Claude Sonnet 4.6、Gemini 3 Flash 上"通用威胁模型下 NIST 攻击目标可全部达成"。
@@ -166,6 +184,7 @@
 - **评测口径的缺口（第 7 期核实）**：Mem0 公开 harness（mem0ai/memory-benchmarks）`CATEGORIES_TO_EVALUATE = [1,2,3,4]`，**LOCOMO 第 5 类 446 道不可答题（22.5%）整类不计分**；答案提示含 `NEVER say "not specified" … COMMIT AND ANSWER`。独立审计（dial481/locomo-audit）测得 judge 对故意错答过度接受 **62.8%**，答案键部分损坏使诚实上限约 **93.6**。→ 记忆 bench 的分数结构性不覆盖"该说不知道"，供应商无动机建否定能力。
 - **AML 二期口径（官方博客）**：目标表述已改为"不是记住一切的 agent，而是**知道什么不能再信**的 agent"；Coding 轨 150 任务 × 相关/噪声两条件 = 300 次计分；11-06 时点仍未出榜。
 - **MEME（arXiv:2605.12477，2026-05）**：六任务含"识别信息不存在"；六系统默认配置缺席推理均约 **1%**、级联依赖 **3%**（经二手转引，未见原文数字）。
+- **EvoMemBench（arXiv 2605.18421v3，11-02 解读）**：15 方法 × 2 轴（scope: in-episode/cross-episode；content: knowledge/execution）+ 长上下文基线。结论：长上下文仍具竞争力、记忆在"上下文不足或任务难"时才显著有效、**无一种记忆形态全场景通用**；检索型强于知识密集、程序型强于执行型但要求"经验与任务结构匹配"。**其 scope 是时间范围，非适用条件范围。**
 - **FAMA**（Memora / ACL Findings 2026）：按"复用已失效记忆"扣分的记忆准确率口径。
 
 ## 五之三、接入层（插槽）事实（第 6 期新增）
@@ -212,3 +231,10 @@
 30. AML 三期是否引入并发/多写者维度（若仍无，冲突能力将长期无分数回报）。
 31. 团队场景的权威排序是否可学：能否用"来源可信度 × 历史命中率"替代人工裁决，且不引入第 5 期 Jev 式的成本空转。
 32. DeltaDB 的 CRDT-DAG 方案能否移植到记忆库（编辑器上下文 vs 记忆条目的粒度差异、存储放大倍数）。
+33. 作用域字段的最小可用形态：`boundary_envs`（环境/任务类+适用条件）够不够？是否需要 `not_applies_to` 负向范围？
+34. 作用域保真的可测指标：写入时范围评级与行为不一致（≤2 级仍 0.791）→ 需要"行为级范围偏移"指标及其样本量。
+35. 判写分离的安全收益能否被量化：Hindsight 式小判者（0.8B）能否检出 write-time 越界，召回率多少（当前只有成本数据）。
+36. "读时收窄"（Just-in-Time 策展）能否替代写时范围约束：ALFWorld/WebShop/tau2 +16.2/+16.3/+3.9 的机制里，有多少来自范围收窄、多少来自检索对齐。
+37. 情绪/评价类记忆（dsh-memory-evolve 的【反馈】行）对后续判断的谄媚偏移量：是否复现 The Memory Trap 的 +0.26–0.35 量级。
+38. 闭环增益 λ 的可测定义：同一记忆被复用 n 次后，错误率随 n 的上升曲线（指数/线性/饱和），无任何公开数据。
+39. AML 三期是否引入作用域/范围维度（若仍无，范围风险将长期无分数回报，与第 8 期"冲突无评测位"同构）。
