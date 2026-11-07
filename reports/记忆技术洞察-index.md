@@ -270,3 +270,16 @@
 - 关键事实：LangGraph Checkpointer/Store 分工与三 Saver 可靠性阶梯（MemorySaver/RedisSaver/PostgresSaver）+ checkpoints main/history 拆表；TARL 账本 pre_hash/post_hash + RTO 折中快照（每千事务且每小时至少一次）；fastrmemory 唯一 CLI 级 snapshot/branch/rollback + backup 侧车 manifest + 双哈希 restore（自述"非物理副本""无可变分支工作树"）；Genspark SB-Box 0.35s/0.8s freeze-fork；Gemini 沙箱快照架构/运行时/镜像三重门；crypto-shredding 逐租户 DEK 为唯一 O(1) 解法但记忆粒度为"条"；ISO 27001:2022 8.10 要求删除覆盖备份与派生数据；MIND-Mem 单列 "Backup/restore ✓ with zip-slip protection"；dsh-memory-evolve git 分支同步（冲突三选）；TencentDB migrate-v2-to-v3 单向迁移；AML 二期 11-04 截止、11 月中出榜（未出），首期商业榜 MemoraX 58.02 / MemOS 45.89 / NTES 44.21（修正：第二名为 MemOS）。
 - 判读：①恢复力最强三家都不是记忆产品（倒挂第十次）；②有恢复无治理、有治理无恢复，双向缺口重演第 12 期结构；③"备份是污染的存档"——恢复即成为投毒重放通道；④删除日志是唯一同时服务举证（第 2 期）与恢复净化（本期）的组件，成本最低却最被低估；⑤评测无恢复位（第十一次同构缺口）。
 - 下期候选：AML 二期出榜口径复核（11 月中，最高优先）/ `restore_epoch` 进 schema 首例 / 恢复入口 CVE 形态 / 逐条 DEK 成本曲线 / "备份不含已删内容"合同条款首例
+
+## 第 19 期（20261107-2300）：记忆的代谢——只进不出的库与回收的定价
+
+- 与第 1—18 期的关系：前十八期依次拿掉写入、删除、寻址、切分、并发、时延、持久性等预设，但全部默认"库的规模问题会自己解决"。本期证明回收是被评测与产品双双搁置的一等公民。
+- 主线：**死的判据不可计算**。传统 GC 可达性可判定，记忆之"死"不可判定（TTL 是钝器 / 使用统计把没读当没用 / 外部有效性依赖盲区）——代谢问题在体系结构上等价于第 3 期血统问题。
+- 新框架（第十九批长期工具）：
+  - **可逆性阶梯**：FIFO 硬剪 < 阈值剪枝 < 衰减降位 < 归档墓碑 < 字节级复活（NECROPHORESIS）。
+  - **遗忘 NPV 修正**：遗忘的最优策略随可逆性梯度移动（对第 5 期第二处修正）。
+  - **压缩治理化**：压缩=治理操作（provenance 分支+审计+矛盾未决禁压）；不可解释压缩无能力优势（Factory.ai 3.70>3.44>3.35），加密是合规姿态。
+  - **写读不对称**：写时策划一次 vs 读时过滤每次；陈旧槽位=检索预算负资产。
+- 关键事实：dsh-memory-evolve（bw 变体）首组公开 GC 数值（maxMemories 1000 / merge 0.8 / prune 0.05，倒挂第十一次）；Blast Radius（arXiv 2608.07440）RDM 450 埋葬 378 零复活；RedHat MemoryHub 四层治理化压缩+冷热双轨；GDPR Art.5 vs Art.22 + DORA 法规对撞；腾讯 MemHub v1.0.6 ultra 每晚整理（回收语义未披露）；TencentDB 批量清空+索引自愈；AML Cycle 2 11-04 关评测、月中出榜（11-07 未出）。
+- 判读：①公开 GC 数值的只有社区插件与论文，头部商业产品全空白；②云厂商把代谢做成黑盒档位，买强度无法审计删了什么；③评测无代谢位（第十二次同构缺口）；④"派生可重建"是可逆性的共同前提（第 4 期判据第二次验证）。
+- 下期候选：AML 二期出榜口径复核（11 月中，最高优先）/ MemHub ultra 回收语义披露 / maxMemories 类参数进主流 schema 首例 / 库龄退化曲线进评测首例 / 冷热双轨生产成本实测。
