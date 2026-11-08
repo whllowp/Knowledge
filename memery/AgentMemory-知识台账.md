@@ -539,3 +539,16 @@
 - **关键事实**：MemHub v1.0.6（11-06）桌面/CLI/Web+11 语言、lite/pro/ultra 拨盘（ultra=知识图谱+每晚整理）、模型中心分离整理/检索模型、升级提示"整理请勿强制退出"但零 changelog；ReMe Studio Playground 浏览器版零安装；OpenViking viking://+web-studio 回应黑箱批评；TencentDB Memory Hub 管理面板+观测面板 roadmap（10-30"三笔账"叙事）；Qwen Memory Agent（11-03 MIT 黑客松）任务成功 0.60/存储正确 0.90/过程正确 0.70（"记得对但不用"再现）；Construct supersede 保留历史+forget/restore+pending 隔离；brainy.ink Memory Inspector 设计理论（"先发审阅界面再发持久记忆"）；LobeHub 偏好权重可视化；GUI 化与本地优先强绑定（文件即界面，云侧难做：给用户看=暴露抽取质量）。
 - **判读**：①倒挂第十八次——人审巩固最完整实现是黑客松项目，头部产品 GUI 停在浏览+删单条；②GUI 是第 3 期可寻址性的产品化（A/B 级），C 级可归因仍无人；③GUI 是第 26 期采信层天然落位（人是最后采信者）；④口径缺口第十八次——AML 八维全机器评测，无人审界面/可治理性维度，H 维改善不可计分；⑤审批单四要素+待审隔离区是下一空位产品标准。
 - **待验证 138–142**：138. 人审巩固进头部产品首例（MemHub/TencentDB 谁先）；139. GUI 编辑走写侧闸门的披露首例；140. 夜间整理 changelog/diff 首例；141. pending 隔离进主流 SDK 首例；142. AML 二期榜单（11 月中，最高优先，11-08 未出）。
+
+## 五之二十、记忆的标准化时刻事实（第 28 期新增，2026-11-08 09:00）
+- **未检验预设**：前二十七期的口径缺口（弃答/冲突/信用/规模/前瞻/元认知/GUI）默认解法是"评测增设维度"。本期拿掉它：行业真正在走的解法路径是标准化先于评测——协议/格式/治理/许可证四条线在 30 天内同时推进。
+- **核心命题（新框架）**：
+  - schema 即世界观：格式对"一条记忆是什么"的分类选择把某派本体论写进所有人系统；Searle 言语行为分类（TotalReclaw）vs Tulving 认知分类是第一次公开摊牌；closed enum 定错即全网锁定。
+  - 留白即债务：MCP 显式把抽取/冲突/删除语义留给后端＝第 2/8/9 期问题在协议层被"标准化为不标准"，互操作只到插座为止。
+  - 标准主权四层：协议层单点（Anthropic 捐出后名义中立）/格式层无主（MIF、Engram、Taxonomy 三格式竞争）/治理层基金会共管/事实标准层归社区（DSH 民间五轨 schema 装机量最大）。
+  - 捐赠=承诺税：Anthropic 10-22 捐 Agent Skills 名称/商标/GitHub org/agentskills.io 域名入 AAIF（Linux 基金会），100 万技能 2.8 亿安装形成棘轮，标准冻结即演进冻结；安全与兼容责任无人认领（技能包投毒面随安装同步放大）。
+  - 许可证即隐形标准：OpenViking AGPL-3.0＝用许可证实施强制互操作；对照 Mem0/Graphiti/Letta/cognee Apache-2.0、TencentDB NOASSERTION。
+  - 协议是发现的汇聚点：MCP 2026-07-28 修订把 ttlMs（第 11 期新鲜度）、cacheScope（第 14 期缓存）、确定性 tools/list 排序（字节稳定性）固化为必填字段，节奏快于评测；预判下一批进协议的是墓碑三字段与 owner。
+- **关键事实**：MCP 2026-07-28 修订（ttlMs/cacheScope 必填、subscriptions/listen 取代 resources/subscribe、多数记忆服务器不声明行为提示→默认 destructiveHint=true）；TotalReclaw MCP Memory Taxonomy v1（2026-04-18，5 客户端，provenance 一等字段，closed type enum+open scope enum，pin_status 增量演进；动因＝Mem0 audit Issue #4573 97.8% 条目垃圾、根因助手内容误归属为用户事实；自述"Mem0/Zep 有商业理由分歧，我们受益于收敛"）；MIF v2（3 必填字段，mem0/CrewAI/LangChain/Markdown 互转，"记忆的 vCard"）；PLUR Engram Spec（2026-03，Apache-2.0，YAML，ACT-R 衰减+强化，learn/recall/inject/feedback）；AAIF 捐赠（Anthropic/Block/OpenAI 共同创始，MCP 先捐入；维护者含 Google/OpenAI 工程师；路线图版本化发布+提案流程+安全指引）；OpenViking 41,337★（周+448/月+2.2K）v0.5.3 AGPL-3.0；TencentDB-Agent-Memory OpenClaw 插件契约加固（activation.onStartup/contracts.tools）+v2→v3 迁移工具+Team Memory Beta；dsh-memory-evolve 665★ 7 日+198（+421%）；huahua-dsh-memory-os Memory Sync 代码仓专用分支存记忆+冲突三选；Mem0 定价 11-02 改 Free/Custom（Starter/Pro 下架）；AML 二期 11-01 02:00 关投稿、11-04 23:59 关评测、11-08 仍 in progress、奖池 $22k 仅开源组；AML 评测合同数据版本化（textual-v1/ldbd-textual-official-suite-v1）但只固定 Add/Search 接口不固定记忆 schema。
+- **判读**：①倒挂第十九次——能写标准的恰是无利益方，头部记忆厂商格式层集体缺席；②MIF 最小主义 vs Engram 理论负载，第 13 期"更简单先赢"复验；③评测合同标准化与互操作标准化是两条不相交的轨道（AML 不测迁移性，第 13 期缺口延续）；④格式层三格式并立窗口期 6—12 个月，TotalReclaw PR 进 MCP 规范仓是收敛首信号；⑤安全责任真空是 Agent Skills 规模化后的最大治理缺口。
+- **待验证 143–147**：143. AML 二期榜单口径（11 月中，最高优先，11-08 未出）；144. MCP 规范提案流中 superseded_by/owner 字段出现时间；145. TotalReclaw Taxonomy PR 是否被 MCP 规范仓吸收；146. AAIF 安全指引文本与技能包投毒实测；147. 嵌入模型标识进 MIF 类交换格式的强制性要求。
