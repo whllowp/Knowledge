@@ -721,3 +721,13 @@
 - **六项目**：TencentDB 29.9k★（口径又变）+Team Memory Beta+MongoDB 后端 experimental+v2→v3 迁移工具、README 改"team-level memory hub"；Hy-Memory MemHub v1.0.6（11 语言/三档/换嵌入/多用户，2.0.14）+FP8/GGUF 量化+CMB 投 ICLR 2027；ReMe DSH 插件 0.1.3（npm 11-09，journal→digest+auto_dream+provenance）；dsh 主仓 27.4 万★、memory-evolve 645★（push 10-29 停更）、生态教程提出"第二轮"（进化/隔离/迁移，警告多插件叠加=重复写入）。
 - **AML 二期**：11-04 关评测，原定 11 月中出榜，11-10 检索仍 in progress，未发布。
 - **待验证 222–226**：222. AML 二期正式榜单（最高优先）；223. 记忆产品公布条/文件换算比首例；224. 知驿首款产品治理件披露（owner/注销/血统）；225. 托管层价格战（0.003 元/万文件·小时被击穿）；226. OpenViking 企业版多租户权限模型文档。
+
+## 六之二十五 记忆的内在评测事实（第 42 期，20261111-0200）
+
+- **FEB-30（arXiv 2610.22209，AWS+克卢日-纳波卡技术大学，10-15 提交）**：首次量化内在/外在评测分歧——平均 16pp、44% 轨迹超过有意义阈值；记忆操作（create/update/reinforce/supersede）分类正确率仅 20% 且外在评测完全不可见；两类盲区＝假阳性（LLM 用局部检索推理补偿坏库）与假阴性（库对但嵌入失配/截断，错记在记忆头上）；范式倒置法（paradigm inversion）：从已知事实演化轨迹反向生成文档→确定性金标免人工标注；30 轨迹×6 诊断类别×3 难度；开源 amazon-science/feb-30-benchmark。
+- **cognee 五工具可评性对比（2026-09，厂商自评+声明利益冲突）**：Mem0 开源基准套件（--predict-only 止步检索、top-k 截断 10/20/50/200）；Zep openzep-eval-harness（含"应检到而缺失"证据项）；Letta ADE 块级查看编辑；LangMem 零公开测试基建；四失败面 Formation/Maintenance/Retrieval/Downstream use——前两面免模型可直接查库；**Mem0 头条分数来自托管平台专有优化，开源版复现方法不复现分数**。
+- **memdebug 1.0.1（PyPI，10-07 首发 0.2.0、10-11 达 1.0.1）**：本地优先 agent 无关旁观者——防篡改账本、捕获绕过存储自身历史的越权编辑、快照比对、markdown 安全回滚；"不居间、不阻断"；支持文件/Git 记忆、Open WebUI、MCP memory server、自托管 Mem0；真实环境只验证过 Claude Code 与 Open WebUI。＝第 26 期采信层之外首个"观察侧"独立工具位。
+- **AML 协议=纯外在评测极致形态**：参赛系统仅暴露 Add/Search，答题模型/评分器/聚合全平台锁定，库内状态零检位；二期榜单 11 月中仍未出（11-11 检索仍 in progress）。
+- **六项目**：OpenViking v0.5.4（11-09）MCP 工具挂成可读 Markdown 节点（工具结果=可检索上下文）、只读与破坏性操作分道（非只读须显式 ov mcps invoke）、Rule Search、Watch MySQL、归档带内容哈希显式重试、ov compile memory 显式整理记忆（代谢显式化，第 19 期）、41,918★/1,374 open issues；Hy-Memory 无新版（2.0.14/MemHub v1.0.6，1.9k★ 口径）；TencentDB 29.9k★ 无新版；ReMe DSH 插件 0.1.3（npm 11-09）HTTP 适配器无鉴权仅建议 loopback；dsh-memory-evolve（brian 变体）L3 安装规格过期+L4 沙箱安装失败、仅验证至 dsh 0.2.1-rc.5、代码停更 10-29。
+- **判读**：倒挂第 33 次——内在证据最全在论文与第三方旁观工具，产品"能检什么"披露停在检索层，Formation/Maintenance 两面工具最少；口径缺口第 34 次——AML 无库检位，16pp 分歧意味着榜单分与库质量系统性失真（按榜选型可能选中坏库+好模型）；可评性=采购第四档（看分→看插座→看账单→看可评性）；内在评测缺标准操作语义 schema（第 28 期标准线评测侧延伸）；云托管记忆不可旁观=最大盲区。
+- **待验证 227–231**：227. AML 二期正式榜单及是否披露库检位（最高优先）；228. FEB-30 范式倒置法被 AML 三期或厂商基准吸收首例；229. 记忆操作语义公共 schema（跨系统可比的 create/update/reinforce/supersede 定义）首例；230. 云托管记忆提供检库 API（绕过平台锁定的直接库检）首例；231. memdebug 类旁观账本与被观测记忆系统的协作接口首例。
