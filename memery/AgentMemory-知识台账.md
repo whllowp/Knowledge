@@ -731,3 +731,15 @@
 - **六项目**：OpenViking v0.5.4（11-09）MCP 工具挂成可读 Markdown 节点（工具结果=可检索上下文）、只读与破坏性操作分道（非只读须显式 ov mcps invoke）、Rule Search、Watch MySQL、归档带内容哈希显式重试、ov compile memory 显式整理记忆（代谢显式化，第 19 期）、41,918★/1,374 open issues；Hy-Memory 无新版（2.0.14/MemHub v1.0.6，1.9k★ 口径）；TencentDB 29.9k★ 无新版；ReMe DSH 插件 0.1.3（npm 11-09）HTTP 适配器无鉴权仅建议 loopback；dsh-memory-evolve（brian 变体）L3 安装规格过期+L4 沙箱安装失败、仅验证至 dsh 0.2.1-rc.5、代码停更 10-29。
 - **判读**：倒挂第 33 次——内在证据最全在论文与第三方旁观工具，产品"能检什么"披露停在检索层，Formation/Maintenance 两面工具最少；口径缺口第 34 次——AML 无库检位，16pp 分歧意味着榜单分与库质量系统性失真（按榜选型可能选中坏库+好模型）；可评性=采购第四档（看分→看插座→看账单→看可评性）；内在评测缺标准操作语义 schema（第 28 期标准线评测侧延伸）；云托管记忆不可旁观=最大盲区。
 - **待验证 227–231**：227. AML 二期正式榜单及是否披露库检位（最高优先）；228. FEB-30 范式倒置法被 AML 三期或厂商基准吸收首例；229. 记忆操作语义公共 schema（跨系统可比的 create/update/reinforce/supersede 定义）首例；230. 云托管记忆提供检库 API（绕过平台锁定的直接库检）首例；231. memdebug 类旁观账本与被观测记忆系统的协作接口首例。
+
+## 六之二十六 记忆的退役门控事实（第 43 期，20261111-0300）
+
+- **MEMOIR（arXiv 2611.07631，11-05 提交，IIIT Allahabad+IIT Patna）**：training-free 记忆生命周期；判词＝写时打分的静态重要度永不修订导致两耦合失败（prospective corruption 巩固毁证据 / retrospective staleness 检索偏爱旧记忆）；原则"attribute usefulness after use, screen for preservation before compression"；judge 集合筛查门控合并（100 次独立审计 0 损失、95% 单侧上界 2.95%）、查询后追溯归因回写检索优先级、UCB 探索加成防马太效应；LoCoMo 1,905 去重 QA 证据 recall@5 +11.92pp（裸余弦）、置信门控反馈 +1.50pp 免参考答案、oracle 多跳 +8.05pp；在线写路径零额外 LLM 调用、筛查 confined 到离线周期巩固；开源 AnandMayank/MEMOIR。
+- **ENGRAM（arXiv 2611.09472，11-06 提交）**：从经验到权重的可验证迁移协议；把"允许参与训练"（学习准备度）与"允许退出检索"（释放准备度）拆成两个独立门控——成功教师示范可提前训练，但只有无检索的新权重通过逐技能验证、能替代"基础模型+外部记忆"后才释放对应记录；未达标技能保留外部经验门控。＝参数轨"注销完全失能"（第 2 期）的第一个工程出口。
+- **Oblivion（arXiv 2604.00131，NEC，3-31）**：遗忘=衰减驱动的可达性降低而非显式删除；读路径按不确定性决定是否查记忆（避免 always-on）、写路径强化贡献记忆；分层组织维持高层策略、动态加载细节；开源 nec-research/oblivion。
+- **背景参照**：Human-Inspired Memory Architecture 2605.08538（TTL 分层+指数衰减 λ=0.001≈半衰期 29 天+干扰遗忘）；FadeMem 2601.18642 双层衰减 30 天保 82.1% 关键事实只用 55% 存储；Titans 惊讶门（2025）——均未被产品化。
+- **第五失败面**：Consolidation Loss（巩固丢失）横跨第 42 期 Formation 与 Maintenance 之间；FEB-30 六诊断类别亦未单列，内在评测框架需扩容。
+- **产品侧**：OpenViking v0.5.4 `ov compile memory` 显式代谢但无保全筛查与用后归因（门在论文不在产品）；TencentDB 按"条·小时"持有计费（0.02 元/万条/h）复核于第三方目录 11 月快照——不退役的库=终身订阅自己的冗余（退役率=成本杠杆，深化第 41 期）；Hy-Memory diff 链保"为什么改"但无退役语义。
+- **六项目**：TencentDB 30.6k★（30 天+2,942，push 11-04）；OpenViking 41,918★/126 releases/约 2.2 天一版；Hy-Memory MemHub 多语言版 10-28 后无新版；ReMe DSH 插件 0.1.3 与 dsh-memory-evolve（停更 10-29）无更新；AML 二期官方榜单仍未发布（11 月中），官网仍展示 Cycle 1 榜。
+- **判读**：倒挂第 34 次——退役门控与归因最完整的实现全在论文，产品要么只进不出（TencentDB）要么显式代谢不设门（OpenViking）；口径缺口第 35 次——衰减半衰期/退役率/归档留存期无一家披露、AML 无此维度，采购方对"库会长多大、多贵、多脏"全靠猜；退役≠删除语义分叉无公共约定（退役后仍在归档＝合规既是资产也是负债）。
+- **待验证 232–236**：232. AML 二期正式榜单（最高优先）；233. 产品披露记忆半衰期/衰减参数首例；234. last_hit_at/hit_count 用后归因字段进记忆 schema 首例；235. 退役项归档层（archive≠purge≠unlearn）产品化首例；236. ENGRAM 式权重迁移验证进参数轨产品首例。
