@@ -707,3 +707,17 @@
 - **产品接口实测**：TencentDB AM v3 `/v3/atomic/query` 谓词＝type(episodic/persona/instruction)+time_start/end+task_id+limit/offset，无布尔组合、无跨层 join、无总数（Q1）；Mem0 filters 支持 AND/OR/NOT 与 in/gte/lte/gt/lt/ne/contains/icontains、list 带 count（形式 Q2），但官方 skill 文档称 metadata 仅顶层键/仅 eq·contains·ne（**两套口径并存**），且**跨实体 AND(user_id+agent_id) 静默返回空集**需改 OR；OpenViking 唯一把两动词分开（ls/tree/read/write 遍历、grep 精确、find 查询、search 语义；子树当作用域"在目录里检索而非在整个索引里捞"），41,748★/30 天 +2,310/周 +500；ReMe 0.1.2 仅 searchLimit 5+recallMinScore 0；dsh-memory-evolve 645★/71 fork/MIT/push 10-29；Hindsight 三动词 retain/recall/reflect（第三动词是"想"不是"查"）；MemMachine 2604.04853 原文逐字＋三档查询路由（查询规划交给模型，不可复现不可计数）；HydraDB 时序图 97.43%。
 - **判读**：①**倒挂第三十一次**（Q2 以上全不是记忆产品，语言都从数据库侧带进来）；②Q1→Q2 是"多几个运算符"变成"定义集合"的断裂而非渐进；③文件系统是被低估的第四接口形态（路径/正则为谓词、grep -c 可数、可管道，缺时间与血统）——这解释了 LongMemEval-V2 上"用文件搜"赢 RAG 24pp；④前 39 期"倒挂+口径缺口"的工程根因是**语法缺位**：治理动作全是集合运算，无语言只能逐条点选；⑤**空集第五义**修正第 7 期（语法层也不可信，且发生在治理脚本里更危险）；⑥计数与隐私冲突＝第 12 期"越共享越难切"的查询版。
 - **待验证 215–221**：215. AML 二期正式榜单（11 月中，最高优先）；216. 记忆产品首次提供 `count(where)`；217. `memory_id` 稳定键进 schema 首例；218. `as_of` 作为 where 谓词（而非时间窗参数）首例；219. 计数预算/噪声披露首例；220. 记忆侧 GQL/Cypher 方言收敛首个互操作测试；221. text-to-query 在记忆 schema 上的执行准确率首个公开数字。
+
+## 六之二十四 记忆的产业分层事实（第 41 期，20261111-0100）
+
+- **产业分层**：能力层归零（Mem0 只剩 Free/Custom、cognee 云免费 1M token、Hindsight 开放 0.8B 决策模型权重+$0.005/1M 推理）、托管层计费（火山引擎 OpenViking Context 全托管）、治理层资产化（Sentra $150M C 轮；CrowdStrike ~$495M 收购 Fiddler AI+Dreadnode）。
+- **火山引擎 OpenViking Context**（11 月全托管上线）：viking:// 文件系统、L0/L1/L2 分层、多租户隔离、AGPL 内核；计费＝文件·小时（个人版 50 文件免费、0.01 元/h 起、超出每万文件 0.003 元/h；企业版 0.05 元/h 独占实例；AFP 抵扣 5 AFP/h）；硬约束：个人版 QPS 5、单文件 10MB；产品名不用"记忆"，叫"上下文数据库"（命名即定位）。
+- **计费单位第三例**：条（TencentDB 万条·小时）→ token（第 37 期语言税）→ 文件（OpenViking）；按文件计费激励聚合打包，与巩固税/可寻址冲突被写进价格表。
+- **知驿科技**（11-10，清华 00 后团队，数千万元种子轮，卓源亚洲领投）：TeamAgent+长时经验记忆系统+企业 AI 网关，产品 11 月中上线，反对"超级个体"叙事；投资人话术"判断经验可信度/适用条件/持续核验纠错"逐条对应采信层(26)/作用域(9)/对账(29)/currency(10)——资本条款首次复述评测缺口（口径缺口第三十三次反转）。
+- **倒挂第三十二次**：治理层预算流向安全/可观测公司而非记忆厂商。
+- **TransMem 2611.10683**（NeurIPS 2026）：transition records 一等检索单元（事实锚点+自适应展开变更记录），PersonaMem/PersonaBench 胜基线——旧值资产(10)/对账(29)的产品化下钻：supersede 关系首次可检索。
+- **forge_dc 2611.08644**：纠正+工具失败→指令式 RULE 注入决策点；DC-Bench 71 场景 95% vs 55%、token 1/10；表示/激活/放置位三设计选择——补第 15 期程序性记忆第三自由度。
+- **2611.03930**：task-conditioned utility+成本账本（answer-bearing +0.33；raw>任务盲摘要；事实增益不迁移到软件工程/科学编码）——第 30 期利用率首个可复现测量协议。
+- **六项目**：TencentDB 29.9k★（口径又变）+Team Memory Beta+MongoDB 后端 experimental+v2→v3 迁移工具、README 改"team-level memory hub"；Hy-Memory MemHub v1.0.6（11 语言/三档/换嵌入/多用户，2.0.14）+FP8/GGUF 量化+CMB 投 ICLR 2027；ReMe DSH 插件 0.1.3（npm 11-09，journal→digest+auto_dream+provenance）；dsh 主仓 27.4 万★、memory-evolve 645★（push 10-29 停更）、生态教程提出"第二轮"（进化/隔离/迁移，警告多插件叠加=重复写入）。
+- **AML 二期**：11-04 关评测，原定 11 月中出榜，11-10 检索仍 in progress，未发布。
+- **待验证 222–226**：222. AML 二期正式榜单（最高优先）；223. 记忆产品公布条/文件换算比首例；224. 知驿首款产品治理件披露（owner/注销/血统）；225. 托管层价格战（0.003 元/万文件·小时被击穿）；226. OpenViking 企业版多租户权限模型文档。
