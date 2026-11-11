@@ -571,3 +571,13 @@
 - 判读：倒挂第 41 次（唯一固化验收协议在论文，产品只把技能做成资产、不算账）；口径缺口第 42 次（AML 接口契约使参数载体不可见，从"不披露"升级为"不可见"）；主张 `memory.form`/`consolidation.substitution_rate`/`consolidation.release_verified_at`/`weights.derived_from`/`weights.unlearning_supported` 五字段。
 - 下期候选：AML 二期榜单（最高优先，且观察是否新增载体维度）/ 首个披露"参数内遗忘"能力的产品 / 替代率复测进产品 SLA 首例 / Skill 资产版本回滚进产品首例 / BEMULA 删除路径被产品吸收与否。
 | 50 | 20261111-1200 | 记忆的固化账——退役的终点是资产，而资产没有折旧表 | 固定资产无折旧表/一次性验收永久折旧/固化＝授权买断点（账不属于产品方）/退役单位是技能非条目/接口契约定义技术可见性/分层固化：技能可固化事实不可固化 · 倒挂第 41 次·口径缺口第 42 次 |
+
+### 第 51 期（20261112-0000）：记忆的继承——冷启动的库不是空的，是别人写的
+- 文件：`记忆技术洞察-20261112-0000.md`；正文约 1,240 汉字（含表）；五章 + 8 方案五维导入对比表 + 16 条来源。
+- 与前期的分工：第 6 期讲插座/可携性梯度（能不能带走），第 47 期讲灾备（丢了怎么找回），第 48 期讲换模型迁移（索引怎么重算），本期讲**库的初始内容不是自己写的**：导入/预装/继承三种来源，以及导入绕过的五本账。第 46 期入库门、第 43 期归因、第 45 期授权、第 2 期删除权在此全部被绕过。
+- 主线：拿掉前 50 期共同前提"记忆由本系统亲历写入"。触发＝EvoGroup 六工具冷启动自演化（71.07→89.58）、CogniLife cold-expert（Creator Profile / Expert Journal 双层）、Continual AutoResearch（记住≠会用）＋一周四个迁移件（Hindsight transfer、memscore、dossier、savestate）。
+- 新框架（长期复用）：**来源三态**（亲历/导入/继承）、**导入不是搬运而是重算**（Hindsight 不导嵌入，零 token 零新事实）、**导入绕过五本账**、**资历不可见**（无 origin/donor_id/imported_at）、**撤回不可传播**（donor 删除不通知副本，第 18 期三角第五次、首次跨组织）、**冷启动先程序后事实**（EvoGroup 六工具 vs 产品先灌事实）、**adoption_state**（imported→adopted→reference）。
+- 关键事实：EvoGroup 2611.03868（11-02）六工具冷启动、EverMemBench 71.07→89.58 超 Claude Code 85.83、冻结后迁 GroupMemBench 仍有效；CogniLife 2611.04483（11-04）Creator Profiles+Expert Journals、"仅 owner-scoped 记忆可逆合并"、ProfyBench 4.65 vs Raw 4.01（配置级非冷启动验证）；Continual AutoResearch 2611.05108（11-03）persistent 提升效率但最终解不必然更好；Memorilla 16 memory tokens/108× token/FactKG 84.33 vs 80.43；Hindsight v1.2.0（11-03）transfer export 不含嵌入与 db id；memscore 探针重校准＝保险费，25% 投毒反超 6 分、投毒召回 90%（模拟器）；dossier 校验和 + 必须报 lost/degraded；savestate AES-256-GCM；Hy-Memory v1.0.6（11-06）lite/pro/ultra + 安全重嵌；OpenViking v0.5.4（11-09，41,897★）；TencentDB v2.0.3（10-26，30,721★）；ReMe 0.4.2.2（11-05）；dsh-memory-evolve 753★（push 10-29）；AML Cycle 2 **11-19 预期出榜**。
+- 判读：倒挂第 42 次（导入验证只在论文与两个小工具，八家产品零导入预检）；口径缺口第 43 次（AML C2 有 D 治理与 H 认知安全，仍无"来源"维度，转述与亲历不可分）；主张 `origin`/`donor_id`/`imported_at`/`adoption_state` 四字段 + `manifest.json` 预检流程。
+- 下期候选：AML Cycle 2 正式榜单（11-19，最高优先）/ 首个披露导入预检通过率的产品 / donor tombstone 订阅首例 / `origin` 进 schema 首例 / 冷启动只给 harness 的产品首例。
+| 51 | 20261112-0000 | 记忆的继承——冷启动的库不是空的，是别人写的 | 来源三态（亲历·导入·继承）/导入即重算（不导嵌入）/绕过五本账/资历不可见/撤回不可传播（三角第五次·跨组织）/冷启动先程序后事实/EvoGroup 71.07→89.58·CogniLife 双层·memscore 探针重校准·AML C2 11-19 · 倒挂第 42 次·口径缺口第 43 次 |
