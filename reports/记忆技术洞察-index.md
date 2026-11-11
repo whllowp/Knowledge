@@ -601,3 +601,29 @@
 - 判读：倒挂第 44 次（退化只在论文与 ReMe 剪枝被正视，八家产品零 with/without 指标）；口径缺口第 45 次（AML C2 无 with-vs-without delta 列，"记忆有益"无证）。
 - 下期候选：AML C2 正式榜单（11-19，最高优先）是否新增 with-vs-without delta 列／首个披露"记忆诱发退化率"的产品／evidence_link 进 schema 首例／terminal 下探原语进产品首例／继承 lesson 强制附 trajectory 首例。
 | 53 | 20261112-0200 | 记忆诱发退化——记忆不总是帮忙，也可能咬人 | 记忆诱发退化独立失败模式/质量轴转可检验性/evidence-linked memory(insight↔trajectory+terminal下探)/lesson带evidence_link·checkable/退化率成健康指标(补35期)/WikiTrace 2611.14320·ReMe效用剪枝 · 倒挂第44次·口径缺口第45次 |
+### 第 54 期（20261112-0300）：记忆的安全与隐私威胁面——记忆是新的攻击面与数据边界
+- 文件：`记忆技术洞察-20261112-0300.md`；正文约 1,150 汉字（含表）；五章 + 6 方案五维安全对比表 + 7 条来源。
+- 与前期的分工：第 45 期管"谁能读、授权买断点"（访问层），本期管"写进来的东西可否被污染、库会不会泄漏"（威胁层）；第 52 期内省互补（provenance 看"从哪来能否被污染"）；第 53 期 deletion residue 互补（residue 既取证也隐私负债）。
+- 主线：默认信任"助手归纳的观察"＝ 85–100% 攻击成功率根；记忆从"便利功能"重定义为"须治理的数据边界"。
+- 关键事实：Trojan Hippo（Das 2026）四架构 ASR 85–100%(Gemini 3.1 Pro)/15–85%(GPT-5-mini)、待敏感话题激活外泄；MemPoison 2605.29960 ASR 0.95；PMPA OpenClaw 73.7%/55.5%、Claude Code 66.9%/81.7%；OWASP GenAI 2026 记忆投毒列 agentic top-3；CNIL 2026-07 持久记忆＝GDPR 首风险；AML C2 H 维度 MemoraX 58.39、MemOS/Cognee 27–29；六产品零 provenance、零默认命名空间隔离；Hy-Memory delete 留 history.db/cache.db＝删不净。
+- 判读：仅 OpenViking 只读/写分道+子树隔离接近 by-design 边界；六家把"记忆安全"押在下游提示过滤（Trojan Hippo 证不够）；倒挂第 N 次（安全设计最完整在红队论文，产品零 provenance）；口径缺口第 N 次（AML H 不设"记忆毒性"关联）。
+- 下期候选：首个 provenance 默认值产品 / deletion residue 进 erasure SLA 首例 / fail-closed 授权产品首例 / AML H 增"记忆毒性"子项。
+
+### 第 55 期（20261112-0400）：记忆的事实时效性——状态协调失败（Ghost Memory）与"废止而非删除"
+- 文件：`记忆技术洞察-20261112-0400.md`；正文约 1,100 汉字（含表）；五章 + 6 方案六维状态协调对比表 + 8 条来源。
+- 与前期的分工：第 2 期管"删不删、能否举证删除"，本期管"写进去的事实后来变了怎么办"＝第三本账「真相账」；与第 46 期入库门（写不写）、第 51 期 adoption_state（来源三态）正交互补；与第 53 期（诱发退化）分工：53 管质量，本期管"说的是不是现在真的"；与第 54 期（安全）分工：那期威胁层、本期正确性层（自然演化）。
+- 主线：状态角色（state role）成为记忆一等元数据——保留全部记录、标注每条此刻是否有效、检索默认只取 live。
+- 关键事实：A-TMA 2607.01935（Ghost Memory）Graphiti/Zep LoCoMo 时间性 F1=0.0295；MemoryAtlas 11-01 插入偏见 76.8%、StateMemBench 最强基线 20.5%、撤销不强制；2609.08258 跨 5 系统 9 场景 9 模型证 revoked 标旧仍被召回/超排名/驱动不安全动作；GC-Mem 2609.16073 写时 GC 取代块 >90% 冲突准确率（~137,760 块）；ROAM 2609.09778 +29.8pt；EGMemory 2609.23465 GroupMemBench 68.2% vs 45.5%；TEPA 2608.07429 反转 0.950 vs 0.210。
+- 判读：六家无一默认 state_role+硬排除；OpenViking 启发式最近真、dsh 保留历史最完整，都把"当前真相"当检索打分副产品而非一等状态；倒挂/口径缺口再次现身。
+- 下期候选：AML C2 出榜是否新增"当前状态准确率"列（最高优先）/首个默认 state_role+硬排除产品/写时 GC 取代块进产品首例/transition_record 进审计首例。
+
+### 第 56 期（20261112-0500）：记忆工程的评测契约危机——倒挂与口径缺口的系统性根源
+- 文件：`记忆技术洞察-20261112-0500.md`；正文约 950 汉字（含表）；五章 + 4 框架四问对比表 + 6 条来源。
+- 与前期的分工：第 1 期把"评测失真"列为挑战之一；第 42/45/51/52/53/54/55 各自发现一个被榜单漏掉的失败模式；本期不新增失败模式，把散落 11 期的"倒挂第 N 次/口径缺口第 N 次"做根因综合（元层梳理，往期未做）。
+- 主线：倒挂与口径缺口是同一根因的两个投影——记忆本质是账本+主权（append-only、可冲正、带 principal 与 state_role），而现行评测契约仍按"数据库"假设设计；改革＝把 50+ 散落 schema 字段收敛为强制"评测契约"。
+- 关键事实：AML C2 协议仅 Add/Search、单用户单库、无 principal、A–H 含 D 治理+H 安全但无 source/state/with-vs-without；Reglos 2611.06049 跨家族 critic 防 gaming；CompressionBench 2611.06858 唯一带硬验收门（生成保留 BF16 80%、29/36 过独立容器）；GateMem 2606.18829 MGS=U×(1−A)×(1−F) 乘性分防"全拒"刷分；六项目均已在各期登记、本期不作新事实断言。
+- 判读：AML C2 最接近契约合规但仍是"数据库契约"；CompressionBench 证"验证门"可工程化；真正"账本契约"无人实现；倒挂/口径缺口的本质是"账本属性在评测中结构性不可见"。
+- 下期候选：AML C2 正式榜单（11-19，最高优先）及是否新增 source/state/with-vs-without 三列／首个把 provenance+state_role 设为治理维度门槛的榜单／"验证门"进评测协议首例／反 gaming critic 被 AML 采纳与否。
+| 54 | 20261112-0300 | 记忆的安全与隐私威胁面——记忆是新的攻击面与数据边界 | 默认信任助手归纳观察=85–100% ASR根/Trojan Hippo·MemPoison 0.95·PMPA OpenClaw 73.7%/Claude Code 81.7%/六产品零provenance零隔离·Hy-Memory删留history.db/H安全=数据边界 · 倒挂·口径缺口再现身 |
+| 55 | 20261112-0400 | 记忆的事实时效性——状态协调失败（Ghost Memory）与废止而非删除 | 状态角色成一等元数据/保留全部标注live/A-TMA F1=0.0295·MemoryAtlas 76.8%插入偏见·2609.08258 revoked仍召回/GC-Mem写时GC>90%/六家无state_role+硬排除 · 第三本账真相账 |
+| 56 | 20261112-0500 | 记忆工程的评测契约危机——倒挂与口径缺口的系统性根源 | 倒挂与口径缺口=同一根因两投影(账本+主权 vs 数据库契约)/50+字段收敛为强制评测契约/AML C2仅Add-Search无principal·CompressionBench唯一硬验收门·GateMem MGS乘性分/账本四问(principal·state_role·origin·retrieval_explanation) · 元层综合 |
