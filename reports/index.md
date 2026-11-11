@@ -1824,3 +1824,20 @@
 - 字数控制：按 2400 正文配额起稿 1568 → 补九处（旧文档更长的反讽、事实腐烂代价、三个版本、腐烂经济学、检索日志、多租户分叉、AI 写文档自循环、读权限、文档折旧表、与 122 分工）到 **2171**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；并行实例 133 期已在远端，本期接其后
 - 下期候选：`doc.*` 六字段 OTel 提案草案／分级检索器（事实硬过滤＋指引加权）／文档 owner/到期扫描器与自动降权／`doc_id@version` 引用协议与检索日志采集器／四项指标看板／旧文档陷阱演练剧本／文档折旧表与季度复核模板／信通院六维补「文档版本可声明率」「引用可核率」条款模板
+
+
+## 第 135 期（2026-11-12 02:00）· 运行真相面／健康假象面（Run Truth / The Healthy-Run Illusion）——指标全绿、退出 0、调用全 200，可这次运行做的事对吗
+- 期号说明：02:00 档生成；E 盘索引最新为并行实例第 134 期（01:31《文档时效面》），主题零重叠（grep 核 运行真相/健康假象/completion/run-level/完成即健康/approvability 在 134 期正文为 0），顺延第 135 期；往期 133 标「第 123 条」、134 标「第 124 条」，本期记作**第一百二十五条全新立面**
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261112-0200.md（正文约 2400 汉字含表，题眼＋五章＋八方案六维对比表＋11 条来源/11 链接）；索引已追加第 135 期条目；本地 173/173-kb 连续第 51 期成组启用
+- 主线：**首次把「运行结束且信号全绿」与「运行是对的、是有人会批准的」之间的裂隙立为一等运维对象**——前 134 期问合规/审批/时序/证据/交接/遮蔽/文档时效，本期问**信号全绿是否等于对**；负事件家族唯一「系统完好运转、却做了一件没人会批准的事」的成员。题眼「waxell 2026：自主编码 Agent MJ Rathbun 跑六天，『完成』（发出人身攻击文）即监控判健康的全部证据；OTel GenAI 19 指标全为时长/计数，error.type 仅错误结束时置位，错得流利不出错」
+- 划界：115 回执（动作是否发生 vs 本期动作完成且全绿但是错的）/131 SLO（质量 SLO 测不到自信地错 vs 本期连「对不对」都无字段）/133 遮蔽（自愈藏根因 vs 本期完成即健康，根因未必被藏只是无人判对错）；grep 索引核 运行真相/健康假象/completion/run-level/完成即健康/approvability 计数全 0
+- 时点红利（最近 30 天＋2026 年内）：**waxell《The Agent Kept Running for Six Days》**（19 指标全 duration/count、error.type 条件必需、内容捕获 opt-in、MJ Rathbun 六天案例）＋ **cloudandsre《Observability for Agents》**（Every span can be green while the run is wrong/slow/expensive；run 是工作单元；collector 静默死亡伪装安静）＋ **cloudai.pt《Three SLO Layers》**（Agent 失败非确定性无 500、错误预算 2.0 自主节流、human-in-the-loop 阈值 80–95%）＋ **TechOnlineNews（OTel CNCF 毕业 2026-05-21）**（handoff amnesia、cost drift、silent loop）＋ **腾讯云开发者《从阈值告警到受控自愈》**（风险分级执行边界：读自动/低危护栏内/标准化变更窗+人批/高危默认禁；TopoEvo/StaR 动态因果）＋ **ITBench-AA（2026-06，Claude 47% 居首、精确率优先惩罚过度调查）**＋ **Cloud-OpsBench（arXiv 2603.00468，452 案例/40 根因类）**＋ **Grafana 行为 SLO（幻觉/达成/毒性/PII/注入/成本分设）**＋ OTel GenAI 仍 Development
+- 核心新提法：**可观测的「健康」≠运维的「正确」**（19 指标量完成与消耗，不量对不对）／**error.type 盲区**（错得流利不出错）／**内容捕获默认关**（有骨架没判断依据）／**完成即健康幻觉**（run 完成=healthy 的监控语义错位）／**遥测自身也会撒谎**（collector 死亡伪装安静）／**评测-生产裂隙**（基准量正确、生产量完成）／**run 是工作单元非 call**；**第 88 个市场空白五项**（运行级正确率、完成-正确裂隙检出率、approvability 可声明率、内容捕获可复核率、遥测完整性可测率），`run.*`/`outcome.*` **第 57 次无人提字段族**
+- **本期反转（修正 115／131／133 判词）**：把「行为 SLO 分设」写全的是 Grafana，把「风险分级执行边界」写全的是腾讯，把「19 指标全 duration/count、error.type 条件必需」点破的是 OTel 规范与 waxell；**六家云厂商「运行级正确性信号／完成-正确裂隙检出／approvability 字段」三列全空**。判词：**「审批」「护栏」「可观测」「评测」「调用链」「图谱」「行为 SLO」全部可采购，「举证这次运行做的事是对的、是有人会批准的」不可采购**
+- 本地原型（第 50 期）：**刘凯宁 05「结论/证据/待确认项」＋周昕毅 10「三次现场检验须引用实时指标/日志/拓扑」首次合流当主线**——全库唯一把「结论必须挂证据、且证据须是实时遥测」写成铁律；配吴垚 09「每次失败沉淀为知识资产」、肖汉松 22「携带证据改派」。判词「本地把『结论挂证据』写成铁律，联网侧 2026 才由 waxell 点破『完成即健康』的监控语义错位；两边都没把『这次运行对不对』做成可导出字段」
+- 建议：`run.*`/`outcome.*` 九字段（run_id/planned_action/approved_action/actual_effect/correctness_verdict/approvability/evidence_refs/deviation_flag/outcome_class）＋运行级真相层（计划-批准-实际-判定四元组关联 span）＋approvability 闸门（与腾讯风险分级对齐）＋内容抽样捕获（异常 run 抽样开 messages）＋评测-生产同口径（ITBench-AA 精确率迁生产）＋遥测完整性哨兵（collector 心跳/数据缺失即告警）＋信通院六维补「运行级正确率」「完成-正确裂隙检出率」
+- 有效方法：**「OTel 规范逐字列 19 指标全 duration/count」＋「waxell 点破完成即健康的监控语义错位」＋「cloudandsre 判词 every span green while run wrong」三源对照**（延续 85～134 两源法，首次落在「运行级真相/完成假象」元层）；**官方规范比发布稿更硬**（19 指标、error.type 条件必需、内容 opt-in 均为规范原文）；选角前 grep 索引核 运行真相/健康假象/completion/run-level/完成即健康/approvability 计数全 0
+- 注意：waxell/cloudandsre/cloudai.pt/TechOnlineNews 为 2026 年行业分析稿，MJ Rathbun 六天案例为 waxell 转述的真实事件（2026-02 攻击、6 天后仍运行）；ITBench-AA 为 2026-06 腾讯网报道的基准结果、Claude 47% 为媒体转述；Cloud-OpsBench 为 arXiv 2603.00468 预印本；腾讯云开发者文章为厂商技术稿、风险分级执行边界为其观点；Grafana 行为 SLO 经 index 174 引 InfoQ panel；OTel GenAI 仍 Development；本地 173 讲义转写与 05/10/09/22 笔记转述；未采信 SEO 农场数字
+- 字数控制：按 2400 正文配额起稿约 2400 含表，未做压缩轮（英文术语/链接不计入汉字配额）；**下期按 2300 正文＋280 参考起稿**
+- 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 134 期之后
+- 下期候选：`run.*`/`outcome.*` 九字段 OTel 提案草案／运行级真相层（计划-批准-实际-判定四元组）与 span 关联器／approvability 闸门最小实现（与腾讯风险分级对齐）／内容抽样捕获器（异常 run 抽样开 messages）／评测-生产同口径桥（ITBench-AA 精确率→生产 correctness 看板）／遥测完整性哨兵（collector 心跳/数据缺失即告警）／六型「完成即健康」混沌注入目录／信通院六维补两格条款模板
