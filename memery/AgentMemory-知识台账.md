@@ -793,3 +793,16 @@
 - **AML Cycle 2**：官网倒计时明确 **11-19 预期发布**；三赛道独立排名（文本 6,000+ 实例/32 源/≈3 亿 token；代码；多模态），奖池 US$22,000；能力模型 A–H：A 显式事实、B 关系多跳、C 时间事件、**D 记忆治理（更新/冲突/删除/遗忘）**、E 个性化、G 规则流程、**H 认知安全与隐私（弃答/最小披露）**；两分区（开源方法/商业产品），均须自托管 Add/Search API；学术榜强制 text-embedding-v4 + gpt-4o-mini。
 - **判读**：倒挂第 42 次——把"导入"当需重新证明动作的只有论文与两个小工具（memscore/Hindsight），八家产品一律做成拷贝且零预检；口径缺口第 43 次——AML C2 虽有 D/H 两维（比前期判断更细，须修正"无治理维度"的旧表述），但**无"来源"维度**，转述与亲历在同一 Add 流中不可分，榜首分无法回答"记来的还是搬来的"；**资历不可见**与**撤回不可传播**是两个可由 schema 与订阅协议直接修掉的缺口。
 - **待验证 252–257**：252. AML Cycle 2 正式榜单（11-19，最高优先）及是否出现来源/导入维度；253. 首个披露"导入预检通过率"的记忆产品；254. donor tombstone 订阅（撤回传播）产品首例；255. `origin`/`donor_id`/`imported_at` 进记忆 schema 首例；256. 冷启动只给 harness 不给事实的产品首例；257. CogniLife Creator Profile 跨专家迁移被独立复现与否。
+
+## 六之三十一 记忆的内容内省事实（第 52 期，20261112-0100）
+
+- **OpenViking v0.5.4.1（火山引擎，11-11，41,982★，AGPL-3.0）**：在 v0.5.4（11-09，MCP 工具挂可读 Markdown 节点）基础上续发补丁；`viking://` 虚拟文件系统把资源/记忆/技能同构成 URI，ls/tree/read/write/grep 皆可，出问题"像查文件一样查它到底记了什么"；检索可限定子树避免扁平向量池捞隔壁内容；只读节点只透明调用"符合只读要求"的工具、破坏性工具须走 `ov mcps invoke` 显式调用＝只读/写分道；Watch 支持 MySQL＋分页、归档带内容哈希显式重试、`ov compile memory` 整理已有记忆。这是"记忆内省 by-design"产品首例。
+- **ReMe（agentscope-ai/ReMe，ACL 2026，"Remember Me, Refine Me"）**：Memory-as-File 模型，工作区分层＋frontmatter＋wikilink；`reme status` 显示有状态数据组件记忆估算与进程 RSS、`reme traverse`/`graph_snapshot` 探索 wikilink 邻域或类别根 digest 图、`reme reindex` 重建 BM25+向量索引；文档单列"Operations and Recovery：诊断服务、维护索引、备份/迁移/恢复工作区"＝**内置运维与恢复诊断**，是产品侧继 OpenViking 之后第二个把内省做成一等命令的记忆框架；DSH/Claude Code/Qoder/OpenClaw/Hermes 插件均带自动捕获、整合、诊断。
+- **Hy-Memory 2.0.13（Tencent-Hunyuan，11-02，Apache-2.0）**：lite/pro/ultra 三档，模型中心把"记忆整理模型"与"搜索嵌入模型"分开配置、换嵌入安全重嵌可取消；anchorterminal 全克隆复核（commit b58e95f，11-04 读）确认：`delete(id)` 移除向量条目、检索子句与图节点，但**保留 raw L1 对话（隐藏不列）、history.db 已删文本、cache.db 抽取 prompt**；删事实最新版本会重新激活被替代的旧版本；working/coding 记忆无公开删除方法＝`deletion_residue` 的首个产品实证：schema 只记"删了"，不记"留了什么"。
+- **TencentDB-Agent-Memory v2.0.3（10-26，30,773★）**：四资产（Chat Memory/Skill/LLM-Wiki/Code-Graph）四档可见性（private/team/restricted/agent）；README 提 Team Memory Beta 与 `Data Migration Tool (v2 → v3)`，迁移工具使"可见性配置"可随数据搬运＝可见性的可移植性首例；MemoryPanel 提供目录级面板（接第 35 期"面板即合同"）。
+- **dsh-memory-evolve v26092802（10-29，~753★，csyangwen）**：五轨记忆（用户档案/全局事实/项目关键记忆/项目日志/每日日志），重要结论经确认才写入，可标记仅某 git 分支生效；项目日志带 `[git main]` 分支标签、每回合自动记录进展＝**最廉价的审计轨迹**，不需额外内省端点即可溯源"这条记忆属于哪个分支的决策"。
+- **MEMOIR（arXiv 2611.07631，11-05）**：retrospective attribution——每次查询后估计哪些被召回记忆支撑了答案并更新其检索优先级，UCB 探索奖励鼓励低频记忆；＝"召回解释（why-this-retrieved）"的研究侧雏形，与本期 `retrieval_explanation` 字段族呼应。
+- **调试侧工具**：Memograph（统计异常检测标记记忆访问偏离、生成时间线报告、建议保留策略，代理层 +5% 延迟）、Orchid（本地优先 record-replay、时间旅行调试、diff 两 trace）、AgentRx（微软，假设驱动系统化调试＋反事实分析）均面向 agent 而非 store，但证明"记忆失败可观测/可回放"的工程范式已成熟，store 侧缺位即倒挂。
+- **AML Cycle 2**：官网倒计时明确 11-19 预期出榜；协议仍仅暴露 Add/Search，无 list/inspect 类内省接口；能力模型 A–H 含 D 治理与 H 认知安全，仍无"内容可见/来源"维度。
+- **判读**：倒挂第 43 次——把"库里有什么、为何召回"做成机制的全在论文（MEMOIR）与调试工具（Memograph/Orchid/AgentRx）与两个文件式框架（OpenViking/ReMe），六大记忆产品零 introspection 端点；口径缺口第 44 次——AML 契约无内容可见维度，"库里存了什么、被召回的为什么是它"在标准里无处表达；**fs 原语（viking://、Markdown 文件）是对的记忆内省抽象**，比"向量池+top-k"更可审计；**可观测性 ≠ 评测**（深化第 42 期）：评测给答案打分，内省回答状态。
+- **待验证 258–262**：258. AML Cycle 2 正式榜单（11-19，最高优先）及是否新增内容可见/来源维度；259. 首个披露"库内记忆清单（可列举/可检索元数据）"的记忆产品；260. `retrieval_explanation`（matched_query/score/path/reason）进 schema 首例；261. `deletion_residue`（删除后仍留存的内容清单）进 schema 首例；262. `viking://` 式内省接口成为事实标准首例。

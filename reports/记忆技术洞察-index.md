@@ -581,3 +581,13 @@
 - 判读：倒挂第 42 次（导入验证只在论文与两个小工具，八家产品零导入预检）；口径缺口第 43 次（AML C2 有 D 治理与 H 认知安全，仍无"来源"维度，转述与亲历不可分）；主张 `origin`/`donor_id`/`imported_at`/`adoption_state` 四字段 + `manifest.json` 预检流程。
 - 下期候选：AML Cycle 2 正式榜单（11-19，最高优先）/ 首个披露导入预检通过率的产品 / donor tombstone 订阅首例 / `origin` 进 schema 首例 / 冷启动只给 harness 的产品首例。
 | 51 | 20261112-0000 | 记忆的继承——冷启动的库不是空的，是别人写的 | 来源三态（亲历·导入·继承）/导入即重算（不导嵌入）/绕过五本账/资历不可见/撤回不可传播（三角第五次·跨组织）/冷启动先程序后事实/EvoGroup 71.07→89.58·CogniLife 双层·memscore 探针重校准·AML C2 11-19 · 倒挂第 42 次·口径缺口第 43 次 |
+
+### 第 52 期（20261112-0100）：记忆的内容内省——库是黑箱还是可审计的
+- 文件：`记忆技术洞察-20261112-0100.md`；正文约 1,050 汉字（含表）；五章 + 6 方案五维内容内省对比表 + 10 条来源。
+- 与前期的分工：第 35 期管"系统健康指标"（延迟/命中率/漂移/作废传播＝心电图），本期管"库里有什么、为何召回、来源与演化"＝X 光；第 42 期内在评测给答案打分，本期内省回答"库里现在有什么、为什么"；第 51 期来源三态须补 deletion_residue 才完整。
+- 主线：拿掉前 51 期隐含前提"写入有日志即可见"。你能看 Add 调用与延迟面板，却看不到库里实际有什么、一条记忆为何被召回、它的来源与演化轨迹。内容内省是比运维观测更底层的一层。
+- 新框架（长期复用）：**写入可见、内容不可见**／**可观测性 ≠ 评测**（评测打答案分、内省答库里有什么）／**血缘须含 deletion_residue**（删了的东西仍留 raw L1/history/cache）／**fs 原语是对的记忆内省抽象**（viking://、Markdown 文件即可查）／**memory_inspect 端点**＋`visibility.*`/`lineage.*`/`retrieval_explanation` 三字段族／面板即合同（35期）补"内省即内容合同"。
+- 关键事实：OpenViking v0.5.4.1（11-11，41,982★）MCP 工具挂可读 Markdown、检索限子树、只读/写分道＝by-design 可见性；ReMe（agentscope-ai/ReMe）`reme status`/`traverse`/`graph_snapshot`＋运维恢复诊断；Hy-Memory 2.0.13（11-02）history.db+版本链，删除留 raw L1/history.db/cache.db；TencentDB v2.0.3（10-26，30,773★）四资产四档＋v2→v3 迁移工具；dsh-memory-evolve v26092802（10-29）项目日志 `[git main]` 分支标签＝最廉价审计；MEMOIR 2611.07631 retrospective attribution 更新召回优先级＝召回解释雏形；Memograph/Orchid/AgentRx 是记忆调试工具但产品侧近乎零内省；AML C2（11-19 预期出榜）协议仍仅 Add/Search。
+- 判读：倒挂第 43 次（内省最完整在调试工具与论文，产品侧零 introspection 端点）；口径缺口第 44 次（AML 无内容可见维度，"库里存了什么"无处表达）。
+- 下期候选：AML C2 正式榜单（11-19，最高优先）及是否新增内容可见维度／首个披露"库内记忆清单"的产品／retrieval_explanation 进 schema 首例／`deletion_residue` 进 schema 首例／viking:// 式内省接口成事实标准首例。
+| 52 | 20261112-0100 | 记忆的内容内省——库是黑箱还是可审计的 | 写入可见内容不可见/可观测性≠评测/血缘须含deletion_residue/fs原语是对的记忆内省抽象/memory_inspect+visibility.*·lineage.*·retrieval_explanation/OpenViking viking://·ReMe 诊断·Hy-Memory 删留残 · 倒挂第 43 次·口径缺口第 44 次 |
