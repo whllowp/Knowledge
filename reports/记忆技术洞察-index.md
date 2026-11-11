@@ -591,3 +591,13 @@
 - 判读：倒挂第 43 次（内省最完整在调试工具与论文，产品侧零 introspection 端点）；口径缺口第 44 次（AML 无内容可见维度，"库里存了什么"无处表达）。
 - 下期候选：AML C2 正式榜单（11-19，最高优先）及是否新增内容可见维度／首个披露"库内记忆清单"的产品／retrieval_explanation 进 schema 首例／`deletion_residue` 进 schema 首例／viking:// 式内省接口成事实标准首例。
 | 52 | 20261112-0100 | 记忆的内容内省——库是黑箱还是可审计的 | 写入可见内容不可见/可观测性≠评测/血缘须含deletion_residue/fs原语是对的记忆内省抽象/memory_inspect+visibility.*·lineage.*·retrieval_explanation/OpenViking viking://·ReMe 诊断·Hy-Memory 删留残 · 倒挂第 43 次·口径缺口第 44 次 |
+
+### 第 53 期（20261112-0200）：记忆诱发退化——记忆不总是帮忙，也可能咬人
+- 文件：`记忆技术洞察-20261112-0200.md`；正文约 900 汉字（含表）；五章 + 6 方案六维对比表 + 7 条来源。
+- 与前期的分工：第 52 期管"库里有什么、能不能审计"（X 光），本期管"一条记忆会不会在关键时刻把你带沟里"（压力测试）；第 51 期来源三态（继承的 lesson 不带 trajectory 最易诱发退化）；第 35 期心电图补"记忆诱发退化率"。
+- 主线：拿掉前 52 期隐含前提"记忆有益"。agent 在"无记忆能解"的任务上反而失败，因照搬错误 lesson 或误用/误读正确 lesson；根因 lesson 不带源轨迹，无从核验。
+- 新框架（长期复用）：**记忆诱发退化**是独立失败模式（须报 with-vs-without-memory delta）／**记忆质量轴从覆盖/召回到可检验性**／**evidence-linked memory**（insight↔raw trajectory 双向链 + terminal 下探纠错）／**lesson 须带 evidence_link/checkable**／**退化率应成健康指标**（补第 35 期心电图）／ReMe 效用剪枝＝退化兜底。
+- 关键事实：WikiTrace 2611.14320（11-10，KAIST/DeepAuto.ai，ACL Rolling Review）记忆诱发退化，5 基准 10.7↑/-memory、3.2↑/同 insights，失败率 6.5%→4.5%；ReMe（agentscope-ai/ReMe，ACL 2026）效用驱动剪枝、承认经验随时退化；MEMOIR 2611.07631（11-05）retrospective attribution；Route to Remember 2611.05636（11-03）weight memory OPSD；OpenViking v0.5.4.1（11-11，~42k★）viking:// 可读源；Hy-Memory 2.0.13/TencentDB v2.0.3/dsh-memory-evolve v26092802。
+- 判读：倒挂第 44 次（退化只在论文与 ReMe 剪枝被正视，八家产品零 with/without 指标）；口径缺口第 45 次（AML C2 无 with-vs-without delta 列，"记忆有益"无证）。
+- 下期候选：AML C2 正式榜单（11-19，最高优先）是否新增 with-vs-without delta 列／首个披露"记忆诱发退化率"的产品／evidence_link 进 schema 首例／terminal 下探原语进产品首例／继承 lesson 强制附 trajectory 首例。
+| 53 | 20261112-0200 | 记忆诱发退化——记忆不总是帮忙，也可能咬人 | 记忆诱发退化独立失败模式/质量轴转可检验性/evidence-linked memory(insight↔trajectory+terminal下探)/lesson带evidence_link·checkable/退化率成健康指标(补35期)/WikiTrace 2611.14320·ReMe效用剪枝 · 倒挂第44次·口径缺口第45次 |
