@@ -2098,3 +2098,12 @@
 - 字数控制：按 2400 正文配额起稿 1511 → 补八处（断路顺序、操作级比喻、分档与 SLO、降级与 SLO 冲突、分级 owner、与 147 分工、档位评审、复核签字）到 **1710**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 152 期之后
 - 下期候选：`tier.*` 六字段 OTel 提案草案／六维打分卡与权重表／不变量强制器（健康/金融≥OPERATIONAL）／分档断路顺序器与经济断路器／档位-SLO-预算对齐检查器／季度复核与签字流／降级代价评估（丢什么证据）
+
+### 第 64 期（20261112-1500）：前瞻性记忆——被遗忘的"另一半"（Prospective Memory）
+- 文件：`记忆技术洞察-20261112-1500.md`；正文约 800 汉字；五章 + 来源。
+- 与前期的分工：前 1–63 期全在回顾性象限（召回/状态/Ghost/安全/回滚），本期管"记住未来意图并在对的时机实现"；与第 60 期回滚（事后纠正）互补、与第 53 期诱发退化（记忆质量）耦合（前瞻意图也需效用剪枝）。
+- 主线：记忆研究把回顾性做到饱和，前瞻性（prospective）是空白一极；Pro-Memory 首次拆分"维持意图"与"决定何时实现"两个正交子问题。
+- 新框架（长期复用）：Intent Memory 为第四类一等资产（与 Chat/Working/Coding 并列）/意图—激活分离/解决证据回流闭环/任务条件效用驱动保留（cost ledger）。
+- 关键事实：Pro-Memory 2611.05731（11-03，意图态+激活判定+experience memory 回流，跨骨干抑制多余干预）/ Task-Conditioned Utility 2611.03930（11-02，Conditional Memory Utility Dataset，含答案任务对增益 +0.33[95% CI +0.21~+0.46]）/ EvoMemState 2611.03743（11-02，Relational+Reasoning State，RL）/ MemRole 2611.01778（11-01，LHMT memory→decision）；产品：OpenViking v0.5.4.1 / Hy-Memory 2.0.14（L4–L6 前瞻意图存静态事实）/ TencentDB v2.0.3（Skill 被动）/ dsh v26092802 / ReMe proactive discovery（不触发动作）均零意图激活层。
+- 判读：倒挂延续（前瞻性最完整在论文、产品零披露）；口径缺口延续（AML 无 intent/activation 维度，"该不该留这条记忆"无字段）。
+- 下期候选：Intent Memory schema 首例/激活判定器进产品首例/任务条件效用进保留策略首例/AML C2 是否新增 intent 维度(11-19,最高优先)/意图—事实冲突裁决器。
