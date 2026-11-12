@@ -851,3 +851,20 @@
 - TencentDB-Agent-Memory：v2.0.3（2026-10-26 发布，30.6–30.8k★）；2026-11-10 仅 README 更新，feat/server_team 团队服务端分支在研。
 - dsh-memory-evolve：v26092802（2026-10-29，~628★），30 天无新发布。
 - ReMe（agentscope-ai）：2026-11-06 新增 application-owned chat（#714）；2026-10-29 Qoder 记忆插件（#682）。
+
+## 六之三十六 前瞻性记忆事实（第64期，20261112-1500）
+- **主论点**：记忆象限"回顾性"（Retrospective：发生/召回/修正状态/防投毒/回滚）已近做透，但"前瞻性记忆（Prospective）"——记住未来意图并在恰当时机自行实现、抑制不该触发的干预——长期空缺；前瞻性意图应成与 Chat/Working/Coding 并列的第四类一等资产，且与"任务条件效用"是同一枚硬币两面（一条记忆的价值只在服务于未来任务、在对的时机被激活时才成立）。
+- **硬指标**：Pro-Memory 2611.05731（11-03）延迟意图+开放协助两基准跨多骨干稳定优于代表记忆法且抑制多余干预；Task-Conditioned Utility 2611.03930（11-02）Conditional Memory Utility Dataset 含答案任务对增益比匹配控制对高 +0.33（95% CI +0.21~+0.46），首次把"该不该留这条记忆"变可测变量；EvoMemState 2611.03743（11-02）RL 学"推理态"决定事实如何应用于当前请求；MemRole 2611.01778（11-01）LHMT memory→decision。
+- **六项目状态（前瞻性维度补充登记）**：OpenViking v0.5.4.1（~42k★）viking://+Agent Evolution 仍"沉淀经验"；Hy-Memory 2.0.14 L4–L6"前瞻意图"存成静态事实非带激活条件意图；TencentDB v2.0.3 Skill 可复用未来动作但被动（仅被检索）；dsh v26092802 五轨无意图激活层；ReMe proactive discovery 仅"主动补记忆"不触发自主动作；六家零"条件满足自行行动否则静默"披露。
+- **AML Cycle 2**：仍 in progress（mid-Nov 出榜预期）；评测无 intent/activation 维度，"该不该留这条记忆"无字段（续第 56 期口径缺口）。
+- **判读**：倒挂延续（前瞻性最完整在论文、产品零披露）；口径缺口延续。
+- **待验证 278-282**：278. 首个把"未来意图"建模为一等类型的记忆产品；279. 触发器子系统独立进产品首例；280. 意图可撤销性进 schema（与 deletion_residue 同源）；281. AML C2 是否新增前瞻执行维度（11-19，最高优先）；282. Pro-Memory 被产品吸收与否。
+
+## 六之三十七 记忆的信念化与置信度校准事实（第65期，20261112-1600）
+- **主论点**：前 64 期默认"被召回记忆是确定事实"（第 55 期 state_role／第 52 期内省／第 58 期偏见都隐含此假设）；记忆本质应是"信念"——对"还有没有用、还成不成立"的概率判断，须可衰减、可随证据累积、可触发动作闸门；**置信度校准是让 state_role/内省/偏见三者真正落地的定量 backbone**——状态协调缺"我有多确信它仍生效"、空集缺"何时该弃答"、偏见缺"按可信度重加权"，信念化一次性补齐这三处。
+- **硬指标**：Memory as Belief 2610.25119 把每条记忆效用建模成 Beta 信念分布+Thompson 采样（证据不足保留高方差、自然探索）；PreCoMem 2610.29467 有效惊诧度双阈门控（维持/暂存等待室/软衰减），LoCoMo/LongMemEval-S/PersonaMem-v2 取 SOTA 且 DiMoBench 抗漂移；MMA Multimodal Memory Agent 置信层+共识重加权，MMA-Bench 把 abstention 当正例（深化第 7 期空集）。
+- **六项目状态（信念化维度补充登记）**：OpenViking v0.5.x（~41.9k★）viking:// 存可读 Markdown 无逐条置信；Hy-Memory 2.0.x（30B-A3B）演化链无校准信念；TencentDB v2.0.3 四资产无逐条置信衰减；dsh v26092802 五轨确认队列无置信权重；ReMe 效用剪枝最接近但仅"低效用丢弃"非信念分布；六家零"带证据累积置信+按置信触发动作/弃答"。
+- **新信号**：MemoryLedger AI（社区创意，源自热文"你的 AI 什么都记且全信"）已把 provenance card+置信衰减+TTL+高风险前置校验做成中间件雏形——论文之外首个工程化尝试。
+- **AML Cycle 2**：仍 in progress；评测无 confidence/calibration 维度。
+- **判读**：倒挂延续（信念校准最完整在论文、产品零披露）；MemoryLedger 为论文外工程化尝试；口径缺口延续。
+- **待验证 283-287**：283. AML C2 是否新增 confidence/calibration 维度（11-19，最高优先）；284. 首个披露逐条置信衰减的记忆产品；285. MemoryLedger 类中间件进生产首例；286. 置信膨胀（过度信任自写记忆）治理首例；287. Thompson 采样探索进检索首例。

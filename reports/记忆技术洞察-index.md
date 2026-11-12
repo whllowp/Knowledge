@@ -696,3 +696,23 @@
 - 判读：倒挂延续（视角分面最完整在论文）；口径缺口延续（AML C2 无 speaker/lens 维度）；产品落地要拆 speaker×lens 等于重写写入主键（第 3 期字段级血统代价复现）。
 - 下期候选：AML C2 正式榜单（11-19 最高优先）是否新增 speaker/lens 维度／首个披露 speaker×lens 主键的产品／lens 枚举与未声明镜头兜底策略首例／多镜头冲突裁决语义首例／TrackMem 金融外泛化实测。
 | 63 | 20261112-1400 | 记忆的"陈述者×镜头"维度——谁说的、从哪个视角说的，正成为第六个一等元数据 | speaker×lens=第六一等元数据(正交principal/source/state_role)/四类失效Revision·Stance·Constraint·Aspect(TrackMem Table1仅它覆盖Aspect)/FinLoCoMo73.9%vs69.4%·修订数值86.5%vs73.4%/分面图+双时间戳+评测加一问/六家零speaker×lens(OpenViking v0.5.4单命名空间·Hy-Memory v1.0.6单user_id·TencentDB v2.0.3·dsh·ReMe)/倒挂·口径缺口延续 |
+
+### 第 64 期（20261112-1500）：前瞻性记忆——被遗忘的"另一半"
+- 文件：`记忆技术洞察-20261112-1500.md`；正文约 1,050 汉字；四维度（趋势/现状/竞争力/挑战）+ 需求分析/用户旅程/具体实现方案三部分 + 5 条来源。
+- 与前期的分工：前 63 期聚焦回顾性记忆（Retrospective：发生/召回/修正状态/防投毒/回滚）近乎做透，本期首次切入前瞻性记忆（Prospective：记住未来意图并在恰当时机自行实现、抑制不该触发的干预），往期 0 覆盖；反向引用第 56 期评测契约、第 53 期退化率。
+- 主线：记忆的时间方向被行业默认设为"过去式"；前瞻性＝意图存储 ⊕ 触发器，二者必须成对；它把记忆从"被动账本"变"主动议程"，治理与攻击面随之翻转。
+- 新框架（长期复用）：**第四类资产 Intent Memory**（与 Chat/Working/Coding 并列）/ **意图—激活分离**（写时只存意图+证据、运行时独立激活判定器）/ **解决证据回流闭环**（动作后更新 intention state 并沉淀 experience memory）/ **任务条件效用驱动保留**（cost ledger，深化第 53 期退化率）。
+- 关键事实：Pro-Memory（arXiv 2611.05731，11-03）首把"维持未来意图"与"决定何时实现"解耦、跨基准多骨干一致增益且抑制多余干预；Task-Conditioned Utility（2611.03930，11-02）公开 Conditional Memory Utility Dataset，含答案任务对增益比匹配控制对高 +0.33（95% CI +0.21~+0.46），首次把"该不该留这条记忆"变可测变量；EvoMemState（2611.03743，11-02）RL 学"推理态"；MemRole（2611.01778，11-01）LHMT memory→decision；产品：OpenViking v0.5.4.1（~42k★）viking:// 仍"沉淀经验"／ Hy-Memory 2.0.14 L4–L6 前瞻意图存静态事实／ TencentDB v2.0.3 Skill 被动／ dsh v26092802 五轨无意图激活层／ ReMe proactive discovery 仅"主动补记忆"不触发自主动作，六家零"条件满足自行行动否则静默"。
+- 判读：倒挂延续（前瞻性最完整在论文、产品零披露）；口径缺口延续（AML 无 intent/activation 维度，"该不该留这条记忆"无字段）。
+- 下期候选：Intent Memory schema 首例／激活判定器进产品首例／任务条件效用进保留策略首例／ AML C2 是否新增 intent 维度（11-19，最高优先）／意图—事实冲突裁决器。
+| 64 | 20261112-1500 | 前瞻性记忆——被遗忘的"另一半" | 第四类资产Intent Memory(并列Chat/Working/Coding)/意图—激活分离/解决证据回流闭环/任务条件效用驱动保留(cost ledger)/Pro-Memory 2611.05731解耦意图+激活·Task-Conditioned Utility 2611.03930增益+0.33[95%CI+0.21~+0.46]/六家零意图激活层(OpenViking沉淀·Hy-Memory静态意图·TencentDB被动Skill·dsh·ReMe不触发)/倒挂·AML无intent维度 |
+
+### 第 65 期（20261112-1600）：记忆的信念化与置信度校准——从"全信"到"会怀疑自己"
+- 文件：`记忆技术洞察-20261112-1600.md`；正文约 960 汉字；四维度（趋势/现状/竞争力/挑战）+ 需求分析/用户旅程/具体实现方案三部分 + 5 条来源。
+- 与前期的分工：第 55 期 state_role（还成立吗）、第 52 期内省、第 58 期偏见放大——三者默认"被召回记忆是确定事实"；本期换更底层假设（记忆＝信念），往期 0 覆盖信念化维度；反向引用第 7 期空集（弃答）、第 54 期安全。
+- 主线：记忆不是事实是信念——对"这条还有没有用、还成不成立"的概率判断，须可衰减、可随证据累积、可触发动作闸门；**置信度校准是让第 55/52/58 期真正落地的"定量 backbone"**——状态协调缺"我有多确信它仍生效"、空集缺"何时该弃答"、偏见缺"按可信度重加权"，信念化一次性补齐。
+- 新框架（长期复用）：**信念字段族** belief=(α,β)+freshness+provenance+volatile_ttl／**写入双阈门控**（PreCoMem 有效惊诧度：维持/暂存等待室/软衰减记 superseded_by，深化第 2/55 期墓碑）／**检索重加权** confidence×temporal_decay×source_reliability×network_consensus（MMA）／**Thompson 采样探索**（证据不足保留高方差，深化第 61 期使用闸门）／**高风险前置闸门**（不可逆/对外动作前相关记忆置信低于阈值即阻断求确认，接第 54 期）。
+- 关键事实：Memory as Belief（arXiv 2610.25119）把每条记忆效用建模成 Beta 信念分布+Thompson 采样；PreCoMem（2610.29467）有效惊诧度双阈门控（维持/等待室/软衰减），LoCoMo/LongMemEval-S/PersonaMem-v2 取 SOTA 且 DiMoBench 抗漂移；MMA Multimodal Memory Agent 置信层+共识重加权，MMA-Bench 把 abstention 当正例（深化第 7 期空集）；新信号 MemoryLedger AI（社区中间件雏形：provenance card+置信衰减+TTL+高风险前置校验）为论文外工程化尝试；六家产品零逐条置信（OpenViking v0.5.x viking:// 无逐条置信／ Hy-Memory 2.0.x 演化链无校准信念／ TencentDB v2.0.3 四资产无置信衰减／ dsh v26092802 五轨无置信权重／ ReMe 效用剪枝仅"低效用丢弃"非信念分布）。
+- 判读：倒挂延续（信念校准最完整在论文、产品零披露）；MemoryLedger 为论文外工程化尝试；口径缺口延续（AML C2 无 confidence/calibration 维度）。
+- 下期候选：AML C2 是否新增 confidence/calibration 维度（11-19，最高优先）／首个披露逐条置信衰减的产品／ MemoryLedger 类中间件进生产首例／置信膨胀（过度信任自写记忆）治理首例／ Thompson 采样探索进检索首例。
+| 65 | 20261112-1600 | 记忆的信念化与置信度校准——从"全信"到"会怀疑自己" | 记忆=信念(概率判断·可衰减·可累积·可触发闸门)/信念字段族belief=(α,β)+freshness+provenance+ttl/写入双阈门控(维持·等待室·软衰减,PreCoMem有效惊诧度)/检索重加权(conf×decay×source×consensus)/Thompson采样探索(Memory as Belief Beta)/高风险前置闸门/MemoryLedger中间件雏形/六家零逐条置信·AML无calibration维度 |
