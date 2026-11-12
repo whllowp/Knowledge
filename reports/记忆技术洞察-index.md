@@ -686,3 +686,13 @@
 - 判读：倒挂延续（内部分工最完整在论文）；口径缺口延续（AML 无 principal/source/state_role）；分 agent 协调成本/超图维护代价/双路径一致性为新三挑战。
 - 下期候选：首个把记忆拆为 internal typed agents 的产品 / provenance hypergraph 进产品索引首例 / AutoDream 式"合并只重连帧"被产品吸收与否 / AML C2 正式榜单（11-19 最高优先）是否新增 principal/source/state_role 三维。
 | 62 | 20261112-1300 | 记忆的内部分工——当记忆系统自己变成多智能体 | 记忆内部分工定律/六typed agent+Meta Manager(system of record=vector DB)/溯源超图n元帧(结论←证据集,深化第3期线性血统·第52期内省)/写路径外巩固AutoDream(合并只重连帧永不改写,深化19/34/60)/真值·index解耦(DB先提交·图失败不回滚)/MIRIX-2.0 LoCoMo91.4%·超图+2.7+AutoDream·六家零内部分工·AML C2契约硬化仍无principal/source/state_role |
+
+### 第 63 期（20261112-1400）：记忆的"陈述者×镜头"维度——谁说的、从哪个视角说的，正成为第六个一等元数据
+- 文件：`记忆技术洞察-20261112-1400.md`；正文约 1,050 汉字；四维度（趋势/现状/竞争力/挑战）+ 需求分析/用户旅程/具体实现方案三部分 + 8 条来源。
+- 与前期的分工：第 3 期字段级血统（source）、第 55 期 state_role（时态有效性）、第 56 期 principal/source/state_role 评测四问；本期指出三者共享"记忆是单一陈述者、单一视角断言"的未检验前提，首次切入"陈述者×镜头"维度（speaker_id + lens），往期 0 覆盖。
+- 主线：记忆建模从"事实堆叠"走向"视角分面"；"谁说的、从哪个镜头说的"是与 principal/source/state_role 正交的第六个一等元数据；压平进单一 user_id 或 flat 向量＝主动丢弃区分"被取代数值"与"应保留规则"的能力。
+- 新框架（长期复用）：**陈述者×镜头主键**（写入边追加 speaker_id + lens）／**分面图记忆**（per-speaker 图保存数值修订史 + entity×lens 隔离 + Constraint 规则单独建边）／**修订/立场双时间戳**（Revision 与 Stance 分别挂失效时间，深化第 55 期 state_role）／**评测加一问**（AML C2 增 which-speaker-under-which-lens，深化第 56 期）／**四类失效模式**（Revision/Stance/Constraint/Aspect）。
+- 关键事实：TrackMem arXiv:2611.02001（11-01）per-speaker 图 + FinLoCoMo（15 段投资对话/765 问）；failure-mode split 73.9% vs 69.4%，修订数值题 86.5% vs 73.4%；Table 1 中 Aspect（镜头分离）仅 TrackMem 部分覆盖、其余系统全 #；OpenViking v0.5.4（11-09，~42k★，releasealert 标记 6 CVE）viking:// 单命名空间、peer=git identity 只管写者不区分陈述者；Hy-Memory v1.0.6/2.0.14（11-06）lite/pro/ultra 仍单 user_id；TencentDB v2.0.3（30.6k★，11-10 仅 README 更新、feat/server_team 在研）；dsh v26092802（~628★）；ReMe 0.4.x（11-06 #714 application-owned chat）＝六家零 speaker×lens。
+- 判读：倒挂延续（视角分面最完整在论文）；口径缺口延续（AML C2 无 speaker/lens 维度）；产品落地要拆 speaker×lens 等于重写写入主键（第 3 期字段级血统代价复现）。
+- 下期候选：AML C2 正式榜单（11-19 最高优先）是否新增 speaker/lens 维度／首个披露 speaker×lens 主键的产品／lens 枚举与未声明镜头兜底策略首例／多镜头冲突裁决语义首例／TrackMem 金融外泛化实测。
+| 63 | 20261112-1400 | 记忆的"陈述者×镜头"维度——谁说的、从哪个视角说的，正成为第六个一等元数据 | speaker×lens=第六一等元数据(正交principal/source/state_role)/四类失效Revision·Stance·Constraint·Aspect(TrackMem Table1仅它覆盖Aspect)/FinLoCoMo73.9%vs69.4%·修订数值86.5%vs73.4%/分面图+双时间戳+评测加一问/六家零speaker×lens(OpenViking v0.5.4单命名空间·Hy-Memory v1.0.6单user_id·TencentDB v2.0.3·dsh·ReMe)/倒挂·口径缺口延续 |

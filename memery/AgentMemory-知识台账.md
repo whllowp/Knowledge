@@ -844,3 +844,10 @@
 - **AML Cycle 2**：仍 in progress（mid-Nov 预期出榜）；评测契约硬化——user_id 严格隔离边界、Add 同步持久化后才返回成功、request_id 幂等（重试不重复写）、正式评测冻结系统版本/端点/认证；这是第56期"评测契约危机"的半步落地，但仍无 principal/source/state_role 维度、无"证据格式/介入时机"（第61期）维度。
 - **判读**：倒挂延续（内部分工/超图/写路径外巩固最完整在论文，六家产品零记忆智能体）；口径缺口延续（AML 仍无 principal/source/state_role）；分 agent 协调成本、超图维护代价、双路径一致性为新三挑战（与第14期缓存稳定性孪生）。
 - **待验证 273-277**：273. 首个把记忆拆为内部 typed agents 的记忆产品；274. provenance hypergraph 进产品索引首例（深化第3期字段级血统/第52期内省）；275. AutoDream 式"合并只重连帧永不改写证据"被产品吸收与否；276. index/真值解耦（图失败不回滚记忆）成产品默认首例；277. AML C2 正式榜单（11-19，最高优先）是否新增 principal/source/state_role 三维。
+
+## 版本更新补登（2026-11-12 第63期）
+- Hy-Memory：v1.0.6 / hy-memory==2.0.14（2026-11-06 发布）：新增 lite（不用 LLM、保留原文直搜）/ pro（LLM 抽取）/ ultra（知识图谱 + 每晚自动整理）三档记忆模式；记忆模型与嵌入模型分离配置，换嵌入模型安全重嵌；CLI/API 多用户（user_id）；写入失败自动重试、模型服务异常暂停排队。
+- OpenViking：v0.5.4（2026-11-09）/ v0.5.4.1（2026-11-11，~42k★）：MCP 与实时上下文打通，工具结果挂载为可读 Markdown 节点；只读/写操作分道（破坏性工具须 ov mcps invoke）；Rule Search（前瞻记忆）；Watch 支持 MySQL；ov compile memory；releasealert 标记 6 个 CVE（CVE-2026-75480 等）。
+- TencentDB-Agent-Memory：v2.0.3（2026-10-26 发布，30.6–30.8k★）；2026-11-10 仅 README 更新，feat/server_team 团队服务端分支在研。
+- dsh-memory-evolve：v26092802（2026-10-29，~628★），30 天无新发布。
+- ReMe（agentscope-ai）：2026-11-06 新增 application-owned chat（#714）；2026-10-29 Qoder 记忆插件（#682）。
