@@ -2014,3 +2014,12 @@
 - 字数控制：按 2400 正文配额起稿约 2400 含表；未做压缩轮（英文术语/链接不计入汉字配额）。
 - 推送：报告 + 索引追加至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 147 期之后。
 - 下期候选：graph.* 七字段 OTel GenAI 提案草案／活图增量订阅器（变更流+实时遥测，弃 T+1）／边置信度来源标注器（深化 54 provenance）／推理-图谱引用校验器（结论强制引节点边 ID，深化 135）／跨源实体对齐器（复用 122 双轨）／图谱新鲜度 SLO 与过期告警器／ITBench-AA/Cloud-OpsBench 补图谱新鲜度与一致率评测项／信通院六维补两格条款模板
+
+
+### 第 60 期（20261112-1000）：记忆的可逆性工程——回滚不是删除：非破坏性版本化与依赖传播
+- 主线：收敛第2期(删除权)/第47期(整库DR)/第55期(Ghost Memory)到同一原语"回滚"；反共识=用户要的是可撤销的版本化而非物理删除，删除是破坏性回滚、版本化是非破坏性回滚+依赖传播。
+- 与 2/47/55 分工：2 管删不删能否举证、47 管整库时间旅行、55 管状态协调失败，本期管"改错了能否带着历史退回且让依赖失效"。
+- 新框架（长期复用）：只追加事件源(BPMA)/非破坏性删除(Hy-Memory history.db)/依赖传播回滚(StateGraph·Rollback Repair)/commit级闸门(BVC)/回滚粒度错配(per-entry vs whole-memory)。
+- 关键事实：ChronoMem(arXiv 2607.27773,Google ADK,整库快照+NL回滚+暴露后评测)/BPMA-Memora(只追加事件,100% vs 19.2% provenance查询,5800 ev/s)/BVC(自我修改=可评审diff+只追加changelog+风险分级闸+commit级回滚)/StateGraph(2611.02912,11-02,反事实验证,Impact-F1 +26.0pp@depth3+)/Rollback Repair(2608.10502,v2 10-22,85.3% vs 77.3%,复发26.6% vs 12.1%)/Hy-Memory 2.0.13 chatdelete修版本链留L1+history.db(非破坏删除雏形)/OpenViking viking://+commit+archive回退/dsh git分支标签/ReMe Markdown。
+- 判读：倒挂局部反转(git化项目已有版本底座,比 ChronoMem 更细粒度)+口径缺口延续(AML 无版本/回滚维度,六家零回滚一致性披露)。
+- 下期候选：首个披露回滚一致性指标的产品/依赖传播回滚进产品首例/参数轨版本化首例/AML C2 是否新增版本维度(11-19,最高优先)/per-entry 与 whole-memory 双粒度回滚桥。

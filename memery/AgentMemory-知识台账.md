@@ -828,3 +828,10 @@
 - **AML Cycle 2**：官网倒计时 11-19 预期出榜；能力模型 A–H（含 D 治理、H 安全）仍无"偏见/来源"维度＝第 56 期口径缺口模式延续，且对"偏见放大率"结构性盲区。
 - **判读**：倒挂再现——把"偏见是否被记忆放大"做成一等度量的只有论文（Memory Contagion 的 Γ、Echo Gap 的 EIA、Alignment by Stereotyping 的同质化率），六家产品与 AML 契约一律默认记忆中立；口径缺口延续——现有 schema（第 56 期）无 provenance×principal，跨主体一致性无从表达；**偏见无 ground truth，故第 55 期 revoked 标记与第 52 期内省端点对偏见天然失效**——这是比"删不掉/查不到"更深的治理盲区。
 - **待验证 268–272**：268. AML C2 正式榜单（11-19，最高优先）是否新增偏见/来源维度；269. 首个披露"偏见放大率 Γ"或强制 provenance 字段的记忆产品；270. dsh 分支隔离被用作"偏见隔离"首例验证；271. 跨主体一致性 `contested` 标记进 schema 首例；272. Alignment by Stereotyping 的"人口统计当记忆放大同质化"被任一主流产品复现/反驳与否。
+
+## 六之三十四 记忆的可逆性工程（2026-11-12 第60期）
+- 错配原语：行业用"删除"实现"改错能退"，删除=破坏性回滚，版本化=非破坏性回滚+依赖传播；"删除权"是错配诉求，"可撤销的版本化"是真实诉求。
+- 版本化三层：只追加事件源(BPMA/Memora,100% vs 19.2% provenance)＋非破坏性删除(Hy-Memory history.db 雏形)＋依赖传播回滚(StateGraph/Rollback Repair)。
+- 依赖传播量化：StateGraph 2611.02912 Impact-F1 +26.0pp@depth3+；Rollback Repair 2608.10502 85.3% vs 77.3%、复发 26.6% vs 12.1%。
+- 产品梯度：git化(OpenViking viking://+commit/dsh 分支/ReMe Markdown)与 Hy-Memory 版本链已有底座；参数轨(Hy-Memory 30B/TencentDB)最难版本化(第50期固化账"版本不可见"升级)。
+- AML 无版本/回滚维度；六家零回滚一致性披露。
