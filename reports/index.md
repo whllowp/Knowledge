@@ -2110,3 +2110,15 @@
 - 字数控制：按 2400 正文配额起稿 1548 → 补八处（四段责任、只记一个只能问一人、三种补丁、签名与匿名、开源链、附注可删、与 149 分工、附注入门禁）到 **1768**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 154 期之后
 - 下期候选：`author.*` 七字段 OTel 提案草案／commit trailer 附注规范与校验器／每补丁证据包（风险/测试/回归）／审阅容量限速与风险排序器／暴露趋势与已验证修复率看板／四段归因报告模板／附注签名与不可变记录
+
+## 第 156 期（2026-11-12 16:00）· 告警信噪比面 / 智能体输出噪声治理（Agent Output Noise & Signal-to-Noise Governance）——Agent 把人类告警疲劳治好了，但它自己吐出来的发现有多少是真信号、多少是噪声，没人治理（详见 E:/Knowledge/Knowledge/reports/AI-SRE技术洞察-20261112-1600.md）
+- 期号说明：11-12 16:00 档生成；并行 154（15:31 退役面）/155（16:31 署名面）已发，顺延第 156 期；与 153（评测安全门禁）划界（彼管尺子第二道闸，本期管尺子没量 Agent 输出噪声）；与 19（静默失败·五不变量）划界；与 36（输入面）反向对称；与 21（值班台空转）显形；第一百四十二条全新立面。
+- 产物：E:/Knowledge/Knowledge/reports/AI-SRE技术洞察-20261112-1600.md（正文约 2100 汉字含表，题眼＋五章＋七方案六维对比表＋10 条来源/10 链接）；索引已追加第 156 期条目；本地 173/173-kb 连续第 66 期成组启用。
+- 主线：首次把「SRE Agent 自身产出发现流（findings/假设/升级请求/自我告警）的信噪比——多少真信号、多少误报噪声——立为一等运维对象」；噪声转移（Noise Displacement）：人类告警疲劳↓ 但 Agent 输出噪声↑ 不在同一张表。
+- 题眼：Dynatrace Davis 60–80% 降假阳性（阈值噪声非 Agent 噪声）/ Nova 85–95% 告警量降（置信度≠精度）/ LuminaByte 影子模式 <15% 假阳性退出闸门（训练门槛非生产 SLO）/ incident.io 80% 水分仅已知类 / Cognition Devin Oncall 日产千级告警（Agent 自产告警，负担转移）/ Grafana agent SLO 含幻觉·达成·毒性·成本 却无信噪比。
+- 核心新提法：噪声转移不可见／置信度≠精度（LLM 校准缺口）／自我告警回路无闸门／评测盲区（Incident-Arena/SREGym 不量输出噪声，接 153）／review 负担无 SLO；第 107 个市场空白五项（Agent 输出信噪比/发现误报率/自我告警可计量率/噪声转移可观测率/人工复核 Agent 输出占比），`agent_noise.*`/`signal.*` 第 74 次无人提字段族。
+- 对比表：Google/Anthropic/OpenAI/字节/阿里/腾讯 + 独立（incident.io/Dynatrace/Grafana），六家「输出信噪比 SLO/发现误报率/自我告警可计量」三列全空或最弱。
+- 本地原型（第 66 期）：周昕毅 10（携程 AISRE）灵魂之问第一问「告警来了能否给优先级与影响面」即 Agent 输出信噪比问题但未字段化；刘杨 08（蚂蚁）「判断 Agent 做对没」质量度量未覆盖输出噪声面。
+- 建议：`agent_noise.*` 七字段＋生产信噪比 SLO（LuminaByte <15% 变生产）＋confidence 校准＋自我告警信噪比预算闸门＋噪声转移看板＋评测扩展（接 153）＋信通院补「Agent 输出信噪比达标率」格。
+- 推送：报告+索引追加至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 155 期之后。
+- 下期候选：`agent_noise.*` 七字段 OTel 提案草案／生产信噪比 SLO（LuminaByte <15% 变生产）／confidence 校准器（真实后验替换自报）／自我告警信噪比预算闸门／噪声转移同屏看板／Incident-Arena/SREGym 增输出信噪比维度／信通院六维补「Agent 输出信噪比达标率」格
