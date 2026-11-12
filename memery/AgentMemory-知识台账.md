@@ -868,3 +868,17 @@
 - **AML Cycle 2**：仍 in progress；评测无 confidence/calibration 维度。
 - **判读**：倒挂延续（信念校准最完整在论文、产品零披露）；MemoryLedger 为论文外工程化尝试；口径缺口延续。
 - **待验证 283-287**：283. AML C2 是否新增 confidence/calibration 维度（11-19，最高优先）；284. 首个披露逐条置信衰减的记忆产品；285. MemoryLedger 类中间件进生产首例；286. 置信膨胀（过度信任自写记忆）治理首例；287. Thompson 采样探索进检索首例。
+
+## 版本更新补登（2026-11-12 第67期）
+- TencentDB-Agent-Memory：90 天破 20k★；Team Memory 正式发布（user/role/agent 权限 + 私有→团队 scope，owner/version/usage history 可查）；feat/server_team 团队服务端分支在研；v2.0.3（30.6–30.8k★）主库稳定。
+- OpenViking：v0.5.0（2026-10-09，~40k★，AGPL-3.0），v0.5.4.1（11-11，~42k★）MCP 实时上下文 + Rule Search 前瞻记忆；peers 目录隔离。
+- Hy-Memory 2.0 / MemHub（Tencent-Hunyuan）：30B-A3B，10 工具共享一份记忆；lite/pro/ultra 三档。
+- dsh-memory-evolve：v26092802（2026-10-29，~628★），30 天无新发布；会话广播 + git 分支作用域；reviewEnabled 默认关。
+- ReMe（agentscope-ai）：v0.4.2.2（2026-11-05，3.7–3.8k★），共享 workspace，file-native Markdown（frontmatter 可检视）。
+
+## 六之三十八 共享记忆投毒爆炸半径事实（第67期，20261112-1800）
+- **主论点**：记忆象限"回顾性"已近做透（#54 单 agent 主动投毒、#9 共享记忆设计均已覆盖），但二者交集——**共享层把投毒从单点慢性病升级为网络传染病**——长期空缺；共享记忆的可携性红利（#59）与投毒爆炸半径是一对不可拆分的孪生，隔离应成共享记忆一等 SLA。
+- **硬指标**：InjecMEM arXiv:2608.23471（COLM 2026，上海交大+蚂蚁）MemoryOS RSR 46.5%/ASR-c 76.6%/ASR-j 35.6%，MemGPT 37.2%/48.6%/18.1%；WildChat 健康/金融条件 ASR 67–71%；LLM-as-Judge/ProtectAI/PromptGuard 把检索成功率压到 30%+ 但条件 ASR 仍 >75%，困惑度过滤误杀 71.8% 良性才有效；OWASP 2026 ASI06 Memory Poisoning（与 ASI01 提示注入分列）。
+- **六项目状态（共享隔离/写入校验维度登记）**：TencentDB Team Memory（20k★/90 天）user/role/agent ACL+私有→团队 scope，但权限≠写入过滤；Hy-Memory MemHub 10 工具共享全局记忆无写入校验披露；OpenViking v0.5.0 peers 目录隔离无写入校验；dsh v26092802 分支作用域+会话广播、reviewEnabled 默认关；ReMe v0.4.2.2 共享 workspace 无写入校验；六家第一层（写入信任边界）与第三层（跨 agent 行为审计）近乎空白。
+- **判读**：倒挂延续（共享层投毒防护最完整在论文、产品零披露）；与 #54/#9/#59/#65 互补，非重复。
+- **待验证 288-293**：288. 首个在共享层强制 origin_id+风险标签并默认开启写入校验的记忆产品；289. 命名空间硬 ACL 隔离（≠软标签）进开源 SDK 首例；290. 跨 agent 记忆使用审计（哪条被哪些 agent 读过）产品化首例；291. 碎片化投毒（跨渠道碎片汇聚）在共享记忆库的首个实测 ASR；292. 被攻陷 peer 经共享层投毒的全网爆炸半径基线（含 replay 次数）；293. 命名空间级非破坏回滚（清毒不丢其他 agent 数据）首例。
