@@ -646,3 +646,13 @@
 - 判读：偏见放大与退化/投毒/画像正交，是第三种失败模式且无攻击者无真值；六家产品零偏见治理披露；dsh git 分支标签是唯一"偏见隔离"schema 雏形；OpenViking viking:// 最接近偏见审计但零偏见维度。
 - 下期候选：AML C2 正式榜单（11-19，最高优先）是否新增偏见/来源维度 / 首个披露 Γ 或强制 provenance 的记忆产品 / dsh 分支隔离作偏见隔离首例 / 跨主体 contested 标记进 schema。
 | 58 | 20261112-0700 | 记忆的偏见放大——当记忆成为偏见的复利放大器 | 跨时间复利(Memory Contagion Γ=13.18·无阈值)·跨主体传染(Mandela/False Belief 96%·制造者退出仍持续)·自证强化(Echo Gap 错误记忆膨胀奖励)/偏见可观测性三轴(provenance·self-endorsement·cross-agent)/Γ强制度量补第56期契约/六家零偏见治理·dsh分支隔离唯一雏形 |
+
+### 第 59 期（20261112-0900）：记忆的可携带性与互操作性——当"离开"成为一种能力
+- 文件：`记忆技术洞察-20261112-0900.md`；正文约 960 汉字；四维度（趋势/现状/竞争力/挑战）+ 需求分析/用户旅程/具体实现方案三部分 + 7 条来源。
+- 与前期的分工：第 2 期管"删除权（负空间）"、第 52 期内省、第 56 期评测契约；本期把"记忆主权"补上最后一块——携带权（portability），往期 0 覆盖。
+- 主线：记忆主权的最终形态是携带权而非删除权；可携带性不会由厂商自发提供，只能被 GDPR 第20条与 AML C2 从外部倒逼。
+- 新框架（长期复用）：**携带权 > 删除权**／**格式派 vs 服务端派**（OAMP/SAIHM 赌规范 / Hindsight·MCP 用 bank id 实时寻址）／**AML C2 作为事实标准比 W3C 宪章更易落地互操作**（benchmark 的"可比性"胜 charter 的"共识"，深化第 56 期）／**standard-for-standards 缺口**（OAMP·Akashik·WAMP·LedgerSync·TradeMemory 并存未归一）。
+- 关键事实：W3C AI Agent Memory Interoperability CG v1.0 宪章 2026-07-16（便携单元格式+后量子身份 ML-DSA-65+能力范围共享撤销+防篡改审计+对齐 GDPR 第17条）；SAIHM（IETF 独立提交，钱包派生密钥客户端加密、毁钥即擦除）；OAMP v1.2 已发、v1.3 草案加 governed/granted-scope；国内走"搬家工具"路线（MemOS-MindDock/ContextDrop 一键抓豆包·Kimi·ChatGPT 记忆）；六家产品零真便携（OpenViking v0.5.4 viking:// 但 AGPL+实例孤岛 / TencentDB Proxy 9-10 客户端私有协议 / Hy-Memory 绑 SDK / dsh 本地文件+git 分支 / ReMe .reme Markdown / Hindsight transfer ZIP 自有格式）。
+- 判读：倒挂延续（论文与 W3C 谈互操作，产品集体私有协议筑墙）；口径缺口延续（AML 无 portability 维度）；"记忆=切换成本远超社交媒体"正制造自愿互操作的逆激励。
+- 下期候选：AML C2 正式榜单（11-19，最高优先）是否新增 portability/跨厂商导入维度 / 首个把 granted-scope 设为默认的记忆产品 / OAMP 1.3 被产品吸收与否 / "标准的标准"是否出现收敛信号 / 国内搬家工具与 OAMP 互通首例。
+| 59 | 20261112-0900 | 记忆的可携带性与互操作性——当"离开"成为一种能力 | 携带权>删除权/W3C CG v1.0宪章·SAIHM·OAMP v1.3 governed/六家零真便携(OpenViking viking:// AGPL孤岛·TencentDB私有协议·ReMe .reme Markdown)/格式派vs服务端派/AML C2 可比性>宪章共识·standard-for-standards缺口 |
