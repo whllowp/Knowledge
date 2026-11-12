@@ -1,0 +1,31 @@
+{
+  "name": "sizzle-rush",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sizzle Rush - a two-mode cooking game with an RSI-inspired dynamic menu and yearbook.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:prod": "node scripts/build.mjs --minify",
+    "watch": "node scripts/build.mjs --watch",
+    "serve": "node scripts/serve.mjs",
+    "dev": "node scripts/serve.mjs --watch",
+    "test": "node --test \"tests/*.test.js\"",
+    "test:e2e": "node scripts/playtest.mjs && node scripts/cook-test.mjs && node scripts/arcade-test.mjs && node scripts/flow-test.mjs && node scripts/rsi-test.mjs && node scripts/persist-test.mjs && node scripts/esc-test.mjs && node scripts/telemetry-test.mjs && node scripts/human-playtest-test.mjs && node scripts/rebalance-test.mjs && node scripts/rebind-test.mjs && node scripts/gamepad-test.mjs && node scripts/touch-test.mjs",
+    "balance": "node scripts/balance-sim.mjs",
+    "analyze": "node scripts/analyze-playtest.mjs",
+    "test:all": "npm test && npm run test:e2e",
+    "screenshots": "node scripts/final-shots.mjs"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.10",
+    "playwright": "1.63.0"
+  }
+}

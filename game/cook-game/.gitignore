@@ -1,0 +1,10 @@
+node_modules/
+shots/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local reference material, not required to build or play.
+awesome-gamedev-agent-skills-main/
+awesome-gamedev-agent-skills-main.zip
+open-source-games-main/
