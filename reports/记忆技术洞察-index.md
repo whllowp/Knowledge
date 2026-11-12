@@ -676,3 +676,13 @@
 - 判读：论文把"用记忆"做成决策策略，产品还当默认动作（倒挂第 47+ 次延续）；OMCE 9 维状态向量与路由可审计补第 56 期评测契约缺口（应增列 which-format-on-what-signal）；口径缺口延续。
 - 下期候选：AML C2 正式榜单（11-19 最高优先）是否新增"证据格式/介入时机"维度 / 首个把可学习路由做成产品能力的记忆项目 / 闸门反毒化护栏首例 / OpenViking autoRecall 三级旋钮进主线与否。
 | 61 | 20261112-1100 | 记忆的"使用闸门"——检索是决策，记忆需要一扇门 | 检索≠决策/记忆使用闸门(OMCE上下文老虎机 DIRECT·EPISODE·GUIDE·DISTILL)/9维状态向量+LinUCB/格式路由即治理件/沉默也要计分(abstain+误介入率)/路由可审计gate_log/六家零可学习路由·AML仅Add-Search无证据格式维度 |
+
+### 第 62 期（20261112-1300）：记忆的内部分工——当记忆系统自己变成多智能体
+- 文件：`记忆技术洞察-20261112-1300.md`；正文约 1,000 汉字；四维度（趋势/现状/竞争力/挑战）+ 需求分析/用户旅程/具体实现方案三部分 + 9 条来源。
+- 与前期的分工：第 12 期讲 N 个 agent 共享一份记忆（信任半径）、第 39 期讲多机同步拓扑、第 44 期讲调度预算；本期指出三者共享"记忆系统内部是单体库"的未检验前提，首次切入"记忆系统内部也需分工"，往期 0 覆盖；反向于第 12 期（那期是外部分享，本期是内部分管）。
+- 主线：记忆架构从"分层"走向"分角色"；单一 store 只能用一种索引+一种冲突解决，episodic/semantic/procedural 三类记忆语义根本不同故必然妥协；记忆正从"一个库"升级为"协调社会"（记忆智能体）；MIRIX-2.0（arXiv 2611.12068，11-09/10）首次规模化实现。
+- 新框架（长期复用）：**记忆内部分工定律**／**六 typed memory agent ＋ Meta Memory Manager**（system of record = vector DB typed evidence plane）／**溯源超图 provenance hypergraph**（n 元帧 n-ary frames 表达"结论←证据集"，深化第 3 期字段级血统从线性到超图、深化第 52 期内省）／**写路径外巩固 AutoDream**（合并只重连帧永不改写证据，深化第 19/34 期代谢/睡眠期、第 60 期非破坏性）／**真值/index 解耦**（图只索引、DB 先提交、图失败不回滚/读失败回退直接证据）。
+- 关键事实：MIRIX-2.0 LoCoMo 91.4%/LongMemEval-S 72.6%（+14.3）、超图单独 +2.7（85.7→88.4 多跳最大）+AutoDream 再拉到 91.4、LongMemEval-S 超图单独 +11.2；六家产品零记忆智能体内部分工（OpenViking L0/L1/L2 分层非分 agent、TencentDB 单 store+MongoDB、Hy-Memory 三类场景单引擎、dsh 单 git 文件、ReMe 单 .reme）；AML C2 契约硬化（user_id 严格隔离、Add 同步持久化后返回成功、request_id 幂等、正式评测冻结版本）＝第 56 期评测契约危机半步落地但仍无 principal/source/state_role。
+- 判读：倒挂延续（内部分工最完整在论文）；口径缺口延续（AML 无 principal/source/state_role）；分 agent 协调成本/超图维护代价/双路径一致性为新三挑战。
+- 下期候选：首个把记忆拆为 internal typed agents 的产品 / provenance hypergraph 进产品索引首例 / AutoDream 式"合并只重连帧"被产品吸收与否 / AML C2 正式榜单（11-19 最高优先）是否新增 principal/source/state_role 三维。
+| 62 | 20261112-1300 | 记忆的内部分工——当记忆系统自己变成多智能体 | 记忆内部分工定律/六typed agent+Meta Manager(system of record=vector DB)/溯源超图n元帧(结论←证据集,深化第3期线性血统·第52期内省)/写路径外巩固AutoDream(合并只重连帧永不改写,深化19/34/60)/真值·index解耦(DB先提交·图失败不回滚)/MIRIX-2.0 LoCoMo91.4%·超图+2.7+AutoDream·六家零内部分工·AML C2契约硬化仍无principal/source/state_role |

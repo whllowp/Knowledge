@@ -835,3 +835,12 @@
 - 依赖传播量化：StateGraph 2611.02912 Impact-F1 +26.0pp@depth3+；Rollback Repair 2608.10502 85.3% vs 77.3%、复发 26.6% vs 12.1%。
 - 产品梯度：git化(OpenViking viking://+commit/dsh 分支/ReMe Markdown)与 Hy-Memory 版本链已有底座；参数轨(Hy-Memory 30B/TencentDB)最难版本化(第50期固化账"版本不可见"升级)。
 - AML 无版本/回滚维度；六家零回滚一致性披露。
+
+## 六之三十五 记忆的内部分工事实（第62期，20261112-1300）
+- **记忆的内部分工（本期主论点）**：行业默认"记忆=agent 之外的一个单体库"（第12期外部分享、第39期同步、第44期调度均共享该前提）；MIRIX-2.0 首次把记忆系统拆成 6 个专职记忆智能体＋溯源超图，证明"记忆内部也需分工"；episodic/semantic/procedural 三类记忆的写入与检索语义根本不同，单一 store 只能用一种索引＋一种冲突解决，必然在某一类妥协；记忆正从"一个库"升级为"协调社会"，与第12期方向相反（那期是外部分享，本期是内部分管）。
+- **MIRIX-2.0（arXiv 2611.12068，11-09/10）**：6 个 typed memory agent 在 Meta Memory Manager 下把完整记录写入 typed evidence plane（vector DB，system of record）；provenance hypergraph 把实体/事件/关系/角色/时间索引成 n 元帧（n-ary frames），每条帧引用其来自的 records 行号；检索在确定性规划器下显式预算，证据量构造上不随历史增长；AutoDream 合并重复锚点/蒸馏技能在写路径之外、永不改写证据记录、合并只重连帧；图只是索引、DB 写入先提交、图写失败不回滚记忆、图读失败回退直接证据（index 与真值层解耦）。
+- **硬指标**：LoCoMo 91.4%、LongMemEval-S 72.6%（+14.3 最强基线）；超图单独 +2.7（85.7→88.4，多跳增益最大），AutoDream 再拉到 91.4；LongMemEval-S 上超图单独 +11.2；AutoDream 关闭时比 HyperMem 快；无微调、闭源/开源模型通用、代码公开。
+- **六项目状态（内部分工维度补充登记）**：OpenViking v0.5.3（11-02，~41.7k★）L0/L1/L2 是"分层"不是"分 agent"；TencentDB v2.0.3（30.7k★）symbolic short-term＋layered long-term 仍单 store＋MongoDB；Hy-Memory 2.0.13 三类场景（chat/working/coding）但单引擎（30B-A3B 写模型）；dsh-memory-evolve v26092802（10-29，628★）五轨单 git 文件；ReMe 0.4.2.2（11-05）单 .reme Markdown；六家零"记忆智能体"内部分工披露。
+- **AML Cycle 2**：仍 in progress（mid-Nov 预期出榜）；评测契约硬化——user_id 严格隔离边界、Add 同步持久化后才返回成功、request_id 幂等（重试不重复写）、正式评测冻结系统版本/端点/认证；这是第56期"评测契约危机"的半步落地，但仍无 principal/source/state_role 维度、无"证据格式/介入时机"（第61期）维度。
+- **判读**：倒挂延续（内部分工/超图/写路径外巩固最完整在论文，六家产品零记忆智能体）；口径缺口延续（AML 仍无 principal/source/state_role）；分 agent 协调成本、超图维护代价、双路径一致性为新三挑战（与第14期缓存稳定性孪生）。
+- **待验证 273-277**：273. 首个把记忆拆为内部 typed agents 的记忆产品；274. provenance hypergraph 进产品索引首例（深化第3期字段级血统/第52期内省）；275. AutoDream 式"合并只重连帧永不改写证据"被产品吸收与否；276. index/真值解耦（图失败不回滚记忆）成产品默认首例；277. AML C2 正式榜单（11-19，最高优先）是否新增 principal/source/state_role 三维。
