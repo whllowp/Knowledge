@@ -1997,3 +1997,20 @@
 - 字数控制：按 2400 正文配额起稿 1584 → 补八处（疲劳账单、指标化、认知负荷三分、多团队共担、远程恢复、与 143 分工、值班日志、季度对比）到 **1837**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 146 期之后
 - 下期候选：`fatigue.*` 六字段 OTel 提案草案／每班上限与超限轮转触发器／夜醒后变更拦截器（8h 窗口）／补偿调休落实追踪器／疲劳班交接模板与读回／五项指标看板（唤醒×次日错误率×离职意向）／FTS 人数门槛评估表
+
+## 第 148 期（2026-11-12 10:00）· 运维知识图谱面／推理底座面（Operational Knowledge Graph）——Agent 先翻图、再开口，可这张图是昨天的；它自信地在一个可能过期的世界里做根因与修复决策
+- 期号说明：11-12 10:00 档生成；并行实例 10:31 已发第 147 期（疲劳面／可持续值班），本期顺延第 148 期；往期 145 标「第 133 条」、146 标「第 134 条」、147 标「第 135 条」，本期记作第一百三十六条全新立面；与 122（实体归一面）/138（编排拓扑面）/141（语义锚定面）/111（地基面）/134（文档时效）/135（运行真相）/146（属主面）/147（疲劳面）零重叠。
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261112-1000.md（正文约 2400 汉字含表，题眼＋五章＋七方案八维对比表＋8 条来源）；索引已追加第 148 期条目；本地 173/173-kb 连续第 59 期成组启用。
+- 主线：首次把「Agent 推理所依赖的运维知识图谱（资源/依赖/状态/处置动作/历史经验）本身是否新鲜、可信、可验证」立为一等运维对象——前 147 期问合规/审批/时序/证据/拓扑/编队/成本/属主/自改/疲劳，本期问「图新不新、边可不可信、Agent 结论引了哪条边」；负事件家族唯一「指标在报、告警在响、Agent 在推理，但推理依赖的关于世界长什么样的图是昨天的」的成员。
+- 题眼：腾讯 CloudQ 全景图谱（06-26/10-29 生态大会推上多云 AIOps 底座、行业管它叫知识图谱、从真实云 API 长出来授权即用、Ontology 多跳 CVM→CLB→域名→业务、活图告警变更叠加）＋ 阿里 STAROps Fabric/Connector（10-15 统一上下文）＋ Google Entity Context Graph（10-03 三层事实 append-only）＋ 字节 AgentKit/OpenViking ＋ Netflix QuipuDB 本体驱动（QCon SF RDF/OWL/SHACL 防幻觉）＋ yunpan Running World（infra/可观测/knowledge→ontology→语义层→全景图谱）；题眼张力：图越被当推理底座越该是活的，行业却做成快照（增量刷新频率未答）。
+- 划界：122 实体归一面（节点对不对 vs 本期图新不新/踩没踩过期图）/138 编排拓扑面（Agent 交互拓扑 vs 本期被管系统运维图谱）/141 语义锚定面（单信号含义漂移 vs 本期实体-关系知识鲜度与可信度含置信度来源）/111 地基面（假设链 compounding vs 本期底层推理底座缺陷）/134 文档时效（runbook 文本 stale vs 本期图谱实体关系 stale）/135 运行真相（结论挂证据 vs 本期结论引了哪条边）/146 属主面（谁负责 vs 本期图本身谁维护）/147 疲劳面（人/agent 疲劳 vs 本期图的鲜度）；grep 索引核 运维知识图谱/推理底座/全景图谱/knowledge graph/operational graph/freshness/edge_confidence 计数 0～2（仅 1/3/4 期 incidental），确认未覆盖。
+- 时点红利（最近 30 天＋2026 年内）：腾讯 CloudQ 全景图谱（06-26 更新、10-29 生态大会多云 AIOps 底座、Ontology 多跳与节点/边证据链、授权即用从真实 API 长出来）/ 阿里 STAROps Fabric/Connector（统一上下文建模、跨域诊断）/ Google Entity Context Graph＋Agent Topology（Next'26、三层事实 append-only）/ 字节 火山 AgentKit/OpenViking（中间层串联、记忆自演化）/ Netflix QuipuDB（RDF/OWL/SPARQL/SHACL、Slack→三元组 harvest、知识飞轮、AutoSRE、类别受控防幻觉）/ yunpan Running World（三分数据层→ontology→语义层→全景图谱→评测闭环）/ dtstack 图推理 RCA（拓扑依赖建模为知识图谱、GNN/规则回溯、带证据推理）/ CIOAge 五层架构（推理层结合知识库+历史故障+约束多跳因果）。
+- 核心新提法：图是快照遥测是流（T+1 图 vs 秒级故障）/ 图谱新鲜度不可观测（无"图几秒前更新"指标）/ 边无置信度来源（Agent 无法判边可信）/ 推理-图谱一致率缺失（结论不引节点边 ID）/ 跨云多源对齐难（122 实体归一两套记录）/ 知识库 RAG 幻觉（134 文档时效）/ 评测盲区（ITBench-AA/Cloud-OpsBench 不测图谱新鲜度与推理-图谱一致）；第 99 个市场空白五项（图谱新鲜度 SLO 达标率/边置信度可声明率/推理-图谱引用率/跨源实体对齐率/图谱-现场一致率），graph.*/kb.* 第 66 次无人提字段族。
+- 本期反转：把图谱做成 Agent 推理底座的是云厂商（CloudQ/Fabric/Entity Graph），把本体驱动做成工程飞轮与防幻觉的是 Netflix，把多跳推理写成方法论的是腾讯 Ontology；六家云厂商 Agent 平台「图谱鲜度/边置信度/Agent 可查询」三列全空或最弱。判词：「资源拓扑/CMDB/可观测实体图/RAG 知识库」全部可采购，「举证这张图几秒前更新、每条边可不可信、Agent 结论引了哪条边」不可采购。
+- 本地原型（第 59 期）：周昕毅 10「AI+SRE≠AISRE：知识沉淀＋持续闭环（L3 数字分身：长期身份、持续闭环、责任边界）」首次当主线——全库唯一把知识闭环写进生产运维实践；配马云雷 31（轨迹＝持续更新的知识底座）、刘凯宁 05（RCA 依赖知识库与确定性笼子）。判词：「本地把知识沉淀闭环写进生产运维，联网侧 2026 才由 CloudQ/Fabric/Entity Graph 做成图；两边都没把图的鲜度/边可信度/结论引边做成可导出字段」。
+- 建议：graph.* 七字段（graph_id/freshness_slo/last_refresh_ts/edge_confidence/edge_source/agent_queryable/staleness_flag）＋活图架构（增量订阅变更流+实时遥测）＋置信度来源边（深化 54 provenance）＋推理-图谱引用（深化 135 结论挂证据）＋跨源对齐（复用 122）＋评测扩展（ITBench-AA/Cloud-OpsBench 补图谱新鲜度与一致率）＋信通院六维补「图谱可验证率」「推理-图谱一致率」两格。
+- 有效方法：「腾讯 CloudQ Ontology 多跳＋节点边证据链」＋「Netflix QuipuDB 本体防幻觉」＋「yunpan Running World 三分数据层→图谱方法论」三源对照（延续两源法，首次落在「运维知识图谱/推理底座」元层）；选角前 grep 索引核候选词计数 0～2，确认未覆盖。
+- 注意：腾讯 CloudQ/Ontology 为厂商稿与官方文档（06-26、10-29、中国日报 11-03 转述）；yunpan/dtstack/CIOAge 为 2026 行业实践稿取机制、客户收益未独立复核；Netflix QuipuDB 与 Google Entity Graph 经往期索引转述；本地 173 讲义转写、10/31/05/25 笔记转述；未采信 SEO 农场数字。
+- 字数控制：按 2400 正文配额起稿约 2400 含表；未做压缩轮（英文术语/链接不计入汉字配额）。
+- 推送：报告 + 索引追加至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 147 期之后。
+- 下期候选：graph.* 七字段 OTel GenAI 提案草案／活图增量订阅器（变更流+实时遥测，弃 T+1）／边置信度来源标注器（深化 54 provenance）／推理-图谱引用校验器（结论强制引节点边 ID，深化 135）／跨源实体对齐器（复用 122 双轨）／图谱新鲜度 SLO 与过期告警器／ITBench-AA/Cloud-OpsBench 补图谱新鲜度与一致率评测项／信通院六维补两格条款模板
