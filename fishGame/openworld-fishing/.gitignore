@@ -1,0 +1,15 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+.build/
+
+# local tooling / caches
+.chrome-*/
+probe-shots/
+*.log
+
+# verification screenshots are large; keep the reports, drop the images
+verify-*/*.png
+verify-*/*.jpg

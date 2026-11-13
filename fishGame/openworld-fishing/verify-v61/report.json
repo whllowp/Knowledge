@@ -1,0 +1,1225 @@
+{
+  "url": "http://127.0.0.1:5177/?autostart=1&diag=1&quality=medium&noadapt=1",
+  "steps": [
+    {
+      "name": "navigate",
+      "url": "http://127.0.0.1:5177/?autostart=1&diag=1&quality=medium&noadapt=1"
+    },
+    {
+      "name": "boot",
+      "booted": true,
+      "waited": true
+    },
+    {
+      "name": "diag-after-boot",
+      "diag": {
+        "version": "6.0.0",
+        "ready": true,
+        "errors": [],
+        "warns": [],
+        "frames": 587,
+        "fps": 97.8,
+        "memMB": 0,
+        "jsHeapMB": 38.4,
+        "geometries": 80,
+        "textures": 6,
+        "calls": 267,
+        "triangles": 311114,
+        "state": "playing",
+        "catches": 0,
+        "casts": 0,
+        "level": 1,
+        "spots": 15,
+        "time": 10,
+        "weather": "clear",
+        "biome": "meadow",
+        "playerPos": [
+          -38,
+          17.4,
+          128
+        ],
+        "worldSeed": 20240607,
+        "buildMs": 1572,
+        "startedAt": 711.6000000089407,
+        "frameMs": 10,
+        "heapLimitMB": 4192
+      }
+    },
+    {
+      "name": "render-stats",
+      "frames": 588,
+      "calls": 267,
+      "tris": 311114,
+      "geo": 80,
+      "tex": 6
+    },
+    {
+      "name": "webgl",
+      "canvas": true,
+      "width": 1280,
+      "height": 720,
+      "gl": true,
+      "renderer": "WebKit WebGL",
+      "vendor": "WebKit",
+      "lost": false
+    },
+    {
+      "name": "fishing-loop",
+      "castFlow": [
+        {
+          "label": "teleport-to-lake-dock",
+          "ok": true,
+          "value": "true"
+        },
+        {
+          "label": "player-pos",
+          "ok": true,
+          "value": "{\"x\":-65.8,\"y\":0.95,\"z\":112.3,\"biome\":\"rock\",\"onDock\":true}"
+        },
+        {
+          "label": "cast-at",
+          "ok": true,
+          "value": "{\"region\":\"lake\",\"biome\":\"lake\",\"depth\":5.99,\"waters\":[\"lake\",\"shore\"],\"biomes\":[\"lake\"],\"spot\":\"湖畔栈桥\"}"
+        },
+        {
+          "label": "force-bite",
+          "ok": true,
+          "value": "undefined"
+        },
+        {
+          "label": "state-after-bite",
+          "ok": true,
+          "value": "bite"
+        },
+        {
+          "label": "strike-via-input",
+          "ok": true,
+          "value": "bite"
+        },
+        {
+          "label": "state-after-strike",
+          "ok": true,
+          "value": "bite"
+        },
+        {
+          "label": "sim-fight",
+          "ok": true,
+          "value": "{\"steps\":29,\"samples\":[{\"st\":\"bite\",\"d\":null,\"t\":null,\"w\":null,\"fish\":null}],\"state\":\"idle\",\"committed\":null,\"result\":null}"
+        },
+        {
+          "label": "result",
+          "ok": true,
+          "value": "{\"state\":\"idle\",\"species\":0,\"coins\":50,\"xp\":0,\"level\":1,\"stats\":{\"casts\":0,\"catches\":0,\"escapes\":0,\"snapped\":0}}"
+        },
+        {
+          "label": "sim-cast",
+          "ok": true,
+          "value": "{\"state\":\"waiting\",\"samples\":[{\"i\":90,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":3.51,\"region\":\"lake\",\"depth\":5.99},{\"i\":105,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":4.6,\"region\":\"lake\",\"depth\":5.99},{\"i\":120,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":5.07,\"region\":\"lake\",\"depth\":5.99},{\"i\":135,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":4.93,\"region\":\"lake\",\"depth\":5.99},{\"i\":150,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":4.17,\"region\":\"lake\",\"depth\":5.99},{\"i\":165,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":2.8,\"region\":\"lake\",\"depth\":5.99},{\"i\":180,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":0.82,\"region\":\"lake\",\"depth\":5.99},{\"i\":183,\"st\":\"waiting\",\"charge\":0.8,\"bob\":true,\"y\":0.35,\"region\":\"lake\",\"depth\":8.82}],\"lastCast\":{\"x\":-96.46,\"y\":0.35,\"z\":111.37,\"ground\":-8.82,\"surface\":0.28,\"hitY\":0.28,\"isWaterHere\":true,\"depth\":8.82,\"launch\":{\"x\":-65.78,\"y\":2.57,\"z\":112.34},\"target\":{\"x\":-97.36,\"y\":0,\"z\":111.34}},\"message\":\"鱼跑了…\",\"ctx\":{\"region\":\"lake\",\"biome\":\"lake\",\"depth\":8.82,\"waters\":[\"lake\",\"deep\",\"shore\"],\"spot\":\"湖畔栈桥\"}}"
+        },
+        {
+          "label": "sim-bite",
+          "ok": true,
+          "value": "{\"state\":\"fight\",\"struckAt\":162,\"fish\":\"黄尾鲴\",\"weight\":0.264}"
+        },
+        {
+          "label": "fight-after-bite",
+          "ok": true,
+          "value": "fight"
+        },
+        {
+          "label": "water-debug",
+          "ok": true,
+          "value": "{\"camY\":2.57,\"camX\":-65.8,\"camZ\":112.3,\"underwater\":false,\"waveScale\":0.792,\"nearVisible\":true,\"farVisible\":true,\"cloudsVisible\":true,\"uniforms\":{\"sky\":\"4162a1\",\"horizon\":\"f8a979\",\"sun\":\"d29161\",\"shallow\":\"528c9b\",\"deep\":\"1d3f64\",\"fog\":\"aa9d96\",\"fogNear\":301.59360000000004,\"fogFar\":887.0400000000001,\"uTime\":9.08,\"waveScale\":0.792,\"heightTexReady\":true},\"sceneFog\":{\"color\":\"aa9d96\",\"near\":301.59360000000004,\"far\":887.0400000000001},\"env\":{\"sky\":\"4162a1\",\"horizon\":\"f8a979\",\"fog\":\"aa9d96\",\"sunI\":0.64,\"keyI\":0.64,\"night\":0}}"
+        }
+      ]
+    },
+    {
+      "name": "boats",
+      "boatFlow": [
+        {
+          "label": "boat-list",
+          "ok": true,
+          "value": "[{\"id\":\"lake\",\"x\":-82.4,\"z\":102.8,\"inWater\":true,\"depth\":6.1},{\"id\":\"pond\",\"x\":85.8,\"z\":-39.3,\"inWater\":true,\"depth\":3.11},{\"id\":\"estuary\",\"x\":-272.8,\"z\":73.2,\"inWater\":true,\"depth\":5.7}]"
+        },
+        {
+          "label": "boat-moorings-ok",
+          "ok": true,
+          "value": "[true,true,true]"
+        },
+        {
+          "label": "boat-board-force",
+          "ok": true,
+          "value": "{\"ok\":true,\"aboard\":true,\"boat\":{\"id\":\"lake\",\"x\":-82.4,\"z\":102.8},\"boats\":[{\"id\":\"lake\",\"x\":-82.4,\"z\":102.8,\"aboard\":true},{\"id\":\"pond\",\"x\":85.8,\"z\":-39.3,\"aboard\":false},{\"id\":\"estuary\",\"x\":-272.8,\"z\":73.2,\"aboard\":false}]}"
+        },
+        {
+          "label": "boat-seated",
+          "ok": true,
+          "value": "{\"aboard\":true,\"playerMounted\":true,\"pose\":\"sit\",\"py\":0.1}"
+        },
+        {
+          "label": "boat-row-forward",
+          "ok": true,
+          "value": "{\"ok\":true,\"moved\":11.94,\"x\":-76.9,\"z\":113.4,\"y\":0.31,\"aground\":false,\"depth\":4.91,\"playerSeated\":[-77,0.09,113.2]}"
+        },
+        {
+          "label": "boat-row-turn",
+          "ok": true,
+          "value": "{\"ok\":true,\"moved\":6.33,\"x\":-71.5,\"z\":116.7,\"y\":-0.11,\"aground\":false,\"depth\":2.51,\"playerSeated\":[-71.7,-0.33,116.8]}"
+        },
+        {
+          "label": "boat-float",
+          "ok": true,
+          "value": "{\"y\":-0.11,\"surf\":-0.41}"
+        },
+        {
+          "label": "boat-fish-from-boat",
+          "ok": true,
+          "value": "{\"state\":\"waiting\",\"samples\":[{\"i\":30,\"st\":\"charging\",\"charge\":0.43,\"bob\":false,\"y\":-0.01,\"region\":\"lake\",\"depth\":8.82},{\"i\":45,\"st\":\"charging\",\"charge\":0.65,\"bob\":false,\"y\":-0.01,\"region\":\"lake\",\"depth\":8.82},{\"i\":60,\"st\":\"casting\",\"charge\":0.8,\"bob\":false,\"y\":-0.01,\"region\":\"lake\",\"depth\":8.82},{\"i\":75,\"st\":\"casting\",\"charge\":0.8,\"bob\":false,\"y\":-0.01,\"region\":\"lake\",\"depth\":8.82},{\"i\":90,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":1.67,\"region\":\"lake\",\"depth\":8.82},{\"i\":105,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":1.81,\"region\":\"lake\",\"depth\":8.82},{\"i\":120,\"st\":\"flying\",\"charge\":0.8,\"bob\":true,\"y\":1.35,\"region\":\"lake\",\"depth\":8.82},{\"i\":133,\"st\":\"waiting\",\"charge\":0.8,\"bob\":true,\"y\":0.44,\"region\":\"lake\",\"depth\":6.27}],\"lastCast\":{\"x\":-84.14,\"y\":0.44,\"z\":124.53,\"ground\":-6.27,\"surface\":0.3,\"hitY\":0.3,\"isWaterHere\":true,\"depth\":6.27,\"launch\":{\"x\":-71.67,\"y\":1.29,\"z\":116.76},\"target\":{\"x\":-85.46,\"y\":0,\"z\":125.35}},\"message\":\"鱼跑了…\",\"ctx\":{\"region\":\"lake\",\"biome\":\"lake\",\"depth\":6.27,\"waters\":[\"lake\",\"deep\",\"shore\"],\"spot\":\"湖畔栈桥\"}}"
+        },
+        {
+          "label": "boat-disembark",
+          "ok": true,
+          "value": "{\"ok\":true,\"aboard\":false,\"boats\":[{\"id\":\"lake\",\"x\":-71.5,\"z\":116.7,\"aboard\":false},{\"id\":\"pond\",\"x\":85.8,\"z\":-39.3,\"aboard\":false},{\"id\":\"estuary\",\"x\":-272.8,\"z\":73.2,\"aboard\":false}]}"
+        },
+        {
+          "label": "wildlife",
+          "ok": true,
+          "value": "{\"fish\":{\"max\":105,\"active\":105,\"schools\":9,\"ripples\":20},\"birds\":{\"max\":18,\"active\":15},\"fishUnderwaterSample\":[{\"x\":-114,\"y\":-1.77,\"z\":130.7,\"depth\":10.72},{\"x\":-108.8,\"y\":-1.46,\"z\":130.2,\"depth\":10.14},{\"x\":-114.5,\"y\":-2.56,\"z\":139.2,\"depth\":10.13}]}"
+        }
+      ]
+    },
+    {
+      "name": "tutorial",
+      "tutFlow": [
+        {
+          "label": "tutorial-reset",
+          "ok": true,
+          "value": "{\"active\":true,\"index\":0,\"total\":6,\"step\":\"reach_water\",\"title\":\"走到水边\",\"markerVisible\":false,\"done\":false}"
+        },
+        {
+          "label": "step-reach_water",
+          "ok": true,
+          "value": "{\"before\":0,\"after\":1,\"step\":\"first_cast\",\"active\":true,\"done\":false,\"advanced\":true}"
+        },
+        {
+          "label": "step-first_cast",
+          "ok": true,
+          "value": "{\"before\":1,\"after\":2,\"step\":\"first_bite\",\"active\":true,\"done\":false,\"advanced\":true}"
+        },
+        {
+          "label": "step-first_bite",
+          "ok": true,
+          "value": "{\"before\":2,\"after\":3,\"step\":\"first_catch\",\"active\":true,\"done\":false,\"advanced\":true}"
+        },
+        {
+          "label": "step-first_catch",
+          "ok": true,
+          "value": "{\"before\":3,\"after\":4,\"step\":\"first_shop\",\"active\":true,\"done\":false,\"advanced\":true}"
+        },
+        {
+          "label": "step-first_shop",
+          "ok": true,
+          "value": "{\"before\":4,\"after\":5,\"step\":\"first_view\",\"active\":true,\"done\":false,\"advanced\":true}"
+        },
+        {
+          "label": "step-first_view",
+          "ok": true,
+          "value": "{\"before\":5,\"after\":6,\"step\":null,\"active\":false,\"done\":true,\"advanced\":true}"
+        },
+        {
+          "label": "tutorial-final",
+          "ok": true,
+          "value": "{\"tutorial\":{\"active\":false,\"index\":6,\"total\":6,\"step\":null,\"title\":null,\"markerVisible\":false,\"done\":true},\"coins\":550,\"tutorialDone\":true}"
+        }
+      ]
+    },
+    {
+      "name": "kitchen",
+      "kitFlow": [
+        {
+          "label": "go-to-fire",
+          "ok": true,
+          "value": "{\"x\":-38.6,\"z\":156.2,\"nearFire\":true}"
+        },
+        {
+          "label": "grant-fish",
+          "ok": true,
+          "value": "[{\"name\":\"鲫鱼\",\"rarity\":1,\"weight\":1},{\"name\":\"鲤鱼\",\"rarity\":1,\"weight\":3.5},{\"name\":\"草鱼\",\"rarity\":1,\"weight\":7.6},{\"name\":\"鳜鱼\",\"rarity\":2,\"weight\":2.95},{\"name\":\"蓝鳍金枪鱼\",\"rarity\":4,\"weight\":240}]"
+        },
+        {
+          "label": "pantry-before",
+          "ok": true,
+          "value": "{\"pantry\":[],\"buffs\":[],\"recipes\":[{\"id\":\"grilled\",\"name\":\"炭烤鱼\",\"count\":0,\"best\":null},{\"id\":\"soup\",\"name\":\"鲜鱼汤\",\"count\":0,\"best\":null},{\"id\":\"smoked\",\"name\":\"烟熏鱼\",\"count\":0,\"best\":null},{\"id\":\"feast\",\"name\":\"全鱼宴\",\"count\":0,\"best\":null},{\"id\":\"legend_meal\",\"name\":\"传说料理\",\"count\":0,\"best\":null}],\"gearMods\":{\"bite\":0,\"luck\":0,\"line\":0,\"reel\":0},\"nearFire\":true,\"atFire\":[-41,154]}"
+        },
+        {
+          "label": "cook-grilled",
+          "ok": true,
+          "value": "{\"ok\":false,\"error\":\"保鲜网里没有鱼\",\"used\":null,\"recipe\":null}"
+        },
+        {
+          "label": "kitchen-after",
+          "ok": true,
+          "value": "{\"pantry\":[],\"buffs\":[],\"recipes\":[{\"id\":\"grilled\",\"name\":\"炭烤鱼\",\"count\":0,\"best\":null},{\"id\":\"soup\",\"name\":\"鲜鱼汤\",\"count\":0,\"best\":null},{\"id\":\"smoked\",\"name\":\"烟熏鱼\",\"count\":0,\"best\":null},{\"id\":\"feast\",\"name\":\"全鱼宴\",\"count\":0,\"best\":null},{\"id\":\"legend_meal\",\"name\":\"传说料理\",\"count\":0,\"best\":null}],\"gearMods\":{\"bite\":0,\"luck\":0,\"line\":0,\"reel\":0},\"nearFire\":true,\"atFire\":[-41,154]}"
+        },
+        {
+          "label": "cook-soup",
+          "ok": true,
+          "value": "{\"ok\":false,\"error\":\"保鲜网里没有鱼\",\"used\":null,\"recipe\":null}"
+        },
+        {
+          "label": "cook-smoked",
+          "ok": true,
+          "value": "{\"ok\":false,\"error\":\"保鲜网里没有鱼\",\"used\":null,\"recipe\":null}"
+        },
+        {
+          "label": "buffs-active",
+          "ok": true,
+          "value": "{\"pantry\":[],\"buffs\":[],\"recipes\":[{\"id\":\"grilled\",\"name\":\"炭烤鱼\",\"count\":0,\"best\":null},{\"id\":\"soup\",\"name\":\"鲜鱼汤\",\"count\":0,\"best\":null},{\"id\":\"smoked\",\"name\":\"烟熏鱼\",\"count\":0,\"best\":null},{\"id\":\"feast\",\"name\":\"全鱼宴\",\"count\":0,\"best\":null},{\"id\":\"legend_meal\",\"name\":\"传说料理\",\"count\":0,\"best\":null}],\"gearMods\":{\"bite\":0,\"luck\":0,\"line\":0,\"reel\":0},\"nearFire\":true,\"atFire\":[-41,154]}"
+        },
+        {
+          "label": "gear-with-buffs",
+          "ok": true,
+          "value": "{\"luck\":0,\"bite\":1,\"line\":2.6,\"mods\":{\"bite\":0,\"luck\":0,\"line\":0,\"reel\":0}}"
+        },
+        {
+          "label": "buff-expiry",
+          "ok": true,
+          "value": "{\"buffs\":0,\"gearLuck\":0,\"mods\":{\"bite\":0,\"luck\":0,\"line\":0,\"reel\":0}}"
+        },
+        {
+          "label": "pantry-size",
+          "ok": true,
+          "value": "{\"pantry\":0,\"buffs\":0}"
+        }
+      ]
+    },
+    {
+      "name": "late-features",
+      "lateFlow": [
+        {
+          "label": "keep-catch",
+          "ok": true,
+          "value": "{\"steps\":570,\"struck\":true,\"state\":\"result\",\"endReason\":null,\"message\":\"\",\"fish\":\"鳜鱼\",\"weight\":2.906,\"isReleased\":false,\"value\":128,\"xp\":81,\"before\":{\"journal\":5,\"coins\":7994,\"released\":0,\"pantry\":0},\"after\":{\"journal\":5,\"coins\":8122,\"released\":0,\"pantry\":1},\"ctx\":{\"region\":\"lake\",\"depth\":5.58}}"
+        },
+        {
+          "label": "release-catch",
+          "ok": true,
+          "value": "{\"steps\":140,\"struck\":true,\"state\":\"result\",\"endReason\":null,\"message\":\"\",\"fish\":\"空罐头\",\"weight\":0.252,\"isReleased\":true,\"value\":0,\"xp\":2,\"before\":{\"journal\":5,\"coins\":8122,\"released\":0,\"pantry\":1},\"after\":{\"journal\":6,\"coins\":8122,\"released\":1,\"pantry\":1},\"ctx\":{\"region\":\"lake\",\"depth\":5.58}}"
+        },
+        {
+          "label": "forecast",
+          "ok": true,
+          "value": "{\"forecast\":[{\"kind\":\"clear\",\"label\":\"晴朗\",\"icon\":\"☀️\",\"inMinutes\":3},{\"kind\":\"fog\",\"label\":\"浓雾\",\"icon\":\"🌫️\",\"inMinutes\":130},{\"kind\":\"fog\",\"label\":\"浓雾\",\"icon\":\"🌫️\",\"inMinutes\":278}],\"pressure\":1018.2,\"wind\":3.1,\"wave\":0.68,\"moon\":{\"index\":1,\"label\":\"🌒 娥眉月\"}}"
+        },
+        {
+          "label": "aquarium",
+          "ok": true,
+          "value": "{\"fish\":[\"mandarin_fish\"],\"records\":1}"
+        },
+        {
+          "label": "photo-mode-on",
+          "ok": true,
+          "value": true
+        },
+        {
+          "label": "capture",
+          "ok": true,
+          "value": "queued"
+        },
+        {
+          "label": "photo-result",
+          "ok": true,
+          "value": "{\"photos\":1,\"last\":{\"len\":12227,\"head\":\"data:image/jpeg;base64\",\"filter\":\"vivid\",\"spot\":\"湖畔栈桥\"},\"capture\":{\"ok\":true,\"count\":1,\"filter\":\"vivid\"}}"
+        },
+        {
+          "label": "photo-mode-off",
+          "ok": true,
+          "value": false
+        },
+        {
+          "label": "contest-start",
+          "ok": true,
+          "value": "{\"ok\":true,\"error\":null,\"spot\":\"湖畔栈桥\",\"entrants\":4,\"coins\":4900}"
+        },
+        {
+          "label": "contest-run",
+          "ok": true,
+          "value": "{\"active\":false,\"playerCatches\":8,\"rank\":1,\"prize\":248,\"pot\":400,\"table\":[\"你:376\",\"老周:312\",\"小林:294\",\"大壮:217\"],\"coins\":5148,\"contests\":1,\"wins\":1}"
+        },
+        {
+          "label": "panels-with-gallery",
+          "ok": true,
+          "value": "[\"kitchen:6\",\"gallery:4\",\"quests:11\"]"
+        }
+      ]
+    },
+    {
+      "name": "feel-v200",
+      "feelFlow": [
+        {
+          "label": "heavy-fish-light-line",
+          "ok": true,
+          "value": "{\"fish\":\"蓝鳍金枪鱼\",\"weight\":120,\"drag\":0.26,\"rodBend\":0.59,\"shakeTrauma\":1,\"slipSeconds\":4.32,\"state\":\"fight\",\"endReason\":null,\"samples\":[{\"t\":0,\"ten\":0.33,\"zone\":\"0.03-0.23\",\"dist\":1,\"stam\":1,\"line\":55,\"wear\":0,\"slip\":true,\"reel\":true,\"fishVis\":true,\"fishY\":-1.21},{\"t\":0.8,\"ten\":0.24,\"zone\":\"0.03-0.23\",\"dist\":0.99,\"stam\":0.94,\"line\":55,\"wear\":0,\"slip\":false,\"reel\":true,\"fishVis\":true,\"fishY\":-1.21},{\"t\":1.5,\"ten\":0.21,\"zone\":\"0.03-0.23\",\"dist\":0.98,\"stam\":0.87,\"line\":54,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":2.3,\"ten\":0.22,\"zone\":\"0.03-0.23\",\"dist\":0.96,\"stam\":0.81,\"line\":53,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":3,\"ten\":0.28,\"zone\":\"0.03-0.23\",\"dist\":1,\"stam\":0.77,\"line\":55,\"wear\":0,\"slip\":true,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":3.8,\"ten\":0.24,\"zone\":\"0.03-0.23\",\"dist\":1.08,\"stam\":0.76,\"line\":59,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":4.5,\"ten\":0.27,\"zone\":\"0.03-0.23\",\"dist\":1.12,\"stam\":0.66,\"line\":61,\"wear\":0,\"slip\":true,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":5.3,\"ten\":0.22,\"zone\":\"0.03-0.23\",\"dist\":1.16,\"stam\":0.62,\"line\":63,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":6,\"ten\":0.23,\"zone\":\"0.03-0.23\",\"dist\":1.1,\"stam\":0.56,\"line\":60,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":6.8,\"ten\":0.26,\"zone\":\"0.03-0.23\",\"dist\":1.17,\"stam\":0.53,\"line\":64,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":7.5,\"ten\":0.22,\"zone\":\"0.03-0.23\",\"dist\":1.19,\"stam\":0.5,\"line\":65,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":8.3,\"ten\":0.25,\"zone\":\"0.03-0.23\",\"dist\":1.15,\"stam\":0.43,\"line\":63,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":9,\"ten\":0.26,\"zone\":\"0.03-0.23\",\"dist\":1.23,\"stam\":0.34,\"line\":67,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":9.8,\"ten\":0.22,\"zone\":\"0.03-0.23\",\"dist\":1.18,\"stam\":0.28,\"line\":64,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":10.5,\"ten\":0.26,\"zone\":\"0.03-0.23\",\"dist\":1.26,\"stam\":0.27,\"line\":68,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":11.3,\"ten\":0.22,\"zone\":\"0.03-0.23\",\"dist\":1.23,\"stam\":0.23,\"line\":67,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":12,\"ten\":0.27,\"zone\":\"0.03-0.23\",\"dist\":1.23,\"stam\":0.19,\"line\":67,\"wear\":0,\"slip\":true,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21},{\"t\":12.8,\"ten\":0.2,\"zone\":\"0.03-0.23\",\"dist\":1.28,\"stam\":0.17,\"line\":69,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.21}],\"end\":{\"tension\":0.24,\"distance\":1.16,\"stamina\":0,\"wear\":0,\"lineOut\":63},\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0,\"high\":0}}"
+        },
+        {
+          "label": "small-fish-strong-line",
+          "ok": true,
+          "value": "{\"fish\":\"鲫鱼\",\"weight\":0.6,\"drag\":0.9,\"rodBend\":0.99,\"shakeTrauma\":1,\"slipSeconds\":0,\"state\":\"result\",\"endReason\":\"landed\",\"samples\":[{\"t\":0,\"ten\":0.44,\"zone\":\"0.34-0.66\",\"dist\":1,\"stam\":0.99,\"line\":55,\"wear\":0,\"slip\":false,\"reel\":true,\"fishVis\":true,\"fishY\":-1.5},{\"t\":0.8,\"ten\":0.64,\"zone\":\"0.34-0.66\",\"dist\":0.86,\"stam\":0.83,\"line\":48,\"wear\":0,\"slip\":false,\"reel\":true,\"fishVis\":true,\"fishY\":-1.5},{\"t\":1.5,\"ten\":0.65,\"zone\":\"0.34-0.66\",\"dist\":0.73,\"stam\":0.69,\"line\":41,\"wear\":0,\"slip\":false,\"reel\":true,\"fishVis\":true,\"fishY\":-1.5},{\"t\":2.3,\"ten\":0.65,\"zone\":\"0.35-0.66\",\"dist\":0.56,\"stam\":0.57,\"line\":32,\"wear\":0,\"slip\":false,\"reel\":true,\"fishVis\":true,\"fishY\":-1.5},{\"t\":3,\"ten\":0.77,\"zone\":\"0.49-0.80\",\"dist\":0.46,\"stam\":0.49,\"line\":27,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.5},{\"t\":3.8,\"ten\":0.86,\"zone\":\"0.55-0.87\",\"dist\":0.19,\"stam\":0.34,\"line\":13,\"wear\":0,\"slip\":false,\"reel\":true,\"fishVis\":true,\"fishY\":-1.5}],\"end\":{\"tension\":0,\"distance\":0.07,\"stamina\":0,\"wear\":0,\"lineOut\":0},\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0,\"high\":0}}"
+        },
+        {
+          "label": "feel-snapshot",
+          "ok": true,
+          "value": "{\"rodBend\":0.467,\"trauma\":0.847,\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0.3949561598518287,\"high\":0.22266026496623445},\"fight\":{\"tension\":0.87,\"drag\":0.9,\"slipping\":false,\"lineOutM\":6,\"slipTime\":0}}"
+        },
+        {
+          "label": "haptics-api",
+          "ok": true,
+          "value": "{\"supported\":true,\"afterPulse\":{\"enabled\":true,\"hasPad\":false,\"low\":0.8517323412905858,\"high\":0.5},\"afterStop\":{\"enabled\":true,\"hasPad\":false,\"low\":0.38684243989489664,\"high\":0.1504387266257931}}"
+        }
+      ]
+    },
+    {
+      "name": "reveal-v210",
+      "revealFlow": [
+        {
+          "label": "force-land-big",
+          "ok": true,
+          "value": "{\"surfaceFishVisible\":true,\"revealing\":true,\"sizeClass\":\"large\",\"sizeClassLabel\":\"大型\",\"revealLock\":true,\"fov\":71.5,\"timeScale\":1,\"deservesReveal\":true}"
+        },
+        {
+          "label": "reveal-mid",
+          "ok": true,
+          "value": "{\"active\":true,\"t\":0.87,\"dur\":2.69,\"cls\":\"large\",\"timeScale\":0.47,\"fov\":59.9,\"revealLock\":true,\"revealFishVisible\":true,\"revealFishY\":3.17,\"surfaceFishVisible\":false}"
+        },
+        {
+          "label": "reveal-end",
+          "ok": true,
+          "value": "{\"active\":false,\"t\":2.7,\"dur\":2.69,\"cls\":\"large\",\"timeScale\":1,\"fov\":71.9,\"revealLock\":false,\"revealFishVisible\":false,\"revealFishY\":2.37,\"surfaceFishVisible\":false}"
+        },
+        {
+          "label": "commit-big",
+          "ok": true,
+          "value": "{\"ok\":true,\"released\":false,\"name\":\"鲤鱼\",\"coins\":58,\"xp\":28,\"species\":6}"
+        },
+        {
+          "label": "force-land-small",
+          "ok": true,
+          "value": "{\"surfaceFishVisible\":true,\"revealing\":false,\"sizeClass\":\"large\",\"sizeClassLabel\":\"大型\",\"revealLock\":false,\"fov\":71.9,\"timeScale\":1,\"deservesReveal\":false}"
+        },
+        {
+          "label": "small-reveal",
+          "ok": true,
+          "value": "{\"active\":false,\"t\":2.7,\"dur\":2.69,\"cls\":\"large\",\"timeScale\":1,\"fov\":72,\"revealLock\":false,\"revealFishVisible\":false,\"revealFishY\":2.37,\"surfaceFishVisible\":false}"
+        },
+        {
+          "label": "commit-small",
+          "ok": true,
+          "value": "{\"ok\":true,\"released\":false,\"name\":\"鲫鱼\",\"coins\":22,\"xp\":12,\"species\":6}"
+        },
+        {
+          "label": "surface-fish-in-fight",
+          "ok": true,
+          "value": "{\"endReason\":null,\"state\":\"fight\",\"midSample\":{\"t\":1.5,\"ten\":0.63,\"zone\":\"0.35-0.65\",\"dist\":0.77,\"stam\":0.73,\"line\":43,\"wear\":0,\"slip\":false,\"reel\":false,\"fishVis\":true,\"fishY\":-1.5}}"
+        }
+      ]
+    },
+    {
+      "name": "camera-drag-v250",
+      "camFlow": [
+        {
+          "label": "hook-now",
+          "ok": true,
+          "value": "{\"state\":\"fight\",\"fish\":\"鲤鱼\",\"drag\":0.9,\"dragMax\":0.9,\"dragUser\":1}"
+        },
+        {
+          "label": "probe-fighting",
+          "ok": true,
+          "value": "{\"state\":\"fight\",\"fov\":69.6,\"fovTarget\":69.6,\"tension\":0,\"drag\":0.9,\"dragUser\":1,\"lineOut\":57,\"slipping\":false,\"surfaceFish\":true,\"surfaceFishY\":-1.54,\"trauma\":0,\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0,\"high\":0}}"
+        },
+        {
+          "label": "drag-down",
+          "ok": true,
+          "value": "sent"
+        },
+        {
+          "label": "probe-after-z",
+          "ok": true,
+          "value": "{\"state\":\"fight\",\"fov\":69.7,\"fovTarget\":69.7,\"tension\":0.04,\"drag\":0.83,\"dragUser\":0.92,\"lineOut\":58,\"slipping\":false,\"surfaceFish\":true,\"surfaceFishY\":-1.47,\"trauma\":0,\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0.45269095777215484,\"high\":0.1760464835780602}}"
+        },
+        {
+          "label": "drag-up-twice",
+          "ok": true,
+          "value": "sent"
+        },
+        {
+          "label": "probe-after-x",
+          "ok": true,
+          "value": "{\"state\":\"fight\",\"fov\":69.4,\"fovTarget\":69.4,\"tension\":0.14,\"drag\":0.9,\"dragUser\":1,\"lineOut\":60,\"slipping\":false,\"surfaceFish\":true,\"surfaceFishY\":-1.43,\"trauma\":0,\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0.07718172459279407,\"high\":0.03001511511941991}}"
+        },
+        {
+          "label": "reset-cast",
+          "ok": true,
+          "value": "\"idle\""
+        },
+        {
+          "label": "probe-idle-fov",
+          "ok": true,
+          "value": "{\"state\":\"idle\",\"fov\":71.1,\"fovTarget\":71.1,\"tension\":0,\"drag\":null,\"dragUser\":null,\"lineOut\":0,\"slipping\":false,\"surfaceFish\":false,\"surfaceFishY\":-1.43,\"trauma\":0,\"haptics\":{\"enabled\":true,\"hasPad\":false,\"low\":0,\"high\":0}}"
+        }
+      ]
+    },
+    {
+      "name": "records-weather-v270",
+      "wrFlow": [
+        {
+          "label": "size-classes",
+          "ok": true,
+          "value": "[{\"w\":0.2,\"id\":\"tiny\",\"name\":\"小鱼\"},{\"w\":1.5,\"id\":\"small\",\"name\":\"小型\"},{\"w\":6,\"id\":\"medium\",\"name\":\"中型\"},{\"w\":20,\"id\":\"large\",\"name\":\"大型\"},{\"w\":60,\"id\":\"huge\",\"name\":\"巨型\"},{\"w\":150,\"id\":\"monster\",\"name\":\"巨物\"}]"
+        },
+        {
+          "label": "catch-record",
+          "ok": true,
+          "value": "{\"before\":{\"best\":0.01,\"pbs\":1},\"after\":{\"best\":2.5,\"pbs\":2},\"info\":{\"ok\":true,\"released\":false,\"name\":\"泥鳅\",\"coins\":48,\"xp\":26,\"species\":7},\"sizeClassOfCatch\":\"large\",\"recordFlag\":true}"
+        },
+        {
+          "label": "rain-instant",
+          "ok": true,
+          "value": {
+            "kind": "rain",
+            "rain": 0.62
+          }
+        },
+        {
+          "label": "rain-fight-hook",
+          "ok": true,
+          "value": "{\"rain\":0.62,\"state\":\"fight\"}"
+        },
+        {
+          "label": "splash-count",
+          "ok": true,
+          "value": "{\"splashes\":3,\"rain\":0.62,\"state\":\"fight\",\"fishPos\":[-79.86,106.43],\"wind\":0.48}"
+        },
+        {
+          "label": "reset",
+          "ok": true,
+          "value": "\"idle\""
+        },
+        {
+          "label": "weather-back",
+          "ok": true,
+          "value": "clear"
+        }
+      ]
+    },
+    {
+      "name": "env-sea-v300",
+      "envFlow": [
+        {
+          "label": "phase-noon",
+          "ok": true,
+          "value": "{\"hour\":12,\"phase\":{\"id\":\"noon\",\"label\":\"正午\",\"icon\":\"🌞\",\"index\":5},\"golden\":0,\"sunElev\":0.947,\"sunset\":false,\"glowOpacity\":0.377,\"glowVisible\":true,\"sunVisible\":0.898,\"cloudCover\":0.12,\"gradeOpacity\":0.037,\"weather\":\"clear\",\"seaState\":0.427,\"seaLabel\":{\"label\":\"中浪\",\"icon\":\"🌊\",\"tier\":2},\"priceMultiplier\":1.36,\"stars\":0,\"night\":0}"
+        },
+        {
+          "label": "phase-sunrise",
+          "ok": true,
+          "value": "{\"hour\":6.12,\"phase\":{\"id\":\"sunrise\",\"label\":\"日出\",\"icon\":\"🌅\",\"index\":2},\"golden\":0.658,\"sunElev\":0.031,\"sunset\":false,\"glowOpacity\":0.879,\"glowVisible\":true,\"sunVisible\":0.898,\"cloudCover\":0.12,\"gradeOpacity\":0.037,\"weather\":\"clear\",\"seaState\":0.427,\"seaLabel\":{\"label\":\"中浪\",\"icon\":\"🌊\",\"tier\":2},\"priceMultiplier\":1.36,\"stars\":0,\"night\":0}"
+        },
+        {
+          "label": "sunrise-glare",
+          "ok": true,
+          "value": "{\"dbg\":{\"golden\":0.657,\"facing\":0.998,\"opacity\":0.407,\"edgeLess\":false},\"css\":\"0.408\",\"glow\":0.88,\"stars\":0}"
+        },
+        {
+          "label": "phase-sunset",
+          "ok": true,
+          "value": "{\"hour\":17.85,\"phase\":{\"id\":\"sunset\",\"label\":\"日落\",\"icon\":\"🌆\",\"index\":7},\"golden\":0.91,\"sunElev\":0.039,\"sunset\":true,\"glowOpacity\":0.92,\"glowVisible\":true,\"sunVisible\":0.898,\"cloudCover\":0.12,\"gradeOpacity\":0.408,\"weather\":\"clear\",\"seaState\":0.217,\"seaLabel\":{\"label\":\"微浪\",\"icon\":\"🌊\",\"tier\":1},\"priceMultiplier\":1.18,\"stars\":0,\"night\":0}"
+        },
+        {
+          "label": "grade-live",
+          "ok": true,
+          "value": "{\"grade\":0.564,\"glow\":0.92,\"dbg\":{\"golden\":0.912,\"facing\":0.998,\"opacity\":0.566,\"edgeLess\":false}}"
+        },
+        {
+          "label": "phase-night",
+          "ok": true,
+          "value": "{\"hour\":23,\"phase\":{\"id\":\"night\",\"label\":\"夜晚\",\"icon\":\"🌙\",\"index\":9},\"golden\":0,\"sunElev\":-0.918,\"sunset\":true,\"glowOpacity\":0,\"glowVisible\":false,\"sunVisible\":0,\"cloudCover\":0.12,\"gradeOpacity\":0.564,\"weather\":\"clear\",\"seaState\":0.206,\"seaLabel\":{\"label\":\"微浪\",\"icon\":\"🌊\",\"tier\":1},\"priceMultiplier\":1.18,\"stars\":0.89,\"night\":1}"
+        },
+        {
+          "label": "grade-night",
+          "ok": true,
+          "value": "{\"grade\":0,\"stars\":0.89}"
+        },
+        {
+          "label": "seastate-calm",
+          "ok": true,
+          "value": "{\"sea\":0.19,\"label\":\"微浪\",\"price\":1.16,\"wave\":0.68}"
+        },
+        {
+          "label": "seastate-storm",
+          "ok": true,
+          "value": "{\"sea\":0.79,\"label\":\"狂浪\",\"price\":1.67,\"wave\":1.53,\"wind\":0.7878663886042025}"
+        },
+        {
+          "label": "offshore-charter",
+          "ok": true,
+          "value": "{\"r\":{\"ok\":true,\"spot\":\"ocean_cliff\",\"fee\":141,\"sea\":0.79,\"price\":1.67},\"mounted\":true,\"coins\":4859,\"spot\":\"ocean_cliff\"}"
+        },
+        {
+          "label": "offshore-pos",
+          "ok": true,
+          "value": "{\"pos\":[430,-520],\"boat\":[430,-520],\"depth\":30}"
+        },
+        {
+          "label": "offshore-catch-value",
+          "ok": true,
+          "value": "{\"value\":63,\"seaFactor\":1.92,\"seaBonus\":30,\"offshore\":true,\"sea\":0.8,\"depth\":30}"
+        },
+        {
+          "label": "came-home",
+          "ok": true,
+          "value": "{\"r\":{\"ok\":true},\"mounted\":false,\"pos\":[-66,112]}"
+        },
+        {
+          "label": "weather-reset",
+          "ok": true,
+          "value": "clear"
+        }
+      ]
+    },
+    {
+      "name": "sea-shop-v350",
+      "seaFlow": [
+        {
+          "label": "boat-summon",
+          "ok": true,
+          "value": "{\"r\":{\"ok\":true,\"boat\":\"lake\",\"at\":[-69.5,113.9]},\"mounted\":true,\"depth\":1.1}"
+        },
+        {
+          "label": "boat-row",
+          "ok": true,
+          "value": "{\"ok\":true,\"moved\":8.13,\"x\":-77,\"z\":117,\"y\":0.52,\"aground\":false,\"depth\":4.87,\"playerSeated\":[-76.8,0.3,116.9]}"
+        },
+        {
+          "label": "sea-waypoint",
+          "ok": true,
+          "value": "{\"hidden\":false,\"text\":\"▲ 近海渔场 143 m\",\"wp\":\"近海渔场\"}"
+        },
+        {
+          "label": "charter-and-sail",
+          "ok": true,
+          "value": "{\"r\":{\"ok\":true,\"spot\":\"ocean_cliff\",\"fee\":125,\"sea\":0.68,\"price\":1.58},\"before\":{\"x\":430,\"z\":-520},\"row\":{\"ok\":true,\"moved\":6.23,\"x\":430,\"z\":-526.2,\"y\":0.83,\"aground\":false,\"depth\":30,\"playerSeated\":[430,0.61,-526]},\"depth\":30}"
+        },
+        {
+          "label": "whales-present",
+          "ok": true,
+          "value": "{\"count\":8,\"list\":[{\"id\":\"blue_whale\",\"name\":\"蓝鲸\",\"state\":\"dive\"},{\"id\":\"humpback\",\"name\":\"座头鲸\",\"state\":\"dive\"},{\"id\":\"orca\",\"name\":\"虎鲸\",\"state\":\"dive\"},{\"id\":\"sperm_whale\",\"name\":\"抹香鲸\",\"state\":\"dive\"},{\"id\":\"dolphin\",\"name\":\"海豚\",\"state\":\"rise\"},{\"id\":\"dolphin\",\"name\":\"海豚\",\"state\":\"surface\"},{\"id\":\"dolphin\",\"name\":\"海豚\",\"state\":\"dive\"},{\"id\":\"dolphin\",\"name\":\"海豚\",\"state\":\"rise\"}],\"nearest\":{\"name\":\"虎鲸\",\"dist\":80.04637792613006,\"surfaced\":false,\"x\":506.643367776658,\"z\":-549.1512294054975}}"
+        },
+        {
+          "label": "whale-sighting",
+          "ok": true,
+          "value": "{\"sightings\":1,\"records\":{\"orca\":{\"at\":1794503948572,\"count\":1}},\"diag\":1}"
+        },
+        {
+          "label": "marine-species",
+          "ok": true,
+          "value": "{\"total\":85,\"big\":15,\"sharks\":10,\"whales\":1,\"names\":[\"海鳗/10kg/r3\",\"大白鲨/900kg/r4\",\"鲸鲨/9000kg/r5\",\"护士鲨/95kg/r3\",\"蝠鲼/380kg/r4\",\"锤头鲨/460kg/r4\",\"虎鲨/820kg/r4\",\"蓝枪鱼/620kg/r5\",\"巨口鲨/1250kg/r5\",\"灰鲭鲨/480kg/r4\",\"蓝鲨/170kg/r3\",\"长尾鲨/420kg/r4\",\"白鳍礁鲨/32kg/r3\",\"鹰鳐/58kg/r3\",\"电鳐/26kg/r3\"]}"
+        },
+        {
+          "label": "shark-roll",
+          "ok": true,
+          "value": "{\"distinct\":21,\"marine\":[\"长鳍金枪鱼:7\",\"黄鳍金枪鱼:2\",\"蓝鲨:20\",\"蓝枪鱼:2\",\"剑鱼:9\",\"鲸鲨:5\",\"大白鲨:3\",\"虎鲨:3\",\"巨口鲨:3\",\"蝠鲼:1\",\"灰鲭鲨:1\",\"大眼金枪鱼:1\"],\"top\":[[\"大眼鲷\",235],[\"龙虾\",60],[\"蓝鲨\",20],[\"鲣鱼\",18],[\"电鳐\",11],[\"剑鱼\",9]]}"
+        },
+        {
+          "label": "shop-supplies",
+          "ok": true,
+          "value": "{\"cards\":[\"护线蜡\",\"幸运符\",\"诱鱼桶\",\"海狼符\"],\"bought\":260,\"items\":{\"line_wax\":0},\"buffs\":[\"item_line_wax\"],\"stock\":{\"line_wax\":2,\"lucky_charm\":2,\"chum_bucket\":2,\"sea_charm\":1}}"
+        },
+        {
+          "label": "shop-market",
+          "ok": true,
+          "value": "{\"before\":{\"coins\":4740,\"pantry\":2},\"after\":{\"coins\":7824,\"pantry\":0,\"sales\":2}}"
+        },
+        {
+          "label": "weather-reset-2",
+          "ok": true,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "survival-v430",
+      "svFlow": [
+        {
+          "label": "meters",
+          "ok": true,
+          "value": "{\"hunger\":0.9504411519999575,\"health\":1,\"sanity\":0.9992637199999999,\"warmth\":35.93332297273509,\"days\":2,\"deaths\":0,\"temperature\":35.9,\"season\":{\"id\":\"spring\",\"label\":\"春\",\"icon\":\"🌸\",\"note\":\"回暖，鱼开始靠岸\"},\"status\":[]}"
+        },
+        {
+          "label": "starve",
+          "ok": true,
+          "value": "{\"hp\":0.6,\"status\":[\"饥饿\",\"挨饿\",\"寒冷\",\"失温\"]}"
+        },
+        {
+          "label": "starve-drains",
+          "ok": true,
+          "value": "{\"hp\":0.556,\"hunger\":0}"
+        },
+        {
+          "label": "eat",
+          "ok": true,
+          "value": "{\"before\":0,\"after\":0.31,\"gain\":0.31}"
+        },
+        {
+          "label": "warm-by-fire",
+          "ok": true,
+          "value": "at-fire"
+        },
+        {
+          "label": "warmth-up",
+          "ok": true,
+          "value": "{\"warmth\":39.3}"
+        },
+        {
+          "label": "sanity-fx",
+          "ok": true,
+          "value": "low"
+        },
+        {
+          "label": "sanity-fx-state",
+          "ok": true,
+          "value": "{\"on\":true,\"dark\":\"0.50\"}"
+        },
+        {
+          "label": "bite-penalty",
+          "ok": true,
+          "value": "{\"fast\":9.3,\"insane\":8.9}"
+        },
+        {
+          "label": "season",
+          "ok": true,
+          "value": "{\"labels\":[\"春\",\"夏\",\"秋\",\"冬\"],\"snowBias\":0.1}"
+        },
+        {
+          "label": "death",
+          "ok": true,
+          "value": "{\"coins\":1000}"
+        },
+        {
+          "label": "after-death",
+          "ok": true,
+          "value": "{\"deaths\":1,\"coins\":900,\"hp\":0.55,\"card\":\"你倒下了 饿死 · 失温 存活 3 天 在篝火边醒来 · 损失一部分金币与渔获\"}"
+        },
+        {
+          "label": "panel",
+          "ok": true,
+          "value": "{\"hasRules\":true,\"len\":659}"
+        },
+        {
+          "label": "reset",
+          "ok": true,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "fight-v510",
+      "fgFlow": [
+        {
+          "label": "starter-line",
+          "ok": true,
+          "value": "{\"strength\":3.12}"
+        },
+        {
+          "label": "jumper",
+          "ok": true,
+          "value": "{\"fish\":\"虹鳟\",\"style\":{\"id\":\"jumper\",\"name\":\"跳跃型\"},\"state\":\"result\",\"seconds\":7.8,\"events\":1,\"countered\":1,\"stamina\":0,\"tensionAtEnd\":0.64,\"message\":\"\",\"trace\":[{\"t\":0,\"ten\":0.42,\"zone\":\"0.37-0.63\",\"dist\":1,\"stam\":1,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":0.7,\"ten\":0.61,\"zone\":\"0.37-0.63\",\"dist\":0.94,\"stam\":0.89,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":1.3,\"ten\":0.65,\"zone\":\"0.37-0.63\",\"dist\":0.91,\"stam\":0.82,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":2,\"ten\":0.67,\"zone\":\"0.37-0.63\",\"dist\":1,\"stam\":0.82,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":2.7,\"ten\":0.63,\"zone\":\"0.37-0.63\",\"dist\":0.97,\"stam\":0.76,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":3.3,\"ten\":0.62,\"zone\":\"0.36-0.62\",\"dist\":0.91,\"stam\":0.68,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":4,\"ten\":0.61,\"zone\":\"0.36-0.61\",\"dist\":0.84,\"stam\":0.6,\"wear\":0,\"reel\":false,\"ev\":\"jump:telegraph\"},{\"t\":4.7,\"ten\":0.55,\"zone\":\"0.35-0.61\",\"dist\":0.8,\"stam\":0.36,\"wear\":0,\"reel\":false,\"ev\":\"jump:active\"},{\"t\":5.3,\"ten\":0.63,\"zone\":\"0.39-0.64\",\"dist\":0.76,\"stam\":0.29,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6,\"ten\":0.64,\"zone\":\"0.39-0.64\",\"dist\":0.6,\"stam\":0.17,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6.7,\"ten\":0.64,\"zone\":\"0.39-0.64\",\"dist\":0.42,\"stam\":0.07,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":7.3,\"ten\":0.61,\"zone\":\"0.39-0.64\",\"dist\":0.22,\"stam\":0,\"wear\":0,\"reel\":true,\"ev\":null}],\"sequence\":[\"jump:telegraph\",\"jump:active\",\"jump:countered\",\"jump:recover\"],\"grade\":{\"id\":\"S\",\"label\":\"完美\",\"bonus\":0.25,\"color\":\"#ffd166\",\"score\":100},\"value\":136,\"xp\":86,\"fightTime\":7.8}"
+        },
+        {
+          "label": "thrasher",
+          "ok": true,
+          "value": "{\"fish\":\"鲈鱼\",\"style\":{\"id\":\"thrasher\",\"name\":\"甩头型\"},\"state\":\"result\",\"seconds\":10.6,\"events\":2,\"countered\":2,\"stamina\":0,\"tensionAtEnd\":0.45,\"message\":\"\",\"trace\":[{\"t\":0,\"ten\":0.42,\"zone\":\"0.38-0.62\",\"dist\":1,\"stam\":1,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":0.7,\"ten\":0.42,\"zone\":\"0.22-0.45\",\"dist\":0.98,\"stam\":0.94,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":1.3,\"ten\":0.42,\"zone\":\"0.22-0.45\",\"dist\":0.95,\"stam\":0.87,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":2,\"ten\":0.49,\"zone\":\"0.22-0.45\",\"dist\":0.95,\"stam\":0.82,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":2.7,\"ten\":0.46,\"zone\":\"0.22-0.45\",\"dist\":1.05,\"stam\":0.82,\"wear\":0,\"reel\":false,\"ev\":\"shake:telegraph\"},{\"t\":3.3,\"ten\":0,\"zone\":\"0.22-0.45\",\"dist\":0.99,\"stam\":0.68,\"wear\":0,\"reel\":false,\"ev\":\"shake:active\"},{\"t\":4,\"ten\":0.22,\"zone\":\"0.22-0.45\",\"dist\":0.95,\"stam\":0.7,\"wear\":0,\"reel\":true,\"ev\":\"shake:recover\"},{\"t\":4.7,\"ten\":0.44,\"zone\":\"0.22-0.45\",\"dist\":0.85,\"stam\":0.6,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":5.3,\"ten\":0.43,\"zone\":\"0.22-0.45\",\"dist\":0.79,\"stam\":0.53,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6,\"ten\":0.48,\"zone\":\"0.22-0.45\",\"dist\":0.79,\"stam\":0.49,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6.7,\"ten\":0.46,\"zone\":\"0.22-0.45\",\"dist\":0.78,\"stam\":0.46,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":7.3,\"ten\":0.44,\"zone\":\"0.22-0.45\",\"dist\":0.7,\"stam\":0.39,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":8,\"ten\":0.46,\"zone\":\"0.22-0.45\",\"dist\":0.6,\"stam\":0.32,\"wear\":0,\"reel\":false,\"ev\":\"shake:telegraph\"},{\"t\":8.7,\"ten\":0.08,\"zone\":\"0.22-0.45\",\"dist\":0.53,\"stam\":0.16,\"wear\":0,\"reel\":false,\"ev\":\"shake:active\"}],\"sequence\":[\"shake:telegraph\",\"shake:active\",\"shake:countered\",\"shake:recover\",\"shake:telegraph\",\"shake:active\",\"shake:countered\",\"shake:recover\"],\"grade\":{\"id\":\"S\",\"label\":\"完美\",\"bonus\":0.25,\"color\":\"#ffd166\",\"score\":90},\"value\":398,\"xp\":215,\"fightTime\":10.6}"
+        },
+        {
+          "label": "braid-line",
+          "ok": true,
+          "value": "{\"strength\":57.599999999999994}"
+        },
+        {
+          "label": "bulldog",
+          "ok": true,
+          "value": "{\"fish\":\"虎鲨\",\"style\":{\"id\":\"bulldog\",\"name\":\"蛮力型\"},\"state\":\"result\",\"seconds\":19.2,\"events\":3,\"countered\":3,\"stamina\":0,\"tensionAtEnd\":0.28,\"message\":\"\",\"trace\":[{\"t\":0,\"ten\":0.42,\"zone\":\"0.40-0.60\",\"dist\":1,\"stam\":1,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":0.7,\"ten\":0.26,\"zone\":\"0.07-0.27\",\"dist\":1,\"stam\":0.95,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":1.3,\"ten\":0.24,\"zone\":\"0.07-0.27\",\"dist\":0.99,\"stam\":0.9,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":2,\"ten\":0.3,\"zone\":\"0.07-0.27\",\"dist\":1.03,\"stam\":0.87,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":2.7,\"ten\":0.23,\"zone\":\"0.07-0.27\",\"dist\":1.12,\"stam\":0.87,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":3.3,\"ten\":0.28,\"zone\":\"0.07-0.27\",\"dist\":1.1,\"stam\":0.82,\"wear\":0,\"reel\":false,\"ev\":\"shake:telegraph\"},{\"t\":4,\"ten\":0,\"zone\":\"0.07-0.27\",\"dist\":1.06,\"stam\":0.68,\"wear\":0,\"reel\":false,\"ev\":\"shake:active\"},{\"t\":4.7,\"ten\":0.05,\"zone\":\"0.07-0.27\",\"dist\":1.05,\"stam\":0.7,\"wear\":0,\"reel\":true,\"ev\":\"shake:recover\"},{\"t\":5.3,\"ten\":0.26,\"zone\":\"0.07-0.27\",\"dist\":0.99,\"stam\":0.63,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6,\"ten\":0.3,\"zone\":\"0.07-0.27\",\"dist\":0.99,\"stam\":0.59,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6.7,\"ten\":0.3,\"zone\":\"0.07-0.27\",\"dist\":1.1,\"stam\":0.59,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":7.3,\"ten\":0.25,\"zone\":\"0.07-0.27\",\"dist\":1.07,\"stam\":0.54,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":8,\"ten\":0.28,\"zone\":\"0.07-0.27\",\"dist\":1.02,\"stam\":0.49,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":8.7,\"ten\":0.24,\"zone\":\"0.07-0.27\",\"dist\":0.97,\"stam\":0.43,\"wear\":0,\"reel\":true,\"ev\":\"shake:telegraph\"}],\"sequence\":[\"shake:telegraph\",\"shake:active\",\"shake:countered\",\"shake:recover\",\"shake:telegraph\",\"shake:active\",\"shake:countered\",\"shake:recover\",\"run:telegraph\",\"run:active\",\"run:countered\",\"run:recover\"],\"grade\":{\"id\":\"S\",\"label\":\"完美\",\"bonus\":0.25,\"color\":\"#ffd166\",\"score\":100},\"value\":6969,\"xp\":2669,\"fightTime\":19.2}"
+        },
+        {
+          "label": "runner",
+          "ok": true,
+          "value": "{\"fish\":\"蓝鳍金枪鱼\",\"style\":null,\"state\":\"idle\",\"seconds\":10.4,\"events\":0,\"countered\":0,\"stamina\":null,\"tensionAtEnd\":null,\"message\":\"鱼把线拉光了…\",\"trace\":[{\"t\":0,\"ten\":0.42,\"zone\":\"0.40-0.60\",\"dist\":1,\"stam\":1,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":0.7,\"ten\":0.43,\"zone\":\"0.21-0.41\",\"dist\":0.99,\"stam\":0.95,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":1.3,\"ten\":0.4,\"zone\":\"0.21-0.41\",\"dist\":0.98,\"stam\":0.9,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":2,\"ten\":0.44,\"zone\":\"0.21-0.41\",\"dist\":0.99,\"stam\":0.85,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":2.7,\"ten\":0.45,\"zone\":\"0.21-0.41\",\"dist\":1.1,\"stam\":0.85,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":3.3,\"ten\":0.45,\"zone\":\"0.21-0.41\",\"dist\":1.15,\"stam\":0.83,\"wear\":0,\"reel\":false,\"ev\":\"run:active\"},{\"t\":4,\"ten\":0.35,\"zone\":\"0.21-0.41\",\"dist\":1.21,\"stam\":0.73,\"wear\":0,\"reel\":false,\"ev\":\"run:active\"},{\"t\":4.7,\"ten\":0.41,\"zone\":\"0.21-0.41\",\"dist\":1.18,\"stam\":0.67,\"wear\":0,\"reel\":false,\"ev\":\"run:recover\"},{\"t\":5.3,\"ten\":0.43,\"zone\":\"0.21-0.41\",\"dist\":1.14,\"stam\":0.61,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6,\"ten\":0.45,\"zone\":\"0.21-0.41\",\"dist\":1.13,\"stam\":0.57,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6.7,\"ten\":0.43,\"zone\":\"0.21-0.41\",\"dist\":1.22,\"stam\":0.57,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":7.3,\"ten\":0.41,\"zone\":\"0.21-0.41\",\"dist\":1.18,\"stam\":0.52,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":8,\"ten\":0.46,\"zone\":\"0.21-0.41\",\"dist\":1.25,\"stam\":0.51,\"wear\":0,\"reel\":false,\"ev\":\"run:telegraph\"},{\"t\":8.7,\"ten\":0.26,\"zone\":\"0.21-0.41\",\"dist\":1.27,\"stam\":0.38,\"wear\":0,\"reel\":false,\"ev\":\"run:active\"}],\"sequence\":[\"run:telegraph\",\"run:active\",\"run:countered\",\"run:recover\",\"run:telegraph\",\"run:active\",\"run:countered\",\"run:recover\"]}"
+        },
+        {
+          "label": "no-counter",
+          "ok": true,
+          "value": "{\"fish\":\"鲈鱼\",\"style\":{\"id\":\"thrasher\",\"name\":\"甩头型\"},\"state\":\"result\",\"seconds\":18.6,\"events\":3,\"countered\":1,\"stamina\":0,\"tensionAtEnd\":0.64,\"message\":\"\",\"trace\":[{\"t\":0,\"ten\":0.42,\"zone\":\"0.38-0.62\",\"dist\":1,\"stam\":1,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":0.7,\"ten\":0.63,\"zone\":\"0.38-0.62\",\"dist\":0.96,\"stam\":0.91,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":1.3,\"ten\":0.58,\"zone\":\"0.38-0.62\",\"dist\":0.94,\"stam\":0.86,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":2,\"ten\":0.59,\"zone\":\"0.38-0.62\",\"dist\":0.9,\"stam\":0.8,\"wear\":0,\"reel\":true,\"ev\":null},{\"t\":2.7,\"ten\":0.91,\"zone\":\"0.44-0.67\",\"dist\":0.97,\"stam\":0.79,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":3.3,\"ten\":0.7,\"zone\":\"0.48-0.71\",\"dist\":1.01,\"stam\":0.78,\"wear\":0,\"reel\":false,\"ev\":\"jump:telegraph\"},{\"t\":4,\"ten\":0.74,\"zone\":\"0.51-0.74\",\"dist\":0.92,\"stam\":0.6,\"wear\":0,\"reel\":false,\"ev\":\"jump:active\"},{\"t\":4.7,\"ten\":0.91,\"zone\":\"0.52-0.75\",\"dist\":0.96,\"stam\":0.57,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":5.3,\"ten\":0.64,\"zone\":\"0.38-0.61\",\"dist\":1.01,\"stam\":0.57,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6,\"ten\":0.54,\"zone\":\"0.31-0.54\",\"dist\":0.96,\"stam\":0.52,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":6.7,\"ten\":0.91,\"zone\":\"0.27-0.50\",\"dist\":1.03,\"stam\":0.51,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":7.3,\"ten\":0.53,\"zone\":\"0.25-0.48\",\"dist\":1.07,\"stam\":0.51,\"wear\":0,\"reel\":false,\"ev\":null},{\"t\":8,\"ten\":0.52,\"zone\":\"0.28-0.51\",\"dist\":0.99,\"stam\":0.45,\"wear\":0,\"reel\":false,\"ev\":\"shake:telegraph\"},{\"t\":8.7,\"ten\":0.67,\"zone\":\"0.43-0.67\",\"dist\":0.9,\"stam\":0.38,\"wear\":0.01,\"reel\":false,\"ev\":\"shake:active\"}],\"sequence\":[\"jump:telegraph\",\"jump:active\",\"jump:countered\",\"jump:recover\",\"shake:telegraph\",\"shake:active\",\"shake:recover\",\"shake:telegraph\",\"shake:active\",\"shake:recover\"],\"grade\":{\"id\":\"C\",\"label\":\"勉强\",\"bonus\":0,\"color\":\"#8fa6b8\",\"score\":50},\"value\":318,\"xp\":187,\"fightTime\":18.6}"
+        },
+        {
+          "label": "hud-banner",
+          "ok": true,
+          "value": "shown"
+        },
+        {
+          "label": "banner-state",
+          "ok": true,
+          "value": "{\"hidden\":false,\"label\":\"⚠ 疯狂甩头\",\"hint\":\"按住右键抬竿\",\"style\":\"🌪️ 甩头型\",\"stamina\":\"100%\"}"
+        },
+        {
+          "label": "fight-cleanup",
+          "ok": true,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "species-v520",
+      "spFlow": [
+        {
+          "label": "roster",
+          "ok": true,
+          "value": "{\"total\":85,\"byR\":{\"1\":25,\"2\":18,\"3\":21,\"4\":14,\"5\":7},\"sharks\":10,\"tuna\":7}"
+        },
+        {
+          "label": "new-species",
+          "ok": true,
+          "value": "[\"鲣鱼/11kg\",\"长鳍金枪鱼/38kg\",\"黄鳍金枪鱼/180kg\",\"大眼金枪鱼/150kg\",\"灰鲭鲨/480kg\",\"蓝鲨/170kg\",\"长尾鲨/420kg\",\"白鳍礁鲨/32kg\",\"鹰鳐/58kg\",\"电鳐/26kg\"]"
+        },
+        {
+          "label": "new-styles",
+          "ok": true,
+          "value": "{\"yellowfin_tuna\":\"冲刺型\",\"mako_shark\":\"跳跃型\",\"thresher_shark\":\"狡猾型\",\"eagle_ray\":\"跳跃型\",\"electric_ray\":\"狡猾型\",\"whitetip_reef_shark\":\"甩头型\"}"
+        },
+        {
+          "label": "cetaceans",
+          "ok": true,
+          "value": "{\"instances\":8,\"types\":5,\"byId\":{\"blue_whale\":1,\"humpback\":1,\"orca\":1,\"sperm_whale\":1,\"dolphin\":4},\"names\":[\"蓝鲸\",\"座头鲸\",\"虎鲸\",\"抹香鲸\",\"海豚\"]}"
+        },
+        {
+          "label": "dolphin-sighting",
+          "ok": true,
+          "value": "{\"frozen\":true}"
+        },
+        {
+          "label": "sighting-count",
+          "ok": true,
+          "value": "{\"sightings\":2,\"records\":{\"orca\":{\"at\":1794503948572,\"count\":1},\"dolphin\":{\"at\":1794503963953,\"count\":1}}}"
+        },
+        {
+          "label": "whale-hud",
+          "ok": true,
+          "value": "{\"charter\":true,\"whale\":{\"ok\":true,\"name\":\"抹香鲸\",\"x\":-46,\"z\":113,\"boat\":true,\"pod\":1}}"
+        },
+        {
+          "label": "cleanup-whales",
+          "ok": true,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "rsi-v600",
+      "rsiFlow": [
+        {
+          "label": "init",
+          "ok": true,
+          "value": "{\"ready\":true,\"gen\":1,\"replay\":232,\"front\":3,\"pace\":82}"
+        },
+        {
+          "label": "evolve",
+          "ok": true,
+          "value": "{\"gen\":15,\"accepted\":1,\"rejected\":6,\"before\":{\"value\":7726,\"rarity\":1.52},\"after\":{\"value\":45662,\"rarity\":1.72},\"day\":{\"value\":3830,\"rarity\":1.38,\"variety\":9,\"count\":24}}"
+        },
+        {
+          "label": "front",
+          "ok": true,
+          "value": "{\"gen\":15,\"replay\":400,\"frontSize\":3,\"front\":[{\"value\":77284,\"variety\":19,\"rarity\":2.24},{\"value\":75345,\"variety\":22,\"rarity\":1.89},{\"value\":40676,\"variety\":23,\"rarity\":1.82}],\"ideal\":{\"value\":77284,\"variety\":23},\"gap\":0}"
+        },
+        {
+          "label": "panel",
+          "ok": true,
+          "value": "{\"cells\":4,\"dots\":3,\"rows\":12,\"title\":true}"
+        },
+        {
+          "label": "contest-rival",
+          "ok": true,
+          "value": "{\"ok\":true,\"error\":null,\"entrants\":5,\"rival\":{\"name\":\"老渔夫\",\"pace\":87}}"
+        },
+        {
+          "label": "contest-cleanup",
+          "ok": true,
+          "value": 1
+        }
+      ]
+    },
+    {
+      "name": "world-systems",
+      "spots": 15,
+      "discovered": 1,
+      "vegetation": {
+        "instances": 18001,
+        "parts": 387,
+        "buildMs": 137
+      },
+      "props": {
+        "docks": 3,
+        "colliders": 11,
+        "merged": 37,
+        "buildMs": 91
+      },
+      "buildMs": 1572,
+      "terrainStats": {
+        "buildMs": 1099,
+        "minHeight": -30,
+        "maxHeight": 91,
+        "landRatio": 0.228
+      },
+      "fishCount": 85,
+      "deckCount": 3
+    },
+    {
+      "name": "spots-report",
+      "count": 15,
+      "waterProblems": [],
+      "standProblems": [],
+      "waterOnly": [
+        "reef",
+        "ocean_deep",
+        "ocean_cliff"
+      ],
+      "table": [
+        "lake_dock lake/1.8m slope 0.9",
+        "lake_weeds lake/2.1m slope 0.34",
+        "lake_center lake/12m slope 0.44",
+        "river_bend river/2.9m slope 1.86",
+        "river_gorge river/2.9m slope 1.24",
+        "pond_frog pond/1.6m slope 1.18",
+        "swamp_edge swamp/3.1m slope 0.11",
+        "swamp_deep swamp/6.1m slope 0.11",
+        "outlet_creek coast/1.6m slope 0.25",
+        "estuary coast/1.5m slope 0.27",
+        "coast_beach ocean_shallow/5.8m slope 0.23",
+        "reef reef/5.6m [swim] slope 0.01",
+        "ocean_shallow coast/1.8m slope 0.18",
+        "ocean_deep ocean_deep/30m [swim] slope 0",
+        "ocean_cliff ocean_deep/30m [swim] slope 0"
+      ]
+    },
+    {
+      "name": "fish-distribution",
+      "lake_dock": {
+        "region": "lake",
+        "depth": 1.8,
+        "ctxBiomes": [
+          "lake"
+        ],
+        "ctxWaters": [
+          "lake",
+          "shore"
+        ],
+        "ctxBiome": "lake",
+        "loot": "{\"groups\":{\"1\":12,\"2\":6,\"3\":5,\"5\":2},\"widened\":0,\"pool\":31,\"rej\":{\"level\":0,\"waters\":33,\"depth\":0,\"biome\":21}}",
+        "junkPct": 5.8,
+        "tiers": {
+          "1": 402,
+          "2": 134,
+          "3": 58,
+          "4": 0,
+          "5": 6
+        },
+        "distinct": 31,
+        "top": [
+          "虹鳟:71",
+          "鲢鱼:44",
+          "白条:42",
+          "鲈鱼:41",
+          "鲫鱼:40"
+        ]
+      },
+      "lake_center": {
+        "region": "lake",
+        "depth": 12,
+        "ctxBiomes": [
+          "lake"
+        ],
+        "ctxWaters": [
+          "lake",
+          "deep",
+          "shore"
+        ],
+        "ctxBiome": "lake",
+        "loot": "{\"groups\":{\"1\":1,\"2\":3,\"3\":4,\"5\":2},\"widened\":0,\"pool\":10,\"rej\":{\"level\":0,\"waters\":6,\"depth\":30,\"biome\":39}}",
+        "junkPct": 0,
+        "tiers": {
+          "1": 368,
+          "2": 175,
+          "3": 51,
+          "4": 0,
+          "5": 6
+        },
+        "distinct": 10,
+        "top": [
+          "鳙鱼:368",
+          "虹鳟:132",
+          "鲶鱼:24",
+          "鲈鱼:22",
+          "鳜鱼:19"
+        ]
+      },
+      "river_bend": {
+        "region": "river",
+        "depth": 2.9,
+        "ctxBiomes": [
+          "river"
+        ],
+        "ctxWaters": [
+          "river",
+          "shore"
+        ],
+        "ctxBiome": "river",
+        "loot": "{\"groups\":{\"1\":17,\"2\":7,\"3\":7,\"4\":1,\"5\":2},\"widened\":0,\"pool\":40,\"rej\":{\"level\":0,\"waters\":32,\"depth\":0,\"biome\":13}}",
+        "junkPct": 8.2,
+        "tiers": {
+          "1": 381,
+          "2": 149,
+          "3": 56,
+          "4": 10,
+          "5": 4
+        },
+        "distinct": 36,
+        "top": [
+          "鲻鱼:124",
+          "鳊鱼:44",
+          "鲈鱼:42",
+          "鲢鱼:36",
+          "泥鳅鲴:35"
+        ]
+      },
+      "pond_frog": {
+        "region": "pond",
+        "depth": 1.6,
+        "ctxBiomes": [
+          "pond"
+        ],
+        "ctxWaters": [
+          "pond",
+          "shore"
+        ],
+        "ctxBiome": "pond",
+        "loot": "{\"groups\":{\"1\":12,\"2\":6,\"3\":1},\"widened\":0,\"pool\":25,\"rej\":{\"level\":0,\"waters\":41,\"depth\":0,\"biome\":19}}",
+        "junkPct": 6.3,
+        "tiers": {
+          "1": 378,
+          "2": 170,
+          "3": 52,
+          "4": 0,
+          "5": 0
+        },
+        "distinct": 23,
+        "top": [
+          "鲈鱼:52",
+          "白条:47",
+          "鳊鱼:47",
+          "鲫鱼:46",
+          "草鱼:42"
+        ]
+      },
+      "swamp_edge": {
+        "region": "swamp",
+        "depth": 3.1,
+        "ctxBiomes": [
+          "swamp"
+        ],
+        "ctxWaters": [
+          "swamp",
+          "shore"
+        ],
+        "ctxBiome": "swamp",
+        "loot": "{\"groups\":{\"1\":4,\"2\":5,\"3\":1,\"5\":1},\"widened\":0,\"pool\":14,\"rej\":{\"level\":0,\"waters\":44,\"depth\":0,\"biome\":27}}",
+        "junkPct": 5.3,
+        "tiers": {
+          "1": 393,
+          "2": 148,
+          "3": 55,
+          "4": 0,
+          "5": 4
+        },
+        "distinct": 14,
+        "top": [
+          "乌龟:304",
+          "弹涂鱼:123",
+          "大眼鳢:55",
+          "中华鳖:45",
+          "破靴子:18"
+        ]
+      },
+      "reef": {
+        "region": "reef",
+        "depth": 5.6,
+        "ctxBiomes": [
+          "reef"
+        ],
+        "ctxWaters": [
+          "reef",
+          "ocean"
+        ],
+        "ctxBiome": "reef",
+        "loot": "{\"groups\":{\"2\":3,\"3\":8,\"4\":2,\"5\":1},\"widened\":0,\"pool\":17,\"rej\":{\"level\":0,\"waters\":38,\"depth\":0,\"biome\":30}}",
+        "junkPct": 5.8,
+        "tiers": {
+          "1": 35,
+          "2": 346,
+          "3": 158,
+          "4": 51,
+          "5": 10
+        },
+        "distinct": 16,
+        "top": [
+          "真鲷:293",
+          "石斑鱼:64",
+          "珍鲹:53",
+          "蝠鲼:50",
+          "黑鲪:48"
+        ]
+      },
+      "ocean_deep": {
+        "region": "ocean_deep",
+        "depth": 30,
+        "ctxBiomes": [
+          "ocean_deep"
+        ],
+        "ctxWaters": [
+          "ocean",
+          "deep"
+        ],
+        "ctxBiome": "ocean_deep",
+        "loot": "{\"groups\":{\"2\":2,\"3\":6,\"4\":13,\"5\":5},\"widened\":0,\"pool\":26,\"rej\":{\"level\":0,\"waters\":31,\"depth\":21,\"biome\":7}}",
+        "junkPct": 0,
+        "tiers": {
+          "1": 0,
+          "2": 393,
+          "3": 149,
+          "4": 48,
+          "5": 10
+        },
+        "distinct": 15,
+        "top": [
+          "鲣鱼:323",
+          "长鳍金枪鱼:121",
+          "大眼鲷:70",
+          "龙虾:16",
+          "灰鲭鲨:12"
+        ]
+      },
+      "estuary": {
+        "region": "coast",
+        "depth": 1.5,
+        "ctxBiomes": [
+          "coast"
+        ],
+        "ctxWaters": [
+          "shore",
+          "ocean"
+        ],
+        "ctxBiome": "coast",
+        "loot": "{\"groups\":{\"1\":1,\"2\":9,\"3\":8,\"4\":2},\"widened\":0,\"pool\":25,\"rej\":{\"level\":0,\"waters\":15,\"depth\":0,\"biome\":45}}",
+        "junkPct": 7.5,
+        "tiers": {
+          "1": 401,
+          "2": 143,
+          "3": 39,
+          "4": 17,
+          "5": 0
+        },
+        "distinct": 22,
+        "top": [
+          "虾虎鱼:356",
+          "鲻鱼:37",
+          "弹涂鱼:22",
+          "真鲷:22",
+          "鲭鱼:21"
+        ]
+      },
+      "coast_beach": {
+        "region": "ocean_shallow",
+        "depth": 5.8,
+        "ctxBiomes": [
+          "ocean_shallow"
+        ],
+        "ctxWaters": [
+          "ocean",
+          "shore"
+        ],
+        "ctxBiome": "rock",
+        "loot": "{\"groups\":{\"2\":8,\"3\":9,\"4\":5,\"5\":1},\"widened\":0,\"pool\":27,\"rej\":{\"level\":0,\"waters\":15,\"depth\":0,\"biome\":43}}",
+        "junkPct": 6.5,
+        "tiers": {
+          "1": 39,
+          "2": 368,
+          "3": 150,
+          "4": 36,
+          "5": 7
+        },
+        "distinct": 25,
+        "top": [
+          "竹荚鱼:90",
+          "四指马鲅:85",
+          "鲭鱼:71",
+          "真鲷:67",
+          "鲯鳅:44"
+        ]
+      }
+    }
+  ],
+  "shots": [],
+  "errors": [],
+  "exceptions": [],
+  "logs": [
+    "[debug] [vite] connecting...",
+    "[debug] [vite] connected."
+  ],
+  "diag": {
+    "version": "6.0.0",
+    "ready": true,
+    "errors": [],
+    "warns": [],
+    "frames": 4932,
+    "fps": 116.8,
+    "memMB": 0,
+    "jsHeapMB": 36.7,
+    "geometries": 196,
+    "textures": 21,
+    "calls": 162,
+    "triangles": 212362,
+    "state": "playing",
+    "catches": 15,
+    "casts": 2,
+    "level": 50,
+    "spots": 15,
+    "time": 63,
+    "weather": "clear",
+    "biome": "rock",
+    "playerPos": [
+      -65.8,
+      1,
+      112.3
+    ],
+    "worldSeed": 20240607,
+    "buildMs": 1572,
+    "startedAt": 711.6000000089407,
+    "frameMs": 8.5,
+    "heapLimitMB": 4192,
+    "lastSizeClass": "small",
+    "reveals": 3,
+    "charters": 3,
+    "summoned": 1,
+    "sightings": 3,
+    "rsiGen": 1,
+    "deaths": 1
+  },
+  "pageErrors": []
+}

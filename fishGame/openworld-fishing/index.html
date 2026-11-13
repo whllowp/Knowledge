@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<title>静水之滨 · Still Waters — 3D Open World Fishing</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🎣</text></svg>" />
+<link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+<div id="app"></div>
+
+<!-- ============ UI LAYER ============ -->
+<div id="ui">
+
+  <!-- Loading -->
+  <div id="loading" class="screen">
+    <div class="load-box">
+      <div class="load-logo">🎣</div>
+      <h1>静水之滨</h1>
+      <div class="load-sub">STILL WATERS · OPEN WORLD FISHING</div>
+      <div class="load-bar"><i id="loadFill"></i></div>
+      <div class="load-status" id="loadStatus">正在生成世界…</div>
+    </div>
+  </div>
+
+  <!-- Main menu -->
+  <div id="menu" class="screen hidden">
+    <div class="menu-bg"></div>
+    <div class="menu-main">
+      <h1 class="title">静水之滨</h1>
+      <div class="title-sub">STILL WATERS</div>
+      <p class="title-tag">第一人称 / 第三人称 开放世界钓鱼</p>
+      <div class="menu-btns">
+        <button class="btn primary" id="btnContinue">继续游戏</button>
+        <button class="btn" id="btnNew">新的旅程</button>
+        <button class="btn" id="btnHelp">操作说明</button>
+      </div>
+      <div class="menu-foot">
+        <span id="menuVersion">v1.0.0</span> ·
+        <span>WASD 移动 · V 切换视角 · F 抛竿 · 空格 跳跃</span>
+      </div>
+    </div>
+    <div class="menu-panel hidden" id="helpPanel">
+      <h2>操作说明</h2>
+      <div class="keys">
+        <div><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>移动</span></div>
+        <div><kbd>Shift</kbd><span>奔跑</span></div>
+        <div><kbd>Space</kbd><span>跳跃 / 上浮</span></div>
+        <div><kbd>鼠标</kbd><span>视角（点击画面锁定；未锁定时按住右键拖动）</span></div>
+        <div><kbd>[</kbd><kbd>]</kbd><span>左右转身（备用）</span></div>
+        <div><kbd>,</kbd><kbd>.</kbd><span>抬头 / 低头（备用）</span></div>
+        <div><kbd>V</kbd><span>第一 / 第三人称切换</span></div>
+        <div><kbd>F</kbd><span>抛竿（按住蓄力，松开抛出）</span></div>
+        <div><kbd>鼠标左键</kbd><span>收线 / 提竿刺鱼</span></div>
+        <div><kbd>鼠标右键</kbd><span>抬竿泄力（张力过高时按住）</span></div>
+        <div><kbd>Z</kbd><kbd>X</kbd><span>放松 / 收紧卸力</span></div>
+        <div><kbd>R</kbd><span>收竿（渔获卡片上为放生）</span></div>
+        <div><kbd>B</kbd><span>上船 / 下船</span></div>
+        <div><kbd>C</kbd><span>篝火烹饪</span></div>
+        <div><kbd>K</kbd><span>开始 / 结束钓鱼比赛</span></div>
+        <div><kbd>P</kbd><span>拍照模式（F 快门 · 1-5 滤镜）</span></div>
+        <div><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd><span>切换鱼饵 / 假饵</span></div>
+        <div><kbd>Tab</kbd><span>背包 · 图鉴 · 商店</span></div>
+        <div><kbd>M</kbd><span>地图与钓点</span></div>
+        <div><kbd>Esc</kbd><span>暂停 / 设置</span></div>
+      </div>
+      <h2>玩法提示</h2>
+      <ul class="tips">
+        <li>不同钓点、时辰、天气会出现不同鱼种，雨天与清晨咬钩更积极。</li>
+        <li>抛竿后等待浮漂下沉——出现 <b>!</b> 时立刻提竿。</li>
+        <li>中鱼后把张力保持在绿区，鱼线就一直在安全范围；一旦超出，<b>卸力</b>会打滑出线，鱼线狂响——按 <b>Z</b> 放松卸力或按住右键抬竿泄力。</li>
+        <li>线组越细，可用卸力越低，只能被大鱼拖着走；换更粗的线才能硬拉。</li>
+        <li>钓到 4 kg 以上的鱼会触发上岸演出：镜头推近、慢镜、按体长给出体型评级。</li>
+        <li>攒金币升级鱼竿、鱼线与拟饵，才能钓起深海巨物。</li>
+      </ul>
+      <button class="btn" id="btnHelpClose">返回</button>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="grade"></div>
+    <div id="vignette"></div>
+    <div id="sanityFx" class="hidden"><i></i><b></b></div>
+    <div id="lockHint" class="hidden">点击画面锁定鼠标视角 · 或按住右键拖动 · [ / ] 转身</div>
+    <div id="crosshair"><i></i><i></i><em id="chDot"></em></div>
+
+    <div id="topbar">
+      <div class="tb-item"><span class="ico">🪙</span><b id="hudCoins">0</b></div>
+      <div class="tb-item"><span class="ico">⭐</span><b id="hudLevel">Lv.1</b><span class="xpwrap"><i id="hudXp"></i></span></div>
+      <div class="tb-item"><span class="ico" id="hudWeatherIco">☀️</span><b id="hudClock">06:00</b></div>
+      <div class="tb-item"><span class="ico">🌡️</span><b id="hudTemp">18°C</b></div>
+    </div>
+
+    <div id="compass">
+      <div class="compass-strip" id="compassStrip"></div>
+      <div class="compass-needle"></div>
+    </div>
+
+    <div id="objective" class="hidden"><b id="objTitle"></b><span id="objHint"></span></div>
+    <div id="buffbar"></div>
+    <div id="forecastLine"></div>
+    <div id="contest" class="hidden"></div>
+
+    <div id="minimapWrap">
+      <canvas id="minimap" width="200" height="200"></canvas>
+      <div class="mm-n" id="mmCoords">0, 0</div>
+      <div class="mm-biome" id="mmBiome">湖泊</div>
+    </div>
+
+    <div id="leftBars">
+      <div class="bar-row"><span class="bar-lbl">体力</span><div class="bar"><i id="barStamina" class="stamina"></i></div></div>
+      <div class="bar-row"><span class="bar-lbl">氧气</span><div class="bar"><i id="barOxygen" class="oxygen"></i></div></div>
+      <!-- survival meters (v4.0.0) -->
+      <div class="bar-row"><span class="bar-lbl">饱食</span><div class="bar"><i id="barHunger" class="hunger"></i></div></div>
+      <div class="bar-row"><span class="bar-lbl">理智</span><div class="bar"><i id="barSanity" class="sanity"></i></div></div>
+      <div class="bar-row"><span class="bar-lbl">生命</span><div class="bar"><i id="barHealth" class="health"></i></div></div>
+      <div id="survivalLine"></div>
+    </div>
+
+    <div id="prompt" class="hidden"><kbd id="promptKey">F</kbd><span id="promptText"></span></div>
+    <div id="seaWay" class="hidden"></div>
+
+    <!-- Fishing UI -->
+    <div id="fishing" class="hidden">
+      <div id="fishState">准备抛竿</div>
+      <div id="chargeWrap" class="hidden"><div class="charge-track"><i id="chargeFill"></i></div><span>力度</span></div>
+      <div id="tensionWrap" class="hidden">
+        <div class="tension-head"><span id="fishName">???</span><span id="fishWeight">0.0 kg</span></div>
+        <div class="tension-track">
+          <div class="tension-zone" id="tensionZone"></div>
+          <i id="tensionMark"></i>
+        </div>
+        <div class="tension-foot"><span>距离</span><div class="dist-track"><i id="distFill"></i></div><span id="distPct">0%</span></div>
+        <div class="linewear"><span>鱼线磨损</span><div class="dist-track"><i id="lineWear"></i></div></div>
+        <div class="fishstam"><span id="fishStyle">??</span><div class="dist-track"><i id="fishStamFill"></i></div><span id="fishStamPct">100%</span></div>
+        <div id="fightEvent" class="hidden"><b id="feIcon">💨</b><span id="feLabel">事件</span><em id="feHint">提示</em><i id="feBar"></i></div>
+      </div>
+      <div id="waitHint" class="hidden"><div class="dots"><i></i><i></i><i></i></div><span id="waitText">等待鱼儿咬钩…</span></div>
+    </div>
+
+    <div id="notifications"></div>
+    <div id="sizebanner" class="hidden"></div>
+    <div id="deathcard" class="hidden"></div>
+    <div id="catchcard" class="hidden"></div>
+    <div id="toast-center" class="hidden"></div>
+
+    <div id="perf" class="hidden"></div>
+    <div id="hintbar"><span id="hintText"></span></div>
+  </div>
+
+  <!-- Panel host: journal / shop / map / pause -->
+  <div id="panel" class="hidden"></div>
+
+  <div id="fadeout"></div>
+</div>
+
+<div id="diag" style="display:none"></div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
