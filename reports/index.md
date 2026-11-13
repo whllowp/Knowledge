@@ -2362,3 +2362,14 @@
 - 字数控制：按 2400 正文配额起稿 1330 → 补五点（二选一、存档、三种续跑、补偿链、补偿链梳理）到 **1439**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 183 期之后
 - 下期候选：`resume.*` 六字段 OTel 提案草案／检查点粒度与成本模型／动作级幂等键规范／已完成清单与续跑读取器／续跑策略选择器（续/补偿/重跑）／副作用对账器／中断演练剧本
+
+## 第 185 期（2026-11-13 16:00）· 度量主权面／标尺自设面（Metric Sovereignty）——SLI/仪表盘/playbook/复盘/golden 集/评测判官越来越多由同一支 Agent 舰队生成；度量者与度量是同一系统，"可靠"退化为自指声明
+- Google：Nightly Evals(Golden+LLM-as-a-Judge)、Actus 三权分立、评测决定自治等级
+- OpenAI：per-change Agent 自建仪表盘+自定成败信号；Sevbot 只建议不执行、Perf Factory 自定"真实回归"
+- Anthropic：10/14 OTel tracing 公测，先追踪后授权，trace 即外部审计
+- 字节：SRE-Copilot MoE + 自建评测体系（招聘要求）
+- 阿里：RCA-Bench 公开基准(103例) + 反幻觉双重机制，唯一公开标尺
+- 腾讯：CloudQ「用可观测管 AI」反向制衡最强
+- 新提法：自指可靠性(Goodhart@fleet)/真值蒸发(自报>>ITBench-AA 47%)/LLM判LLM循环/度量主权不透明；第130个市场空白 `metric_sovereignty.*`(ruler.ownership/eval.independent_of_actor/eval.ground_truth_source/eval.judge_type/eval.goodhart_exposure)
+- 本地原型：孙鹏探测式评测/施宏斌可验证Eval/刘杨Trace评估/周昕毅生产闭环 vs 袁彬航AReaL/肖汉松Loop/马云雷轨迹(自学闭环但评测多自产)
+
