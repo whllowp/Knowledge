@@ -2294,6 +2294,18 @@
 
 | 179 | 20261113-1200 | 意图保真面(Constraint Evaporation)：目标托管下负向约束在分解链蒸发、主目标存活/OpenAI Rakuten言外之意+Codex不回滚+Noqta长horizon漂移+Anthropic /advisor/六家约束跨跳传播·意图偏离可观测两列全空/`intent.*`第95次无人提字段族 |
 
+## 第 181 期（2026-11-13 13:00）· 人机闭环坍缩面 / 能力迁移衰减面（Human-AI Feedback Loop Decay / Skill Atrophy）——Agent 越用越强，人越退越生：反馈环只建在 Agent 一侧
+- 期号说明：11-13 13:00 档生成；索引最新本方为第 179 期（12:00《意图保真面》），期间并行实例已占用 12:31（#178 互斥面）/13:31（#180 背压面），本方顺延第 181 期；主线记作**第一百六十四条全新立面**
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1300.md（正文约 2400 汉字含表，题眼＋五章＋六厂商六维对比表＋13 条来源/9 链接）
+- 主线：**首次把「人类值班能力保有率」立为一等运维对象**——六家都在给 Agent 建「越用越强」反馈环，没人给「人」建反馈环；与 #177（组织形态）分工（彼管属主由谁出，本期管人的能力是否还在）、#176（决策质量 SLO）分工（彼管 Agent 决策好不好，本期管做决策的人还有没有能力）、#179（意图保真）分工（彼管约束跨跳存活，本期管人类能力跨时被 Agent 吸走）显式划界
+- 题眼：NIST 2026「human-AI feedback loops 研究不足」＋ Uptime Labs Leftover Principle（AI 接手 Tier1-2 后剩余工单更怪、人更弱）＋ goal lock（修表象引爆下游）＋ 本地 22/31/24/10 全建 Agent 学习环无人建人环；六家「技能衰减应对/值班能力保活」列全空
+- 核心新提法：反馈单极化（只建 Agent 环）／左剩原理（Leftover Principle）／责任-能力背离（accountability gap）／goal lock 放大（人脱手更晚发现）／评测只测 Agent 不测人机组合／第 128 个市场空白五项（`human.competence.*`：oncall_rep_rate/shadow_mode_ratio/handoff_quality/leftover_coverage/skill_decay_slo），六家零公开
+- 本地原型（第 87 期）：22 肖汉松（Harness→Loop 只练 Agent）/31 马云雷（轨迹数字资产只练 Agent）/24 袁彬航（AReaL 在线 RL 只练 Agent）/10 周昕毅（生产闭环但人只验收）首次合流成「单极化反馈环」证据链；判词「本地把越用越强写进 Agent 学习闭环，联网侧 2026 才量出人类能力黑盒；两边都没把『人还有没有能力』做成可导出字段」
+- 建议：`human.competence.*` 五字段 OTel/评测提案／反馈环双向化（Agent 学＋人学）／强制去 Agent 演练（shadow_mode 占比）/交接质量门禁/评测扩展为人机组合基准/信通院六维补「人类能力保有率」格
+- 推送：报告+索引复制至 E:/Knowledge/Knowledge/reports/ 并 git push（hes-p3-team-bench，仅 add 报告+索引两文件）；接在 #180 之后
+
+| 181 | 20261113-1300 | 人机闭环坍缩面(Feedback Loop Decay)：Agent越用越强人越退越生，反馈环只建Agent侧/NIST2026 human-AI feedback+Leftover Principle+goal lock+本地22/31/24只练Agent环/六家技能衰减应对列全空/`human.competence.*`第128个市场空白 |
+
 ## 第 180 期（2026-11-13 13:31）· 背压面／压力传导面（Backpressure）——下游慢了，Agent 不是等，是重试；于是「慢」变成「挂」
 - 期号说明：11-13 13:31 档生成；并行实例 12:38 已发「第 179 期」，本期顺延第 180 期；往期 178 标「第 125 个市场空白」，并行 179 标 126，本期顺延为 127；主线记作**第一百六十二条**
 - 产物：E:/Knowledge/Knowledge/reports/AI-SRE技术洞察-20261113-1331.md（正文 1360 汉字含表，题眼＋五章＋十一方案六维对比表＋4 条来源/2 链接）；索引已追加第 180 期条目；本地 173/173-kb 连续第 86 期成组启用
