@@ -255,12 +255,24 @@ npm run build           # 开发构建 + 复制 HTML/CSS 到 dist/
 npm run build:prod      # 压缩构建
 npm run serve           # 本地静态服务器
 npm run test:e2e        # Playwright：键鼠、手柄、触屏、重绑、遥测、RSI、年度相册
+npm run perf            # 性能采样：FPS、帧时间、draw calls、CPU/帧
 npm run balance         # 机器人平衡模拟（RUNS=80 可调）
 npm run analyze -- path/to/playtest.csv   # 读真人 CSV，输出新阈值建议
 npm run screenshots     # 重新生成 docs/screenshots
 ```
 
 E2E 依赖本机 Chrome 和 Playwright（`npm i` 会安装 Playwright 包，不额外下载浏览器；脚本使用 `channel: "chrome"`）。
+
+### 体积与性能
+
+生产构建会压缩交付体积，并在第一人称模式使用低内部渲染分辨率 + 静态合批：
+
+- `dist/game.js`：741,726 → **267,905** 字节（-63.9%），生产包为 gzip 自解压；开发构建 `npm run build` 仍是可调试的普通 JS。
+- `dist` 总计：832,596 → **336,608** 字节（-59.6%）。
+- SwiftShader 1440×900 基准：平均 FPS **2.13 → 3.9**（+83%），平均帧时间 **475 → 258 ms**，draw calls **455 → 52**。
+- 每帧 CPU 约 **17.2 → 7.4 ms**（-57%）；固定 5 秒窗口的总 CPU **3.5% → 2.9%**（-17%）。
+
+详见 [design/PERF.md](design/PERF.md)。压缩包使用 `DecompressionStream`（Chrome/Edge、Safari 16.4+）。
 
 已执行的验证见 [design/PLAYTEST.md](design/PLAYTEST.md)。关键数字：
 
@@ -274,7 +286,7 @@ E2E 依赖本机 Chrome 和 Playwright（`npm i` 会安装 Playwright 包，不�
 - 遥测：结算自动写入 1 条 `automation` 样本，数据面板显示 1 场、CSV 下载成功。
 - CSV 分析：合成的 9 条真人样本可输出 `300 / 500 / 850` 的 1★/2★/3★ 建议，并标记样本不足的组。
 - 真实指针锁定、WebAudio 解锁、烧焦→扔垃圾桶、暂停→继续、下一班次重建渲染器均通过。
-- 场景约 **450–460 draw calls / 19k triangles**（1440×900 / 1920×1080，含阴影与粒子）；在独立显卡上应轻松 60fps，集显建议把“画面精细度”调到 75–100%。
+- 场景静态合批后约 **52 draw calls**（优化前 455）；第一人称内部渲染分辨率 0.75；1440×900 软件渲染下平均 FPS 从 2.13 提升到 3.9，帧时间明显下降。
 
 ---
 
@@ -287,6 +299,7 @@ E2E 依赖本机 Chrome 和 Playwright（`npm i` 会安装 Playwright 包，不�
 - [design/PLAYTEST.md](design/PLAYTEST.md) — 试玩与验证报告
 - [design/PLAYTEST-PROTOCOL.md](design/PLAYTEST-PROTOCOL.md) — 真人试玩协议、样本量、导出与重标流程
 - [design/RSI.md](design/RSI.md) — RSI 动态菜单、回放策略与年度相册说明
+- [design/PERF.md](design/PERF.md) — 体积、帧率、CPU 优化记录与口径说明
 
 简而言之：按 `router` 的技能路由思路，选择 **three.js** 作为引擎（浏览器可达、可自动截图验证、无需导出管线），组合
 `threejs-scene-setup`、`threejs-materials-lighting`、`fps-shooter`、`camera-systems`、`input-systems`、
@@ -307,6 +320,7 @@ E2E 依赖本机 Chrome 和 Playwright（`npm i` 会安装 Playwright 包，不�
 - 星级阈值目前是 **机器人模拟 + 纸面推算**，没有真人样本；试玩记录器、经验标签、分析脚本和本机阈值覆盖已就绪，按 [design/PLAYTEST-PROTOCOL.md](design/PLAYTEST-PROTOCOL.md) 收集后运行 `npm run analyze -- <csv>` 或在数据页“计算建议 → 应用”。本机覆盖不会改代码，换浏览器/清缓存会回到官方阈值。模拟器只代表“路径规划机器人”的下限，不能替代手感判断。
 - 试玩数据只存本机 `localStorage`；换浏览器/清缓存会丢，需手动导出 CSV/JSON。自动化样本（`navigator.webdriver`）会被标记为 `automation`，不计入真人汇总。
 - **RSI 是游戏尺度的规则 + 回放适配，不是论文复现**：没有神经网络/LLM；城市与天气由玩家选择，不是真实天气 API；推荐策略和相册只存本机，换浏览器会回到 v1。
+- 生产包是 gzip 自解压，需要 `DecompressionStream`（Chrome/Edge、Safari 16.4+）；开发构建不压缩。第一人称内部渲染分辨率为 0.75，画面会比原生略软；体积/FPS/CPU 的测量口径见 `design/PERF.md`。
 - 音频为合成音色，未在专业监听环境做混音校准；音量可在设置里调整。
 - 只在 Chrome/Edge（Windows）验证；其他浏览器可能有指针锁定/音频/手柄差异。
 - 3D 场景约 450 draw calls；极低端设备可通过“画面精细度”降低渲染分辨率。

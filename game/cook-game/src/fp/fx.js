@@ -1,7 +1,7 @@
-// GPU point particles for steam, smoke, food bits and confetti.
+﻿// GPU point particles for steam, smoke, food bits and confetti.
 // One draw call per field, pooled CPU-side.
 
-import * as THREE from 'three';
+import * as THREE from '../three.js';
 
 const VERT = /* glsl */ `
   attribute float aSize;

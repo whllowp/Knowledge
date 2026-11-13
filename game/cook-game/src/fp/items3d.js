@@ -1,6 +1,6 @@
-// Low-poly food built from primitives. Stylized, readable at a glance.
+﻿// Low-poly food built from primitives. Stylized, readable at a glance.
 
-import * as THREE from 'three';
+import * as THREE from '../three.js';
 import { INGREDIENTS } from '../core/data.js';
 
 const geoCache = new Map();

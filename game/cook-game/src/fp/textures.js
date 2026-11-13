@@ -1,6 +1,6 @@
-// Procedural canvas textures — no external art files, everything ships in JS.
+﻿// Procedural canvas textures — no external art files, everything ships in JS.
 
-import * as THREE from 'three';
+import * as THREE from '../three.js';
 
 function makeCanvas(w, h) {
   const canvas = document.createElement('canvas');

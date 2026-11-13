@@ -1,7 +1,7 @@
 // First-person mode: renderer, camera, the 3D kitchen, hand-held items,
 // interactions and all the physical feedback that makes cooking feel tactile.
 
-import * as THREE from 'three';
+import * as THREE from '../three.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 import { STATIONS, STATION_BY_ID, SPAWN, INGREDIENTS } from '../core/data.js';
@@ -52,9 +52,11 @@ export class FirstPersonMode {
       powerPreference: 'high-performance',
     });
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    this.pixelRatio = Math.min(2, dpr * (this.settings.quality || 1));
+    this.basePixelRatio = Math.min(2, dpr * (this.settings.quality || 1));
+    this.renderScale = 0.75;
+    this.pixelRatio = this.basePixelRatio * this.renderScale;
     this.renderer.setPixelRatio(this.pixelRatio);
-    this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.enabled = false;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 0.96;
@@ -264,8 +266,18 @@ export class FirstPersonMode {
     this.settings = settings;
     this.player.applySettings(settings);
     const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    this.pixelRatio = Math.min(2, dpr * (settings.quality || 1));
+    this.basePixelRatio = Math.min(2, dpr * (settings.quality || 1));
+    this._applyRenderScale(this.renderScale, true);
+  }
+
+  _applyRenderScale(scale, force = false) {
+    const next = Math.max(0.65, Math.min(1, scale));
+    if (!force && Math.abs(next - this.renderScale) < 0.001) return;
+    this.renderScale = next;
+    this.pixelRatio = this.basePixelRatio * next;
     this.renderer.setPixelRatio(this.pixelRatio);
+    // At the low internal resolution the shadow pass costs more than it adds.
+    this.renderer.shadowMap.enabled = false;
     this.resize();
   }
 

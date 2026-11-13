@@ -1,8 +1,8 @@
-// First-person controller: pointer-lock look, acceleration, capsule-vs-box
+﻿// First-person controller: pointer-lock look, acceleration, capsule-vs-box
 // collision and head-bob. Simulation stays on the XZ plane (no jumping in a
 // kitchen — the floor is sacred).
 
-import * as THREE from 'three';
+import * as THREE from '../three.js';
 import { COLLIDERS, ROOM, SPAWN } from '../core/data.js';
 import { getBindings, KeyboardInput, GamepadInput } from '../core/input.js';
 

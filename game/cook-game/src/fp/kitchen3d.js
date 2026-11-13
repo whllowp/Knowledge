@@ -1,7 +1,8 @@
 // The physical 3D kitchen: room, counters, stations, props, lights, labels.
 // Every station keeps its own visual state and syncs from the shared Kitchen.
 
-import * as THREE from 'three';
+import * as THREE from '../three.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { STATIONS, ROOM, INGREDIENTS } from '../core/data.js';
 import { createItemMesh, createIngredientProp } from './items3d.js';
 import * as T from './textures.js';
@@ -73,6 +74,61 @@ export class Kitchen3D {
     this._buildCounters();
     this._buildStations();
     this._buildDecor();
+    this._mergeStatic();
+  }
+
+  /**
+   * The room is mostly immutable furniture. Baking every opaque static mesh
+   * by material cuts the draw-call count roughly in half and removes a large
+   * amount of per-frame WebGL command submission. Items, rings and the bell
+   * stay separate because their transforms/visibility animate.
+   */
+  _mergeStatic() {
+    const dynamic = new Set();
+    for (const visual of this.stationVisuals.values()) {
+      for (const obj of [visual.ring, visual.knife, visual.burner, visual.itemRoot, visual.bell]) {
+        if (obj) dynamic.add(obj);
+      }
+    }
+    const isDynamic = (obj) => {
+      for (let p = obj; p; p = p.parent) if (dynamic.has(p)) return true;
+      return false;
+    };
+
+    this.scene.updateMatrixWorld(true);
+    const buckets = new Map();
+    this.scene.traverse((obj) => {
+      if (!obj.isMesh || obj.isSprite || obj.isPoints) return;
+      if (isDynamic(obj)) return;
+      const material = Array.isArray(obj.material) ? null : obj.material;
+      if (!material || material.transparent || material.opacity < 1) return;
+      if (!obj.geometry?.attributes?.position || !obj.geometry?.attributes?.uv) return;
+      const key = `${material.uuid}|${obj.castShadow ? 1 : 0}|${obj.receiveShadow ? 1 : 0}|${obj.renderOrder}`;
+      if (!buckets.has(key)) buckets.set(key, []);
+      buckets.get(key).push(obj);
+    });
+
+    for (const meshes of buckets.values()) {
+      if (meshes.length < 2) continue;
+      const geometries = [];
+      for (const mesh of meshes) {
+        let geo = mesh.geometry.clone();
+        if (geo.index) geo = geo.toNonIndexed();
+        geo.applyMatrix4(mesh.matrixWorld);
+        geometries.push(geo);
+      }
+      const merged = mergeGeometries(geometries, false);
+      for (const geo of geometries) geo.dispose();
+      if (!merged) continue;
+      const first = meshes[0];
+      const mesh = new THREE.Mesh(merged, first.material);
+      mesh.castShadow = first.castShadow;
+      mesh.receiveShadow = first.receiveShadow;
+      mesh.renderOrder = first.renderOrder;
+      mesh.name = 'baked-static';
+      for (const original of meshes) original.parent?.remove(original);
+      this.scene.add(mesh);
+    }
   }
 
   _makeMaterials() {
