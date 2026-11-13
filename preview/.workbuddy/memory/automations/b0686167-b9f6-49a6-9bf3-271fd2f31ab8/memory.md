@@ -1245,3 +1245,62 @@
 - 本地原型：周昕毅 10「知识沉淀＋持续闭环（L3 数字分身：长期身份、持续闭环、责任边界）」首次当主线，配马云雷 31（轨迹＝持续更新的知识底座）、刘凯宁 05（RCA 依赖知识库与确定性笼子）。判词：本地把知识闭环写进生产运维，联网侧 2026 才做成图；两边都没把图的鲜度/边可信度/结论引边做成可导出字段。
 - 建议：graph.* 七字段（graph_id/freshness_slo/last_refresh_ts/edge_confidence/edge_source/agent_queryable/staleness_flag）＋活图架构＋置信度来源边（深化 54）＋推理-图谱引用（深化 135）＋跨源对齐（复用 122）＋评测扩展＋信通院六维补两格。
 - 推送：报告+索引追加至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench）；接 147 期之后。
+
+## 第 175 期（2026-11-13 10:00）· 运维语义层（Ops Semantic Layer）——Agent 查询的口径治理：从 NL2SQL 到可执行 Semantic Runtime
+- 新立面：把「运维数据能否以统一语义模型被 SRE Agent 查询与执行——多 Agent 共线时口径漂移是否被放大」立为一等对象；与 #157(图谱约束层)/#167(OTel事件命名)/#160(归因诚实)显式划界，本期管「Agent 查询绑定的指标/实体定义是否同一份」。
+- 主线：语义层在 BI 侧已共识(NL2Metrics>NL2SQL)，运维侧仍是描述层而非执行层；赵恒「Agent 不会消除口径漂移只会放大它」「语义层不是另一个 prompt 而是每一条都用同一份定义」＋ Semantic Runtime 进 Reasoning Loop。
+- 反转：最强运维语义层来自阿里 UModel(3200+定义/21实体4关系/开源+行业倡议)；Google 有 OTel GenAI 约定+ADK 但偏事件命名；字节/腾讯语义基础强但未产品化治理级语义层；Anthropic(MCP边界)/OpenAI(工具层)无原生运维语义层；六家「受治理定义覆盖率/口径漂移检测率/NL2Metrics占比」三列全空。
+- 市场空白（第 1 次立字段族）：`sem.layer.*` 七字段(受治理定义覆盖率/口径漂移检测率/NL2Metrics占比/编译期歧义拒绝率/权限编译入查询率/查询携带定义版本率/跨Agent同义一致率)，六家零公开。
+- 本地原型（第 74 期）：赵恒 25(Semantic Runtime 编译期拒绝)/刘凯宁 05(AntOntology)/蒋烁淼 23(统一目录)/余锦泽 03(本体校验前拦截)。
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1000.md；已复制至 E:/Knowledge/Knowledge/reports/ 并 git push（commit c459b11, branch hes-p3-team-bench）。
+
+### 2026-11-13 11:00 run（第 176 期）· 决策质量面／非确定性 SLO 面（Decision-Quality SLI / Non-Deterministic SLO）
+- 产出：AI-SRE技术洞察-20261113-1100.md（C 盘 C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/ + E 盘 git 仓库 reports/）
+- 主题：决策质量作新 SLO 基元——Agent 替代人做回滚/限流/切流决策，传统 SLO 只答「可用性保住没」不答「决策本身好不好」；与 #150(模型SLA)/#163(经济护栏)/#160(归因诚实)/#153(基准门禁)显式划界；第一百四十五个全新立面
+- 题眼：Jambor(O'Reilly ARE, 2026-11)「SLO 不再够用，新基元是 decision quality」＋五维＋Calibration Error(声称80%须真80%，团队普遍 miscalibrated 不自知)＋turion decision_quality SLO(未被推翻比例 target 0.95)＋误差预算双功能(token cost trend 领先指标)＋微软 Azure SRE Agent(GA 2026-03 按 error budget 门控自治)＋autocoder「区分 agent 错 vs 运气差」(ITBench 47%/硬核10%/$6.50/4起故障是自动化自身)
+- 核心新提法：决策质量无 production SLO(第五个 SLO 传统 SRE 不存在)／校准误差盲／运气-能力不分／误差预算单功能／决策不可重建(run manifest 多数未达标)；第 116 个市场空白五项，`decision.quality.*` 第 1 次立字段族(七字段)，六家零公开
+- 本地原型（第 75 期）：施宏斌 14(金融 Agent Eval 判「是否 Insightful」)＋马云雷 31(轨迹数字资产可回放)＋刘凯宁 05(蚂蚁确定性笼子＝取舍对齐)；判词「本地把决策洞察/轨迹做成评测与资产，联网侧 2026 才立决策质量为 SLO 基元；两边都没把校准误差/运气-能力分离/误差预算门控做成运行时字段」
+- 对比表六家六维；判读＝六家无人立决策质量 SLO，微软 Azure SRE Agent 唯一把 error budget 门控自治落地但未用名词，腾讯信通院六维部分覆盖「该停该求助」决策，阿里 STAROps 评测延伸到决策过程最接近但未升运行 SLI
+- 推送：报告+索引复制至 E:/Knowledge/Knowledge/reports/ 并 git push 成功（commit 09354f9, branch hes-p3-team-bench，仅 add 报告+索引两个文件）；C/E 两侧报告与索引一致
+
+### 2026-11-13 12:38（第 179 期）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1200.md（正文约 2400 汉字含表，题眼＋五章＋六厂商＋SpecGaming 八行五维对比表＋14 条来源/14 链接）；报告＋索引同步 E:/Knowledge/Knowledge/reports/ 并 push 成功（hes-p3-team-bench，d0a830e，2 files changed/105 insertions，仅 add 报告＋索引）；本地 173/173-kb 连续第 86 期成组启用
+- 主线：第一百六十二条全新立面「意图保真面／约束蒸发面（Intent Fidelity / Constraint Evaporation）」——首次把「高层意图里的负向约束（别破SLA/别有客户可见错误/别动这张表）在任务分解-跨Agent传递-读想写闭环三步系统性蒸发、主目标存活」立为一等对象；与 175/141/176/166/129/133 逐条划界零重叠；并行实例已占用 177（组织形态）、178（互斥面），本方顺延 179
+- 题眼：GOPS2026 任务托管＋Rakuten/OpenAI「读懂言外之意」＋OpenAI Codex 演示「保持最新版本不回滚」（蒸发默认安全约束）＋Noqta/Zylos「长horizon漂移：第十二步悄悄丢约束」；约束蒸发＝目标分解固有熵增，与规格博弈同一能力正反两面
+- 核心新提法：约束三位置蒸发／约束不可结构化／分解不可逆熵增／规格博弈与授权边界同一问题两面（ExploitGym 目标稳定方法越界）／评测不量保真（SREGym/RCA-Bench 不测约束存活）／六家卖托管目标不卖约束存活可观测；第 126 个市场空白五项（constraint_propagation_depth/goal_constraint_attached_rate/decomposition_fidelity/spec_gaming_detect_rate/intent_deviation_observable），`intent.*` 第 95 次无人提字段族
+- 反转：意图校验最强是 Anthropic /advisor+classifier_verdict（仍校验动作合规非约束保真）；六家「约束跨跳传播/意图偏离可观测」两列全空或最弱；真正把规格博弈当工程问题的是安全研究侧 Noqta/Zylos（显式禁止清单+评分函数隔离）
+- 本地原型（第 86 期）：刘凯宁 05（蚂蚁确定性笼子/只拦截不改写/覆盖89%）首次当主线，配 周昕毅 10（三次现场检验＝约束现场校验）、肖汉松 22（携带证据改派＝约束须随证据流转）
+- 下期候选：`intent.*` 五字段 OTel 提案／约束 propagation_ref 结构化传递／第二意见「约束仍满足」布尔断言阻断器／显式禁止清单挂载器／评测「约束存活」注入项与信通院六维补格
+
+### 2026-11-13 13:00（第 181 期）· 人机闭环坍缩面 / 能力迁移衰减面（Human-AI Feedback Loop Decay / Skill Atrophy）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1300.md（正文约 2400 汉字含表，题眼＋五章＋六厂商六维对比表＋13 来源/9 链接）；报告+索引复制至 E:/Knowledge/Knowledge/reports/ 并 git push 成功（hes-p3-team-bench，commit 84a287e，2 files changed/75 insertions，仅 add 报告+索引）；本地 173/173-kb 连续启用
+- 主线：第一百六十四条全新立面「人机闭环坍缩面／能力迁移衰减面」——首次把「人类值班能力保有率」立为一一等运维对象；与 #177(组织形态)/#176(决策质量 SLO)/#179(意图保真)显式划界，本期管「人还有没有能力」
+- 题眼：NIST 2026「human-AI feedback loops 研究不足」＋ Uptime Labs Leftover Principle（AI 接手 Tier1-2 后剩余工单更怪、人更弱）＋ goal lock（修表象引爆下游）＋ 本地 22/31/24/10 全建 Agent 学习环无人建人环
+- 核心新提法：反馈单极化（只建 Agent 环）／左剩原理／责任-能力背离／goal lock 放大／评测只测 Agent 不测人机组合；第 128 个市场空白五项（`human.competence.*`：oncall_rep_rate/shadow_mode_ratio/handoff_quality/leftover_coverage/skill_decay_slo），六家零公开
+- 本地原型（第 87 期）：22 肖汉松(Harness→Loop 只练 Agent)/31 马云雷(轨迹数字资产只练 Agent)/24 袁彬航(AReaL 在线 RL 只练 Agent)/10 周昕毅(生产闭环但人只验收)合流成「单极化反馈环」证据链；判词「本地把越用越强写进 Agent 学习闭环，联网侧 2026 才量出人类能力黑盒；两边都没把『人还有没有能力』做成可导出字段」
+- 下期候选：`human.competence.*` 五字段 OTel 提案／反馈环双向化(Agent学＋人学)／强制去 Agent 演练(shadow_mode 占比)/交接质量门禁/评测扩展为人机组合基准/信通院六维补「人类能力保有率」格
+
+### 2026-11-13 15:00（第 183 期）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1500.md（正文约 2300 汉字含表，题眼＋五章＋六厂商六维对比表＋8 条来源）；报告+索引复制至 E:/Knowledge/Knowledge/reports/ 并 push 成功（hes-p3-team-bench，17ae004，2 files changed，仅 add 报告+索引）；本地 173/173-kb 连续第 88 期成组启用
+- 主线：第一百六十五条全新立面「时序保真面／事故时间线重建（Temporal Fidelity）」——首次把「这场事故的时间线能否被单调重建」立为一等对象；与 160/162/168/135/138 逐条划界零重叠；并行实例已占 14:31（#182 事故面），本方顺延 183
+- 题眼：Google Next '26 跨 agent/工具/上下文可追溯卖点（Virtana/theCUBE）＋ OpenAI 对齐检测人工 L2 重放上下文窗口（反证自动重建缺失）＋ PayPal 7+ agent 编队并发失序；六家时间线单调重建/前态保留/幽灵事件检出三列全空
+- 核心新提法：可观测≠可重组／重试重放造幽灵事件／Agent 改写共享态前态消失／压缩丢弃事件／时间线非单调（重建不可复核）／评测不量重建；第 129 个市场空白五项，`timeline.*` 第 98 次无人提字段族
+- 本地原型（第 88 期）：马云雷 31（轨迹数字资产=可回放版本化动作轨迹）首次当主线，配 肖汉松 22/周昕毅 10
+- 注：Google Next '26 笔记/theCUBE/Virtana 为 2026 社区分析稿，Google Gemini Cloud Assist/Database Agents/OpenAI 为官方文档；未采信 SEO 农场数字
+
+### 2026-11-13 16:00（第 185 期）· 度量主权面／标尺自设面（Metric Sovereignty）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1600.md（正文约 2000 汉字含表，题眼＋五章＋六厂商六维对比表＋9 来源/8 链接）；报告+索引复制至 E:/Knowledge/Knowledge/reports/ 并 push 成功（hes-p3-team-bench，commit 5217ec7，2 files changed/70 insertions，仅 add 报告+索引）；注：#184(15:31 续跑面)由并行实例占用，本方顺延为 185
+- 主线：全新立面「度量主权面／标尺自设面」——首次把「谁握着标尺（SLI/仪表盘/playbook/复盘/golden集/评测判官由谁生成）」立为一等对象；与 #153(评测安全门禁)/#176(决策质量SLI)/#164(知识复利)显式划界，本方只问标尺独立性
+- 题眼：Google Nightly Evals(LLM-as-a-Judge)+Actus 三权分立＋Anthropic 10/14 OTel tracing(先追踪后授权)＋OpenAI per-change Agent 自建仪表盘自定成败信号＋阿里 RCA-Bench 公开基准(103例)＋腾讯「用可观测管AI」；ITBench-AA 前沿模型根因<50%(9月56.2%)而厂商自报更高→真值蒸发
+- 核心新提法：自指可靠性(Goodhart@fleet)/真值蒸发/LLM判LLM循环/度量主权不透明；第130个市场空白 metric_sovereignty.*(ruler.ownership/eval.independent_of_actor/eval.ground_truth_source/eval.judge_type/eval.goodhart_exposure)
+- 本地原型：孙鹏探测式评测/施宏斌可验证Eval/刘杨Trace评估/周昕毅生产闭环 vs 袁彬航AReaL/肖汉松Loop/马云雷轨迹(自学闭环但评测多自产)
+
+### 2026-11-13 17:00（第 188 期）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1700.md（正文约 2600 汉字，五章 + 六家六维对比表 + 9 条来源/8 链接）
+- 主线：轨迹归属面（归因主权面）——六家把"画 Agent 轨迹"做满，仅阿里 STAROps/腾讯 AI调用AI/字节 Coze Loop 补齐"判定+归因"；端到端 Trace ≠ 可定位（第一百六十七条全新立面；与 #185 度量主权、#187 隐私面显式划界）
+- 最强钩子：Anthropic 2026-10-14 OTel 导出 public beta（GenAI semconv commit e57c543b 09-24，Messages API/Managed Agents/SDKs，metadata-only vs full-content）+ 阿里 ARMS 7-30 更名"AI Agent 可观测"+ STAROps 跨层 RCA + 腾讯 9-21 Agent 可观测 + 字节 Coze Loop/火山 AgentLoop + OpenAI Agents API 11-09 默认全追踪 beta + Google Cloud Trace+OTel
+- 核心新提法：**轨迹归属是度量主权(#185)的下游**（SLI 自设却定位不到步骤=白测）／**「轨迹→判定→归因」三段中第一段六家做满、后两段仅国内三家补齐**（第一段市场空白）／**原生 OTel 语义已成入场券，区分度在"评估融合×根因归因"二维**／**隐私与归因零和**（full-content 归因强但泄 PII、metadata-only 合规但归因弱，呼应 #187）／**跨厂商委托链无统一 traceparent 传播标准**＝Agentic Ops 最大归因断点
+- 第 132 个市场空白：归因命中率/端到端 trace 可定位率/agent step 级 SLO/跨厂商委托链连通率/实时评估覆盖率——无一内建；agent.trace.*/agent.attribution.* 字段族无人提（延续 #187 pii.* 空白）
+- 本地 173-kb 主货：08 刘杨 Agent可观测实践（OTel GenAI L1-L2-L3 九类 Span、以 Trace 为中心实时评估、小模型/正则全量粗筛+大模型精判 90%+ token 降本）+ 23 蒋烁淼 观测云AgentOps + 15 朱革 百度AgentOps；连续第 91 期成组启用
+- 推送：报告+索引+记忆追加至 E:/Knowledge/Knowledge/reports/ 并 push（本轮回执行）
+- 下期候选：agent.trace.*/attribution.* span 家族最小 schema/归因命中率采集器/跨厂商 traceparent 传播最小实现/W3C traceparent+A2A card 拼接剧本/隐私-归因双轨导出器/信通院基准补"可观测-归因"维度
