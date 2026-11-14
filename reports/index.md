@@ -2433,3 +2433,18 @@
 - 字数控制：按 2400 正文配额起稿 1232 → 补五处（三件套、便宜换没人看、三种批次、批与交互配额、成本分摊/配额隔离）到 **1353**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 192 期之后
 - 下期候选：`batch.*` 六字段 OTel 提案草案／逐条状态记录器／死信队列与按条重试／批次验收（抽样/规则）／失败率告警与夜间唤醒／配额隔离（批 vs 交互）／重放批的覆盖保护
+
+## 第 194 期（2026-11-14 23:00）· 可观测数据主权面／系统归属面（Observability Data Sovereignty — System-of-Record）——谁拥有 Agent 的遥测、能否在自己仓库里查询它；Google 把 trace 写进客户自有 BigQuery，六家仅此一家把系统归属做成默认
+- 期号说明：11-14 23:00 档生成；索引最新本方为第 193 期（11-14 22:56《批处理面》），期间无并行 AI-SRE 新期，顺延第 194 期；往期 193 标「第 135 个市场空白」，本期顺延为 136；主线记作**第一百七十一条**
+- 产物：E:/Knowledge/Knowledge/reports/AI-SRE技术洞察-20261114-2300.md（正文约 2050 汉字含表，题眼＋五章＋六厂商六维对比表＋9 条来源/8 链接）；索引已追加第 194 期条目；本地 173/173-kb 连续第 95 期成组启用
+- 主线：**首次把「Agent 遥测归谁所有、能否在客户自有仓库独立查询与审计」立为一等对象**——比 #185 度量主权（尺子谁定）更底层：度量主权问"谁定义指标"，系统归属问"原始事实归谁、能否脱离厂商独立复盘"。题记「#185 度量主权/#188 轨迹归属/#190 生产侧评估/#191 韧性归因」→ **六家把"可观测"卖成仪表盘即服务，仅 Google 把遥测降级为"写进你仓库的一行数据"**。当 agent 在生产做不可逆操作，若 trace 只能在某厂商控制台回放，责任边界与合规下限被厂商可用性绑架
+- 时点红利（2026 年内）：**Google Cloud 11-14 扩展 agent 可观测/治理至 BigQuery&Looker（telemetry 写客户自有表，系统归属）**＋ **OpenAI 11-09 Agents API 默认全追踪+OTLP 导出+Sessions 持久+data residency**＋ **Anthropic 10-14 OTel tracing 公测**＋ **阿里 AgentLoop/STAROps/UModel、腾讯 CloudQ/TCOP、字节 AgentLoop/Coze Loop**；本期为单期聚焦+跨期综合
+- 核心新提法：**系统归属是数据主权层（比度量主权更底层）**／**仪表盘即服务 vs 数据主权即默认**／**评估与被观测两套仓库（度量主权与数据主权割裂，深化 #185）**／**事故复盘权外包风险**／**跨厂商 AgentID/人工审批记录非一等字段（MIT TR）**／**GenAI span 仍 Development→自建 SoR schema 漂移**／**隐私-归属张力（full-content 归因强但泄 PII vs metadata-only 合规但归因弱）**；**第 136 个市场空白五项**（telemetry_ownership_mode/system_of_record_queryable/eval_accuracy_portable/agent_id_persistent_cross_vendor/human_approval_recorded），`obs.custody.*` 为**第 105 次无人提字段族**
+- **本期反转**：六家都能给你"看 Agent 跑得怎么样"的仪表盘，但只有 Google 默认把原始遥测交还客户仓库；阿里/腾讯/字节把系统归属锁在自己云底座，客户拿到的是"看板权限"而非"数据主权"。判词：**「可观测」「评估」「追踪」全部可采购，「举证这条 trace 归我所有、能在自己仓库独立审计」不可采购**
+- 本地原型（第 95 期）：**刘杨 08「以 Trace 为中心的实时评估+Token 级定位」**——光有完整 Trace 仍判断不了 Agent 做没做对，可观测下一站是评估，评估事实基础正是"谁拥有那条 Trace"；配 **蒋烁淼 23「统一目录补服务语义与知识」**（AgentOps 若无统一语义目录仍难落地）、**马云雷 31「轨迹即数字资产」**、**余锦泽 03「Agent 记忆与本体」**——轨迹/知识应被自有体系长期沉淀、查询、复用，而非锁死厂商闭环
+- 建议：`obs.custody.*` 五字段 OTel 扩展（telemetry_ownership/system_of_record_queryable/eval_accuracy_portable/agent_id_persistent/human_approval_recorded）＋ 采购默认要求 trace/cost/accuracy 入客户自有数仓＋ 评估与被观测同仓（打通 #185）＋ W3C traceparent 之外约定 agent.id 与 approval 记录传播＋ 信通院六维补"系统归属率/可携出率"两格
+- 有效方法：**「Google BigQuery 系统归属」＋「OpenAI/Anthropic OTLP 导出」＋「阿里/腾讯/字节云底座」三源对照**，首次落在「系统归属」；**「仪表盘即服务 vs 数据主权即默认」是最锋利的判词**；选角前 grep 索引核 系统归属/数据主权/system of record/BigQuery 遥测 计数 0～1，确认未覆盖
+- 注意：本期聚焦 2026 年内动态，头条 Google 11-14 为当日新信号；六厂商维度以公开文档/新闻为准；本地 173 讲义转写、08/23/31/03 笔记转述；未采信 SEO 农场与考试培训站数字
+- 字数控制：按 2400 正文配额起稿约 2050，含五章+六厂商六维表+9 来源；未做压缩轮
+- 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench）；接在 193 期之后
+- 下期候选：`obs.custody.*` 五字段 OTel 提案草案／客户自有数仓 SoR 参考实现／评估×观测同仓桥／跨厂商 agent.id+approval 传播最小实现／信通院六维补"系统归属率"格／隐私-归属双轨导出器
