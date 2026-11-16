@@ -2990,3 +2990,16 @@
 - 字数控制：按 2400 正文配额起稿 1126 → 补七处（不能重放的东西最需幂等、资损、三种付款、跨境税、可撤销、跨境核对、可撤销字段）到 **1234**；未做压缩轮
 - 推送：报告 + 索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（hes-p3-team-bench，仅 add 两个文件）；接在 232 期之后
 - 下期候选：`commerce.*` 七字段 OTel 提案草案／委托凭证（范围+限额+有效期+可撤销）／支付/退款幂等键／三方对账（订单/发票/预算）／争议举证模板／跨境税与汇率
+
+
+## 第 234 期（2026-11-17 01:00）· 修复采纳面／建议到执行的最后一公里（Remediation Adoption Gap）——修得对不等于修得成：提出→审阅→批准→执行→留住，这条漏斗全行业没有分母、没有字段、没有值守；生成可被采购，采纳只能被举证
+- 期号说明：`date` 01:03→0100 档；最新本方 232（22:00 例行承诺面）、并行实例 233（22:31 代理支付面），本期顺延 234；市场空白第 165 项；字段族第 131 次无人提；主线第一百九十七条全新立面；本地连续第 120 期成组启用
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-0100.md（汉字 2943；题眼＋五章＋九方案六维对比表＋15 来源/14 链接）
+- 主线：首次把「修复方案提出后有没有被采纳、采纳后有没有执行、执行后有没有留住」立为一等对象；与 #226 疗效归属（执行后是否有效）/#10 审批经济学（人类注意力是自治上限）/#106 介入面（介入落点）/#222 变更归因（部署-事故因果）/#232 例行承诺（缺席二义性）显式划界；采纳＝proposed→reviewed→approved→applied→persisted 五段漏斗
+- 时点红利（最近 30 天）：KubeCon NA 11-09～12「所有事故 Agent 都先问人」——New Relic 11-11 Autopilot K8s Agent 跑 90+ 探测器生成可直接运行修复代码但「由工程师审阅并执行」＋Dynatrace SRE Agent GA 回滚/PR 等待批准＋Virtana 三段推进（建议→批准修复→限定自治）＋Red Hat 11-09 OpenShift MCP gateway GA（按凭据过滤、可按人批准变更、双签字 Dual-Custody）＋Google 10-22 Chrysalis 四道防线＋Azure Review/Autonomous 两模式 allow/ask/deny＋AWS DevOps Agent 人审阅缓解提议＋信通院六维（辅助诊断→审批执行→限定自治、保留人工接管兜底）＋阿里 STAROps 分级执行（自动/人工确认/强制拦截、人工确认不越权、工具调用成功≠解决）＋腾讯 CloudQ 受控执行＋本地 10 周昕毅携程白名单执行/恢复失败转人工
+- 核心新提法：**提案正确≠被采纳≠被执行≠被留住**／采纳率是被系统性隐藏的分母（全行业无 proposed_count）／批准与执行之间的静默断链（Slack 点了批准、执行器静默 no-op 只留绿记录，与 #232 缺席二义性同构但对象是变更）／采纳时审意图、执行时改取值（Incident-Arena 09-30：1638 个完整修复回合仅 59% 过双门、41% 正确修复仍失败、329 栽在安全门、145 挪维护窗口、38 抬连接池过上限）／未采纳样本不回流形成自我确认闭环（被拒/被搁置/被回退不进 golden 集，Agent 反复提同类方案）／控制面越厚采纳路径越难端到端追踪（四道防线+MCP 网关+RBAC+双签字各自留痕、无统一 adoption_id）；第 165 市场空白五项 `fix.adoption.*`（proposed_count/approved_count/applied_count/persisted_count 按 adoption_id 配对派生 adoption_rate、approval_to_apply_latency、silent_defer_rate、revert_after_apply_rate、rejected_reason 枚举），第 131 次无人提字段族
+- 本期反转：把「会提正确修复」做成行业标配的是各家 Agent 平台，亲手拆穿「41% 正确修复仍失败、批准不等于执行」的是 Incident-Arena 基准与一线深访（Pragmatic Engineer 10-27「交接对象应是已有变更流程、不是它自己的 shell」）；九方案六维表「采纳率上报」整列全空。判词「证据链／修复代码／回滚 PR／审批按钮／白名单／双签字／技能矩阵全部可采购，举证这次修复是被采纳后才生效的、批准到执行隔了多久、批准后有没执行、执行后有没有被回退不可采购」
+- 本地原型（第 120 期）：10 周昕毅《AI+SRE≠AISRE》三次现场检验第②条（服务异常能否安全执行并验证恢复）＋白名单执行/恢复失败转人工＋配置自愈 3452/5638（产出量非采纳率）首次当主线深化为采纳漏斗，配 05 刘凯宁确定性笼子＋03 余锦泽语义记忆。判词「本地把执行/验证/反馈写进闭环、结果成下一次上下文，联网侧 2026 才用 41% 把『批准≠执行、执行≠留住』拆开；两边都没把『修复采纳』做成可导出字段」
+- 建议：`fix.adoption.*` 五字段进 OTel GenAI 提案（缺省 ADOPTION_UNVERIFIED，只有审批记录不算采纳）／approval_to_apply_latency 与 silent_defer_rate 进值守 SLO（外部变更系统回执驱动非 Agent 自报）／执行体绑 plan digest 并回写实际vs提议取值、重启与触发器重放后复检 reverts／未采纳原因枚举（not_reviewed/rejected_risk/rejected_permission/approved_not_applied/applied_then_reverted）每类进 golden 集反例／交接给已有变更流程而非 Agent 自己的 shell、信通院六维补「修复采纳可举证率」格／Incident-Arena·SRE-Marathon 增「正确修复未被采纳」「批准后静默未执行」两类题
+- 注意：Incident-Arena 41%/59%、携程 MTTR 降 50%、OTel 78% 多为来源自报或单项基准未独立复核；部分为厂商发布稿/媒体编译/技术博客非同行评审；「修复采纳面/采纳漏斗/ADOPTION_UNVERIFIED」及字段族为本文归纳；本地 10 为讲义转写笔记；未采信 SEO 农场
+- 下期候选：`fix.adoption.*` 五字段 OTel 提案与 adoption_id 配对最小实现／批→执行时延 SLO 与外部回执器／plan digest 绑定与实际vs提议取值回写／未采纳原因枚举器与反例回流／复检回退器／信通院补「修复采纳可举证率」格
