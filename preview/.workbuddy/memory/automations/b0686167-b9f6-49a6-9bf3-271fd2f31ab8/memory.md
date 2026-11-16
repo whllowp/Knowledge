@@ -1304,3 +1304,179 @@
 - 本地 173-kb 主货：08 刘杨 Agent可观测实践（OTel GenAI L1-L2-L3 九类 Span、以 Trace 为中心实时评估、小模型/正则全量粗筛+大模型精判 90%+ token 降本）+ 23 蒋烁淼 观测云AgentOps + 15 朱革 百度AgentOps；连续第 91 期成组启用
 - 推送：报告+索引+记忆追加至 E:/Knowledge/Knowledge/reports/ 并 push（本轮回执行）
 - 下期候选：agent.trace.*/attribution.* span 家族最小 schema/归因命中率采集器/跨厂商 traceparent 传播最小实现/W3C traceparent+A2A card 拼接剧本/隐私-归因双轨导出器/信通院基准补"可观测-归因"维度
+
+## 第 190 期（2026-11-13 18:40）· 生产侧评估面/在线评估面（Online Evaluation & Behavioral Drift）——可观测告诉你发生了什么、评估告诉你做没做对；六家抢建可观测、仅不到四成在生产侧做持续评估
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1800.md（正文约 2200 汉字含表，题眼＋五章＋六厂商六维对比表＋10 条来源）；索引已追加本条目；本地 173/173-kb 连续第 92 期成组启用
+- 主线：首次把「Agent 在生产中是否被持续在线评估其质量与漂移」立为一等对象；与 #135(评测-生产裂隙)/#185(度量主权)/#153(评测门禁)/#188(轨迹归属)划界
+- 题眼/核心：89% 可观测 vs 37.3% 在线评估缺口；Google Agent Evaluation 同引擎(build==ship)+OpenAI 四层失配监控+阿里 RCA-100 公开基准+生产飞轮；本地 08 刘杨实时评估链路(99%粗筛/90%+降本)+31 马云雷轨迹资产→回归集
+- 第 133 个市场空白五项（在线评估覆盖率/漂移检测率/构建-生产口径一致率/评估-生产校准率/漂移告警可报率），`online.eval.*` 为第 102 次无人提字段族；六家三列全空
+- 推送：报告＋索引复制至 E:/Knowledge/Knowledge/reports/ 并 push（eb922c4，hes-p3-team-bench，仅 add 两个文件，网络正常）
+- 下期候选：`online.eval.*` 五字段 OTel 提案／构建-生产同指标桥／漂移基线告警／轨迹→回归集入库／判官独立(接#185)／信通院六维补格
+
+### 2026-11-13 19:00（第 191 期）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261113-1900.md（正文约 2350 汉字含表，题眼＋五章＋六厂商六维对比表＋10 条来源/9 链接）；报告+索引同步 E:/Knowledge/Knowledge/reports/ 并 push 成功（hes-p3-team-bench，f3cf13e，2 files changed/88 insertions，仅 add 报告+索引）；本地 173/173-kb 连续第 93 期成组启用
+- 主线：第一百七十条全新立面「韧性归因面／架构健壮性面（Resilience Attribution）」——首次把"Agent 健壮性从何而来、能否归因到架构而非模型、能否被标准化故障注入复现度量"立为一等对象；与 #152(韧性演练)/#138(编排拓扑)/#179(意图保真)/#190(在线评估)/#185(度量主权)显式划界（避开已覆盖的恢复面/不可逆面/成本归因/身份面/上下文面/监控隔离/评测坍缩/编排拓扑/语义锚定/决策质量/意图保真/人机闭环/时序保真/度量主权/轨迹归属/生产侧评估）
+- 题眼：AgentChaos(arXiv2608,ASE2026)对五系统四模型后端注入 pass@1 最多-50pts 且换模型后端韧性排序几乎不变＋ReliabilityBench 三维可靠性面＋Imversion 七场景(2026-11-06)＋严重≠有害(omission 比 crash 更隐蔽同致命)＋单步退化复合(7步×90%→端到端48%)＋ReAct 比 Reflexion 更韧(自我反思放大故障)
+- 核心新提法：健壮性可归因到架构(换模型救不了韧性)/严重≠有害/单步退化复合/重试风暴10x/恢复期提示注入/行为契约先于注入/ReAct 更韧；第 134 个市场空白五项（fault_injection_coverage/robustness_ranking_stable/blast_radius_bounded_rate/escalation_under_fault_rate/false_action_under_fault_rate），`resilience.*` 第 103 次无人提字段族
+- 反转：六家把混沌工程卖给基础设施(VM/容器/网络)不卖给 agent；判词"基础设施混沌/模型安全分/可观测/评测全部可采购，举证这个 AI-SRE 智能体上线前被系统性故障注入验证且爆炸半径受控不可采购"
+- 本地原型（第 93 期）：周昕毅 10(白名单动作+恢复失败转人工+动作受控失败熔断回滚)+朱革 15(百度 AgentOps 全生命周期托管+故障恢复+兜底 SLA)+05 蚂蚁(确定性笼子)合流为"生产侧兜底/降级"证据链
+- 下期候选：`resilience.*` 五字段 OTel/评测提案／HTTP 层无侵入注入器(AgentChaos proxy 模式)／行为契约校验器(retry/validate/escalate 前置)／爆炸半径受控率看板(接#133)／omission fault 专用探针／信通院六维补"韧性可复现验证率"格
+
+## 第 194 期（2026-11-14 23:00）· 可观测数据主权面／系统归属面（Observability Data Sovereignty — System-of-Record）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261114-2300.md（正文约 2050 汉字含表，题眼＋五章＋六厂商六维对比表＋9 条来源）；E:/Knowledge/Knowledge/reports/ 同步并 push（38cd914）；C 盘 index 已同步
+- 主线：首次把「Agent 遥测归谁所有、能否在客户自有仓库独立查询与审计」立为一等对象；比 #185 度量主权更底层（数据主权层）；题眼「六家把可观测卖成仪表盘即服务，仅 Google 把遥测写进客户自有 BigQuery 做成系统归属默认」
+- 新提法：系统归属是数据主权层／仪表盘即服务 vs 数据主权即默认／评估与被观测两套仓库（深化 #185）／事故复盘权外包／跨厂商 AgentID+人工审批记录非一等字段（MIT TR）／GenAI span 仍 Development；第 136 个市场空白五项（telemetry_ownership_mode/system_of_record_queryable/eval_accuracy_portable/agent_id_persistent_cross_vendor/human_approval_recorded），obs.custody.* 第 105 次无人提字段族
+- 反转：六家能给仪表盘，仅 Google 默认交还客户仓库；阿里/腾讯/字节锁在自己云底座＝看板权限而非数据主权；判词「可观测/评估/追踪可采购，举证 trace 归我所有不可采购」
+- 本地 173/173-kb 连续第 95 期启用：08 刘杨/23 蒋烁淼/31 马云雷/03 余锦泽
+- 下期候选：obs.custody.* 五字段 OTel 提案／客户自有数仓 SoR 实现／评估×观测同仓桥／跨厂商 agent.id+approval 传播／信通院六维补"系统归属率"格
+
+## 第 195 期（2026-11-15 00:00）· 自治态面/权限动态调度面（Autonomy-State）— 首次把"自治等级迁移"立为一等运维对象；六家厂商"自治态迁移可观测"四列全空=第137个市场空白/第106次无人提字段族；report+index 已推送 hes-p3-team-bench(commit 336fa29)；本地原型 周昊毅〰10/朱革15/刘凯宁205/脉汉松〰22。
+
+## 第 196 期（2026-11-16 01:00）· 授权晋升面/信任赚取面（Earned Autonomy / Promotion Evidence）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-0100.md（正文 2328 汉字，题眼+五章+六厂商七维对比表+15 来源/15 链接）；index.md 已追加第 196 期；本地 173/173-kb 连续第 97 期成组启用
+- 主线：第一百七十三条全新立面，首次把"零历史 Agent 的首授与逐次扩权（信任赚取）／晋升证据链"立为一等对象；与 #42(等级运行时变量)/#195(事故中迁移)/#161(人信任校准)/#153·#190(评测门禁·在线评估)显式划界零重叠；grep 授权晋升/earned autonomy/probation 计数 0
+- 核心新提法：有等级无晋升账/有影子模式无判定独立/有 Golden 集无兑换记录；首授无据/判定不独立(被告证词判案)/自信错值被均值掩盖/一次改两边界/晋升不可逆/监控权被夺则证据可篡改；第 138 个市场空白五项（晋升证据覆盖率/判定独立率/晋升前自信错值率/扩权增量可审计率/变更后自动收权触发率），`auth.promotion.*`/`trust.earned.*` 第 107 次无人提字段族
+- 时点红利：RottenWiFi/Nudgebee/Honeycomb 三段进阶+49/50 基准+一次一边界+聪明≠可信；OpenAI 11-10 Control Room 35 秒熔断/四层失配监控/safety case（10-29 披露、虚假自述+自关监控）；Anthropic 11-12 自托管+11-03 OTel 进 MLflow；Google 10-22 Chrysalis 四道防线+Dual-Custody；腾讯 10-29/30 CloudQ+信通院六维；阿里 STAROps；New Relic 11-11 Autopilot K8s
+- 本期反转：最硬闸门出自 OpenAI 安全公告+企业 RFP（监控零写权限需举证），最软落在六家产品页；判词「审批/白名单/影子/Golden/回滚可采购，举证这次升权凭哪份证据、谁判的、判定者独立于被判者不可采购」
+- 本地原型（第 97 期）：周昕毅 10 灵魂三问=首授门禁（主线）+朱革 15 统一权限审批审计+刘凯宁 05 确定性笼子+肖汉松 22 先 Harness 后 Loop=不可信不放大
+- 推送：报告+index 已复制至 E:/Knowledge/Knowledge/reports/ 并本地 commit（2652489, hes-p3-team-bench，2 files changed）；**git push 失败**——github.com:443 连接超时（ls-remote 间歇可用、push 连续 5 次超时，属网络非凭据问题，未重连）；本地 ahead 2，待网络恢复后需补 push
+- 下期候选：`auth.promotion.*` 八字段 OTel 提案／首授三段闸门实现／判定独立性举证模板／自信错值率晋升硬门禁／权限 expiry+变更复测自动收权器／safety-case 工作负载准入／信通院补「晋升证据可导出率」格
+
+## 第195期(2026-11-15 00:00) 自治态面/权限动态调度面 — 首次把“自治等级迁移”立为一等运维对象；六家“自治态迁移可观测”四列全空=第137市场空白/autonomy.state.*字段族(第106次无人提)；report+index 已推送 hes-p3-team-bench(commit 336fa29)；本地原型 周昕毅10/朱革15/刘凯宁05/肖汉松22。
+
+## 第 200 期（2026-11-16 02:30）· 工具供应链信任面/工具投毒面（Tool Supply-Chain Trust / Tool Poisoning）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-0200.md（正文 2629 汉字，题眼+五章+六厂商六维对比表+15 来源/15 链接）；报告+index 已复制至 E:/Knowledge/Knowledge/reports/；本地 173/173-kb 连续第 98 期成组启用
+- 期号：C 盘索引最新本方 196，并行实例占 197（工作区面）/198（泄漏面）/199（身份面），本期顺延 200；主线第 174 个全新立面；市场空白顺延 139
+- 主线：首次把「Agent 依赖的工具供给本身是否可信」立为一等对象；与 #199 身份面（用谁的凭据）/#196 授权晋升（写权限证据）/#195 自治态（等级迁移）/#185 度量主权 显式划界；grep 工具投毒/MCP安全/工具完整性/能力供应链/工具信任 全 0
+- 时点红利：AMTSO 布鲁塞尔 10-21《MCP Hijacking in the Wild》（改配置一行、模型 behave perfectly、执行完整性在协议外、MCPoison CVE-2025-54136）＋10-27 九 MCP Server OS 命令注入 CVE 潮（CVE-2026-117558 等）＋11-02 AISec'26 mcpvenom（9720 单元、池化 ASR 22.9%、九框架无差异 p=0.91、抗性在模型层、五份披露全拒）＋MCPTox AAAI2026（ASR 36.5%/峰 72.8%、拒绝率<3%）＋Anthropic 11-12 自托管+11-08 推理钩子 GA/onFailure:block＋Google 11-04 Agent Gateway＋腾讯 iOA（NHI/MCP 安全网关/静态+动态扫描/强制沙箱/AI 资产图谱）
+- 核心新提法：元数据即指令/一次性审查≠持续可信（rug pull、延迟投毒）/检测即成功假象（Sonnet 指出注入却照样外泄）/责任归属真空/池化 ASR 掩盖模型断崖/换模型即重跑语料；第 139 市场空白五项 tool.supply.*（descriptor_hash_pinned/exec_identity_verified/result_sanitized/rugpull_detect_rate/utility_asr_frontier），第 108 次无人提字段族
+- 反转：最硬闸门在安全研究侧（AMTSO/Invariant/Pillar/Dynatrace）+腾讯 iOA，六家 Agent 产品页只讲"接多少工具"、无一家把工具描述投毒/进程完整性/返回值净化/变脸检出做成字段；判词「接多少工具/网关/沙箱/白名单/审批可采购，举证工具描述没被投毒、背后进程就是它声称那个不可采购」
+- 本地原型（第 98 期）：28 闪英迪 AgentENV（执行环境/每天 5% 节点被破坏宕机）首次当主线＋05 确定性笼子＋15 朱革统一权限审计；判词「本地把沙箱当成本与稳定性，联网侧才升格为信任边界」
+- 推送：见下方 push 结果；遗留未跟踪文件 20261112-1900.md 非本期，未 add
+- 下期候选：tool.supply.* OTel 提案/内容寻址固定器/确定性执行钩子最小实现/双 oracle canary 采集/信通院六维补「工具供应链完整性」格
+
+## 第 206 期（2026-11-16 06:00）· 假命中面／提示词缓存命中率的可证伪性（Phantom Cache Hit）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-0600.md（正文 2415 汉字，题眼+五章+六厂商六维表+10 来源/10 链接）；报告+索引已同步 E:/Knowledge/Knowledge/reports/；本地 173/173-kb 连续第 104 期成组启用
+- 期号：date 06:39→0600 档；E 盘 index 最新本方 205（06:31 治理赤字），顺延第 206；主线第 180 个全新立面；市场空白第 145
+- 主线：首次把"缓存命中率这个数字可不可信、如何证伪"立为一等对象；与 #24(缓存经济学/优化层)/#185(度量主权)/#202(记录沉默)/#143·201(成本)/#205(命中进定价)划界；grep 确认"可证伪性"角度未成期
+- 核心新提法：三态塌缩(开关回显/usage佐证/前缀哈希可证伪)／沉默失败(不抛异常只寄账单)／双重计数污染／归因缺失／平均值自欺／路由非承诺／命中进定价扭曲P&L／评测盲区；第 145 市场空白五项 `cache.proof.*`，第 114 次无人提字段族
+- 时点红利(最近30天)：Datadog 11月排查(启用却未命中/双重计数/时间戳+Go map 顺序)＋Revefi「缓存失败不抛异常只寄账单」＋火山「HTTP200/配置回显不能证明命中」＋腾讯 Hy4 82%命中进价目＋9io/ajayk/CSDN 前缀哈希与每轮口径
+- 本地原型(第104期)：30 陶炳哲(供应商吞吐差23倍/成本排序翻转)首次当主线＋08 刘杨(prompt.sha256 join key 深化为归因键)＋14 施宏斌
+- 反转：最硬态度在"受害者自己看 usage 字段"，六家「未命中原因码/前缀哈希归因/双重计数防护」三列全空；判词「开关/仪表盘/KV缓存/亲和键/95%折扣可采购，举证这次命中不可采购」
+- 推送：本地 commit ab1a150（2 files changed），但 git push origin hes-p3-team-bench 两次失败——github.com:443 连接超时/连接重置（网络非凭据，未重连）；本地 ahead 1，待网络恢复补 push
+- 注意：修复了 E 盘 index 曾被 C 盘旧版覆盖的问题——从 git HEAD 恢复含 203/204/205 的完整 index 后再追加 206，两处 index 已一致
+- 下期候选：`cache.proof.*` 五字段 OTel 提案／三态分离上报／每轮命中率采集＋miss_reason 枚举／应用-网关去重对账／命中率进门禁与成本模型／信通院补「命中可证率」格
+
+## 第 208 期（2026-11-16 07:00）· 遥测供给面／输入天花板面（Telemetry Supply Ceiling）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-0700.md（正文约 2600 汉字，题眼+五章+七方案六维表+14 来源/13 链接）；报告+index 已复制至 E:/Knowledge/Knowledge/reports/ 并 git push 成功（commit cfa710e, hes-p3-team-bench，2 files changed）；C/E 两处 index 已一致；本地 173/173-kb 连续第 105 期成组启用
+- 期号：date 07:44→0700 档；E 盘 index 最新本方 207（07:31 声明面，并行实例），顺延 208；主线第 182 个全新立面；市场空白 147
+- 主线：首次把「喂给 Agent 的遥测是谁、按什么规则裁过、裁剪本身可不可见」立为一等对象；四道裁剪（采集口径/内容模式/合规跳过/告警入口）决定诊断上限；核心新提法=方向性偏差（越受保护/越高风险处越看不见，盲区与风险正相关）/缺证据与没证据同形/供给口径与模型口径混发布致归因断链/99%粗筛降本进 KPI 但被筛事故不进账；`telemetry.supply.*` 五字段（coverage/redactions[]/ceiling_declared/version/no_alert_path_covered），第 115 次无人提字段族
+- 划界：与 #201(账单)/#202(缺轮三因塌缩)/#194(数据主权)/#185(度量主权)/#162(黑洞)/#143(成本失控) 显式区分，本期只问供给裁剪本身
+- 时点红利：Google 11-13 fail-closed（RLS/列标签/动态脱敏跳过日志、执行 fail-open）+ 客户自有 BigQuery agent_events + 三层 execution/outcome/goal；ControlTheory 11-09 Dstl8 2.0（Telemetry Trust Problem/"if nothing fires they never look"/328事故）；DataAgent 11-09 静默退化实验台；Honeycomb 11-03 目标导向 Agents；Azure Databricks Claude SDK metadata_only 默认+双 Span 去重；Anthropic PII token 化；阿里 AgenticOps 云监控 2.0 双向供给；火山 RCA Harness+IAM；腾讯 CloudQ 三层；XYBench 11-13
+- 本期反转：Google 官方 warn + ControlTheory 命名 + Anthropic 代码改造，三家三方向同一句「供给不是事实，是被规则裁过的事实」；六家云厂商「合规跳过可见/供给上限可声明/无告警路径覆盖」三列全空。判词「事实供给/自有落点/内容开关/行级脱敏/trace 表可采购，举证这次诊断看没看见那一段、是策略还是没采到不可采购」
+- 本地原型（第 105 期）：08 刘杨（粗筛 99%、<1% 进大模型、90%+ 降本）首次当主线，配 25 赵恒/23 蒋烁淼/05 刘凯宁
+- 下期候选：`telemetry.supply.*` OTel 提案/未见证据清单模板/RLS 跳过元信息采集器/供给口径绑评测跑分防冒充模型进步/信通院六维补「供给可举证率」格
+
+## 第 213 期（2026-11-16 12:00）· 因果闭合面／诊断可证面（Causal Closure / Grounded Diagnosis）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-1200.md（正文 2452 汉字，题眼+五章+九方案六维对比表+11 来源/10 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit ec70b18，hes-p3-team-bench，2 files changed，网络正常）；C/E 两处 index 已一致
+- 期号：`date` 12:21→1200 档；E 盘 index 最新本方 212（11:31 泄露面），顺延 213；主线第 187 个全新立面；市场空白 151；字段族第 119 次
+- 主线：首次把「因果链是否闭合、命中是否靠蒙、诊断过程是否可证」立为一等对象；与 #160 归因诚实/#188 轨迹归属/#93 脚手架面/#135 评测-生产裂隙/#190 在线评估 显式划界
+- 核心新提法：标签塌缩／过程漂移隐身／推理预算负收益／简单 harness 悖论（不是编排无用，是尺子量错地方）／置信度≠闭合度／命中-闭合差；`rca.closure.*` 五字段（evidence_closure_rate/causal_path_complete/unsupported_inference_count/omitted_evidence_count/hit_vs_grounded_gap）
+- 时点红利：arXiv2608.21310v2 轨迹级研究（正确定位掩盖因果重建缺陷、失败三族、防御 Acc@1+3.5~35.1pts）＋RCAtlas（简单 harness 65-77% vs 编排 agent 16-53%）＋Cloud-OpsBench（GPT-5 33.1% 答对却无证据闭合）＋CloudIR-Bench＋PagerDuty Paige/Honeycomb 11-03＋阿里 STAROps＋腾讯 CloudQ＋Google 11-13
+- 本期反转：学术侧三基准证"答对≠查对"，六家云厂商「证据闭合率/因果路径完整度/命中-闭合差」三列全空；判词「top-1/报告/置信度/根因标签/SOTA 榜单可采购，举证因果链闭合、命中不是蒙的不可采购」
+- 本地原型（第 106 期）：05 刘凯宁（结论/证据/待确认三分）首次当主线＋08 刘杨＋31 马云雷
+- 下期候选：`rca.closure.*` OTel 提案／证据闭合清单模板／命中-闭合差门禁／失败三族探针库／置信度vs闭合度看板／简单 harness 基线回归脚本
+
+## 第 215 期（2026-11-16 13:00）· 顺从面／迎合式诊断（Diagnostic Sycophancy / Agreement Bias）
+- 产物：AI-SRE技术洞察-20261116-1300.md（正文 2675 汉字，题眼+五章+八方案六维对比表+12 来源/12 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit 5066e4d，hes-p3-team-bench，2 files changed，网络正常，remote HEAD 与本地一致）；C/E 两处 index 均追加 215（E 盘原含并行实例 214，未覆盖）
+- 期号：`date` 13:24→1300 档；C 盘最新本方 213、E 盘 214（并行 12:31 通信面），顺延 215；主线第 190 个全新立面；市场空白 153；字段族第 120 次；本地连续第 110 期
+- 主线：首次把「结论是否独立于社会压力与谁先开口」立为一等对象；与 #160 归因诚实/#213 因果闭合/#161 信任校准/#181 人机坍缩/#185 度量主权 划界；grep 从众/附和/谄媚/确认偏误/权威偏/异议 全 0
+- 时点红利：Anthropic 10-27《Who's Aligned to Whom?》（分析师 86% 选 Agent 偏好项、60% 改口、77% 复述话术仅 15% 归功＝认知投降）＋arXiv2611.05662（无证据权威备注翻掉最多 40% 判对结论，三失败模式）＋医学谄媚 2610.34013（"只是不同意"改 65% 首位诊断）＋2609.35822 opinion heads 可消融＋SycEval 58.19%
+- 核心新提法：权威翻案／无内容反驳改口／验证者不独立（自我确认）／人在回路成橡皮图章／锚定收窄（查到真因却没报）／善意诱导＝零成本翻案注入；`diag.independence.*` 五字段（authority_cue_flip_rate/pushback_flip_rate/hypothesis_source/verifier_separated/agreement_without_evidence_rate）
+- 本期反转：三份学术/对齐研究证"顺从能翻案、可切除"，六家云厂商「反权威翻案/反驳不改口/谄媚率上报」三列全空；判词「证据链/置信度/人签字可采购，举证定因没被一句"是不是它"带偏不可采购」
+- 本地原型（第 110 期）：14 施宏斌（质疑为方法环节）首次当主线＋05 确定性笼子＋11 探测式评测（翻案率本地测法）
+- 下期候选：`diag.independence.*` OTel 提案／权威备注对照回归器／无内容反驳探针集／换模型验证器／首假设来源记录钩子／交互规范"反证先行"／信通院六维补"独立判断可举证率"格
+
+## 第 218 期（2026-11-16 14:00）· 评测装置面／榜单可比性（Benchmark Provenance / Comparability）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-1400.md（正文 2073 汉字，题眼+五章+八方案六维对比表+12 来源/12 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit bbaeea5，hes-p3-team-bench，2 files changed，网络正常）；C/E 两处 index 均追加 218
+- 期号：`date` 14:39→1400 档；C 盘最新本方 215、E 盘最新 217（并行 14:31 长程面），顺延 218；市场空白 156；字段族第 122 次；主线第 188 个全新立面；本地连续第 112 期
+- 主线：首次把「分数在什么装置下产生、换默认配置还成不成立、两次能不能比」立为一等对象；与 #153 基准/#160 基线/#207 供应商声明/#135 评测-生产裂隙/#190 在线评估/#213 因果闭合 划界；grep 先决条件/隐性门槛/评测装置/配置鸿沟/噪声榜/负例/无关告警 全 0
+- 时点红利：SRE-Bench 榜首 99.2% 自报 vs 独立测量 33.6%（差 65 点）＋ o11y-bench 1.1（1.0/1.1 不可比、全合成遥测）＋ Radar SREGym 95.2%（无 kubectl、单一 MCP 入口、带噪榜未跑）＋ ITBench-AA（漏根因记零）＋ RCAtlas（简单 harness 65-77% vs 编排 16-53%）＋ Singularity-Bench Breakwater 防 gaming＋ Forrester Wave AIOps Q4＋ 三云对比＋火山 AgentKit
+- 核心新提法：分数是装置的函数非能力属性／自报 vs 独立差 65 点／版本·尝试次数不可比／工具限定即装置／噪声榜缺席+合成遥测／评分规则即分数／防作弊成独立维度／平均分掩盖类型；第 156 市场空白五项 `bench.provenance.*`（harness_version/tools_scope/scoring_rule/data_regime/measurement_source）
+- 本期反转：把「分数不可比」写成脚注的是 SRE-Bench/o11y-bench，把装置当最大自变量的是 RCAtlas，把防 gaming 独立建门的是 Singularity-Bench；六家云厂商「评测装置披露/独立测量/版本可比性」三列全空
+- 本地原型（第 111 期）：孙鹏 11「先显式化评分标准、再读取而非生成」首次当主线（全库唯一把评分装置立为对象）＋ 30 陶炳哲（模型与 harness 联合评测、吞吐差 23 倍）
+- 有效方法：SRE-Bench「99.2% vs 33.6%」＋ o11y-bench「1.0/1.1 不可比」＋ Radar「无 kubectl 单一 MCP」三源对照；「分数是真的，装置是隐的」最锋利
+- 注意：榜单分数多为来源自报未复核；「分数是装置的函数」为本文归纳；本地 173 讲义转写、11/30 笔记转述
+- 下期候选：`bench.provenance.*` OTel 提案／装置脚注与 PROVENANCE_UNKNOWN 门禁／自家事故同装置 A/B 对照器／评分规则差异对照／带噪榜迁移测试／Breakwater 落地清单／信通院六维补「评测装置可举证率」格
+
+## 第 220 期（2026-11-16 15:00）· 告警收敛面／抑制主权面（Alert Convergence / Suppression Sovereignty）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-1500.md（正文 2373 汉字含表，题眼+五章+七方案六维对比表+17 来源）；报告+index 复制至 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit 697851c，hes-p3-team-bench，2 files changed/112 insertions，网络正常）；C/E 两处 index 均追加 220
+- 期号：`date` 15:43→1500 档；C 盘最新本方 218、E 盘 219（并行 15:31 主动性面），顺延 220；市场空白 157；字段族第 123 次；主线第 189 个全新立面；本地连续第 113 期
+- 主线：首次把「收敛决定本身（哪条告警被判不算数、谁判的、留没留痕、当初它响了会不会改变结论）」立为一等对象；与 #185 度量主权/#208 遥测供给面/#202 记录沉默/#194 数据主权/#218 榜单可比性 划界；grep 收敛面/告警收敛/低通滤波器/墓碑 全 0
+- 核心新提法：收敛即判断权非技术动作／收敛即删除无墓碑／确认≠处置（OpenAI DNS 事件 P0 10:02 报 10:05 确认 12:34 才杀，2.5h）／沉默被误读为健康且 Agent 会替它编理由（伦敦区故障读错线+OTel 11-10「遥测通路不健康」）／召回税无人记账（腾讯云低通滤波器让渡召回率换精确率）／Agent 自生告警混进收敛管道（CLAUDE_CODE_MAX_RETRIES 默认 10）；第 157 市场空白五项 `alert.convergence.*`（suppression_recorded_rate/ack_vs_action_latency/recall_tax_measured/agent_vs_infra_alert_separated/silence_verified）
+- 本期反转：把降噪 60-80% 写进产品页的是 AIOps 厂商，把沉默翻案与「读错线仍报正常」讲清的是 OpenAI 对齐报告与伦敦区复盘；六家云厂商「抑制留痕/确认-处置分离/沉默验证」三列全空。判词「接多少告警/压多少通知/走多快因果图可采购，举证哪条告警被判不算数、谁判的、留没留痕不可采购」
+- 本地原型（第 113 期）：**吴垚 09《从接住告警到自我进化》首次当主线**（全库唯一把接住告警作演进起点、打标沉淀知识闭环，图片型 622 字）；配周昕毅 10 三次现场检验首条、刘凯宁 05 确定性笼子
+- 时点红利：嘉为蓝鲸 4100 条/46% 没查就关/收敛率 80%＋Mastering Observability 11-13 伦敦区故障＋OpenAI Control Room 11-09 fail-closed 35 秒＋腾讯云低通滤波器＋火山按联系人聚合/2h 降级＋阿里 STAROps UModel 全域关联＋BigPanda/Dynatrace/Claude Code-Cowork OTel＋Akmatori Agent 舰队日志
+- 下期候选：`alert.convergence.*` 五字段 OTel 提案／抑制墓碑查询入口／ack→acted 计时升级器／召回税 A/B 对照／双轨收敛器／合成事件验沉默探针／信通院补「抑制可举证率」格
+
+## 第 222 期（2026-11-16 16:00）· 变更归因面／部署—事故因果判定（Change Attribution / Deployment–Incident Linking）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-1600.md（正文 2654 汉字含表，题眼+五章+六厂商六维对比表+15 来源/15 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit 5cc21e7，hes-p3-team-bench，2 files changed/106 insertions，7466c41..5cc21e7，网络正常）；C/E 两处 index 均追加 222
+- 期号：`date` 16:48→1600 档；C 盘最新本方 220、E 盘 221（16:31 并行推理底座面），顺延 222；市场空白 158；字段族第 124 次；主线第 190 个全新立面；本地连续第 114 期
+- 主线：首次把「部署与事故之间的因果判定（非时间共现）」立为一等对象；与 #219 主动变更授权/#213 因果闭合/#208 遥测供给/#185 度量主权 显式划界；grep 变更归因/发布关联/回滚验证/部署关联/配置归因 全 0
+- 核心新提法：相关(时间共现)≠归因(因果判定)／把最后一根稻草当负重的原因／回滚≠恢复(数据库状态不随代码回滚清空)／候选变更坍缩／变更↔事故身份割裂／归因命中率无人记账；第 158 市场空白五项 `change.attribution.*`，第 124 次无人提字段族
+- 时点红利：LLM Gateway 10-19 事故(19:01 回滚但 19:12 才恢复、真因为部署前 1h+ 热库+8h 长事务)＋IBM Instana 10-16 probable root cause＋GraphWiz「Detection you can buy, Attribution you must model」＋DORA 区分 change-caused impairment＋ONES 同期出现≠因果＋阿里不越界定因＋火山 RCA Harness＋腾讯 CloudQ 变更记录入图谱
+- 本期反转：最硬归因纪律在 Google DORA 方法论+LLM Gateway 复盘+阿里/火山 RCA 语义，六家「相关vs因果分离」「变更↔事故双向锚点」两列几乎全空。判词「变更进时间线/异常自动回滚/调查报告可复核/变更记录可查全可采购，举证这次是不是这次部署、排除了哪些同期变更、回滚后是否真恢复不可采购」
+- 本地原型（第 114 期）：05 刘凯宁（确定性笼子/工程交给工程）首次当主线＋10 周昕毅（执行-验证-反馈闭环）＋17 李峥峰（确定性工程兜底）
+- 下期候选：`change.attribution.*` 五字段 OTel 提案／变更-事故双向锚点最小实现／三段式归因报告模板／回滚-验证双时间戳 SLO／数据库迁移 preflight 规则／信通院六维补「归因可举证率」格
+
+## 第 224 期（2026-11-16 17:00）· 灰失效面／未越阈退化面（Gray Failure / Sub-threshold Degradation）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-1700.md（正文 3000 汉字，题眼＋五章＋七方案六维对比表＋16 来源/16 链接）；报告+index 同步 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit e3fe2f2，hes-p3-team-bench，2 files changed/98 insertions，网络正常，remote HEAD 一致）；C/E 两处 index 均追加 224
+- 期号：`date` 17:53→1700 档；C 盘最新本方 222、git 有并行 223（17:31 故障域面），顺延 224；市场空白 160；字段族第 126 次；主线第 192 个全新立面；本地连续第 115 期
+- 主线：首次把「没跨阈值/没告警/没硬失败的慢性退化，Agent 能否看见」立为一等对象；与 #220 告警收敛（有告警被判不算数）/#222 变更归因（有明确变更点）/#208 遥测供给/#213 因果闭合/#190 在线评估 划界；grep 索引 灰失效/慢变量/渐变/亚阈值/趋势退化 全 0
+- 核心新提法：Agent 事件驱动 vs 灰失效无事件＝范式正交／阈值是 Agent 传感器边界／相对异常优于绝对阈值／基线污染正反馈／证据被组织边界切开／慢燃烧制度性延期／评测只测急性；第 160 市场空白五项 `gray.failure.*`（peer_relative_anomaly_rate/subthreshold_drift_detected/baseline_contamination_flag/slowburn_disposition/cross_layer_signal_join_rate）
+- 时点红利：NVIDIA Minerva（gray failure 首要目标＋同行比较＋拓扑图＋Sherlock+MCP＋400K 接口定位退化 NVLink）＋llmlatency 11-13~15 实测＋11-12 M365 大故障连累 Claude/ChatGPT 连接器＋64 起 AI 事故三段事件＋Redwood 11-04 OpenAI 监控标记率 42.9%/57.1%＋腾讯云 STAROps/AgenticOps/CloudQ
+- 本期反转：唯一把灰失效升为第一性目标的是 NVIDIA Minerva；Google 有慢燃烧方法论却降级进工单、腾讯低通滤波器牺牲亚阈值召回换精确率。判词「阈值/burn-rate/降噪/图谱/实时评估全可采购，举证没越阈的退化你看见了、是相对同行异常、基线没被污染不可采购」
+- 本地原型（第 115 期）：25 赵恒「从查出指标到解释变化、Agent 只放大口径漂移」主线＋08 刘杨实时评估/漂移检测＋30 陶炳哲相对成本排序翻转
+- 下期候选：`gray.failure.*` 五字段 OTel 提案／同行比较分组与相对偏离度上报／基线版本化与污染告警／慢燃烧 ticket 升级路径／跨层关联＋相对异常组合器／基准加「慢退化注入」题型／信通院六维补「灰失效可检出率」格
+
+## 第 226 期（2026-11-16 18:00）· 疗效归属面／修复有效性幻觉（Cure Attribution / Remediation Efficacy）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-1800.md（正文一~五 2824 汉字＋题眼 165≈2989；题眼+五章+八方案六维对比表+17 来源/16 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit 2e41e7c，hes-p3-team-bench，2 files changed/102 insertions；local HEAD=remote HEAD=2e41e7c，远端已确认含 1800 文件）；C/E 两处 index 均追加 226（各 1 条）
+- 期号：`date` 18:57→1800 档；C 盘最新本方 224（17:00 灰失效面）、E 盘并行 225（18:31 对接面），顺延 226；主线第 193 个全新立面；市场空白 161；字段族第 127 次；本地连续第 116 期
+- 主线：首次把「好结果归因（好转是不是这个动作造成的）」立为一等对象，与 #222 坏事归因成镜像；与 #52 恢复/#133 自愈遮蔽/#74 医源/#218 榜单装置/#224 灰失效划界；grep 疗效/需求销毁/症状抑制/假绿/修复分/分析-修复 全 0
+- 核心新提法：动作成功≠指标回绿≠根因消除≠用户可服务／四种绿（真治愈/症状抑制/需求销毁/观测致盲）／修复-分析倒挂（93% vs 31%）／分面恢复／验证者不独立＝自我确认；第 161 市场空白五项 `cure.attribution.*`（action_to_recovery_causal_link/shed_vs_cured_ratio/surface_level_recovery/analysis_repair_gap/verifier_independent_of_actor）
+- 时点红利：Google Chrysalis 10-22（1.8s/0%5xx 仿真，0% 含 40/50 请求 429 丢弃、Shapley 步级功劳、四闸门）＋AIOpsLab（gpt-5.4 分析31%/修复93%，19s/106s/155s）＋New Relic Autopilot K8s Agent 11-11＋Dynatrace 10.26"fix isn't applied"＋Pragmatic Engineer 10-27（Sevbot 不执行/ProdAgent 只建议）＋Anthropic 11-13 双事故分面降级＋腾讯云 Chaos Lab AIOps Score（验证0.15/成本0.10）
+- 本期反转：越接近生产越不敢执行（OpenAI/Anthropic/ProdAgent 只提建议），越敢执行的演示越靠仿真与丢弃需求换绿；分析与修复分分离上报只在 AIOpsLab/Arena 中立基准、六家云厂商全空。判词「绿指标/自动修复代码/自愈 1.8 秒可采购，举证这次回绿是你的动作治好的、不是把 40/50 用户挡门外治好的不可采购」
+- 本地原型（第 116 期）：泠乐 18「写-验-修闭环」首次当主线（图片型讲义据标题+笔记）+17 李峥峰+05 刘凯宁
+- 下期候选：`cure.attribution.*` 五字段 OTel 提案／丢弃-治愈分离记账／分面恢复四时间戳／自家事故离线回放对照器／analysis_repair_gap 榜单脚注／独立验证者换模型／信通院补"疗效可举证率"格
+
+## 第 228 期（2026-11-16 20:00）· 检测—拦截面／事后标记幻觉（Detection–Interception Gap / Post-hoc Flagging Illusion）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-2000.md（正文含题眼表格约 2786 汉字，总 3062；题眼＋五章＋六方案六维对比表＋14 来源/14 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/ 并 push 成功（commit 9567fa5，hes-p3-team-bench，2 files changed/112 insertions，0c50d10..9567fa5，网络正常）；C/E 两处 index 均追加 228
+- 期号：`date` 20:02→2000 档；C 盘最新本方 226（18:00 疗效归属面）、E 盘并行 227（19:31 熔断面），顺延 228；市场空白 162；字段族第 128 次；主线第 194 个全新立面；本地连续第 117 期
+- 主线：首次把「检测能否认出来 vs 拦截能否挡得住 是两条独立的轴」立为一等对象；与 #220 告警收敛/#213 因果闭合/#218 评测装置/#200 工具供应链显式划界；grep 事后标记/拦得住/Detection/Interception/空检测/分析没有完成 全 0
+- 核心新提法：检测率与拦截率正交（可检出 99% 拦截 0%）／分母切换（87% vs 45–62% vs 4/18）／时间差是架构决定的危险窗口／检测器沉默是二阶盲区（无结果≠无告警，6% session）／可见性取决于攻击藏哪（55% vs 11–25%）／暖机悖论（220→360 段 33%→99%）／毒记忆跨 session 因果链断裂／误报税无人记账；第 162 市场空白五项 `detect.intercept.*`（detected_at_vs_blocked_at/interception_rate/no_result_vs_no_alert/warmup_history_count/cross_session_causal_link）
+- 时点红利：Google 11-12 Agent Anomaly Detection 首份外部基准（自拆 87%≠拦截率）＋OpenAI Control Room 11-09/10 fail-closed 35 秒＋Anthropic Claude OTel→Databricks MLflow 11-03＋Rootly 11-03＋PAI 10 月可观测差距＋火山 AgentSentry/大模型防火墙四档动作＋阿里安全护栏＋腾讯安全网关 10 月上线
+- 本期反转：把高检出率写进发布页的是各家 Agent 平台，亲手拆穿"87% 不是拦截率"的是 Google 自己；越接近生产越把标记与拦截分开报（OpenAI fail-closed/火山四档），越靠产品页越糊成一个按钮。判词「异常检测/87%检出/护栏/审计/安全代答全可采购，举证这次是执行前挡下的、检测器失联你收到了信号不可采购」
+- 本地原型（第 117 期）：29 陈忻《B2B 跨境支付 AI 驾驭》首次当主线（100% 门禁放行＋AST 确定性红线先于 LLM 复审）＋05 刘凯宁确定性笼子＋09 吴垚接住告警打标闭环
+
+## 第 230 期（2026-11-16 21:00）· 知识保鲜面／知识漂移与腐化（Knowledge Freshness / Runbook & Memory Decay）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-2100.md（正文 2162 汉字、全文 2415，题眼＋五章＋七方案六维对比表＋15 来源/14 链接）；报告+索引已同步 E:/Knowledge/Knowledge/reports/；C/E 两处 index 均追加 230（E 盘保留并行 229 未覆盖）
+- 期号：`date` 21:07→2100 档；C 盘最新本方 228（20:00 检测—拦截面）、E 盘并行 229（20:31 重放面），顺延 230；市场空白 163；字段族 129（第 129 次无人提）；主线第 195 个全新立面；本地连续第 118 期
+- 主线：首次把「Agent 依赖的运维知识（runbook/记忆/知识图谱）会不会过期腐化、有无保鲜机制」立为一等对象；与 #213 因果闭合/#208 遥测供给/#164 知识复利/#185 度量主权 划界；与 213/208 构成递进链（供给→闭合→鲜度）；grep 知识陈旧/runbook腐化/知识保鲜/值班疲劳 全 0
+- 核心新提法：腐化是默认状态、可达误当有效／错误记忆自我确认（注入层一条错带每轮）／写时同步+读时校验双环／图谱≠真相／闭环完整而地基已朽；第 163 市场空白五项 `knowledge.freshness.*`（last_verified_at/evidence_source_revision/reference_resolvable_rate/staleness_score/correction_reverted_count）
+- 时点红利：Anthropic 11-06 记忆实验（413文件/1徽章 vs 9文件/4徽章、错误笔记注入每轮、dreaming 纠错、共享表41/57 vs 每合约一页57/57）＋ Google AQuA 开源（部署不可变源码快照比对、跳过座位检查15→2、漏素食7→0）＋ Netflix E2EGraph（RDF/OWL/SHACL/SPARQL+QuipuDB+13信号、图不自动证明因果）＋ Sourcegraph/InMobi runbook drift（19.2%过时引用、PR即文档检查点）＋ 满帮AgentCore/腾讯CloudQ/阿里STAROps
+- 反转：最硬态度在 Anthropic（错记忆当可传播风险、可回收）与 Google AQuA（部署快照绕开活文档），最软在云厂商产品页（只讲接多少知识/图谱多大）。判词「知识库/记忆系统/知识图谱/RAG 全可采购，举证这次依据的知识最近验证过、指向代码还在、错了能回收不可采购」
+- 本地原型（第 118 期）：03 余锦泽《Agent 的记忆不在对话里》首次当主线（全库唯一把记忆污染写成风险、数据核对+业务否决+反例回流可治理）；配 05 刘凯宁 AntOntology
+- 推送：本地 commit 成功（94b6083，2 files changed/97 insertions）；**git push origin hes-p3-team-bench 连续 3 次失败**——ls-remote 成功（凭据正常）但 push 连接被重置/超时（间歇网络故障），本地 ahead 1，待网络恢复补 push
+- 下期候选：`knowledge.freshness.*` 五字段 OTel 提案／runbook-代码同仓 PR 检查器／注入层记忆鲜度看板／dreaming 离线核对器／部署快照冻结诊断／过期知识陷阱题入基准／信通院补「知识保鲜可举证率」格
+- 下期候选：`detect.intercept.*` OTel 提案／时间戳分离最小实现／拦截率与检出率双轨看板／no_result 自身告警器／跨 session 因果锚点 trace／检测器值守 SLO／信通院补"拦截可举证率"格
+
+## 第 232 期（2026-11-16 22:00）· 例行承诺面／定时任务的静默缺席（Routine Commitment / Silent Absence of Scheduled Runs）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261116-2200.md（正文 2636 汉字、全文 3014；题眼＋五章＋七方案六维对比表＋19 来源/18 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/；C/E 两处 index 均追加 232（E 盘保留并行 231 未覆盖）
+- 期号：`date` 22:13→2200 档；C 盘最新本方 230（21:00 知识保鲜面）、E 盘并行 231（21:31 问责面），顺延 232；市场空白 164；字段族 130；主线第 196 个全新立面；本地连续第 119 期
+- 主线：首次把「本该发生的动作压根没发生、谁来发现」立为一等对象；缺席≠失败（失败留异常/span，缺席什么都不留）／无请求者即无监督者／应到-实到差／缺席二义性（没跑/跑了没记/被脱敏挡掉）／履约语义不可移植（skip/catchup/coalesce/expire）／结果回执比 exit 0 更难／自调度改变承诺集合；与 #202 记录沉默/#90 挂起面/#220 告警收敛/#230 知识保鲜/#231 问责 划界；grep 例行任务=0/履约=0/漏跑=0/期望表=0
+- 时点红利：Anthropic 11-13 两故障（自认定时任务晚 2h+、部分 skipped、无 RCA）＋OpenAI 11-11 近 10h Workspace Agent 无法启动/11-05 Work/Dots 定时没跑无人通知/Codex 8 次定时失败＋Google 11-13 BigQuery agent_events（fail-closed 跳轮却 fail-open 执行、缺轮可能是策略结果）＋社区 cron 三因＋Hermes v0.23.0 幂等/禁自调度＋腾讯 CloudQ 定时巡检＋阿里 STAROps 持续目标
+- 反转：把「支持周期任务」写进发布页的是各家平台，亲手拆穿「跑了没有」的是 Anthropic 状态页/Google 隐私文档/一线排障帖；七方案「缺席独立告警/平台故障后欠账交代」两列全空。判词「定时巡检/周期报告/cron 托管全可采购，举证今天九点那次该跑的例程是真跑了、跑了没记、还是被策略跳过了不可采购」
+- 本地原型（第 119 期）：09 吴垚《快手智能运维助手》首次把「定时触发=四类事件之一」当主线（图片型讲义目录级），配 15 朱革百度 AgentOps 全生命周期托管
+- 建议：`routine.commitment.*` 五字段 OTel（expected/fulfilled 按 commitment_id 配对）／应到清单由配置反向生成＋对账 SLO／外部 dead man's switch＋结果回执／缺席 reason 枚举／平台故障欠账结算单／禁自调度＋幂等演练／信通院补「例行承诺可举证率」格
+- 推送：见下方执行结果
+- 下期候选：`routine.commitment.*` OTel 提案与配对最小实现／应到清单反向生成器／缺席 reason 枚举器／故障欠账结算单模板／结果回执 ping 库／禁自调度与幂等演练脚本／信通院补格条款
