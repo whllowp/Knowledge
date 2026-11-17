@@ -3457,3 +3457,16 @@
 - **注意**：Last9/vcluster 为厂商博客；NVCRE 为厂商自述；arXiv 2605.17879 为预印本；论文故障注入向真实集群外推需谨慎；非硬件采购建议。
 - **落盘**：`reports/AI-SRE技术洞察-20261118-0018.md`
 - **下期候选**：合成数据与测试环境、多活写冲突合并策略、Agent 恢复信号、供应商弃用迁移窗口。
+
+
+## 第 267 期（2026-11-18 00:00）· 恢复判据面／过早恢复（Recovery Criteria / Premature Recovery）——告警转绿不是恢复，Agent 说"我修好了"更不是
+- 期号说明：`date` 00:19→0000 档；本方最新 265（22:00 诊断扰动面），并行实例 266（00:18 降级面／硬件可信），本期顺延 267；市场空白第 189 项；字段族第 151 次；主线第 221 条全新立面；本地连续第 143 期
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-0000.md（正文 2245 汉字／全文 2517；题眼＋五章＋十方案五列对比表＋20 来源／20 链接）；报告＋index 已复制／追加至 E:/Knowledge/Knowledge/reports/
+- 主线：首次把「故障结束的恢复判据」立为一等对象；与 #226 疗效归属（修复是否有效）／#184 续跑（断点恢复）／#258 容量恢复判定／#265 诊断扰动 显式划界——只问"何时可宣布恢复、关事件、撤降级"；grep 恢复判据/recover 确认 两处 0 或零星，确认全新立面
+- 核心新提法：转绿≠恢复≠稳住（症状消失／业务恢复／不再复发三层）／恢复是被声明的不是被观测的（agent declares done 在前、验证在后）／成功指标本身是污染源（429 限流换来 Chrysalis 0% 5xx、Claude Code 推理降级在成功率面板完全隐形）／观察期与 MTTR 直接冲突／临停状态散落无清算清单／一次通过≠可靠恢复（SRE Bench 从点估计转向可靠性）；第 189 市场空白五项 `recovery.verification.*`（recovery_declared_at／recovery_criteria_sli[]／green_vs_userjourney_delta／temporary_changes_outstanding[]／watch_outcome）
+- 时点红利：Google Project Chrysalis（10-22，1.8s／5xx 72.7-80%→0%，但 40/50 请求回 429，0% 部分来自故意限流）＋Google SRE AI Ops 论文（5-28 verify effect, stop or escalate）＋CloudsPress 双文（声明在前验证在后／验证是否真有帮助）＋dev.to remediation-first（验证搬进闭环、免疫系统确认威胁清除）＋Anthropic Claude Code 静默推理降级 7 周（RPS/p99/错误率全绿、用户抱怨才发现）＋CCAO-F（遏制 vs 业务状态恢复分离、operation ID 对账）＋Managed Agents（4-8 beta、4-10 SRE 教程 how should recovery be verified）＋Incident-Arena（9-30，声明后新鲜流量维持 SLI 固定时段、1638 次完整修复仅 59% 过、41% 仍败、329 栽安全门）＋AI SRE Arena（10-08 开源、修复后重新检查状态）＋SRE Bench 第三版（可靠性数字替代运气点估计）＋ITBench SRE（数据截至 11-16）＋阿里全栈 AgenticOps/BRiSE（1576 证据信号、RCA100/200 开源、"能力不能被验证"第三堵墙）＋腾讯 CloudQ（10-29/30 多云 AIOps）＋火山 RCA Harness／响应计划＋百度 QCon 上海 MTTR 60→10min＋safeguard.sh（10-19 复审，用户旅程/数据/积压/密钥/观察期/临停清算六项清单）
+- 本期反转：把 detect→diagnose→act→verify 四步闭环写进每份发布页的是各家平台，亲手拆穿"verify 验的只是告警清除"的是 Chrysalis 自己的 429 限流、Claude Code 的成功率全绿隐形降级与 Incident-Arena 的四成失败；十方案对比表「临停清算」「跨峰值观察」两列几乎全空。判词「限流降级／告警静音／一键回滚／调查报告／反事实回放／开源基准」全可采购，「这次恢复是用户真好了还是请求被挡门外、观察期覆盖哪次峰值、事故中关掉的告警和凭证归位没、有没有二次故障」不可采购
+- 本地原型（第 143 期新角度）：周昕毅《AI + SRE ≠ AISRE：AI 如何真正进入生产运维闭环》重读"进入生产闭环的最后一米是恢复的确认而非缓解的执行"，配肖汉松《从 Harness 到 Loop：阿福 Agent 小队如何处理持续涌入的线上 Badcase》把恢复后复发回流成 Loop
+- 建议：`recovery.verification.*` 五字段＋开工前写死恢复判据（含至少一条外部用户旅程信号）／恢复声明与恢复确认拆两字段两时间戳／观察期按事故类型预置且跨一次真实峰值或定时任务／临停变更登记三态清单（回滚/保留/开单）未清算不得关单／Arena 加"限流伪装恢复""静音告警下恢复"两类干扰题／信通院六维补「恢复可举证率」格
+- 注意：Chrysalis 数字为模拟演示自评（非生产）、Incident-Arena／SRE Bench／ITBench 为基准方自报且置信区间宽、Claude Code 降级为第三方报道＋复盘转述、腾讯"恢复时间缩短"为厂商表态无口径；"恢复判据面／过早恢复／recovery.verification.*／第 189 项空白"为本文归纳；本地 173 讲义为目录级引用；未采信 SEO 农场
+- 下期候选：`recovery.verification.*` OTel GenAI 提案与 RECOVERY_UNVERIFIED 门禁最小实现／转绿-用户旅程差值检测器／临停变更清算台账与关单门禁／跨峰值观察期调度器／恢复后复发 SLI 回流器／信通院补格
