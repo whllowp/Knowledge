@@ -1,0 +1,17 @@
+# 参考项目与压缩包（本地对照用，不入库）
+multica-main/
+ruflo-main/
+*.zip
+
+# 工作流草稿（机器自有）
+.zcode/
+
+# 系统杂项
+Thumbs.db
+.DS_Store
+
+# 未来 meta-harness 代码的常见产物
+node_modules/
+dist/
+build/
+.env*

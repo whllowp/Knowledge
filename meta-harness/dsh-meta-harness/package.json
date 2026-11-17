@@ -1,0 +1,11 @@
+{
+  "name": "dsh-meta-harness",
+  "version": "0.1.0",
+  "private": true,
+  "description": "meta-harness architecture rules as a pure-content dsh bundle: architecture overview, RSI ledger protocol, SRN bounded-notes protocol, and permission/budget rules, exposed as agent skills via skill-filesystem customSkillDirs.",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
