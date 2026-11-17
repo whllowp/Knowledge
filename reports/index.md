@@ -3485,3 +3485,18 @@
 - **注意**：KDD/ICML 为会议论文；arXiv 2605.11928、2601.00268 为预印本；FutureAGI 为厂商指南；数字为原文自报；非测试平台采购建议。
 - **落盘**：`reports/AI-SRE技术洞察-20261118-0031.md`
 - **下期候选**：多活写冲突合并策略、Agent 恢复信号、时区与时间语义、依赖弃用迁移窗口。
+
+
+## 第 269 期（2026-11-18 01:00）· 存续面／证据幸存者偏差（Evidence Survivorship / Survivorship Bias in Retained Evidence）——活下来给 Agent 看的那批证据，系统性偏向"没出事"
+
+- **报告**：`reports/AI-SRE技术洞察-20261118-0100.md`
+- **主线**：主线第 222 条——证据存续的选择偏差（从"缺什么证据/谁裁的/多旧"退一步问"还活着的证据是怎么活下来的"）。与 #101 证据可得面、#208 遥测供给面、#83 采样面、#201 观测成本面、#66 删除保留面显式划界。
+- **时间线证据**：Randoli 自建 SRE Agent 自认"我们错了"（预蒸馏信号推理质量低于原始上下文、把推理搬到数据侧）；ControlTheory Dstl8 2.0（KubeCon NA 盐湖城、源端逐行蒸馏读 sentiment、Telemetry Tax/Trust、336 事故/13 集群/两月 328 解决/零告警规则）；thomasdevos 留存集失败率反例（100 次 5 失败→成功子集 0%/失败富集 33.3%/预筛后尾采样仍 0%）；scixa 稀有失败算术 1/(p×q)（1%×0.1%=十万次一见）；Prefactor 复算 Anthropic 141,006 次运行仅 3 起、5% 采样期望 0.15 命中、OpenAI 约 1200 逃逸/700 攻 HF/17600 动作；Agnost AI 双数据集法；NHIMG evidence survivorship；Google 11-13/14 BigQuery/Looker（净化 span、fail-closed 跳过 RLS/脱敏、fail-open 执行、6 周默认保留）；腾讯云尾采样（错误/p95 全留、成功 5–10%、payload 7–14 天/元数据 90–365 天、采样与评估分离、决策留档）；火山 AgentKit 11-13 全自研评测；阿里 AgenticOps Cloud Monitor 2.0；Forbes 引 Mandiant M-Trends 潜伏 393 天 vs 90 天留存。
+- **四个新提法**：①留存决策从成本旋钮升格为诊断能力前置条件；②分母被悄悄替换（留存集失败率≠系统失败率），解法是永不采样的发起计数器；③静默失败是留存盲区专属居民（无 error span 不触发谓词、"结果不对的又快又安静"）；④源端蒸馏把选择权藏进不可解释模型反降可审计性，且评测集被留存偏差污染（量的是留存策略不是 Agent）。
+- **市场空白**：第 190 项——`evidence.survivorship.*`（population_initiations 永不采样计数器／retained_count·retained_fraction／retention_policy_id／selection_bias_direction 四态／silent_failure_predicate_coverage），字段族第 152 次无人提。
+- **判词**：「采样／蒸馏／脱敏／分层留存／尾采样／评测回放」全部可采购，「这次结论依据的证据是从多少条里留下的、按哪版规则、丢掉的那批里有没有静默失败、换留存策略结论翻不翻」不可采购。八方案对比表「未采样分母计数器」「留存策略可导出/版本化」两列几乎全空。
+- **本地原型**：本地 173 连续第 144 期成组启用（刘杨 08：规模化评估的样本本身就是被导出器选中并留存的那一批；配蒋烁淼 23 预聚合降基数=第二次留存决策、刘凯宁 05"结论/证据/待确认项"三分扩展出第四分"未留存项"）。
+- **建议**：五字段进 OTel GenAI 自有命名空间（缺省 SURVIVORSHIP_UNVERIFIED 不进门禁）；诊断报告加第四分"未留存项"；代表集估概率+诊断集查问题物理分离；留存选择当变更管（策略版本进 trace/CAB、发布 survivorship diff）；关键故障做"不采样对照"量化偏差；信通院六维补「证据存续可举证率」格。
+- **注意**：Randoli/ControlTheory/Prefactor/Agnost/thomasdevos 为一手工程博客或厂商稿；Google 来自官方文档与二手编译；Anthropic/OpenAI 数字为 Prefactor 转述未独立复核；"存续面／证据幸存者偏差／evidence.survivorship.*／第 190 项空白"为本文归纳；本地 173 为目录级引用；未采信 SEO 农场。
+- **落盘**：`reports/AI-SRE技术洞察-20261118-0100.md`
+- **下期候选**：`evidence.survivorship.*` OTel GenAI 提案与 SURVIVORSHIP_UNVERIFIED 门禁／未采样发起计数器落地／"未留存项"诊断报告模板／代表集-诊断集双数据集分离器／survivorship diff 发布格式／不采样对照器／静默失败谓词覆盖率测法／信通院补格。
