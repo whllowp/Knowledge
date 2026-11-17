@@ -3310,3 +3310,18 @@
 - **注意**：XYBench/Cloud-OpsBench/RCAtlas/Google fail-closed 多为论文自报/厂商稿未独立复核；本地为讲义转写；未采信 SEO 农场
 - **落盘**：报告＋本条目；提交后推送 hes-p3-team-bench
 - **下期候选**：`goal.alignment.*` OTel 提案与最小实现／XY 双报对照器／恢复判据绑业务基线 SLO／motion 反馈迁移原型／目标盲区编号器
+
+﻿## 第 257 期（2026-11-17 18:31）· 再平衡面／重分片与再平衡风暴（Rebalance Storm）——扩容是最大的变更，均衡器会搬故障，不会搬走故障
+
+- **期号说明**：并行实例 18:00 占用第 256 期（目标对齐面），本人顺延到 257（grep 确认 257 count=0）。
+- **报告**：`reports/AI-SRE技术洞察-20261117-1831.md`（正文 2398 汉字，6 条来源链接，对比表 10 行）
+- **主线**：第 214 条——「再平衡是一次没有变更单的变更」；自动均衡把「是否搬」的决策拿走，却没把「搬的账」交回来。
+- **时间线证据**：RavenClaude 场景 2026-06-05（Kafka 40k msg/s、24 分区、8 消费者，每 30–60 秒整组重平衡；broker 日志 `member ... failed, removing it from the group`；根因 handler 同步 HTTP 2–4 秒超 `max.poll.interval.ms`；消费者全 running、管道已停）；systemoverflow 复盘（LinkedIn 500 分区集群网络抖动→心跳超时→每次超时触发全组重平衡→暂停制造更多超时，80% 时间在重平衡）；Elasticsearch 8.6.1 release note（期望状态对账期集群暂时不均衡、可能提前撞 disk watermark，建议 8.8+）；Elasticsearch PR #163823（2026-10-28，reshard split 目标以 `UNASSIGNED_EXPECTED` 排在 `RELOCATION_CAN_REMAIN_NO` 前，积压 split 吃光恢复槽、饿死下线节点 relocation）；Redis 8.4 原子槽迁移（此前 ASK 窗口、MGET 跨迁移中 key 不可靠）；华为云 2026-11-12（reshard 大 key 阻塞主线程、治理靠调 pipeline/拆大 key）；Uber OpenSearch（InfoQ 2026-07-16，zone 节点数不均打乱 allocation awareness、集群常黄，Odin isolation group 自管放置，容忍整 zone＋1 节点）；kividb PR #724（2026-11-12，1,000 槽 272.2s→23.6s，11.5×）。
+- **四个新提法**：①再平衡是变更不是收敛，自动均衡把「是否搬」的决策权拿走却不交回账本；②重平衡风暴的伪装是平台指标全绿——URP=0、produce/fetch 正常，只有消费组状态在 Stable/PreparingRebalance/CompletingRebalance 振荡；③搬迁顺序即可用性，恢复优先级本质是「先搬谁」的可用性决策；④均衡的维度一多（容量/zone/隔离组），「均衡」本身就需要被定义。
+- **市场空白**：第 182 个（五项：再平衡事件账本标准、风暴双指标定义、搬迁预算与限速接口、迁移等价校验三件套、恢复优先级规范）。
+- **判词**：「消息队列／分片分配器／一致性哈希／槽迁移工具／自动扩缩容」全部可采购，「这一次再平衡搬了哪些 key、暂停了多久、卡住时谁在等谁、搬完之后新旧位置是否等价」不可采购。
+- **本地原型**：173／173-kb 连续第 138 期成组启用（赵恒 25：扩容演练先限速再扩，扩完先看账本再看曲线）。
+- **建议**：0–30 天采集组状态机与 rebalance 事件、快照 allocation explain；31–60 天风暴双阈值、搬迁预算与限速、`max.poll.interval` 与下游 p99 联动；61–90 天迁移等价校验进门禁、扩/杀节点演练验收「风暴不出现、暂停有上限、账本能回答搬了什么」。
+- **注意**：Kafka 场景为公开故障库自述、未经复核；LinkedIn 为二手教学复盘；ES release note/PR 机制可信但影响面随规模；Uber 为 InfoQ 转述；kividb 为单次基准非生产 SLA。
+- **落盘**：报告＋本条目；提交后推送 hes-p3-team-bench。
+- **下期候选**：①重平衡风暴的「退避参数」如何定；②分片分配的隔离组语义（zone＋1）；③迁移进度的统一口径（key/字节/轮次）。
