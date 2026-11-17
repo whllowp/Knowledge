@@ -1,0 +1,9 @@
+﻿# scratch / measurement output
+bench/
+examples/
+# third-party source checkouts
+gbrain-whllow/
+skills-main/
+# python
+__pycache__/
+*.pyc
