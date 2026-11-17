@@ -1,9 +1,12 @@
-﻿# scratch / measurement output
+# scratch / measurement output
 bench/
 examples/
 # third-party source checkouts
 gbrain-whllow/
 skills-main/
+andrej-karpathy-skills-main/
+stitch-skills-main/
+.omc/
 # python
 __pycache__/
 *.pyc
