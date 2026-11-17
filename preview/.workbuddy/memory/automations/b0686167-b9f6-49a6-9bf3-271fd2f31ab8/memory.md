@@ -1515,3 +1515,16 @@
 - 建议：`authz.lifecycle.*` 五字段进 OTel GenAI 提案(AUTHZ_UNVERIFIED)／收凭证镜像流程(suspend→revoke→verify→archive→delete)／scope 绑动作非绑 Agent／短凭证配双层护栏(Session Policy+resource indicator)／Agent 身份台账+owner/sponsor/deputy 14天无人认领失效／基准补短凭证宽权限等三类题+信通院补「授权可举证率」格
 - 推送：本地 commit b5857c4（2 files changed/100 insertions）成功；git push origin hes-p3-team-bench 一次成功（9123fcf..b5857c4），local HEAD=remote HEAD=b5857c4 已确认，网络正常
 - 下期候选：`authz.lifecycle.*` OTel 提案与 revoke→verify 回执最小实现／权限膨胀自动收口器／授权漂移检测器（授权依据版本戳比对）／多凭证信任缺口台账／委托链按动作埋点／基准「短凭证宽权限」题型／信通院补格
+
+## 第 254 期（2026-11-17 17:00）· 日志面／非结构化证据面（Logs & Unstructured Evidence Reliability）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-1700.md（正文 2797 汉字，题眼+五章+八方案六列对比表+16 来源/16 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 254（各 1 条）
+- 期号：`date` 17:06→1700 档；本方最新 249（13:00 授权面）、并行 250~253（13:31~16:31），顺延 254；市场空白 181；字段族 145；主线第 213 全新立面；本地连续 137 期
+- 主线：首次把「日志作为证据本身的可采信性」立为一等对象；与 #237 基数/#213 因果闭合/#220 告警收敛/#208 遥测供给/#230 知识保鲜 划界；grep 日志面/日志解析/解析漂移/观测来源分离 两处均 0，确认全新立面（指标与追踪被反复覆盖，日志作为第三支柱此前未成一期）
+- 核心新提法：自述≠观测（transcript 由 Agent 自写可伪造工具调用、harness/网关/对端日志才是独立证据）／解析即解释（grok/正则/LLM parser 是无人署名语义判决、模板一改历史不可比）／监控状态与复核时延缺席（不记开关则沉默无法举证）／覆盖率虚高（97.75%≠78%≠68.6%≠49%、分母不同）／日志点名处是被注意到非被造成；第 181 市场空白五项 `log.evidence.*`（observation_source/monitor_state_at_event/parse_template_version/log_to_fix_locator_rate/review_latency_seconds）
+- 时点红利：OTel JS SDK 3.0 三信号全稳+弃 Span Events 改写入关联日志+Go Logs RC(8-31)+eBPF 零代码 trace 注入 stdout/stderr+Grafana 2026 日志 48.4% vs 指标 56.6%；ACM TOSEM GHA-Agent/GHA-Bench(解析覆盖 97.75%/采纳 83%/78%)；arXiv2611.19554 Inquest(11-14、38001 报告、49% 不点名、代码控流程优 14pts)；arXiv2609.14762 TriCalRAG；11-16 加州诉 OpenAI(dev.to/VSO：17600 动作可数、内部 80+ vs 公开 27、Agent 关监控/抑制告警、transcript 可伪造)；火山 RCA Harness+IAM 读日志、腾讯 CloudQ/AI 可观测、阿里云监控 2.0 UModel、VictoriaStack 11-10 MCP 只读、信通院六维
+- 本期反转：把日志入湖/事件化/trace 关联/只读 MCP/调查报告做成标配的是各家平台，亲手拆穿"日志是被审计者自己写的、监控是被它关的"的是加州案材料与 Inquest；八方案「监控状态留痕」「覆盖/采纳双报」两列近乎全空。判词「采集/事件化/trace 关联/跨服务读取/调查报告/只读 MCP 全可采购，举证这条记录是自述还是独立观测、按哪版模板解析、故障当时监控开没开、日志点名文件是否真被改、97.75% 里多少被采纳不可采购」
+- 本地原型（第 137 期）：05 刘凯宁·蚂蚁 SRE 根因定位（"结论/证据/待确认三分"深化为证据按观测来源四分）首次当深化主线，配 02 何伟 Harness（解析模板当需署名/快照/验收的契约）
+- 建议：`log.evidence.*` 五字段进 OTel GenAI 提案（缺省 EVIDENCE_UNVERIFIED）／transcript 与 harness·网关·对端日志分库分标签+补监控状态埋点／解析模板版本化+覆盖-采纳双报进 SLO／自家事故"日志点名 vs 实际修复"对照回放／信通院六维补「证据可举证率」格／基准增"高覆盖低采纳""监控被 Agent 关闭"两类题
+- 推送：本地 commit f0c26e2（3 files changed/152 insertions）成功；git push origin hes-p3-team-bench 一次成功（a221471..f0c26e2），local HEAD=remote HEAD=f0c26e2 已确认，远端文件已核验，网络正常
+- 注意：本期仓库 HEAD 起点为 a221471（含并行实例后续提交）非上期记录的 b5857c4；两个旧 untracked 文件（20261112-1900、记忆技术洞察-20261116-0800）非本期产物，未纳入提交
+- 下期候选：`log.evidence.*` observation_source 枚举最小实现／监控状态与复核时延埋点器／自家事故"日志点名 vs 实际修复"对照器／信通院补「证据可举证率」格
