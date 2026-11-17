@@ -1478,5 +1478,40 @@
 - 反转：把「支持周期任务」写进发布页的是各家平台，亲手拆穿「跑了没有」的是 Anthropic 状态页/Google 隐私文档/一线排障帖；七方案「缺席独立告警/平台故障后欠账交代」两列全空。判词「定时巡检/周期报告/cron 托管全可采购，举证今天九点那次该跑的例程是真跑了、跑了没记、还是被策略跳过了不可采购」
 - 本地原型（第 119 期）：09 吴垚《快手智能运维助手》首次把「定时触发=四类事件之一」当主线（图片型讲义目录级），配 15 朱革百度 AgentOps 全生命周期托管
 - 建议：`routine.commitment.*` 五字段 OTel（expected/fulfilled 按 commitment_id 配对）／应到清单由配置反向生成＋对账 SLO／外部 dead man's switch＋结果回执／缺席 reason 枚举／平台故障欠账结算单／禁自调度＋幂等演练／信通院补「例行承诺可举证率」格
-- 推送：见下方执行结果
+- 推送：本地 commit 1e46c50（3 files changed/279 insertions）；首次 push 因 github.com:443 连接超时失败（ls-remote 亦超时，非凭据问题），第二次 push 成功；local HEAD=remote HEAD=1e46c50 已确认，远端同步完成
 - 下期候选：`routine.commitment.*` OTel 提案与配对最小实现／应到清单反向生成器／缺席 reason 枚举器／故障欠账结算单模板／结果回执 ping 库／禁自调度与幂等演练脚本／信通院补格条款
+
+
+## 第 234 期（2026-11-17 01:00）· 修复采纳面／建议到执行最后一公里（Remediation Adoption Gap）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-0100.md（汉字 2943，题眼+五章+九方案六维表+15 来源）；报告+index 已复制至 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 234
+- 期号：`date` 01:03→0100 档；本方最新 232、并行 233（22:31 代理支付），顺延 234；市场空白 165；字段族 131；主线第 197 全新立面；本地连续 120 期
+- 主线：首次把「修复提出→审阅→批准→执行→留住」五段采纳漏斗立为一等对象；与 #226 疗效归属（执行后是否有效）/#10 审批经济学（注意力上限）/#106 介入面/#222 变更归因/#232 例行承诺 划界；grep 采纳率上报/采纳漏斗/ADOPTION_UNVERIFIED 全 0
+- 核心新提法：提案正确≠被采纳≠被执行≠被留住／采纳率是被隐藏的分母／批准-执行静默断链（与 #232 缺席二义性同构但对象是变更）／审意图执行改取值（Incident-Arena 41% 正确修复仍失败、329 栽安全门、145 挪维护窗口、38 抬连接池）／未采纳样本不回流致自我确认／控制面越厚越难端到端追踪；第 165 市场空白 `fix.adoption.*`（proposed/approved/applied/persisted 配对派生 adoption_rate、approval_to_apply_latency、silent_defer_rate、revert_after_apply_rate、rejected_reason）
+- 时点红利：KubeCon NA 11-09~12「所有 Agent 先问人」——New Relic 11-11 Autopilot K8s 90+探测器生成修复代码但工程师自行执行＋Dynatrace GA 等待批准＋Virtana 三段＋Red Hat OpenShift MCP gateway GA＋Google Chrysalis 双签字＋Azure Review/Autonomous＋AWS 人审阅＋信通院六维＋阿里 STAROps 分级执行＋腾讯 CloudQ＋本地 10 周昕毅白名单执行
+- 反转：把「会提正确修复」做成标配的是各家平台，拆穿「41% 仍失败、批准≠执行」的是 Incident-Arena 与一线深访；九方案「采纳率上报」整列全空。判词「修复代码/回滚PR/审批按钮/白名单/双签字可采购，举证批准到执行隔多久、批准后有没执行、执行后有没有被回退不可采购」
+- 本地原型（第 120 期）：10 周昕毅携程三次现场检验第②条+白名单执行/恢复失败转人工当主线（深化为采纳漏斗），配 05 确定性笼子+03 语义记忆
+- 推送：本地 commit 185d1fb（2 files changed/103 insertions）成功；**git push origin hes-p3-team-bench 连续 7 次失败**——github.com:443 连接重置/超时（ls-remote 成功证明凭据正常，属网络故障）；并行实例又提交 aea1561（记忆技术洞察104期），本地 ahead 2，待网络恢复补 push
+- 下期候选：`fix.adoption.*` OTel 提案/adoption_id 配对最小实现／批→执行时延 SLO+外部回执器／plan digest 绑定+取值回写／未采纳原因枚举反例回流／复检回退器／信通院补「修复采纳可举证率」格
+
+## 第 237 期（2026-11-17 02:00）· 基数面／维度爆炸面（Telemetry Cardinality / Dimension Explosion）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-0200.md（汉字 2834，题眼+五章+七方案六维表+14 来源/14 链接）；报告+index 已复制至 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 237
+- 期号：`date` 02:13→0200 档；本方最新 234、并行 235（学习期）/236（会话粘性面），顺延 237；市场空白 166；字段族 132；主线第 198 全新立面；本地连续 121 期
+- 主线：首次把「指标标签基数导致分组被静默改写」立为一等对象；与 #83 采样面/#162 可观测黑洞/#201 观测成本面/#230 知识保鲜/#185 度量主权 划界；grep 两处索引 cardinality/高基数/基数爆炸 全 0
+- 核心新提法：总量绿/分组绿/证据绿三种独立的绿（基数溢出专打中间层、用总量绿掩护）／总数守恒≠分组可信／对 Agent 高基数是正确性非成本问题／乘法放大（10×5×4=200 加 10000 取值 id=200万）／GenAI 约定迁仓不版本化致白名单风化／归位 trace≠维度还在（采样+留存）／预聚合是无人署名语义决策；第 166 市场空白 `cardinality.*`（active_series_per_stream/cardinality_limit/overflow_datapoint_rate/overflow_affected_dimensions[]/dimension_query_undercount_rate）
+- 时点红利：OTel 8-06 基数指南（默认 2000/stream、otel.metric.overflow=true、总量对分组少算、delta 1000pod×2000 超后端）＋GenAI 语义约定 6-12 v1.42.0 迁仓至 semantic-conventions-genai 无 tag 不版本化＋火山引擎 QCon 北京预聚合/sortable slice+30%/200K QPS 吞吐 2×＋腾讯云 9-21/23 Agent 可观测 16 框架＋腾讯网 InfoQ 9-17 会话 ID 高基数警示＋Google ADK/Anthropic metadata-only/OpenAI session-turn-span＋PagerDuty Paige/Elastic nightshift
+- 反转：把「看清一切/多维下钻/预聚合秒查」写进发布页的是各家可观测平台，拆穿「总量对但分组被溢出吃掉」的是 OTel 自己的指南；七方案「overflow 可观测」「维度裁剪可举证」两列几乎全空。判词「语义约定/采集/回放/下钻/预聚合/存算分离可采购，举证 SLO 依赖维度没落在溢出里、被裁维度是哪几个、谁批准、能否查回不可采购」
+- 本地原型（第 121 期）：23 蒋烁淼·观测云 GuanceDB/DataKit 首次把「预聚合降基数/流式聚合复用/Partition·Cluster By」当主线（全库唯一高基数当底座工程问题），配 08 刘杨 OTel GenAI 三层 Span
+- 推送：本地 commit f3b7f5a（2 files changed/99 insertions）成功，**git push origin hes-p3-team-bench 一次成功**（5123741..f3b7f5a），local HEAD=remote HEAD=f3b7f5a 已确认，网络正常（对比 234 期连续 7 次失败）
+- 下期候选：`cardinality.*` 五字段 OTel 提案与 SLO 联动／双层预算白名单版本化／aggregation_manifest 最小实现／overflow 分组欠计 A/B 对照器／基准「总量对分组错」题型／信通院补「基数可举证率」格
+
+## 第 249 期（2026-11-17 13:00）· 授权面／凭证生命周期与权限膨胀（Authorization Lifecycle & Privilege Creep）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-1300.md（汉字 2791；题眼＋五章＋七方案六维对比表＋14 来源/14 链接）；报告+index 已复制至 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 249
+- 期号：`date` 13:21→1300 档；本方最新 237（02:00 基数面）、并行实例 238～248（02:31～12:31），顺延 249；市场空白 177；字段族 144；主线第 209 全新立面；本地连续第 133 期
+- 主线：首次把「身份与凭证的生命周期」立为一等对象；与 #234 修复采纳/#228 检测拦截/#232 例行承诺/#237 基数面 显式划界；grep 权限生命周期/权限膨胀/过度授权/临时凭证/least privilege/permission creep 两处索引全 0，确认全新立面
+- 核心新提法：有身份≠有边界≠边界被刷新过≠撤销被验证过／短期凭证≠最小权限（600s token 挂 AdministratorAccess、窗口短爆炸半径没小）／授权漂移跨不过长任务（token 分钟计、授权依据小时计）／撤销最后一公里无台账（多凭证信任缺口、delete without revoke）／权限膨胀默认无收口／委托链塌缩成「用了哪把钥匙」；第 177 市场空白 `authz.lifecycle.*`（credential_ttl_seconds/scope_vs_action_delta/authorization_source_at/revocation_verified_at/delegation_chain[]）
+- 时点红利：Entra Agent ID 4月GA（sponsor+owner、按token撤销）＋AWS AgentCore Identity＋Google Vertex Agent Engine＋MCP 7-28 修订（CIMD/RFC8707/禁passthrough）＋OWASP NHI Top10 与 ASI03 工作流授权漂移＋GitGuardian 泄露+151%/Claude Code 2×＋Anthropic WIF(jwt-bearer/600s/jti单次)＋OpenAI WIF(OIDC/SPIFFE/X.509)＋阿里云 Agent Sandbox STS「临时性不自动收窄权限」＋Rohit Prabhakar 24%/81%/多凭证信任缺口＋JumpCloud 僵尸Agent
+- 本期反转：发凭证工业化到分钟级，收凭证/授权新鲜度/撤销完整性留给人肉与假设；七方案「权限膨胀检测」「撤销可验证」两列几乎全空。判词「短期凭证/WIF/JIT/轮换/身份台账/sponsor 全可采购，举证凭证权限恰好、授权仍有效、全系统撤销干净、委托链还原到人和审批不可采购」
+- 本地原型（第 133 期）：15 朱革·百度 AgentOps（安全中心/生产写操作缺统一权限审批限流审计回滚）首次当主线，配 10 周昕毅·携程（L3 数字分身长期身份/身份隔离/责任边界/白名单执行）
+- 建议：`authz.lifecycle.*` 五字段进 OTel GenAI 提案(AUTHZ_UNVERIFIED)／收凭证镜像流程(suspend→revoke→verify→archive→delete)／scope 绑动作非绑 Agent／短凭证配双层护栏(Session Policy+resource indicator)／Agent 身份台账+owner/sponsor/deputy 14天无人认领失效／基准补短凭证宽权限等三类题+信通院补「授权可举证率」格
+- 推送：本地 commit b5857c4（2 files changed/100 insertions）成功；git push origin hes-p3-team-bench 一次成功（9123fcf..b5857c4），local HEAD=remote HEAD=b5857c4 已确认，网络正常
+- 下期候选：`authz.lifecycle.*` OTel 提案与 revoke→verify 回执最小实现／权限膨胀自动收口器／授权漂移检测器（授权依据版本戳比对）／多凭证信任缺口台账／委托链按动作埋点／基准「短凭证宽权限」题型／信通院补格
