@@ -3325,3 +3325,16 @@
 - **注意**：Kafka 场景为公开故障库自述、未经复核；LinkedIn 为二手教学复盘；ES release note/PR 机制可信但影响面随规模；Uber 为 InfoQ 转述；kividb 为单次基准非生产 SLA。
 - **落盘**：报告＋本条目；提交后推送 hes-p3-team-bench。
 - **下期候选**：①重平衡风暴的「退避参数」如何定；②分片分配的隔离组语义（zone＋1）；③迁移进度的统一口径（key/字节/轮次）。
+
+## 第 258 期（2026-11-17 19:00）· 容量面／自愈的余量账本（Capacity Headroom & Self-Healing Resource Ledger）——自愈会花掉下一场故障本该用的余量，而没人记这笔账
+- 期号说明：`date` 19:17→1900 档；本方最新 256（18:00 目标对齐面）、并行实例 257（18:31 再平衡面，仅 E 盘），本期顺延 258；市场空白第 183 项；字段族第 147 次无人提；主线第 215 条全新立面；本地连续第 139 期
+- 产物：reports/AI-SRE技术洞察-20261117-1900.md（正文 2509 汉字；题眼＋五章＋八方案七列对比表＋20 来源/20 链接）
+- 主线：首次把「自愈动作消耗的应急余量」立为一等对象——扩容/扩盘是 Agent 最高频自愈动作，却消耗掉下一场故障本该用的同一份余量（节点/配额/突发额度/连接池 headroom）；与 #257 再平衡面显式划界并前推一步（余量的借还与挤占）；容量面/容量预留/配置变更面此前未成期
+- 核心新提法：操作成功≠余量还在≠恢复稳住／余量是不可再生储备却被当免费耗材／自愈的扩容吃掉下一次自愈需要的余量（自噬）／扩容易缩容难形成慢性容量赤字／多 Agent 共享一份余量构成公地悲剧／判据口径分裂制造虚假繁荣；第 183 市场空白 `capacity.ledger.*`（headroom_before_pct／headroom_after_pct／headroom_source／headroom_returned_at／co_tenants_affected）
+- 时点红利：Google SRE 书第二版（11 月容量管理→动态扩缩+FinOps）＋Anthropic S-1/A(8954 亿算力承诺/需求加速则容量不足)＋OpenAI Codex capacity errors 降 80 倍+Pando＋腾讯云 ES 3700+ 集群自动扩盘/告警-73%＋火山性能容量专家＋阿里 STAROps UModel＋Tymfi Labs(HPA 上限1扩到4被缩回判负/79%~45%)＋Incident-Arena(41% 正确修复未闭环/连接池≤上限−headroom)＋AI SRE Arena
+- 本期反转：平台把"自动扩盘/弹性伸缩/缓存减载"做成标配，基准(Tymfi/Incident-Arena)却拆穿"操作成功但余量耗尽/被缩回/重启即蒸发"；判据侧反走在平台前面
+- 本地原型（第 139 期）：李东东《端云协同调度在 B 端应用的工程实践》首次当"余量即一等资源"本土注脚，配朱革·百度 AgentOps「弹性与多租、配额成本可控」
+- 建议：`capacity.ledger.*` 五字段＋`HEADROOM_UNVERIFIED` 门禁／恢复判定叠加 hold window+重启复验+余量红线／permitted-change list 写死"上限减 headroom"／信通院补「余量可举证率」格
+- 注意：3700+/8954 亿/Tymfi 79%~45%/41% 多为厂商稿/基准自报未独立复核；字段族为本文归纳；未采信 SEO 农场
+- 落盘：报告＋本条目已复制 E 盘；提交后推送 hes-p3-team-bench
+- 下期候选：`capacity.ledger.*` OTel 提案与 HEADROOM_UNVERIFIED 门禁最小实现／余量水位进 SLO 阈值／缩容回补器与冷却期治理／多 Agent 共享余量分配仲裁原型
