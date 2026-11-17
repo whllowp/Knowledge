@@ -3382,3 +3382,17 @@
 - **注意**：CA/B 时间表为多家转述、以正式 ballot 为准；首批 200 天到期为厂商观察；SecureW2/Safeguard.sh/Encryption Consulting 为厂商博客含立场，「数千次续期」为估算；SPIRE 细节以对应版本为准；非 PKI 选型建议。
 - **落盘**：报告＋本条目；提交后推送 hes-p3-team-bench。
 - **下期候选**：①续期风暴的速率限制治理；②信任链兼容性测试矩阵；③Agent 身份 TTL 与回收策略。
+
+
+## 第 262 期（2026-11-17 21:00）· 数据龄期面／决策时证据有多旧（Decision-Time Data Age / Observation-to-Decision Latency）——行业把"实时可观测"写进发布页，Agent 做自愈决策时翻开的是 T−Δ 秒的世界
+- **期号说明**：`date` 21:29→2100 档；本方最新 260（20:00 置信度校准面），并行实例 261（20:31 证书面），本期顺延 262；市场空白 185；字段族 149；主线 217；本地连续 141 期。
+- **报告**：`reports/AI-SRE技术洞察-20261117-2100.md`（正文 2724 汉字；题眼＋五章＋八方案五列对比表＋16 来源链接）。
+- **主线**：首次把「信号从事件发生到 Agent 拿到并据此决策的秒数 Δ」立为一等对象；与 #254 日志证据/#237 基数/#260 置信度校准/#230 知识保鲜划界——只管时间差有没人记、有没人设预算。grep 数据龄期/观测到决策全 0，历史 freshness 均指数据契约/图谱/知识保鲜，确认全新立面。
+- **时点红利**：Google Gemini Agent Platform 延迟表（指标 60～120s 采样/180～420s 显示、异常检测 40min 冷启/420s 可见、`--freshness=6h` 漏最近索引、内联零延迟、政策传播 7min）＋Edge Delta prod immune system/AI SRE Arena（21 故障 18/21 vs 12/21、流式原生、自评）＋tamiz.pro 时间戳悖论（陈旧上下文注入/副本时钟漂移/LLM 时间戳是 data 非 metadata/agent.started_at.hybrid）＋SREGym 噪声 72.6→62.6/60.7→53.7＋OpenRCA 2.0 presence bias＋OpenAI 审查员 ≤30min＋Anthropic 自评估每轮<2%＋火山 11 月 Agent 轨迹/AI 动态阈值＋腾讯 CloudQ 全景图谱。
+- **四个新提法**：①实时是采集侧不是决策侧的证据新鲜；②能查到≠查到的是最新的（查询语法都在提醒龄期）；③沉默可能是证据还在管道里（presence bias/lookback/freshness 漏索引同构）；④自治级别越高龄期越该收紧而行业反着走（连"停止"都有 7min 龄期）。
+- **市场空白**：第 185 个，五项 `decision.evidence_age.*`（event_observed_at／evidence_available_at／age_at_decision_seconds／age_budget_seconds／age_source）。
+- **判词**：「实时采集／流式管道／秒级导出／全景图谱／异常检测／告警收敛／动态阈值」全可采购，「这次自愈决策依据的证据在决策时刻有多旧、沉默是真没有还是没采到、当前状态是不是会话开始旧快照、有没有超过龄期预算」不可采购。
+- **本地原型**：173／173-kb 连续第 141 期——刘杨《从 Trace 到规模化实时评估》新角度重读"实时是谁的实时"（Trace 异步导出藏着龄期轴），配刘凯宁蚂蚁 SRE「结论/证据/待确认项三分」写入证据龄期。
+- **建议**：五字段＋AGE_UNVERIFIED 门禁／按动作分级设龄期预算超标转人工／沉默三态化杜绝 presence bias／age_at_decision_seconds 与第 260 期 confidence.calibration.* 并排进 SLO／SREGym+Arena 把龄期升为显式变量出龄期-成功率曲线／信通院补「证据时效可举证率」格。
+- **注意**：180～420s/40min/18-21/72.6→62.6/78%-54% 多为厂商文档·预印本·二手编译未复核，Edge Delta Arena 为出题人自评；字段族为本文归纳；未采信 SEO 农场。
+- **下期候选**：①`decision.evidence_age.*` OTel 提案与门禁最小实现；②龄期-成功率曲线生成器；③沉默三态化埋点器；④信通院补格。

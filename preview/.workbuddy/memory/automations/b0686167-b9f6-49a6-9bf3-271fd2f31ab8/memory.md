@@ -1528,3 +1528,55 @@
 - 推送：本地 commit f0c26e2（3 files changed/152 insertions）成功；git push origin hes-p3-team-bench 一次成功（a221471..f0c26e2），local HEAD=remote HEAD=f0c26e2 已确认，远端文件已核验，网络正常
 - 注意：本期仓库 HEAD 起点为 a221471（含并行实例后续提交）非上期记录的 b5857c4；两个旧 untracked 文件（20261112-1900、记忆技术洞察-20261116-0800）非本期产物，未纳入提交
 - 下期候选：`log.evidence.*` observation_source 枚举最小实现／监控状态与复核时延埋点器／自家事故"日志点名 vs 实际修复"对照器／信通院补「证据可举证率」格
+
+## 第 256 期（2026-11-17 18:00）· 目标对齐面／意图-执行鸿沟（Goal Alignment / Intent–Execution Gap）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-1800.md（正文 2617 汉字；题眼+五章+八方案七列对比表+16 来源/16 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 256（各 1 条）
+- 期号：`date` 18:12→1800 档；本方最新 254（17:00 日志面）、并行实例 255（17:31 分裂面，仅 E 盘），顺延 256；市场空白 182；字段族 146；主线第 214 全新立面；本地连续 138 期
+- 主线：首次把「Agent 动作是否对齐用户真正想达成的目标」立为一等对象；三层 execution/outcome/goal 行业只交付第一层；与 #213 因果闭合/#234 修复采纳/#232 例行承诺/#254 日志证据 划界；grep 目标对齐/意图-执行/答非所问/goal correctness 未成期
+- 核心新提法：执行层≠结果层≠目标层（Google 只填第一层、goal correctness open）／识别-行动鸿沟（XYBench 选中 71-84% vs 写出 35-41%、oracle 喂意图后识别反跌 47→34%）／表述-目标二义（复述 Y 让 trace 全绿）／完成定义缺失（进程起≠业务恢复）／失败样本不回流／隐私护栏制造目标盲区（fail-closed 跳轮可能策略非 bug）；第 182 市场空白 `goal.alignment.*`（stated_request/intended_goal/goal_emphasis/misconception_identified/goal_verified_at）
+- 时点红利：Google 11-13 BigQuery/Looker 可观测（只度量执行）＋Ai2 XYBench 11-13（EMNLP 2026 最佳资源论文、8115 问题）＋LangChain 11-14 goal engineering（prompt/context 会消失 goal 长存、motion）＋Anthropic 11-13 故障＋OpenAI 11-11 Workspace Agent 9h42m＋火山 APMPlus"说完成却不对"＋阿里 STAROps"告警处≠出事处"＋腾讯 CloudQ 10-29
+- 本期反转：把执行可观测做成标配的是各家平台，亲手拆穿"识别意图却没按意图行动"的是 Ai2 同日 XYBench 与一线"告警处≠出事处"；八方案目标层与对齐证据两列几全空。判词「trace 重建/token 计数/评测并置/Agent 轨迹/全景图谱/状态页时间线全可采购，举证对齐真正目标、识别误解并据此改做法不可采购」
+- 本地原型（第 138 期）：09 吴垚快手智能运维助手（接住告警是 Y、沉淀真实根因是 X）首次当主线，配 10 周昕毅携程验证恢复现场检验第②条
+- 推送：本地 commit c0de00f（2 files changed/102 insertions）成功；git push origin hes-p3-team-bench 一次成功（c78e09e..c0de00f），local HEAD=remote HEAD=c0de00f 已确认，网络正常
+- 注意：仓库起点 c78e09e 含并行 255 期分裂面（86a013b）与记忆 109 期提交；两个旧 untracked 文件（20261112-1900、记忆技术洞察-20261116-0800）非本期产物未纳入
+- 下期候选：`goal.alignment.*` OTel 提案与 GOAL_UNVERIFIED 门禁／XY 双报对照器／恢复判据绑业务基线 SLO／motion 反馈迁移原型／目标盲区编号器／信通院补「目标可举证率」格
+
+## 第 258 期（2026-11-17 19:00）· 容量面／自愈的余量账本（Capacity Headroom & Self-Healing Resource Ledger）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-1900.md（正文 2509 汉字；题眼+五章+八方案七列对比表+20 来源/20 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 258
+- 期号：`date` 19:17→1900 档；本方最新 256（18:00 目标对齐面）、并行 257（18:31 再平衡面，仅 E 盘），顺延 258；市场空白 183；字段族 147；主线第 215 全新立面；本地连续 139 期
+- 主线：首次把「自愈动作消耗的应急余量」立为一等对象；与 #257 再平衡面（扩容是变更/搬故障）显式划界并前推一步（余量借还与挤占）；grep 容量面/容量预留/配置变更面/恢复演练面 均 0 或零星，确认全新立面
+- 核心新提法：操作成功≠余量还在≠恢复稳住／余量是不可再生储备被当免费耗材／自愈的扩容吃掉下一次自愈需要的余量（自噬）／扩容易缩容难成慢性容量赤字／多 Agent 共享余量构成公地悲剧／判据口径分裂造假繁荣；第 183 空白 `capacity.ledger.*`（headroom_before_pct/headroom_after_pct/headroom_source/headroom_returned_at/co_tenants_affected）
+- 时点红利：Google SRE 书二版（11月容量→动态扩缩+FinOps/L0-L4）＋Anthropic S-1/A(8954亿算力承诺/需求加速容量不足/3月故障)＋OpenAI Codex capacity errors 降80倍六管道改动+Pando(14倍commit/99%命中/1PB日)+Workspace Agent 9h42m＋腾讯云 ES 3700+集群自动扩盘/2800+流程/告警-73%＋火山性能容量专家＋阿里 STAROps UModel(2000+评测/700+场景)＋Tymfi Labs(HPA上限1扩4被40秒缩回判负/七模型79%-45%/双故障3/10)＋Incident-Arena(41%正确修复未闭环/连接池≤上限−headroom/重启复验)＋SREGym 78.5%＋AI SRE Arena(GPT-6-Astra判卷)
+- 本期反转：平台把自动扩盘/弹性伸缩/容量评估/缓存减载做成标配，基准(Tymfi/Incident-Arena)拆穿"操作成功但余量耗尽/被缩回/重启即蒸发"，判据侧反走在平台前面；八方案「余量可见性/借用来源/归还闭环」三列几乎全空。判词「自动扩盘/弹性伸缩/容量评估/缓存减载/可审计回放/限流分层全可采购，举证花掉多少余量/从哪借/何时缩回/邻居是否被挤占不可采购」
+- 本地原型（第139期）：李东东《端云协同调度在B端应用的工程实践》把调度视为有限资源分配首次当"余量即一等资源"注脚，配朱革·百度 AgentOps「弹性与多租、配额成本可控」还原为容量账本问题
+- 建议：`capacity.ledger.*` 五字段+HEADROOM_UNVERIFIED 门禁／恢复判定叠加 hold window+重启复验+余量红线／permitted-change list 写死"上限减 headroom"、维护窗口永不授权／AIOps Score 提高 Verification 权重／信通院补「余量可举证率」格
+- 推送：本地 commit 199a2e6（2 files changed/101 insertions）成功；git push origin hes-p3-team-bench 一次成功（d996ed9..199a2e6），local HEAD=remote HEAD=199a2e6 已确认，远端报告文件已核验，网络正常
+- 注意：仓库起点 d996ed9 含并行实例后续提交；两个旧 untracked 文件（20261112-1900、记忆技术洞察-20261116-0800）非本期产物未纳入
+- 下期候选：`capacity.ledger.*` OTel 提案与 HEADROOM_UNVERIFIED 门禁最小实现／余量水位进 SLO 阈值／缩容回补器与冷却期治理／多 Agent 共享余量分配仲裁原型／信通院补格
+
+## 第 260 期（2026-11-17 20:00）· 置信度校准面／"自信地错误"鸿沟（Confidence Calibration / Confidently-Wrong Gap）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-2000.md（正文 2952 汉字；题眼+五章+七方案七列对比表+19 来源/19 链接）；报告+index 已复制 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 260
+- 期号：`date` 20:23→2000 档；本方最新 258（19:00 容量面）、并行 259（19:31 标签面，仅 E 盘），顺延 260；市场空白 184；字段族 148；主线第 216 全新立面；本地连续 140 期
+- 主线：首次把「Agent 自报置信度这个数本身是否校准、能否当自动化门禁」立为一等对象；与 #161 人机信任校准（人信它的分量）/#160 因果可信（因果是否成立）/#234 修复采纳 划界——只问「把握程度这个数是否诚实」；grep 置信度校准面/confidence.calib/自报置信度 两处均 0，全新立面确认
+- 核心新提法：结论对≠「有多确定」可信且后者正被当前者用／置信度从展示字段升格为控制面开关却未经开关验收／是没有单位的数（自评分/证据覆盖/验证器通过率混用不可比）／过度自信是默认且单调危险方向／校准会漂移而行业做一次性校准／认知卸载正反馈（越自信越没人查）／评测被污染（偷看事后报告/门控失真/日志静默失败）；第 184 空白 `confidence.calibration.*`（self_reported_confidence/empirical_accuracy_at_confidence/calibration_delta/confidence_basis/calibration_evaluated_at）
+- 时点红利：Traversal+OpenRCA2.0(20.7%恢复根因集/点对服务1/5无因果路径/ORCA-bench25.3%/confidently wrong/三失败模式)＋IEEE EnoughBench(10-26入库/stop-time calibration/过度自信符号分解/gpt-4o-mini低于随机基线)＋dev.to(GATE2校准±0.10/Threshold Without Calibration反模式/一次性评测反模式)＋SigNoz(95-100% vs ITBench13.8%/Rootly自信错误答案/incident.io偷看复盘致虚高/deskilling)＋N-iX(confident-but-wrong rate/Gartner审批80%→20%)＋INNOQ(ITBench-AA47%)＋MIT Tech Review转述＋火山RCA Harness结论有置信度/评测11-13切自研＋腾讯证据置信度调权＋Google fail-closed日志fail-open执行/ADK v2静默零行＋Anthropic自托管每步OTel＋OpenAI Sevbot/Control Room＋阿里STAROps
+- 本期反转：把置信度打分/自动阈值/自治分级做成标配的是各家平台，拆穿「0.85听着对却没验证是否预测85%准确率」的是 dev.to 评测法与 EnoughBench；七方案「公开校准方法」「抗漂移/污染」两列几乎全空。判词「置信度打分/自动阈值/自治分级/人类审批/护栏门禁全可采购，举证0.85是否真对应85%经验准确率、模型自评还是验证器复核、最近校准在何时、换模型后有没有重校不可采购」
+- 本地原型（第140期）：施宏斌 14 金融 Agent Eval「识别→展开→质疑→验证，还缺什么证据」新角度深化（从证据充分性推到置信度本身可否证实）＋刘凯宁 05「结论/证据/待确认项三分」
+- 建议：`confidence.calibration.*` 五字段进 OTel GenAI 提案（缺省 CALIBRATION_UNVERIFIED 不进门禁）／阈值先校准再用（±0.10、>0.15 加校正因子）／验证器与调查者独立／confident-but-wrong rate 进值守 SLO／变更后重跑回放集／EnoughBench+ORCA-bench 题型入基准／信通院补「置信度可举证率」格
+- 推送：本地 commit f8b1ac4（2 files changed/104 insertions）成功；git push origin hes-p3-team-bench 一次成功（75f2c83..f8b1ac4），local HEAD=remote HEAD=f8b1ac4 已确认，远端文件名已核验，网络正常
+- 注意：仓库起点 75f2c83；两个旧 untracked 文件（20261112-1900、记忆技术洞察-20261116-0800）非本期产物未纳入
+- 下期候选：`confidence.calibration.*` OTel 提案与 CALIBRATION_UNVERIFIED 门禁／置信度分档经验准确率对照器与校准曲线看板／confident-but-wrong 检测器／换模型后置信度漂移巡检器／信通院补格
+
+
+## 第 262 期（2026-11-17 21:00）· 数据龄期面／决策时证据有多旧（Decision-Time Data Age / Observation-to-Decision Latency）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-2100.md（正文 2724 汉字/全文 3132；题眼＋五章＋八方案五列对比表＋16 来源/16 链接）；报告+index 已复制/追加至 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 262
+- 期号：`date` 21:29→2100 档；本方最新 260（20:00 置信度校准面），并行 261（20:31 证书面，仅 E 盘），顺延 262；市场空白 185；字段族 149；主线 217；本地连续 141 期
+- 主线：首次把「信号从事件发生到 Agent 拿到并据此决策的秒数 Δ」立为一等对象；与 #254 日志证据/#237 基数/#260 置信度校准/#230 知识保鲜 划界——不管内容对不对，只管时间差有没人记/设预算；grep 数据龄期/观测到决策两处均 0，历史 freshness 6 处均指数据契约/图谱/知识保鲜，确认全新立面
+- 核心新提法：实时是采集侧不是决策侧证据新鲜／能查到≠查到最新（--freshness=6h 漏索引、查询语法自证龄期）／沉默可能是证据还在管道里（presence bias/lookback/freshness 同构）／RCA 时间线=旧上下文+漂移时钟+自报时间拼接／自治越高龄期越该收紧而行业反着走（连停止都有 7min 龄期）；第 185 空白 `decision.evidence_age.*`（event_observed_at/evidence_available_at/age_at_decision_seconds/age_budget_seconds/age_source）
+- 时点红利：Google Gemini Agent Platform 延迟表（指标 60-120s 采样/180-420s 显示、异常检测 40min 冷启/420s 可见、内联零延迟、政策传播 7min/组成员数小时）＋GKE 托管 OTel 5-300s＋Edge Delta prod immune system+Arena（18/21 vs 12/21 自评）＋tamiz.pro 时间戳悖论（陈旧上下文注入/副本时钟漂移/LLM 时间戳是 data 非 metadata/agent.started_at.hybrid）＋SREGym 噪声 72.6→62.6/60.7→53.7＋OpenRCA 2.0 presence bias＋OpenAI 审查员≤30min＋Anthropic 自评估 78%/54%＋火山 11 月 Agent 轨迹＋腾讯 CloudQ 全景图谱＋OTel GenAI 属性
+- 本期反转：把实时采集/流式管道/秒级导出/全景图谱/异常检测/告警收敛/动态阈值做成标配的是各家平台，亲手拆穿"你看到的现在是七分钟前、最近6小时查询漏了最近几分钟、没告警只是没采到"的是 Google 自己延迟表、tamiz 时间戳悖论与 SREGym 噪声对照；八方案五列表「决策时龄期可导出」「龄期进门禁」两列几乎全空。判词「实时采集/流式管道/秒级导出/全景图谱/异常检测/告警收敛/动态阈值全可采购，举证这次自愈决策依据证据多旧、沉默是真没有还是没采到、当前状态是否会话开始旧快照、有没有超龄期预算不可采购」
+- 本地原型（第 141 期）：刘杨《从 Trace 到规模化实时评估：面向生产流量的 Agent 可观测实践》新角度重读"实时是谁的实时——Trace 本身 span 完成后异步导出藏着龄期轴"，配刘凯宁蚂蚁 SRE「结论/证据/待确认项三分」把证据龄期写进待确认项（与 #254 观测来源四分正交两列）
+- 建议：`decision.evidence_age.*` 五字段＋AGE_UNVERIFIED 门禁／按动作分级设龄期预算超标转人工／沉默三态化杜绝 presence bias／age_at_decision_seconds 与第 260 期 confidence.calibration.* 并排进 SLO（一个管多确定一个管多旧）／SREGym+Arena 龄期升显式变量出龄期-成功率曲线／信通院补「证据时效可举证率」格
+- 推送：本地 commit 待填；git push origin hes-p3-team-bench 待确认（起点 d2188dc，并行 263 文件未纳入本期提交；两个旧 untracked 文件非本期产物）
+- 注意：并行实例 2131（263）同时在运行，E 盘 index 尾部原有其 261 条目；推送前已确认远端 HEAD=d2188dc=本地 HEAD
+- 下期候选：`decision.evidence_age.*` OTel 提案与 AGE_UNVERIFIED 门禁最小实现／龄期-成功率曲线生成器／沉默三态化埋点器／决策记录龄期与置信度并排 SLO 模板／信通院补格
