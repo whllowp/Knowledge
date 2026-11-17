@@ -3196,3 +3196,16 @@
 - 注意：PostHog 为厂商内部实验、单人标注；土耳其语研究为预印本、120 组样本；ORFuzz/SentryBench 为学术工作、基准与生产分布有差距（SentryBench 聚焦公共安全）；SIEM/XDR 为会议论文；OpenAI 事件为公司自述；本期未实测，不构成安全/合规建议。
 - 落盘：报告＋索引已 push 到 hes-p3-team-bench；仅 add 报告与 index.md，未动其他会话文件。
 - 下期候选：**误杀申诉的仲裁成本**（谁有权判「这是误杀」、判错了谁负责）；或**白名单腐化**（例外加着加着变成全放行，如何自动收口）。
+
+
+## 第 249 期（2026-11-17 13:00）· 授权面／凭证生命周期与权限膨胀（Authorization Lifecycle & Privilege Creep）——行业把"短期凭证"当成安全的答案在卖，却没人举证"这次写操作用的凭证权限是否恰好、授权是否还有效、事后是否真撤销干净"：token 以分钟计，授权漂移以小时计，撤销留一半
+- 期号说明：`date` 13:21→1300 档；两处索引最新为本方 237（02:00 基数面）、并行实例 238～248（02:31～12:31），本期顺延 249；市场空白第 177 项；字段族第 144 次无人提；主线第二百零九条全新立面；本地连续第 133 期成组启用
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-1300.md（汉字 2791；题眼＋五章＋七方案六维对比表＋14 来源/14 链接）
+- 主线：首次把「身份与凭证的生命周期」立为一等对象；与 #234 修复采纳（批准≠执行）/#228 检测拦截（检出≠拦截）/#232 例行承诺（缺席二义性）/#237 基数面 显式划界；grep 索引 权限生命周期／权限膨胀／过度授权／临时凭证／least privilege／permission creep 全 0，确认全新立面
+- 时点红利（最近 30 天＋2026 年内）：微软 Entra Agent ID 4 月 GA（sponsor＋owner 双角色、按 token 撤销、credential-less）＋AWS Bedrock AgentCore Identity＋Google Vertex AI Agent Engine＋MCP 2026-07-28 修订（CIMD 取代 DCR、RFC 8707 资源指示符、禁 token passthrough、refresh token 轮换）＋OWASP NHI Top 10（NHI-05 过度授权/NHI-07 长寿命密钥/NHI-01 不当下线）与 ASI03:2026 身份与权限滥用（工作流授权漂移、委托权限滥用）＋GitGuardian 泄露密钥自 2021 +151%、Claude Code 提交泄露 2×（Descope 10-25 引述）＋Anthropic WIF（jwt-bearer、600s 默认、jti 单次、无 refresh）＋OpenAI WIF（OIDC/SPIFFE/X.509）＋阿里云 8 月 Agent Identity＋Agent Sandbox STS 注入（官方明言「临时性和自动刷新不会自动收窄权限」）＋Rohit Prabhakar 调研（24% 过度授权、81% 凭证暴露、多凭证信任缺口）＋JumpCloud 僵尸 Agent
+- 核心新提法：**有身份≠有边界≠边界被刷新过≠撤销被验证过**／短期凭证≠最小权限（同一把 600s token 挂 AdministratorAccess，窗口短了爆炸半径没小）／授权漂移跨不过长任务（token 以分钟计、授权依据以小时计）／撤销最后一公里无台账（多凭证信任缺口、delete without revoke 留绑定/密钥/同意授权）／权限膨胀是默认方向无自动收口／委托链在日志里塌缩成"用了哪把钥匙"（attribution collapse）；第 177 市场空白五项 `authz.lifecycle.*`（credential_ttl_seconds/scope_vs_action_delta/authorization_source_at/revocation_verified_at/delegation_chain[]），第 144 次无人提字段族
+- 本期反转：行业把"发凭证"工业化到分钟级（WIF/STS/JIT/轮换/身份台账），却把"授权新鲜度/权限不膨胀/撤销完整性"留给人工与假设；最短凭证配最宽 Role 在遥测上与最小权限长得一模一样。判词「短期凭证／WIF 联邦／JIT 即时授权／自动轮换／身份台账／sponsor 制度全部可采购，举证这次写操作的凭证权限是否恰好、授权在执行那刻是否仍有效、任务结束后是否在全部系统撤销干净、委托链能否还原到人和审批不可采购」；七方案「权限膨胀检测」「撤销可验证」两列几乎全空
+- 本地原型（第 133 期）：15 朱革·百度 AgentOps（五大中心含安全中心、生产写操作缺统一权限/审批/限流/审计/回滚是规模化最大拦路虎、安全管控四类高危）首次当主线，配 10 周昕毅·携程（L3 数字分身长期身份/身份隔离/责任边界明确、白名单执行、不可逆动作人工负责）
+- 建议：`authz.lifecycle.*` 五字段进 OTel GenAI 提案（缺省 AUTHZ_UNVERIFIED）／把"收凭证"做成"发凭证"的镜像流程（suspend→revoke→verify→archive→delete 六步留回执、未经 verify 不算下线、下线演练常态化）／强制 scope 绑动作而非绑 Agent（按工具授 scope、读写分离、默认 deny、上下文切换重新授权）／短凭证配双层护栏（Session Policy／resource indicator 收窄、domain 限制辅助，明写短期凭证≠最小权限）／建 Agent 身份台账＋owner/sponsor/deputy 三责任人（14 天无人认领自动失效、变更触发复核、月度三源对账）／基准补"短凭证但权限过宽/工作流授权漂移/撤销后部分仍可用"三类题、信通院六维补「授权可举证率」格
+- 注意：OWASP Top 10、Entra GA 日期、MCP 修订条款、GitGuardian 151%/2×、各 WIF token 时长、阿里云能力等多为标准/厂商文档/调研转述未独立复核；"授权面/权限膨胀面/有身份≠有边界≠撤销被验证"及字段族为本文归纳；本地 15/10 为讲义转写笔记；未采信 SEO 农场
+- 下期候选：`authz.lifecycle.*` 五字段 OTel 提案与 revoke→verify 回执最小实现／权限膨胀自动收口器（用途变更触发 scope 重审）／授权漂移检测器（授权依据版本戳比对）／多凭证信任缺口台账（一个 Agent 全系统权限视图）／委托链按动作记录埋点改造／基准"短凭证宽权限"题型／信通院补「授权可举证率」格
