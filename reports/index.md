@@ -3353,3 +3353,17 @@
 - **注意**：AISVS 为研究稿（2025-05 快照）；Purview 继承只承诺「引用内容」；AvePoint/Atlan/Data Workers/hoop.dev 为厂商博客含立场；DEV 播客仅旁证；本期非合规意见。
 - **落盘**：报告＋本条目；提交后推送 hes-p3-team-bench。
 - **下期候选**：①派生登记的最小字段集与性能开销；②组合敏感度如何计算（集合运算还是策略引擎）；③跨域标签契约的失败模式。
+
+## 第 260 期（2026-11-17 20:00）· 置信度校准面／"自信地错误"鸿沟（Confidence Calibration / The Confidently-Wrong Gap）——行业把 Agent 自报的置信度当成自动化门禁的开关，却几乎没人验证过：那个 0.85，是否真的对应 85% 的经验准确率？
+- 期号说明：`date` 20:23→2000 档；本方最新 258（19:00 容量面）、并行实例 259（19:31 标签面），本期顺延 260；市场空白第 184 项；字段族第 148 次无人提；主线第 216 条全新立面；本地连续第 140 期
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261117-2000.md（正文 2952 汉字；题眼＋五章＋七方案七列对比表＋19 来源）；报告+索引已复制本目录
+- 主线：首次把「Agent 自报置信度这个数本身是否校准、能否当自动化门禁」立为一等对象；与 #161 人机信任校准/#160 因果可信/#234 修复采纳 划界；「结论对不对」与「它有多确定是否可信」是两件事，后者正被当前者用；置信度从展示字段升格为控制面开关却未经开关验收
+- 时点红利：Traversal+OpenRCA 2.0（20.7% 恢复精确根因集、点对服务 1/5 无可验证因果路径、ORCA-bench 25.3%、confidently wrong）＋IEEE EnoughBench（stop-time calibration、过度自信符号分解、gpt-4o-mini 低于随机基线且失准全是过度自信）＋dev.to（GATE 2 校准 ±0.10、Threshold Without Calibration 反模式）＋SigNoz（厂商自测 95–100% vs ITBench 13.8%、Rootly 自信的错误答案、incident.io 回放偷看致虚高、deskilling）＋N-iX（confident-but-wrong rate、Gartner 审批 80%→20%）＋火山 RCA Harness 结论有置信度/评测 11-13 切自研＋腾讯证据置信度调权＋Google fail-closed 日志 fail-open 执行＋Anthropic 自托管每步 OTel
+- 核心新提法：置信度是没有单位的数（自评分/证据覆盖/验证器通过率混用不可比）／过度自信是默认且单调危险方向／校准会漂移而行业做一次性校准／认知卸载正反馈（越自信→越没人查→错误越久存）／评测被污染；第 184 市场空白 `confidence.calibration.*`（self_reported_confidence/empirical_accuracy_at_confidence/calibration_delta/confidence_basis/calibration_evaluated_at），第 148 次无人提字段族
+- 本期反转：把置信度打分/自动阈值/自治分级做成标配的是各家平台，拆穿「0.85 听着对却没验证是否预测 85% 准确率」的是 dev.to 评测法与 EnoughBench；七方案「公开校准方法」「抗漂移/污染」两列几乎全空
+- 判词：「置信度打分/自动执行阈值/自治分级/人类审批/护栏门禁全可采购，举证 0.85 是否真对应 85% 经验准确率、是模型自评还是验证器复核、最近校准在何时、换模型后有没有重校不可采购」
+- 本地原型（第 140 期）：施宏斌 14 金融 Agent Eval「识别→展开→质疑→验证，还缺什么证据」新角度深化（从证据充分性推到置信度本身可否证实）＋刘凯宁 05「结论/证据/待确认项三分」
+- 建议：`confidence.calibration.*` 五字段进 OTel GenAI 提案（缺省 CALIBRATION_UNVERIFIED）／阈值先校准再用（±0.10、>0.15 加校正因子）／验证器与调查者独立／confident-but-wrong rate 进值守 SLO／变更后重跑回放集／EnoughBench stop-time calibration 与 ORCA-bench 因果链题型入基准／信通院补「置信度可举证率」格
+- 注意：20.7%/25.3%/13.8%/95–100% 多为预印本·厂商自测·二手编译未独立复核；Gartner 为媒体转述；字段族为本文归纳；本地讲义为目录级引用；未采信 SEO 农场
+- 落盘：报告＋本条目；提交后推送 hes-p3-team-bench
+- 下期候选：`confidence.calibration.*` OTel 提案与 CALIBRATION_UNVERIFIED 门禁／置信度分档经验准确率对照器／confident-but-wrong 检测器／换模型后置信度漂移巡检器／信通院补格
