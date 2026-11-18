@@ -1,0 +1,12 @@
+{
+  "name": "dev-dsh-workflow-rsi-plugin-c8f99609",
+  "plugins": [
+    {
+      "name": "dynamic-workflows-rsi",
+      "source": "./dynamic-workflows-rsi",
+      "version": "0.1.0",
+      "description": "DSH（Dynamic Self-improving Harness，动态自改进执行架）：以 ZCode 动态工作流为执行底座，让运行任务的编排与改进编排自身都可审计、可回滚、在 gate 回放分口径下永不劣于当前版本的插件。",
+      "displayName": "dynamic-workflows-rsi"
+    }
+  ]
+}
