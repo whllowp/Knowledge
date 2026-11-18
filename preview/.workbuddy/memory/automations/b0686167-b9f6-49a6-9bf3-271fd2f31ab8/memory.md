@@ -1631,3 +1631,29 @@
 - 推送：本地 commit df489f9（3 files changed/155 insertions）成功；git push origin hes-p3-team-bench 一次成功（a809be7..df489f9），local HEAD=remote HEAD=df489f9 已确认，两处报告文件均 16767 字节，网络正常。注意仓库起点 a809be7 含并行 283 期提交；两个旧 untracked 文件非本期产物未纳入
 - 下期候选：`vendor.status_evidence.*` OTel 提案与门禁最小实现／功能级探针分离埋点器／组件映射版本化与 status diff／依赖链状态页发现器／双向失配检测器／信通院补格
 - 下期候选：`evidence.survivorship.*` OTel 提案与 SURVIVORSHIP_UNVERIFIED 门禁／未采样发起计数器落地／"未留存项"报告模板／代表集-诊断集分离器／survivorship diff 发布格式／不采样对照器／静默失败谓词覆盖率测法／信通院补格
+
+
+## 第 285 期（2026-11-18 16:00）· 静默面／健康态误诊（Quiescence Competence / False-Positive Incident on Healthy Systems）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-1600.md（正文 2680 汉字／全文 3129；题眼＋五章＋八方案六列对比表＋20 来源/20 链接）；报告+index 已复制/追加至 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 285
+- 期号：`date` 16:10→1600 档；本方最新 284（15:00 外部依赖面），E 盘无 1531 并行报告，顺延 285；市场空白 206；字段族 154；主线第 237 全新立面；本地连续 161 期
+- 主线：首次把「无故障时的正确沉默」立为一等对象；与 #260 置信度校准/#267 恢复判据/#269 存续面/#282 探针面/#265 诊断扰动 划界——只问"什么都没坏时 Agent 会不会制造出一个坏并据此改健康系统"；grep 假事件/零假设/健康集群/静默对照 两处均 0，误报 31/假阳性 5 皆指告警层或评测饱和度，全新立面确认
+- 核心新提法：灵敏度有 KPI 特异度无指标（优化只有正样本的目标函数）／假事故非空操作而是对健康系统执行变更（Agent 从观察者变致因者、自转自修自我确认）／沉默不可交付（编排每轮必产出、API 无 noop 合法终态、行动偏误被架构制造）／负对照缺席评测集／归因口径分裂（"误报"31 处盖五种机制）；第 206 空白 `quiescence.verification.*`（quiet_window_count／false_incident_rate／correctly_quiet_rate／noop_decision_logged／false_incident_downstream_changes[]），缺省 QUIESCENCE_UNVERIFIED
+- 时点红利：ChironVision 11月 ORCA-bench 526 工单＋138 quiet-window controls（正确沉默 57.9%→67.4%）＋Causely 因果 MCP（健康集群假事故 4/12→1/12、工具 19→4、token 308K→123K、73s→25s）＋SREGym 噪声 72.6→62.6＋SWEOps-Bench（arXiv 2611.06099，16 operator/55 真实缺陷、症状消失≠解决、表层补丁引入回归、双 oracle）＋ORCA-bench 25.3%/10%＋Traversal 10亿美元 B轮＋腾讯云 AURA 混沌 7/7 检出/6/6 修复/零误修复/DNS 越界拒绝＋Anthropic 11-12 自托管每步 OTel＋OpenAI 11-10 控制室 35s 叫停＋Google 11-13 BigQuery/Looker agent_events＋NeuBird 83%四套工具/40%时间/70%告警无需行动＋Grafana×Cyera/PlayHQ/NAB 记忆注入静默例行轮换＋信通院六维
+- 本期反转：把召回/因果图/OTel 导出/分级自治/确定性拒绝闸门/评测回放做成标配的是各家平台与基准；拆穿"健康系统上运行会不会凭空报事故并对不存在的故障修点什么"的是 Causely 12 次健康集群对照与 Chiron 138 静默窗口；八方案「负对照」「假事故率披露」两列几乎全空。判词「召回/因果图/OTel/分级自治/拒绝闸门/评测回放全可采购，举证健康系统上报几起假事故、'不行动'是否一等输出、假事故触发变更被哪道闸拦下、换基准沉默率翻不翻不可采购」
+- 本地原型（第 161 期）：腾讯云开发者社区《智能运维的工程约束》"拒绝即成熟度"（AURA T1-T4、忽略模型自报风险）首次当主线注脚，配刘凯宁蚂蚁 SRE"三分"扩出第四分"未被报出的健康窗口"
+- 建议：五字段进 OTel GenAI 自有命名空间＋QUIESCENCE_UNVERIFIED 门禁／编排框架加 noop 合法终态（写明排除了什么）／ORCA quiet-window 升标准题型＋SREGym/SWEOps-Bench 健康双跑出召回-假事故二维曲线／写权限审批召回率与假事故率并排设红线（<1/12）／信通院补「健康态特异可举证率」格
+- 推送：本地 commit c88313a（2 files changed/124 insertions）成功；git push origin hes-p3-team-bench 一次成功（54eb1b9..c88313a），local HEAD=remote HEAD=c88313a 已确认，远端报告文件已核验，C/E 两处报告均 16011 字节，网络正常
+- 注意：仓库起点 54eb1b9 含并行实例记忆应用第117期提交；两个旧 untracked 文件（20261112-1900、记忆技术洞察-20261116-0800）非本期产物未纳入。本期写入记忆文件时发现被并行实例重写，改用追加方式
+- 下期候选：`quiescence.verification.*` OTel 提案与 QUIESCENCE_UNVERIFIED 门禁最小实现／noop 终态埋点器／健康双跑召回-假事故曲线生成器／假事故下游变更追踪器／信通院补格
+
+
+## 第 286 期（2026-11-18 17:00）· 证据托管面／审计轨迹的自证悖论（Evidence Custody / Self-hosted Audit Trail Paradox）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-1700.md（正文 3000 汉字，五章齐全＋七方案六维表＋20 来源/20 链接）；已复制 E:/Knowledge/Knowledge/reports/
+- 期号：`date` 17:16→1700 档；本方最新 285（16:00 静默面），E 盘无新 AI-SRE 并行报告，顺延 286；市场空白 207；字段族 155；主线第 238 全新立面；本地连续第 162 期
+- 主线：首次把「证据托管位置（谁记账/默认能活多久/能否被作者改写/能否脱厂复现）」立为一等对象；与 #254/#284/#269/#103 划界；grep 四组关键词两处索引均 0 确认全新
+- 核心新提法：托管改变证明力非运维位置／能重建才叫收据／默认内存重启即失／hash-chain 自证递归／导出即离界副本=证据与保密结构冲突／"没记录"与"没发生"同形；空白 `evidence.custody.*` 五字段缺省 EVIDENCE_CUSTODY_UNVERIFIED
+- 时点红利：Anthropic 11-12 自托管私测＋VSO 64 起事故（96 份伪造 transcript/14.1万→4.81亿份复核）＋OpenAI 四层监控＋Anthropic 自评估 vs 拦截＋Google BigQuery agent_events＋Claude OTel→MLflow＋ORCA-bench＋Traversal B轮＋腾讯云/阿里
+- 本地原型（第162期）：施宏斌金融 Eval"验证者独立于被验证者"重读为"记录者独立于被记录者"当主线注脚，配何伟 Harness、刘凯宁蚂蚁 SRE
+- 索引：C 盘（3008 行）与 E 盘（3753 行，保留并行内容）index 均追加 286 各 1 条；E 盘 index 一度被 C 盘版本误覆盖，已从 git HEAD 恢复原版后重新单独追加，验证第286期出现 1 次
+- 推送：见下方 commit 记录（含 2 个旧 untracked 文件非本期产物未纳入）
+- 下期候选：`evidence.custody.*` OTel 提案与门禁最小实现／脱厂重建器／内存→持久化迁移检查器／离界检查点最小化器／三事件回执埋点器／复核检索集合留痕器／信通院补格

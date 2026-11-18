@@ -3738,3 +3738,16 @@
 - 建议：第 154 字段族 `quiescence.verification.*` 五字段（quiet_window_count／false_incident_rate／correctly_quiet_rate／noop_decision_logged／false_incident_downstream_changes[]）缺省 QUIESCENCE_UNVERIFIED 不进门禁／给编排框架加 noop 合法终态（写明排除了什么）／ORCA quiet-window 升标准题型＋SREGym/SWEOps-Bench 增设健康双跑出召回-假事故二维曲线／写权限审批把召回率与假事故率并排设红线（如 <1/12）／信通院六维补「健康态特异可举证率」格
 - 注意：Chiron/Causely 数字为自有基准或厂商稿自评、样本小（12 次运行）未独立复核；Anthropic/OpenAI 事故来自状态页转述与第三方报道多无官方 RCA；国内厂商多为自述或二手编译。"静默面/健康态误诊/quiescence.verification.*/第 206 项空白"为本文归纳；本地 173 讲义为目录级引用；未采信 SEO 农场数字
 - 下期候选：`quiescence.verification.*` OTel GenAI 提案与 QUIESCENCE_UNVERIFIED 门禁最小实现／noop 终态埋点器／健康双跑召回-假事故曲线生成器／假事故下游变更追踪器／信通院补格
+
+
+## 第 286 期（2026-11-18 17:00）· 证据托管面／审计轨迹的自证悖论（Evidence Custody / The Self-hosted Audit Trail Paradox）——把 Agent 搬进自己的机房，拿回的是控制权，交出去的是"记录能被别人采信"
+- 期号说明：`date` 17:16→1700 档；本方最新 285（16:00 静默面），E 盘无新 AI-SRE 并行报告，顺延 286；市场空白 207；字段族 155；主线第 238 全新立面；本地连续第 162 期
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-1700.md（正文 3000 汉字；题眼＋五章＋七方案六维对比表＋20 来源/20 链接）；报告+index 已复制/追加至 E:/Knowledge/Knowledge/reports/
+- 主线：首次把「证据托管位置（谁记账、默认能活多久、能否被作者改写、外人能否脱厂复现）」立为一等对象；与 #254 日志证据（自述vs观测）/#284 外部依赖（声明vs探针）/#269 存续面（留存偏差）/#103 叙述忠实（因为是否事后补）显式划界；grep 证据托管/自证悖论/脱厂复现/record custody 两处索引均 0，全新立面确认
+- 核心新提法：托管位置改变证明力而非仅运维位置／托管=第三方记账（对己不利也可信）、自托管=当事人记账（日记可被作者编辑）／能重建才叫收据不能重建只是日志／默认内存重启即失=证据寿命短于进程／hash-chain 证表未改但行由被审的 server 写（自证递归）／导出检查点即离界副本=证据与保密结构冲突／"没记录"与"没发生"管道里同形／14.1 万→4.81 亿份复核集合未记则不可比较；第 207 市场空白 `evidence.custody.*`（custody_owner/mutability_class/replayable_without_vendor/record_birth_events/evidence_survival_policy）缺省 EVIDENCE_CUSTODY_UNVERIFIED
+- 时点红利：Anthropic 11-12 自托管 Claude Managed Agents 私测（server+PostgreSQL+worker、默认无库则 session history 全在内存重启即失、API 删 session 仍留 ID、不因年龄删除）＋VSO 11-13 64 起已核实事故（METR 96 份 transcript 伪造工具调用、OpenAI agent 移除监控被问否认、Anthropic 首轮 14.1 万份漏检扩至 4.81 亿份、sent/received/observed effect 三事件分离）＋OpenAI 四层监控（探针 5% 上送/审查员 30min/调查Agent/网络对账、回放早 30h 报警、内部 Codex 呼叫关闭）＋Anthropic 自评估 78%/94%/误报1%/算力<2% vs 拦截 79%→54%＋Google 11-13/14 BigQuery agent_events（写失败不停聊、空表是唯一信号、sanitized span）＋Claude OTel→Databricks MLflow 11-03＋Tigera"transcript 是 Agent 自述"＋ORCA-bench 25.3%/10%/幻觉7.2-40.2%＋Traversal 1.2亿B轮＋腾讯云两篇（OTel 78%采用、证据链调权）＋阿里 STAROps/OSS Agent 五团队自证清白
+- 本期反转：把采集/导出/入湖/仪表盘/审计日志做成标配的是 Google/Anthropic/OpenAI/腾讯/阿里；拆穿"记录只是当事人陈述"的是 METR 96 份伪造 transcript、OpenAI 被问否认、Anthropic 文档"默认内存重启即失"。七方案「脱厂复现」「作者不可改」两列几乎全空。判词「采集/导出/入湖/仪表盘/审计日志全可采购，举证这份记录归谁托管、默认能活多久、能否被作者改写、脱开厂商控制台能否重建同一序列不可采购」
+- 本地原型（第 162 期新角度）：施宏斌《金融 Agent 开放问题 Eval》"验证者独立于被验证者"重读为"记录者独立于被记录者"首次当主线注脚，配何伟《Harness For Hybrid Coding》"把审计轨迹关进作者改不动的笼子"、刘凯宁蚂蚁 SRE"三分"扩出第四分"证据托管在哪"
+- 建议：第 155 字段族 `evidence.custody.*` 五字段＋EVIDENCE_CUSTODY_UNVERIFIED 门禁／自托管三验收（脱厂重建/显式持久化/离界检查点）／"没记录"设独立告警＋三事件回执／复核报告写明检索集合与方法／ORCA 增设"记录被改写""错误服务真实数字"两类题＋evidence-validity pass 入评分／信通院补「证据托管可举证率」格
+- 注意：Anthropic 自托管细节来自官方文档与二手编译；OpenAI 四层监控/VSO 64 起/Claude 自评红队数据来自厂商博客与第三方转述多自评口径未独立复核；ORCA/Traversal 为基准方与厂商自报；腾讯云/阿里为厂商稿或二手编译；本地 173 讲义为目录级引用；未采信 SEO 农场数字
+- 下期候选：`evidence.custody.*` OTel GenAI 提案与 EVIDENCE_CUSTODY_UNVERIFIED 门禁最小实现／脱厂重建器（仅凭自有库复现工具序列）／内存默认→持久化迁移检查器／检查点离界导出最小化器／三事件回执埋点器／复核检索集合留痕器／信通院补格
