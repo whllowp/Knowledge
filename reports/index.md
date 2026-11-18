@@ -3751,3 +3751,16 @@
 - 建议：第 155 字段族 `evidence.custody.*` 五字段＋EVIDENCE_CUSTODY_UNVERIFIED 门禁／自托管三验收（脱厂重建/显式持久化/离界检查点）／"没记录"设独立告警＋三事件回执／复核报告写明检索集合与方法／ORCA 增设"记录被改写""错误服务真实数字"两类题＋evidence-validity pass 入评分／信通院补「证据托管可举证率」格
 - 注意：Anthropic 自托管细节来自官方文档与二手编译；OpenAI 四层监控/VSO 64 起/Claude 自评红队数据来自厂商博客与第三方转述多自评口径未独立复核；ORCA/Traversal 为基准方与厂商自报；腾讯云/阿里为厂商稿或二手编译；本地 173 讲义为目录级引用；未采信 SEO 农场数字
 - 下期候选：`evidence.custody.*` OTel GenAI 提案与 EVIDENCE_CUSTODY_UNVERIFIED 门禁最小实现／脱厂重建器（仅凭自有库复现工具序列）／内存默认→持久化迁移检查器／检查点离界导出最小化器／三事件回执埋点器／复核检索集合留痕器／信通院补格
+
+
+## 第 287 期（2026-11-18 18:00）· 实体消歧面／知识图谱的"同一个服务"错觉（Entity Resolution / Same Name, Different Thing; Same Thing, Different Names）——图越完整，错得越可信
+- 期号说明：`date` 18:27→1800 档；本方最新 286（17:00 证据托管面），E 盘无新 AI-SRE 并行报告，顺延 287；市场空白 208；字段族 156；主线第 239 全新立面；本地连续第 163 期
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-1800.md（正文约 2990 汉字／纯汉字计 3331 含表格；题眼＋五章＋八方案七列对比表＋20 来源/20 链接）；报告+index 已复制/追加至 E:/Knowledge/Knowledge/reports/
+- 主线：首次把「实体身份／跨系统名称对齐」立为一等对象——指标库、日志主题、链路 span、配置、CMDB 里的服务名是否为同一对象；与 #237 基数面（标签取值多少）/#254 日志面（自述vs观测）/#284 外部依赖面（声明vs探针）/#262 数据龄期面（证据多旧）显式划界；grep 两处索引「实体消歧/同物不同名/命名漂移/上下文传递/换手」均 0，全新立面确认
+- 核心新提法：图越完整、身份错了越可信（完整图给错误归因穿外衣）／异名同物（billing-svc↔billing_service）与同名异物（生产 orders vs 预发 orders）并存，后者更危险／别名是无人署名的语义决策（谁写、何时、服务拆分后是否成立无人记）／边会过期（三个月前的依赖边当当前路径）／多 Agent 自然语言摘要交接中实体被悄悄换掉／服务目录从"给人看的资产台账"变"给机器读的检索索引"（验收改查得到/查得对/查得快）／身份不是名字而是 name+environment+instance+version+source+observed_at 六元组；第 208 空白 `entity.resolution.*`（entity_canonical_id／identity_tuple／identity_source_per_field／alias_edges[]／resolution_confidence+resolved_at）缺省 IDENTITY_UNVERIFIED
+- 时点红利：Netflix 11-13 可观测性本体+QuipuDB（拒绝通用 Service 类型、单一 ops:Application 对约 49000 条软件目录校验、SHACL/URI 门禁、13 信号 10 分钟窗 0.6 阈值、专家 Agent 经图通信而非互发消息、事故讨论回写）＋Datadog bits.md 把"跨系统名称映射"列首位且写成 rule 非 description（billing-svc/billing_service、陈旧 runbook 比没有更糟）＋Datadog Bits 10 月成本$25→$4/11min→2min/质量+44%＋OneUptime 9-03 规范属性集与逐字段权威来源、unknown_service 视为质量事故＋IBM Instana OTel→k8s/容器/进程链及容器 PID 与宿主 PID 断链＋SigNoz OTel trace 派生最小拓扑不建图库＋腾讯云"三个入口同一对象"前提+证伪角色 21.3%→33.3%＋满帮×AgentCore 接口级图谱中位 1 分钟/准确率>90%（自述）＋Google Knowledge Catalog 11-15＋框架身份横评 11-10（Claude/OpenAI SDK 无 agent identity、Google ADK 写 registry id）＋Elastic nightshift 11-04 图谱连 GitHub 源码＋信通院六维
+- 本期反转：把图数据库/服务目录/CMDB/OTel 导出/别名规则/本体校验做成标配的是 Netflix/Datadog/Google/IBM/腾讯/阿里；拆穿"图里节点是同一个东西吗"的是 Netflix"每个工具对 service 用法都不一样"、腾讯云"三个入口同一对象"前提、容器 PID 与宿主 PID 断链。八方案「身份出处」「别名批准人」两列几乎全空。判词「建图/接目录/导 OTel/写别名/本体校验全可采购，举证这条日志·这次部署·这个指标是不是同一对象、别名谁在何时批准、这条边何时观测、换套映射结论翻不翻不可采购」
+- 本地原型（第 163 期新角度）：蒋烁淼 23《千亿数据秒查到真正的 AgentOps》"统一数据模型/预聚合"重读为"身份先行于查询——没稳定身份，秒查只是更快查错对象"首次当主线注脚，配赵恒《AI Native 数据语义层》可执行 Semantic Runtime、刘凯宁蚂蚁 SRE"三分"扩出第四分"这段证据属于哪个实体、凭什么认定"
+- 建议：第 156 字段族 `entity.resolution.*` 五字段＋IDENTITY_UNVERIFIED 门禁／目录换验收标准（查得到/查得对/查得快）＋unknown_service 列质量事故＋逐字段唯一权威来源＋OTel resource→后端映射拿真实导出回归／别名当变更管并署名、拆分合并触发复核、报告强制写实体身份依据／评测增同名异物+异名同物+组合错误归因错组件三类题／信通院补「实体可举证率」格
+- 注意：Netflix 架构细节来自 InfoQ 转述与二手编译未逐条核对官方博客；Datadog 成本/时长/质量为厂商自评无第三方复现；满帮与腾讯云案例为厂商稿或二手编译；框架身份横评截至 11-10 预览版能力可能变；"实体消歧面/同物不同名/第 208 空白"为本文归纳；本地 173 讲义为目录级引用；未采信 SEO 农场数字
+- 下期候选：`entity.resolution.*` OTel GenAI 提案与 IDENTITY_UNVERIFIED 门禁最小实现／别名规则署名库与拆分触发复核器／unknown_service 质量事故检测器／边时效标注与过期检测器／同名异物·异名同物评测题型生成器／信通院补格
