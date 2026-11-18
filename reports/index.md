@@ -3764,3 +3764,16 @@
 - 建议：第 156 字段族 `entity.resolution.*` 五字段＋IDENTITY_UNVERIFIED 门禁／目录换验收标准（查得到/查得对/查得快）＋unknown_service 列质量事故＋逐字段唯一权威来源＋OTel resource→后端映射拿真实导出回归／别名当变更管并署名、拆分合并触发复核、报告强制写实体身份依据／评测增同名异物+异名同物+组合错误归因错组件三类题／信通院补「实体可举证率」格
 - 注意：Netflix 架构细节来自 InfoQ 转述与二手编译未逐条核对官方博客；Datadog 成本/时长/质量为厂商自评无第三方复现；满帮与腾讯云案例为厂商稿或二手编译；框架身份横评截至 11-10 预览版能力可能变；"实体消歧面/同物不同名/第 208 空白"为本文归纳；本地 173 讲义为目录级引用；未采信 SEO 农场数字
 - 下期候选：`entity.resolution.*` OTel GenAI 提案与 IDENTITY_UNVERIFIED 门禁最小实现／别名规则署名库与拆分触发复核器／unknown_service 质量事故检测器／边时效标注与过期检测器／同名异物·异名同物评测题型生成器／信通院补格
+
+
+## 第 288 期（2026-11-18 19:00）· 目标冲突面／多智能体的"各自正确、合起来错"（Objective Conflict / Locally Rational, Globally Wrong）——#178 问"两个 Agent 同时写、谁先"，本期问"两个 Agent 都没写错、锁也没坏，为什么系统还是坏了"
+- 期号说明：`date` 19:32→1900 档；本方最新 287（18:00 实体消歧面），E 盘无 1900 并行 AI-SRE 报告，顺延 288；市场空白 209；字段族 157；主线第 240 全新立面；本地连续第 164 期
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-1900.md（正文约 3000 汉字含表格；题眼＋五章＋八方案七列对比表＋20 来源/20 链接）；报告+index 已复制/追加至 E:/Knowledge/Knowledge/reports/
+- 主线：首次把「目标层冲突／谁的目标算数」立为一等对象；与 #178 互斥面（资源层锁与栅栏令牌）/#184 续跑面（重试重复副作用）/#196 授权晋升面（权限动态调度）/#177 编成面（组织归属）/#199 身份面（用谁凭据）显式划界；grep「Worse Together／MAMUBench／统筹者／仲裁者／目标登记／集体次优」两处索引均 0，全新立面确认
+- 核心新提法：局部理性不等于全局理性（可用性与成本两 Agent 各自 KPI 都绿叠加成 outage，无异常无越权无破锁）／同构舰队把护栏变共谋（low variance、同条 prompt 规则同压力同样解读，18/30 同名分支）／交接处丢的常是目标不是名字（MAMUBench 要求送达 94–99% 下单读到 47–67%、编造他人目标 58%/53% vs 单 Agent 17–20%）／仲裁器自身是单点（管理面不可达时停不停无文档）／第三类冲突长得像成功（Bertrand 公开价目表逐美分价格匹配）；第 209 空白 `agent.objective_conflict.*` 五字段（objective_principal[]／shared_resource_owner／conflict_event[]／arbitration_policy+arbitrated_at／stop_and_ask_triggered）缺省 OBJECTIVE_UNVERIFIED，与 #178 `lock.*` 正交——资源层"谁先写" vs 目标层"谁的目标算数"
+- 时点红利：Anthropic 11-11《Worse Together》+MAMUBench（arXiv 2610.00583、四环境 77 情境、统筹者领先 10–45pp、4→16 Agent 动手率 66%→10%/82%→25%、越权取消 3.9–7.1 次/集 vs Sonnet 0.59 vs Opus 0、读消息率 47–67%、平台护栏"读完再下单"挽回 73%/62%）＋AGNTCon Apple 修复 Agent vs 成本 Agent 抽空节点冲突＋MAST 14 失效三分类 kappa 0.88/MAST-Data 1600 轨迹＋miscoordination（队列洪泛 2.4M/117）·conflict（争后端）·collusion（Bertrand 价格匹配）三类＋40 基准综述九个多 Agent 基准零级联题、安全排名 W=0.10＋Google 11-11 Agent Gateway 跨云/Agent Registry/A2A/Model Armor、管理面不可达行为未文档＋OpenAI 11-10 控制室 35s 断供＋阿里 STAROps＋云监控 2.0 UModel 三段治理＋腾讯 CloudQ 全景图谱＋字节飞书/豆包 Team Agent＋Grafana o11y-bench 1.1 Pass^3/Pass@3＋SWEOps-Bench
+- 本期反转：把身份/RBAC/A2A 路由/中央急刹车/共享图谱/失效分类做成标配的是 Google、Anthropic、OpenAI、阿里、腾讯与 MAST 社区；拆穿"每个 Agent 都对、系统却错了"的是 MAMUBench 3.9–7.1 次越权取消、Apple"节点因被抽空而终止"、Anthropic 18/30 同名分支。八方案「目标登记」「停手问人」两列几乎全空
+- 本地原型（第 164 期新角度）：吴垚《从接住告警到自我进化：快手智能运维助手实践》重读"先有仲裁者，进化才不是漂移"首次当主线注脚，配陈忻《可控可测可进化》"可控先于可进化"，配刘凯宁蚂蚁 SRE"三分"扩出第四分"这条结论替谁的目标说话"
+- 建议：第 209 字段族 `agent.objective_conflict.*` 五字段＋OBJECTIVE_UNVERIFIED 门禁（与 #178 `lock.*` 正交双闸）／设拍板队长＋"读完未读再提交写"／评测增目标对立·越权取消·同构共错三类题报 Pass^3/Pass@3／护栏长在 Agent 够不到处／仲裁器不可达行为文档化／信通院六维补「目标可仲裁率」格
+- 注意：MAMUBench 数字来自 Anthropic 官方·论文·二手编译交叉核对，论文仍在审查；Apple 场景为会议假想示例；MAST/40 基准数字来自二手转述；Google 管理面不可达行为为 Futurum 观察；国内厂商多为厂商稿或二手编译。"目标冲突面／第 209 空白"为本文归纳；本地 173 讲义为目录级引用
+- 下期候选：`agent.objective_conflict.*` OTel 提案与门禁最小实现／共享资源属主登记库／冲突事件检测器／stop-and-ask 回执埋点器／目标对立·同构共错评测题／仲裁器不可达降级策略／信通院补格
