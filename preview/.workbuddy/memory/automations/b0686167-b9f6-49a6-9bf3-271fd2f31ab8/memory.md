@@ -1591,3 +1591,43 @@
 - 本期反转：把读写分离/最小权限/可中断/并行取证/全景下钻做成标配的是各家平台，拆穿"检查命令并非普遍无害、读也改写现场"的是 INNOQ 事故档案与一线指南；八方案"计量探针扰动""超预算降级"两列几全空。判词「分级自治/只读设计/并行取证/全景下钻/可中断/最小权限全可采购，举证这次诊断制造多少额外负载、探针有没有改写它要测的症状、读命令有没有可中断护栏——不可采购」
 - 本地原型（第 142 期新角度）：何伟《Harness For Hybrid Coding》重读"取证工具该关进资源预算/可中断/可回退的 Harness 笼子"，配闪英迪《AgentENV》执行环境隔离
 - 建议：`diag.perturbation.*` 五字段＋PERTURBATION_UNVERIFIED 门禁／扰动定价表按故障态分档／探针当变更管／"不取证对照"识别自造假证据／SREGym 增设探针对照题型／信通院补「诊断无扰可举证率」格
+
+
+## 第 267 期（2026-11-18 00:00）· 恢复判据面／过早恢复（Recovery Criteria / Premature Recovery）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-0000.md（正文 2245 汉字／全文 2517；题眼＋五章＋十方案五列对比表＋20 来源／20 链接）；报告＋index 已复制／追加至 E:/Knowledge/Knowledge/reports/
+- 期号：`date` 00:19→0000 档；本方最新 265（22:00 诊断扰动面），并行 266（00:18 降级面／硬件可信），顺延 267；市场空白 189；字段族 151；主线第 221 全新立面；本地连续 143 期
+- 主线：首次把「故障结束的恢复判据」立为一等对象；与 #226 疗效归属／#184 续跑／#258 容量恢复／#265 诊断扰动 划界；grep 恢复判据/recover 确认 两处 0 或零星
+- 核心新提法：转绿≠恢复≠稳住三层／恢复是被声明不是被观测／成功指标本身是污染源（429 限流换 0% 5xx、推理降级成功率全绿隐形）／观察期与 MTTR 冲突／临停状态无清算清单／一次通过≠可靠恢复；空白 `recovery.verification.*`（declared_at/criteria_sli[]/green_vs_userjourney_delta/temporary_changes_outstanding[]/watch_outcome）
+- 时点红利：Google Chrysalis（10-22，40/50 请求回 429 的 0% 5xx）＋Google SRE AI Ops（5-28）＋CloudsPress×2＋dev.to remediation-first＋Anthropic Claude Code 静默降级 7 周＋CCAO-F＋Managed Agents＋Incident-Arena（9-30，1638 次完整修复仅 59% 过）＋AI SRE Arena（10-08）＋SRE Bench 第三版＋ITBench SRE＋阿里 BRiSE＋腾讯 CloudQ（10-29/30）＋火山 RCA Harness＋百度 QCon＋safeguard.sh（10-19 复审）
+- 反转：四步闭环写进每份发布页的是各家平台，拆穿"verify 只验告警清除"的是 Chrysalis 429、Claude Code 隐形降级、Incident-Arena 四成失败；十方案"临停清算/跨峰值观察"两列几全空
+- 本地原型（第143期）：周昕毅《AI+SRE≠AISRE》重读"最后一米是恢复确认非缓解执行"，配肖汉松《Harness 到 Loop》把复发回流成 Loop
+- 建议：五字段＋开工前写死恢复判据（含外部用户旅程信号）／声明与确认拆两时间戳／观察期跨峰值／临停三态清单未清算不得关单／Arena 加两类干扰题／信通院补「恢复可举证率」格
+- 推送：本地 commit 3dc008b（2 files changed/108 insertions）成功；git push origin hes-p3-team-bench 一次成功（95bcc18..3dc008b），local HEAD=remote HEAD=3dc008b 已确认，远端报告文件已核验，网络正常。注意远端起点 95bcc18→9bf7c64（266 期本地未推）→3dc008b，本次一并推送 266+267 两期
+- 下期候选：`recovery.verification.*` OTel 提案与 RECOVERY_UNVERIFIED 门禁／转绿-用户旅程差值检测器／临停清算台账与关单门禁／跨峰值观察期调度器／复发 SLI 回流器／信通院补格
+
+
+## 第 269 期（2026-11-18 01:00）· 存续面／证据幸存者偏差（Evidence Survivorship）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-0100.md（正文 2978 汉字；题眼＋五章＋八方案六列对比表＋20 来源/20 链接）；报告＋index 已复制/追加至 E:/Knowledge/Knowledge/reports/
+- 期号：`date` 01:23→0100 档；本方最新 267，并行 266（降级面）/268（仿真面），顺延 269；市场空白 190；字段族 152；主线第 222 全新立面；本地连续 144 期
+- 主线：首次把「采样/蒸馏/脱敏/留存四道选择之后哪些证据活下来、这个选择把结论先验扭向哪里」立为一等对象；与 #101 证据可得/#208 遥测供给/#83 采样/#201 成本/#66 删除保留 划界；grep 蒸馏/幸存者偏差/推理下沉 两处均未成独立期
+- 核心新提法：留存决策升格为诊断前置条件／分母被悄悄替换（100次5失败→成功子集0%、失败富集33.3%、预筛后尾采样仍0%）／稀有失败 1/(p×q)（1%×0.1%=十万次一见）／静默失败是留存盲区专属居民（"结果不对的又快又安静"）／缺证据与没证据推理里同形／源端蒸馏把选择权藏进不可解释模型反降可审计性／评测集被留存偏差污染；空白 `evidence.survivorship.*`（population_initiations 永不采样计数器/retained_count·fraction/retention_policy_id/selection_bias_direction 四态/silent_failure_predicate_coverage）
+- 时点红利：Randoli 自认"我们错了"（预蒸馏不如原始上下文）＋ControlTheory Dstl8 2.0（KubeCon NA、源端蒸馏读 sentiment、Telemetry Tax/Trust、336事故/328解决/零告警规则）＋thomasdevos 反例＋scixa 算术＋Prefactor（Anthropic 141006 次仅3起、5%采样期望0.15、OpenAI 1200/700/17600"日志读得更多"）＋Agnost 双数据集＋NHIMG survivorship＋Google 11-13/14 BigQuery/Looker（净化span、fail-closed跳过/fail-open执行、6周保留）＋腾讯云尾采样（错误/p95全留、成功5-10%、7-14天/90-365天分层、采样与评估分离）＋火山11-13全自研评测＋阿里 AgenticOps＋Forbes/Mandiant 393天vs90天
+- 反转：把采样/蒸馏/留存当降本旋钮的是各家平台，拆穿"你报的失败率是被留存策略选出来的"的是三份工程算术与 Randoli 自认；八方案「未采样分母计数器」「留存策略可导出」两列几乎全空。判词「采样/蒸馏/脱敏/分层留存/尾采样/评测回放全可采购，举证从多少条里留下、按哪版规则、丢的里面有没静默失败、换策略结论翻不翻不可采购」
+- 本地原型（144期新角度）：刘杨 08（评估样本本身是被导出器选中留存的）＋蒋烁淼 23（预聚合降基数=第二次留存决策）＋刘凯宁 05（结论/证据/待确认三分扩第四分"未留存项"）
+- 建议：五字段进 OTel GenAI 自有命名空间（缺省 SURVIVORSHIP_UNVERIFIED 不进门禁）／报告加"未留存项"／代表集-诊断集物理分离／留存选择当变更管＋survivorship diff／关键故障"不采样对照"／信通院补「证据存续可举证率」格
+- 推送：本地 commit 3f3ce84（2 files changed/135 insertions）成功；git push origin hes-p3-team-bench 一次成功（e955326..3f3ce84），local HEAD=remote HEAD=3f3ce84 已确认，远端文件已核验，网络正常
+- 注意：仓库起点 e955326 含并行实例后续提交；两个旧 untracked 文件非本期产物未纳入
+
+
+## 第 284 期（2026-11-18 15:00）· 外部依赖面／把供应商状态页当传感器（Vendor-Declared Incident State / Status Page as Evidence）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261118-1500.md（正文 2997 汉字；题眼＋五章＋八方案六维表＋22 来源/22 链接）；报告+index 已复制/追加至 E:/Knowledge/Knowledge/reports/，C/E 两处 index 均追加 284
+- 期号：`date` 15:04→1500 档；本方最新 269（01:00），并行 270~283（01:31~14:31），顺延 284；市场空白 205；字段族 153；主线第 236 全新立面；本地连续 160 期
+- 主线：首次把「外部依赖的状态声明如何进入 Agent 证据链」立为一等对象；与 #267 恢复判据/#262 数据龄期/#254 日志证据/#269 存续面划界；grep 第三方依赖/供应商依赖两处均 0，状态页 52 处皆数据点未成期
+- 核心新提法：状态是声明不是观测／indicator 混合值全绿≠没人发公告／degraded 压缩丢掉例程迟到等运维量／范围错配常态（产品级 vs 租户级）／双向失配需功能级探针／依赖链外包归属无人签署；第 205 空白 `vendor.status_evidence.*` 七字段（declared_at、declared_indicator+schema、declared_scope[]+tenant_impact_scope[]、independent_probe_result、bidirectional_lag_seconds、dependency_chain[]、impact_verified_at+source），缺省 STATUS_UNVERIFIED
+- 时点红利：OpenAI 11-11 Workspace Agent 9h42m 仅 2 更新＋HostTracker 零 ≥5min 主域中断＋11-01~04 Codex 48h 无公告＋Downradar 20 未结/25 组件全绿＋Anthropic 11-13 双事故（列表漂移、15:33 才披露例程迟到 2h+、无 RCA、M365 指向微软状态页）＋Google Service Health 时间轴非项目专属＋Google 11-13/14 BigQuery agent_events fail-closed 跳轮/fail-open 执行＋Statuspage API v2 开放枚举/组重复/隐藏组件＋Fibric 双源提案＋Belgavi feed 当先验＋阿里 AgenticOps/腾讯 CloudQ/火山 VeOps CLI/RCA Harness＋信通院六维
+- 反转：接入状态页 API/webhook/组件枚举/聚合/统一事实模型全可采购；拆穿"全绿不是健康、degraded 不是一个意思、resolved 不是我的用户好了"的是 OpenAI 状态页与 HostTracker 对照、Anthropic 15:33 更新、Google 文档原句。八方案「双向对账」「声明龄期」两列几乎全空
+- 本地原型（第 160 期）：蒋烁淼 23（外部状态文本也要过标准化—组织—可信三段）＋周昕毅 10（最后一米含外部依赖恢复独立验收）＋刘凯宁 05（三分扩出外部声明）
+- 建议：七字段 OTel 提案与 STATUS_UNVERIFIED 门禁／声明-探针双轨对照器／外部声明当变更管＋回切三条件／诊断报告第五类证据／基准三类题／信通院补「外部声明可举证率」格
+- 推送：见下方提交记录（本条写入时同步执行 git add/commit/push）
+- 下期候选：`vendor.status_evidence.*` OTel 提案与门禁最小实现／功能级探针分离埋点器／组件映射版本化与 status diff／依赖链状态页发现器／双向失配检测器／信通院补格
+- 下期候选：`evidence.survivorship.*` OTel 提案与 SURVIVORSHIP_UNVERIFIED 门禁／未采样发起计数器落地／"未留存项"报告模板／代表集-诊断集分离器／survivorship diff 发布格式／不采样对照器／静默失败谓词覆盖率测法／信通院补格
