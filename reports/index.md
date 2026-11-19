@@ -3954,3 +3954,18 @@
 - 建议：第 217 字段族＋SUBSTRATE_UNVERIFIED 门禁（未声明底座身份不得进 write≥act、结论不得写语义记忆/干预信用）／requested≠served 一等事故事件（包装调用逐次记录、首不一致即冻结基线触发 golden-set、高风险 strict 失败）／采购第五问（能否导出当时 serving 的 model ID 及差异记录）／评测补 serving-fingerprint 列＋seeded 底座变更题＋"该报没报"计入弃权率／五闸门进变更管理＋灰度不叠高峰／信通院"结果可评价"补「底座可举证率」格成八层治理
 - 注意：GPT-6.2 比例/6.1 取消原因/Opus5.5 退化归因来自社区抓包与二手报道厂商未完全证实；Gemini 路由来自第三方整理 Google 未承诺全场景回显；各基准分数不可直接相减；"4 告警 0 真回归"为站点自述；"三种机制/第 217 空白/底座漂移面"为本文归纳。本地 173 讲义为目录级引用；字节跳动本期以火山引擎产品文档列主行。未采信 SEO 农场
 - 下期候选：`substrate.provenance.*` OTel GenAI 提案与 SUBSTRATE_UNVERIFIED 门禁最小实现／requested-served 对账包装器与首不一致冻结器／serving-fingerprint 榜单列与 seeded 底座变更题／模型身份权威来源登记库／换底座五闸门变更管理模板／信通院补格
+
+## 第 298 期（2026-11-20 07:31）· 可复现面／构建证明与“同源同物”——签名证明谁构建了它，可复现才证明它等于源码
+
+- **期号说明**：296 期有同号并存条目（并行实例 06:00 另发），本期 298 未被占用。
+- **报告**：`reports/AI-SRE技术洞察-20261120-0731.md`
+- **主线**：主线第 241 条——证明是声明、可复现是验证；声明可被完美签在错误构建上；SRE 要的不是“谁签名”，而是“能不能自己造一个一样的”。
+- **时间线证据**：Debian 发布团队 2026-05（不可复现包禁止进 testing；amd64/forky 97.02% 可复现＝17,586 个，511 失败、30 构建失败）；Reproducible Builds Summit 2026-09-22/27 哥德堡（F-Droid Client 2.0 就绪、仓库 35% 可复现；学界验证 1.9 万包、83% 构建成功、其中 94% 可复现）；Adoptium 2026-08/10（Temurin JDK 21+ 完全可复现，IBM 独立验证 JDK 21/25 Windows x64/Linux x64 并发 CDXA 证明）；PyPI 2026-11-06 改版（PEP 740 数字证明上项目页，2024 年发布即超 2 万条）；SLSA 参考 2026-08-08（provenance＝构建来源非代码安全；多架构 index 与平台 manifest digest 错配）。
+- **四个新提法**：① 签名答“谁签的”，证明答“在哪用什么输入构建”，可复现答“是不是同一物”；② 多架构 digest 是两层，证明常只覆盖一层；③ AI 制品（CUDA/驱动/量化内核）让“干净环境重建”成本远高于普通包；④ dirty build 不体现在 provenance，commit 干净不等于构建干净。
+- **市场空白**：第 210 个——重建门禁与干净环境定义、多架构证明逐层对齐规范、构建环境指纹字段、dirty build 发布策略、重建差异归因与取证三段式。
+- **判词**：「Sigstore／SLSA／in-toto／PyPI 证明／npm provenance／镜像 digest 固定／SBOM」全部可采购，「这个 digest 能否由该 commit 在干净环境重建、多架构每一层是否与证明对齐、重建差异出在工具链还是源码」不可采购。
+- **本地原型**：本地 173／173-kb 连续第 165 期成组启用（蒋炎炳 23：制品要能自己造一遍）；`build_evidence{artifact_digest, source_commit, builder, toolchain_fingerprint, rebuilt, rebuild_diff: none|timestamp|path|toolchain|source, multiarch_aligned, verified_at}`；门禁要求 `rebuilt=true 且 rebuild_diff=none`。
+- **建议**：关键制品发布前干净机重建；证明覆盖多架构 digest；记录环境指纹；禁止或标注 dirty build；差异归因；取证包三段式。
+- **注意**：Debian 数字为报道转述、未直接读原始快照；峰会数字为会中报告；Adoptium/IBM 为厂商与工作组自述；SLSA 文档为社区仓库；PyPI 2 万条为 2024 年数字。
+- **落盘**：`reports/AI-SRE技术洞察-20261120-0731.md`
+- **下期候选**：Agent 恢复信号、多活写冲突合并策略、上下文窗口与压缩语义、模型制品与权重可复现。
