@@ -3870,3 +3870,16 @@
 - **注意**：Gorgias/Ada 来自 IsDown 状态页聚合，未与厂商复盘交叉验证；CVPR/EMNLP 数据为实验环境；Zenodo 状态机为技术报告；CrowdStrike 为产品信息。
 - **落盘**：`reports/AI-SRE技术洞察-20261120-0331.md`
 - **下期候选**：Agent 恢复信号、多活写冲突合并策略、供应商状态页依赖、上下文窗口与截断。
+
+
+## 第 294 期（2026-11-20 04:00）· 证据保真度面／"读到的都是真的，结论却是错的"（Evidence Fidelity / Plausible-but-Wrong）
+- 期号说明：`date` 04:21→0400 档；本实例上一期 293（11-20 03:00 语义回归面，主线245/连续169），顺延 294；主线第 246 全新立面；字段族 215；本地连续第 170 期。E 盘 index 另有并行实例 0231 的 0331（接管面，主线236体系），属不同序列，本条以文件戳 0400＋本实例序列标识，主题无重叠
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261120-0400.md（正文 2233 汉字／全文 3004；题眼＋五章＋七方案六维表＋22 来源/22 链接，16025 字节）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 主线：首次把"证据本身是否说了它声称发生的事"立为一等对象；与 #285 静默面/#290 证据通道面/#292 干预信用面/#293 语义回归面 划界（前四者分属系统/通路/动作/结果语义层，本期在输入证据层）；grep 证据保真/遥测保真/因果保真/时间泄漏/独立信号/证据污染/状态污染 两处索引均 0，全新立面确认
+- 核心新提法：最危险的遥测是"格式正确"的遥测（能过 schema、能过异常检测、返回像样的空结果）／空结果不是答案（severity 只在消息文本、结构字段为空，Agent 按 ERROR 查得空即报健康）／真实≠可信（每条证据都真、推理合理、结论仍错，因未分因果与相关）／三类失真：静默缺失·字段矛盾·词汇分裂／clean data 仍骗人（p99=20s 实为队列轮询间隔、根 span 仍引用未导出的 producer）／"修复已合入但告警没清"是保真错误永久隐身的方式／隐私护栏制造"合法空洞"（Google RLS/policy tag 触发 fail-closed 跳过日志，缺轮是策略还是故障无从分辨）／训练侧"证据钉时"禁读告警后提交堵时间泄漏；第 215 空白 `evidence.fidelity.*`（fidelity_checked_at／silent_absence{error_span_without_reason_ratio,missing_service_name[],single_span_ratio}／contradiction／vocabulary／causal_check{changed_service_vs_cause,alternatives_ruled_out[],evidence_time_aligned}／empty_result_policy=NOT_HEALTHY）缺省 FIDELITY_UNVERIFIED，与 #289/#290/#291/#292/#293 并列成六层治理最前一层
+- 时点红利：OllyGarden×Causely 11-02 联合文（38%-96% 错误 span 无 reason、多数>90%／unknown_service／单 span 59%-100% 某服务 140 万 trace 99.9%／125 vs 16 属性名／30 种 severity 拼写／因果 MCP 基准 75%→100%、19→4 工具、308K→123K token、73→25s、假事故 4/12→1/12）＋ResolveAI SRE-1（11-18 27B 纯 RL、工具钉在告警时刻禁偷看未来、6.9%→38.8%、178 告警自测、80% 自述）＋Google BigQuery agent_events 11-13（fail-closed 隐私跳过日志＋fail-open 执行、空表成唯一信号）＋New Relic Autopilot K8s（11-10 KubeCon、90+ 检测器、Ground Truth 引擎）＋ControlTheory Dstl8 2.0/ScienceLogic Skylar 2.8＋Anthropic EVE 破坏者实验 11-06（30%-40% 检出、有限访问<50% 置信、可见性非智能问题）＋Anthropic 11-13 事故＋OpenAI Control Room 11-09（35s/fail-closed/monitor 抓 DNS）＋阿里 AgenticOps Cloud Monitor2.0/UModel/BRiSE RCA100/200（764 case）＋STAROps 数据交界处根因＋腾讯 CloudQ 全景图谱＋Edge Delta AI SRE Arena＋ITBench-AA 0 分陷阱＋本地 173 讲义
+- 本期反转：统一采集/全景图谱/因果图/OTel 全链路/引用式结论全可采购；"空结果不许当健康、错误 span 带理由比例、改的是告警服务还是致因服务、受保护数据缺轮声明不可审计"做成可导出字段的没有一家做全。新观点：看得见数据≠数据说了真相（采集问题 vs 保真问题），混为一谈正是"遥测覆盖率 100% 却反复误诊"的根因
+- 本地原型（第 170 期新角度）：刘凯宁《蚂蚁 SRE 应急根因定位实践与踩坑》"结论/证据/待确认三分"扩出第八分"这条证据本身可信吗"，配蒋烁淼 AgentOps"秒查前提是查到的是真的"、何伟 Harness"生成与验证分离"外延到证据入推理前先过验证闸门
+- 建议：第 215 字段族＋FIDELITY_UNVERIFIED 门禁（未声明保真度不得进 write≥act、不得据空结果出健康）／OllyGarden 九项清单前五进 Dashboard 后四进 PR 模板／Agent 查询层加空结果护栏（默认未知需人工、回显查询覆盖率与词汇命中面）／采购三问／评测增保真度维度（seeded 失真测识破率·假健康率）／训练侧强制证据钉时／信通院补「证据保真可举证率」格
+- 注意：OllyGarden 数字为 7-10 月抽样实践非行业调查且样本自选；Causely 样本小且厂商联合自测；ResolveAI 全自测基座未公开；Edge Delta 出题人即参赛者；Anthropic 11-13 初期状态页与第三方监测是否一致有报道分歧；字节跳动本期无一手素材未列主行。未采信 SEO 农场。"证据保真度面/第 215 空白"为本文归纳
+- 下期候选：`evidence.fidelity.*` OTel GenAI 提案与门禁最小实现／空结果护栏与查询覆盖率回显器／九项清单对账任务／seeded 失真题库与识破率计分器／因果时间线对齐器／证据钉时训练管线检查器／信通院补格
