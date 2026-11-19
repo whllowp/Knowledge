@@ -377,3 +377,16 @@
 - 1 写入闸门（origin_id）
 
 （更早各期与 AI-SRE 运维系列索引见 `E:/Knowledge/Knowledge/reports/index.md`，勿混淆。）
+
+## 第 297 期（2026-11-20 07:00）· 在场性／影子 Agent 面／"你名册上的 Agent，是此刻真正在跑的全部 Agent 吗？"（Agent Presence & Shadow Inventory / The Roster Is Not the Estate）
+- 期号说明：`date` 07:36→0700 档；本实例权威历史（automation b0686167 memory）上一期 296（11-20 06:00 底座漂移面），顺延 297；主线第 250 全新立面；字段族 218；本地连续第 173 期。E 盘 index/git 另有并行实例自称 297（0631 备份面）等，不同序列，本条以文件戳 0700＋本实例序列标识，主题无重叠：那期问"数据还在不在"，本期问"跑的是谁、在不在册"
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261120-0700.md（正文 2513 汉字；题眼＋五章＋九方案七列对比表＋22 来源/21 链接，14798 字节）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 主线：首次把"此刻有哪些 Agent 在跑、它们在不在此刻的名册上、谁认领、是何时被谁发现的"立为一等运维对象；与 #199 身份面（用谁的凭据）/#289 分工面/#290 证据通道面/#292 干预信用面/#295 置信度面/#296 底座漂移面划界——后者六者都默认责任主体已知在册，在场性是它们的存在论前置层而非第七并列维度；grep 在场性/影子Agent/在册/普查/未登记/registered-shadow 两处无主线命中，全新立面确认
+- 核心新提法：名册不是人填的清单而是观测算出的判决（registered/shadow/unknown 三态，写在执行面不由 Agent 自述）／影子 Agent 让前六层治理字段锚定到错误主体或无主体／发现点是多源的（注册表·AI/MCP网关·OAuth授权·端点配置·SaaS构建器·云账号与git）任何单一产品都看不见全境／对账而非枚举（双向查"在认证却未登记"与"登记却90天未认证"）／pub delta 不报总数（"14 在册"无信息量、"6新增2退役3未登记"才是决策级报告）／接近一半有记录的 Agent 故障根本没有攻击者（PAI）／把 traceparent 当授权依据是越权缺陷／判决时效空转（空闲 Agent 不出现、gRPC漏检、非Secret注入长期误判shadow）；第 218 空白 `agent.presence.*` 六字段（registry_state∈{registered,shadow,unknown}／stable_agent_id 跨重部署／named_owner 自然人／observation_evidence 禁自述／last_authenticated_at+reconciled_at／presence_verified_at）缺省 PRESENCE_UNVERIFIED
+- 时点红利：MIT Tech Review 10-29＋PAI《Observability Gap in AI Agents》四框架13信号6缺口（持久ID/干预记录/权限记忆变更记录全缺、OTel tracing未定稿、NIST概念文件、IETF WIMSE草案、A2A1.0签名Agent Card、禁traceparent当授权）＋Sysdig 11-04 活体清单（Agent/harness/模型/MCP/技能/插件追溯到人、覆盖绕过网关调用、按Agent归因花费）＋Okta 11-05 Universal Directory注册＋OAuth授权监测＋Microsoft 365 Copilot Agents用量＋Snowflake 11-03 CoCo/CoWork继承调用者权限＋Tigera Lynx 节点级eBPF三态判决与Agent Trail＋"五起事故谁抓到的"（Anthropic事后翻141006次run才找到6起、AISI 3天无人察觉、Google/Meta由合作方Irregular两个月后告知、Hugging Face靠DB审计与网络流日志数出17600次动作）＋groundcover Investigations 11-19 第二Agent复核证据才接受根因＋New Relic Autopilot K8s 11-10 九十余探测器＋Gartner 59%/IBM 92%访问失控·66%无治理＋阿里云AgenticOps全栈11-11（OTel/UModel/BRiSE纳入Agent轨迹成本质量）＋火山智能运维助手RCA Harness＋专家Agent自定义IAM角色＋腾讯云CloudQ告警自动根因推送＋AT&T近500智能体工作流＋LinkedIn pageForestId扩traceId＋本地173讲义
+- 本期反转：发现工具与身份标准都在被采购推进；"把影子判决当一等事故字段、双向对账、发布delta而非总数、身份权威来源扎根节点而非transcript"九家几乎全空。海外赢节点级观测与标准草案，国内赢把Agent轨迹纳入统一数据模型。新观点：看得见动作≠看得见执行者（遥测问题 vs 存在论问题），混为一谈正是"所有动作都有trace、出事却找不到被告"的根因
+- 本地原型（第173期新角度）：闪英迪《AgentENV：面向智能体的超大规模智能体执行环境架构与实践》过去读作成本与稳定性（35%执行场开销、约5%节点日宕）、#98升格为信任边界，本期首次读作"执行场是唯一能在Agent不合作时读出谁在跑的地方"＝Tigera节点级判决的物理基础，配刘凯宁蚂蚁SRE"结论/证据/待确认三分"扩第十二分"这条结论由哪个Agent给出、在册还是影子"、配周昕毅"白名单动作"——白名单默认行动者已在名单上而影子Agent恰不在
+- 建议：第218字段族＋PRESENCE_UNVERIFIED 门禁（未声明在场不得进 write≥act、结论不得写语义记忆/干预信用/置信度记录）／发现即判决（五源取并集双向对账、shadow发现当日指派属主、未认领授权视同活凭据）／发布delta不报总数（登记设到期日、季度复核、有生产写权限月度复核）／权威来源下沉（身份与判决写执行面、网关默认拒绝、禁traceparent当授权）／采购第六问（承接#296第五问）"能否导出此刻生产所有Agent含未登记的判决与依据"／信通院补「在场可举证率」格成九层治理
+- 注意：Gartner 59%、IBM 92%/66%为第三方调研转述需回原文；Sysdig/Okta/Tigera/groundcover/New Relic 能力多为厂商自述未见独立横评；PAI 为框架文档审计非运行时实测且属观点文章；OTel semconv 未定稿属性名会变；各基准分数不可直接相减；"在场性面/第218空白/存在论前置层"为本文归纳。本地173讲义为目录级引用；字节跳动本期以火山引擎产品文档列主行。未采信SEO农场
+- 下期候选：`agent.presence.*` OTel GenAI 提案与 PRESENCE_UNVERIFIED 门禁最小实现／五源发现对账器与 delta 报告模板／节点级判决与网关默认拒绝落地清单／影子发现当日属主指派流程／在场状态与 #199 身份/#296 底座联合审计主键／信通院补格
+
