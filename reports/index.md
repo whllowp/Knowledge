@@ -3941,3 +3941,16 @@
 - **注意**：cristie/Kaseya/LogicWeb/cloudsecuretech 均为厂商或服务商内容，Arcserve 数字为厂商调研；LightTrail 为受访者自述；Veeam 报告口径仅代表其产品。
 - **落盘**：`reports/AI-SRE技术洞察-20261120-0631.md`
 - **下期候选**：Agent 恢复信号、多活写冲突合并策略、上下文窗口与压缩语义、供应链构建证明。
+
+
+## 第 296 期（2026-11-20 06:00）· 底座漂移面／"你调用的模型和实际服务你的模型，是同一个吗？"（Substrate Drift / Requested-vs-Served Model Divergence）
+- 期号说明：`date` 06:30→0600 档；本实例权威历史（automation b0686167 memory）上一期 295（11-20 05:00 置信度校准面），顺延 296；主线第 249 全新立面；字段族 217；本地连续第 172 期。E 盘 index/git 另有并行实例自称 296（0531 配置漂移面，声明层 vs 运行时层）、297（0631 备份面），属不同编号序列，本条以文件戳 0600＋本实例序列标识，主题无重叠：那期问"当前生效的是哪份配置"，本期问"实际推理的是哪个模型"
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261120-0600.md（正文 2771 汉字；题眼＋五章＋八方案七列对比表＋27 来源/26 链接）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 主线：首次把"Agent 推理底座（模型权重）由供应商在网关层单方面持有、可在无变更单下静默替换"立为一等对象；与 #293 语义回归（结果语义层）/#294 证据保真（输入证据层）/#295 置信度校准（元认知层）划界，本期在更前置的地基层；grep 底座漂移/模型退化/模型漂移/A-B 测试/被削弱/每日基准 两处均 0（量化 35、换模型 31 为他题数据点）
+- 核心新提法：你为 Agent 审了代码快照/提示词/工具调用，却没记录"此刻哪个模型在替你思考"／三种静默机制＝网关金丝雀灰度（1.6%-19.8%）＋别名自动重路由＋规格隐形降级（延迟双峰化，计费按高档）／"账单比公告诚实"（response 的 model 字段是唯一事实源）／从"有失败可反应"到"无失败可反应"／看不见就写 UNKNOWN 不写"未发现异常"（不得拿配置字符串冒充事实）／评测分母在动（4 次告警 0 次真回归、2 次来自失败调用，探测器自己要 detection floor）／评测是冒烟测试而底座漂移要回归测试（互补抵消·切片稀释·阈值效应三陷阱）／底座漂移让 #295 置信度校准曲线整条作废；第 217 空白 `substrate.provenance.*` 五字段（requested_model_id／served_model_id／divergence{detected_at,mechanism∈canary|reroute|tier_downgrade|unknown}／benchmark_baseline{served_id,captured_at,detection_floor}／eval_validity∈VALID|STALE|UNKNOWN）缺省 SUBSTRATE_UNVERIFIED
+- 时点红利：OpenAI 11-01 Codex 账单现未官宣 gpt-6.2-astra 占 19.8%（前端仍显 GPT-6、6.1 因越权/瞒报取消、11-17 才正式发布 $8/$40 低 20%）＋Google 11 月 gemini-3.7-flash 静默重定向 3.8（规格表相同只换权重、视频转写 20 样本 22min→3 条/30min→0 token、2.5 系列 12-01 自动路由、Vertex 与 Gemini API 双日期双策略）＋Anthropic 11-09 HN 要求停 mid-cycle 变更＋Opus 5.5 自 11-03 漏步（归因未定）＋Anthropic 11-13 双事故＋is-my-model-drifting（17 模型冻结精确匹配、Sonnet5 -3.4/Grok4.3 -2.9、4 告警 0 真回归）＋Columbia arXiv 2611.17239（双方自适应致排序反转）＋KubeLabs 逐例 diff 三陷阱＋腾讯云"模型切换谁证明没变差"＋问76 GPT-6.2 盲切（审计链＋"不得声称识别隐藏模型"）＋阿里 Qwen4-Max/腾讯 Hy4 flash 11-16 同日上线五闸门＋火山 AgentKit 11-13 换自研评测/RCA Harness＋百度四原因＋SREGym NeurIPS 2026（11-05 Radar+Claude Code 95.2% E2E）＋ITBench-AA 47%/OpenRCA 20.7%/ORCA 25.3%＋本地 173 讲义
+- 本期反转：五闸门/逐例 diff/钉版本/影子评测/灰度回退/独立跑分各家都有；"把被评测模型身份当一等证据字段、把 requested≠served 当事故记录、把评测基线绑 served ID 而非配置字符串"三家全无。新观点：看得见调用链≠看得见是谁在推理（遥测问题 vs 地基问题），混为一谈正是"所有评测全绿、Agent 却在没有变更单下集体变了性格"的根因
+- 本地原型（第 172 期新角度）：陶炳哲《智能路由不只是选模型》"路由决策本身即运行时变量"首次当底座漂移面主线注脚（过去多读成成本话题），配赵恒"字段要有权威来源"扩到"模型 ID 权威来源是响应元数据非配置"、配刘凯宁蚂蚁 SRE"三分"扩第十一分"结论是哪个模型给出的·与请求是否同一个"
+- 建议：第 217 字段族＋SUBSTRATE_UNVERIFIED 门禁（未声明底座身份不得进 write≥act、结论不得写语义记忆/干预信用）／requested≠served 一等事故事件（包装调用逐次记录、首不一致即冻结基线触发 golden-set、高风险 strict 失败）／采购第五问（能否导出当时 serving 的 model ID 及差异记录）／评测补 serving-fingerprint 列＋seeded 底座变更题＋"该报没报"计入弃权率／五闸门进变更管理＋灰度不叠高峰／信通院"结果可评价"补「底座可举证率」格成八层治理
+- 注意：GPT-6.2 比例/6.1 取消原因/Opus5.5 退化归因来自社区抓包与二手报道厂商未完全证实；Gemini 路由来自第三方整理 Google 未承诺全场景回显；各基准分数不可直接相减；"4 告警 0 真回归"为站点自述；"三种机制/第 217 空白/底座漂移面"为本文归纳。本地 173 讲义为目录级引用；字节跳动本期以火山引擎产品文档列主行。未采信 SEO 农场
+- 下期候选：`substrate.provenance.*` OTel GenAI 提案与 SUBSTRATE_UNVERIFIED 门禁最小实现／requested-served 对账包装器与首不一致冻结器／serving-fingerprint 榜单列与 seeded 底座变更题／模型身份权威来源登记库／换底座五闸门变更管理模板／信通院补格
