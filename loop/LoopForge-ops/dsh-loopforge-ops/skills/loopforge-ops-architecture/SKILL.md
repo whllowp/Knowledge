@@ -5,11 +5,11 @@ description: LoopForge 值守总图——开发段七阶段、五契约与三道
 
 # LoopForge 值守总图
 
-依据：E:/sdd/dark-factory/SKILL.md 及 references/gates.md、design.md（七阶段、五契约、门禁语义与 spec_sha/drift 实现，scripts/factory.py:479-587）；值守实践来源：incident.io《AI incident triage》（富集/去重/严重度建议/时间线四任务、渐进信任三阶段、human-in-the-loop）、Google SRE《Being On-Call》（每班事故上限与可行动告警）、FireHydrant 告警疲劳文（引 IDC 数据）及 PagerDuty/AWS/Meta 值守调研；改进沉淀来源：RSI-Anything（arXiv:2610.13912v1，预测-行动-观测-改进与三重保留门）。本技能是总图：先在这里建立全局，再按各节路由读对应技能拿动作与出口条件。
+依据：dark-factory 先例工程 SKILL.md 及 references/gates.md、design.md（包外工程，仅引用先例；七阶段、五契约、门禁语义与 spec_sha/drift 实现，scripts/factory.py:479-587）；值守实践来源：incident.io《AI incident triage》（富集/去重/严重度建议/时间线四任务、渐进信任三阶段、human-in-the-loop）、Google SRE《Being On-Call》（每班事故上限与可行动告警）、FireHydrant 告警疲劳文（引 IDC 数据）及 PagerDuty/AWS/Meta 值守调研；改进沉淀来源：RSI-Anything（arXiv:2610.13912v1，预测-行动-观测-改进与三重保留门）。本技能是总图：先在这里建立全局，再按各节路由读对应技能拿动作与出口条件。
 
 ## 开发段→值守段映射（15 条：7 阶段+5 契约+3 门禁）
 
-这张表是本束的地基，其余四个技能都是某一行的展开。门禁类三行不得裁剪。
+这张表是本束的地基，其余五个技能都是表中行的展开（loopforge-shift-memory 横跨「报告即交付」与「learn」两行的存取侧）。门禁类三行不得裁剪。
 
 | 开发段（dev） | 值守段（ops） | 说明（note） |
 |---|---|---|
@@ -33,15 +33,15 @@ description: LoopForge 值守总图——开发段七阶段、五契约与三道
 
 告警→去重分组→严重度判定→路由→处置→验收→交接→复盘→改进，九步闭环：
 
-1. **告警接收与富集**：并行分片，每路产四件套（告警原文/影响面/初判根因/证据含 file:line）→ loopforge-orchestration。
+1. **告警接收与富集**：分诊前先校验记忆目录——跑 `check.py memory --catalogue` 确认目录与库一致（不一致先 `--write-catalogue` 重投影再读，不读旧目录），再按目录查去重键/根因假设/受影响面，命中即免重读原始日志，未命中回退原始材料；并行分片，每路产四件套（告警原文/影响面/初判根因/证据含 file:line）→ loopforge-orchestration + loopforge-shift-memory。
 2. **去重分组**：去重键 `(服务, 指标, 语义标签)`，同键留最早；疑似同根因合并为一个事件 → loopforge-shift-protocol。
 3. **严重度判定**：SEV1–4 判级表；误报可恢复、漏报致命，判级宁高勿低 → loopforge-shift-protocol。
 4. **路由**：SEV1 page IC 陪跑 / SEV2 page 备班 / SEV3 本班队列 / SEV4 工单 → loopforge-shift-protocol。
 5. **处置**：指针派发、单事件单包单尝试、attempt 接力棒、runbook 互斥与并行上限 → loopforge-shift-protocol（细则）+ loopforge-orchestration（扇出）。
 6. **验收**：三段式证据文件 + check.py 机检（evidence 子命令）+ 假通过拒绝 → loopforge-evidence-gates。
 7. **交接**：未决/风险/决策三要素，安静班次也写 → loopforge-shift-protocol。
-8. **复盘**：三轴分评 + 证据轴抽查重跑（对头部 ts/cwd/cmdsha12 锚点）→ loopforge-shift-protocol。
-9. **改进**：候选先分轨——策略/预测器类过三重保留门，文档类人审 → loopforge-rsi-ledger。
+8. **复盘**：三轴分评 + 证据轴抽查重跑（对头部 ts/cwd/cmdsha12 锚点）；先校验并查记忆目录的 refute 条目与历史尝试，被证伪提案不得原样重提 → loopforge-shift-protocol + loopforge-shift-memory。
+9. **改进**：候选先校验并查记忆目录的历史尝试（防重复提案）再分轨——策略/预测器类过三重保留门（签发强度按验证层级 V2/V1/V0 排保留档位），文档类人审 → loopforge-rsi-ledger + loopforge-shift-memory。
 
 ## 渐进信任三阶段与人工闸门
 
@@ -74,11 +74,33 @@ description: LoopForge 值守总图——开发段七阶段、五契约与三道
 - **文档类**（runbook、巡检切片）：复盘三轴 + 人审定稿，或按契约走书面豁免留痕；不硬等门开，也不冒充策略类绕门。
 - 判别口径：改动改的是「判据/参数/规则」还是「人读的文档」——拿不准的按策略类从严过门。append 只扩反馈历史，不是改版；报表把 append 记成改进属系统性虚增。
 
+## 验证层级（签发强度排序，V2/V1/V0/Vi）
+
+保留门按**签发信号的位阶**排序——已证明的自改进强度沿层级追踪，不跟自信程度走。字段（v_level）与机检规则的权威定义在 loopforge-rsi-ledger，本节是总图视角的映射与路由：
+
+| V 层 | 谁签发 | 映射 E 级（证据来源） | 保留档位 |
+|---|---|---|---|
+| V2 | 形式验证/机检签发 | E0（check.py 等确定性判定，本包语境最接近形式验证器的信号源） | 可自动永久保留 |
+| V1 | 执行反馈签发 | E2/E3（测试/重放/生产实测） | 保留，但必须附 caveat 非空（可靠而不完备，写明固定基准终被博弈） |
+| V0 | 学习型裁判签发 | E1（LLM 归纳/假设推断类预测） | 降级暂存：机检强制 staged:true；晋升须外部位阶更高复核（V2 机检或 V1 执行反馈签发的新 revision 条目，或人审 human_gate） |
+| Vi | 内在信号（置信/自一致/似然/uncertainty 自评） | 无映射——非法取值 | 机检直接 invalid：内在信号签发的门结果一律拒绝 |
+
+三条路由规则随表生效：一、**学习型裁判单独签发不得默认保留**（V0 只进暂存档）；二、**E0→V2 的映射保真度有边界**（确定性机检≈形式验证器是最接近项而非等价物），登记在 loopforge-rsi-ledger 的开放问题清单；三、跨班次记忆的同款门槛见 loopforge-shift-memory——记忆条目晋升保留同样只认 v_level∈{V1,V2}，与台账同一套排序规则。
+
+## 治理度量口径（三率从台账可算）
+
+三率全部从台账原始条目计算，不从报表或记忆填数；算不出的率先补采集再谈治理（与映射表「报告即交付」行的班末指标口径一致）：
+
+- **保留率** = 三门全 pass 的 revision / 全部 revision。v0.2.0 起门败候选无论成败都落 revision 条目（三门取值收紧为 pass|fail），被拒者同时记 Explore 税——分母不缺被拒候选，保留率不虚高。
+- **回滚率** = g_pair=fail 的 revision / revision 总数。配对门败整对回滚（见改进沉淀双轨节），回滚率衡量策略-预测器联合失配的频度，不是单组件质量。
+- **override 率** = override 条目数 / AI 提议总数。override 是台账第三种 kind，专采「人否决 AI 提议」事件；必需字段与三处采集点（SEV1/2 人审定级、受限自动化逐项审批、复盘方案轴推翻判级）见 loopforge-evidence-gates「指标口径与 override 采集」节。
+
 ## 配套技能（本束内）
 
 - **loopforge-shift-protocol**：班次协议——开班简报、巡检切片、处置派发、交接报告、班次复盘的动作与出口条件。
-- **loopforge-evidence-gates**：E0–E3 证据层级、三段式证据文件格式、三道门禁机检（check.py 的 evidence/ledger 子命令）。
+- **loopforge-evidence-gates**：E0–E3 证据层级、三段式证据文件格式、三道门禁机检（check.py 的 evidence/ledger/memory 子命令）。
 - **loopforge-rsi-ledger**：RSI 台账——预测-行动-观测-改进四步、三重保留门、Verify/Explore/Write 分账与税率。
 - **loopforge-orchestration**：7×24 编排——确定性门控优先、并行扇出与 runbook 互斥、断点恢复、保留式更新调度。
+- **loopforge-shift-memory**：跨班次记忆库——主体–关系事实存储与 catalogue 目录（消费前先 `check.py memory --catalogue` 校验、不一致先重投影再读）、班内草稿→staged 试用期→保留的写入门槛、refute 防重复提案。
 
 对应系统提示片段在包内 prompts/ 目录（dsh 不自动发现 prompts/，需宿主或人工引用）。

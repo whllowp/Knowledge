@@ -5,7 +5,7 @@ description: LoopForge 证据门禁——query–reason–cite（引不出证据
 
 # LoopForge 证据门禁（verify 契约②③ + 分诊判定）
 
-值守时的判定与验收门禁，兼本包唯一机检器 check.py 的宿主技能。底线译自 dark-factory 契约（E:/sdd/dark-factory/SKILL.md:17 "Evidence or it did not happen"、:79 零测试即 FAIL）与其失败分类学（references/gates.md）。
+值守时的判定与验收门禁，兼本包唯一机检器 check.py 的宿主技能。底线译自 dark-factory 先例工程契约（SKILL.md:17 "Evidence or it did not happen"、:79 零测试即 FAIL；包外工程，仅引用先例）与其失败分类学（references/gates.md）。
 
 ## 一、query–reason–cite：引不出证据就沉默
 
@@ -21,6 +21,15 @@ description: LoopForge 证据门禁——query–reason–cite（引不出证据
 | E3 | 外部实测 | 生产/真实环境命令输出 | 观测，最强 |
 
 结论强度不得高于其最弱证据级；E1 不得单独支撑处置动作，须 E0/E2/E3 之一佐证。台账条目的 e_level 字段与 loopforge-rsi-ledger 共用此四级口径（check.py ledger 校验其合法值）。
+
+**V 层↔E 级映射**（签发强度↔证据来源，保留门排序用；权威字段定义在 loopforge-rsi-ledger，本表只共口径）：
+
+| V 层（谁签发） | 映射 E 级 | 保留档位 |
+|---|---|---|
+| V2 形式验证/机检签发 | E0 规则检查（check.py 等确定性判定） | 可自动永久保留 |
+| V1 执行反馈签发 | E2 模拟器 / E3 外部实测 | 保留，须附 caveat 非空 |
+| V0 学习型裁判签发 | E1 模型预测 | 降级暂存（staged:true），晋升须外部位阶更高复核 |
+| Vi 内在信号（置信/自一致/自评） | 无——非法取值 | 机检直接 invalid，门结果拒绝 |
 
 ## 三、严重度判定 SEV1–4（可机检判据 + P 级等价）
 
@@ -50,9 +59,14 @@ AI 可提议定级；SEV1 与 SEV2 判定必须人工审批后生效（SEV3/4 �
 ```bash
 python E:/loop/LoopForge-ops/dsh-loopforge-ops/skills/loopforge-evidence-gates/check.py evidence <证据文件>
 python E:/loop/LoopForge-ops/dsh-loopforge-ops/skills/loopforge-evidence-gates/check.py ledger <台账.jsonl>
+python E:/loop/LoopForge-ops/dsh-loopforge-ops/skills/loopforge-evidence-gates/check.py memory <记忆库.jsonl> [--catalogue <目录.md>] [--write-catalogue <目录.md>]
 ```
 
 包挪位时与 cordis.patch.yml 同款同步改此路径，或以 check.py --dump-config 查得的本包 skills 路径为前缀拼接 loopforge-evidence-gates/check.py。
+
+三个子命令各管一摊（与 `check.py --help` 输出的子命令清单一致）：**evidence**（三段式证据文件：假通过拒绝+计数 max 语义）、**ledger**（台账条目：append/revision/override 三种 kind 各自必需字段+条件校验）、**memory**（记忆库事件流：add 六元组与 entry_id 唯一性、hit/stale/archive/refute/promote 的 target 引用完整性、promote 须 v_level∈{V1,V2}、`--catalogue` 视图一致性校验、`--write-catalogue` 重投影生成；数据模型与「先校验后读」纪律见 loopforge-shift-memory）。
+
+ledger 机检分三档：**append 必需**（kind/e_level/version，草稿合法）；**revision 必需**（三门 g_policy/g_world/g_pair∈{pass,fail}+baseline+v_level+coupling+axes）；**override 必需**（object∈{severity,route,disposition,close}+ai_proposal+human_decision 非空）。**条件校验**（字段存在才查，对旧条目零影响）：条目含顶层 `rollout` 对象（至少含 `horizon` 正整数）即 rollout 条目，机检强制其 `e_level==E1`——预测性规划状态未经外部检查，进台账不得高于 E1；条目顶层 `gate_data` 指针须指向存在的文件（gate_data 是与 `matched_eval` 并列的顶层键、非其嵌套子键——写进 matched_eval 嵌套对象机检不查，等于绕过配对指针落地；堵「孤立组件各自过门即宣称配对成立」）；`cost_class` 三项与 `tokens` 同在时校验三项和=tokens；`blast_radius` 须 `^R[0-3]` 前缀（R0 只读/R1 单文件/R2 单实例/R3 全局）。
 
 机检证明力点名：check.py evidence 校验的是证据文件的内部一致性（exit 码 ∧ 检查项计数），不证明命令实际被执行过——执行保证仍是散文纪律；如需独立验证，由处置执行体以外的角色重跑命令并比对输出。头部三锚点（ts/cwd/cmdsha12）供复盘证据轴抽查重跑比对。先例对照：dark-factory 由编排者独立 subprocess 重跑并写 evidence（factory.py:515-525），并明令 Never mark done from a worker's self-report alone（SKILL.md:99）；本包无独立执行体，这是保证力边界。
 
@@ -68,9 +82,11 @@ python E:/loop/LoopForge-ops/dsh-loopforge-ops/skills/loopforge-evidence-gates/c
 
 信任阶梯：提议 → 影子（只记录不执行）→ 单实例作用域执行 → 放量。每个自主动作执行前必须标注 blast radius（影响半径：单文件 / 单实例 / 全局），未标注不得执行；放量前必须先过单实例作用域验证，跳级动作回退一级。零打扰原则：向人求助仅限 loopforge-ops-architecture「渐进信任三阶段与人工闸门」节定义的求助白名单（权威清单以该节为准，本节不重述）——白名单之外自己决策并留痕，白名单外求助一次即流程 bug，记台账 interventions 计数。
 
-## 八、指标口径
+## 八、指标口径与 override 采集
 
 只认本环境台账口径：override rate（人工否决率）与 FNR（漏报率）优先于 raw accuracy——高准确率配高漏报是危险组合，准确率单独永远不构成放行依据。跨环境数字不可比，不引外部 benchmark 当门禁证据。
+
+**override 采集点**：override rate 的分子从 v0.2.0 起有机检采集机制——台账第三种 `kind=override` 条目记「人否决 AI 提议」事件，机检必需 `object`∈{severity（定级）/route（路由）/disposition（处置）/close（关单）}+`ai_proposal`+`human_decision` 非空。采集点三处，一处不漏：①SEV1/2 人审定级（AI 提议的级别被人改判）；②受限自动化阶段逐项审批（人拒绝 AI 提议的动作）；③复盘方案轴推翻当班判级。否决不落条目=分子丢失、override 率失真，按指标口径缺陷记复盘。三率（保留率/回滚率/override 率）的计算公式见 loopforge-ops-architecture「治理度量口径」节。
 
 ## 九、Bainbridge 脱环警示
 
@@ -80,3 +96,4 @@ python E:/loop/LoopForge-ops/dsh-loopforge-ops/skills/loopforge-evidence-gates/c
 
 - loopforge-shift-protocol：值守班次协议——低置信判级的路由动作、交接与升级流程出处。
 - loopforge-rsi-ledger：RSI 台账——e_level 四级口径共用，check.py ledger 的校验对象。
+- loopforge-shift-memory：跨班次记忆库——check.py memory 子命令的校验对象与「先校验后读」纪律出处。

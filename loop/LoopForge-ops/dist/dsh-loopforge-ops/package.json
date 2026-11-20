@@ -1,0 +1,11 @@
+{
+  "name": "dsh-loopforge-ops",
+  "version": "0.2.0",
+  "private": true,
+  "description": "LoopForge 7×24 值守规则的纯内容 dsh 束：值守总图（loopforge-ops-architecture）、班次协议（loopforge-shift-protocol）、证据门禁与最小机检器 check.py（loopforge-evidence-gates）、RSI 改进台账（loopforge-rsi-ledger）、7×24 编排（loopforge-orchestration）、值守记忆（loopforge-shift-memory），附内网离线打包器 tools/pack-intranet.mjs，以技能（SKILL.md）经 skill-filesystem customSkillDirs 供 agent 按需加载。",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

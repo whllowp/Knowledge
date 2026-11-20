@@ -1,0 +1,10 @@
+# dsh-loopforge-ops bundle layer. Pure content package: no insert entries (no JS runtime to load),
+# the only job of this patch is to register this package's skills/ directory as a skill root.
+# customSkillDirs entries are resolved against the process cwd, so the path must be absolute
+# and must use forward slashes (double-quoted Windows backslash paths are YAML escape sequences).
+# config replaces the entry's config as a whole; every other skill-filesystem key falls back to
+# its schema default (includeDefaultRoots defaults to true and stays enabled).
+- id: skill-filesystem
+  config:
+    customSkillDirs:
+      - E:/loop/LoopForge-ops/dist/dsh-loopforge-ops/skills

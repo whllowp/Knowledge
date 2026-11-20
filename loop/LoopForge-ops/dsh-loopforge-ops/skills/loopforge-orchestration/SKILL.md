@@ -5,7 +5,7 @@ description: LoopForge 7×24 编排——确定性门控优先（机检断言先
 
 # LoopForge 7×24 编排
 
-依据：claude.com《Introducing dynamic workflows in Claude Code》（并行子代理扇出、结果先检验再并入、反驳代理迭代到收敛、进度随跑随存、协调发生在对话之外、token 成本两处警告、首次触发先确认、Bun 四阶段接力）；E:/sdd/dark-factory/SKILL.md 与 references/dispatch.md（派发即指针、并行安全与文件不相交、重试带失败尾巴、按 state.json 续跑不重跑已完成单）；E:/meta-harness/ARCHITECTURE.md。本技能把这些机制翻译成值守动作：你编排的不是对话，是落在磁盘上的处置流水线。
+依据：claude.com《Introducing dynamic workflows in Claude Code》（并行子代理扇出、结果先检验再并入、反驳代理迭代到收敛、进度随跑随存、协调发生在对话之外、token 成本两处警告、首次触发先确认、Bun 四阶段接力）；dark-factory 先例工程 SKILL.md 与 references/dispatch.md（包外工程，仅引用先例；派发即指针、并行安全与文件不相交、重试带失败尾巴、按 state.json 续跑不重跑已完成单）；meta-harness 先例工程 ARCHITECTURE.md（包外工程，仅引用机制出处）。本技能把这些机制翻译成值守动作：你编排的不是对话，是落在磁盘上的处置流水线。
 
 ## 一、确定性门控优先
 
@@ -19,6 +19,7 @@ description: LoopForge 7×24 编排——确定性门控优先（机检断言先
 ## 二、并行扇出与 runbook 互斥
 
 - 告警风暴先分片再扇出：一路告警（或一个服务面）一个子代理并行富集，每路产出四件套——告警原文、影响面、初判根因、支撑证据（含 file:line）。
+- **扇出前先校验记忆目录**：跑 `check.py memory --catalogue` 确认目录与库一致（不一致先 `--write-catalogue` 重投影再读，不读旧目录）；分诊查询走目录——去重键、根因假设、受影响面，命中即免重读原始日志；目录 miss 才回退原始材料，并在已加载分支上顺手触发一次有界预算的新提取（不为写记忆专门翻旧档）。数据模型与提取预算上限见 loopforge-shift-memory。
 - **两执行体绝不写同一 runbook**：任何两个并行执行体的写入清单（runbook、处置包、目标文件）必须不相交；两条就绪任务指向同一文件时，先合并成一个任务再派发，不赌并发运气。
 - 并行度跟着互斥走：共享写入面越多冲突越多，不是吞吐越多；写入面不干净时先降并发再想办法。
 - 重试不重发旧提示：失败处置重新打包时，把上一次机检失败尾巴嵌进新处置包，重试从观察到的失败开始，不从原题开始。
@@ -44,7 +45,7 @@ description: LoopForge 7×24 编排——确定性门控优先（机检断言先
 - **重入判定规则一**：重入只查台账——按台账「已验证」状态判定已完成单元，已完成的绝不重跑。
 - **重入判定规则二**：未完成单元从其处置包与最近一条证据续跑，不从头重建计划、不重派已完成步骤。
 
-中断来源不限（会话断、超预算、换班），重入动作相同：先读台账与最近证据，再续跑。处置包格式与交接班细则见 loopforge-shift-protocol（处置包）。
+中断来源不限（会话断、超预算、换班），重入动作相同：与开班同款顺序——先校验记忆目录（`check.py memory --catalogue`，不一致先重投影再读并记流程 bug），再读台账与最近证据，然后续跑；上一班沉淀的处置事实从记忆目录承接（细则见 loopforge-shift-memory），目录 miss 不阻塞、回退原始材料。处置包格式与交接班细则见 loopforge-shift-protocol（处置包）。
 
 ## 五、计划外置
 
@@ -88,3 +89,4 @@ Bun 移植的四阶段接力模式，值守照搬：
 
 - loopforge-shift-protocol（处置包）：处置包格式、处置派发与交接班细则。
 - loopforge-rsi-ledger（保留式更新）：编排流程自身的改进先记账，只有过保留门槛的才沉淀，保留式更新不推翻在位版本。
+- loopforge-shift-memory（跨班次记忆）：分诊扇出与断点重入的记忆目录消费口径——先校验后读、miss 回退与有界提取。

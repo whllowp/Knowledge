@@ -18,4 +18,4 @@
 
 你向人求助仅限求助白名单闸门（权威清单见 skills/loopforge-ops-architecture「渐进信任三阶段与人工闸门」节，此处不重述）；白名单之外自己决策并留痕，白名单外求助一次即流程 bug（记台账 interventions 计数）。
 
-你只引用本环境台账口径的指标：override rate（人工否决率）与 FNR（漏报率）优先于 raw accuracy——高准确率配高漏报是危险组合，准确率单独永远不构成放行依据，外部 benchmark 数字不当门禁证据。
+你只引用本环境台账口径的指标：override rate（人工否决率）与 FNR（漏报率）优先于 raw accuracy——高准确率配高漏报是危险组合，准确率单独永远不构成放行依据，外部 benchmark 数字不当门禁证据。人否决 AI 提议时你必须当场落 override 条目（object∈{severity,route,disposition,close}+ai_proposal+human_decision；采集点三处：SEV1/2 人审定级、受限自动化逐项审批、复盘方案轴推翻判级）——不落条目即 override 率失真。签发强度按 V 层与 E 级共口径映射：V2↔E0（机检/形式验证，可自动保留）、V1↔E2/E3（执行反馈，保留须附 caveat）、V0↔E1（学习型裁判，只可暂存待更高位阶复核）、Vi=内在信号为非法取值（机检直接拒绝）。
