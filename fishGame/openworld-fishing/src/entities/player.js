@@ -35,6 +35,11 @@ export class Player extends Emitter {
     this.velocity = new THREE.Vector3();
     this.yaw = opts.yaw ?? 0;
     this.pitch = 0;
+    // The body can face a different way than the camera (rowing a boat): the
+    // boat drives bodyYaw while the mouse keeps the view free (v6.4.0).
+    this.bodyYaw = this.yaw;
+    this.boatPitch = 0;
+    this.boatRoll = 0;
     this.viewMode = opts.viewMode || 'first';
     this.viewBlend = this.viewMode === 'third' ? 1 : 0;
     this.sensitivity = opts.sensitivity ?? 1;
@@ -401,7 +406,9 @@ export class Player extends Emitter {
   _updateAngler(dt, camera) {
     const a = this.angler;
     a.root.position.set(this.position.x, this.position.y, this.position.z);
-    a.root.rotation.y = this.yaw + Math.PI;
+    // while seated in a boat the body follows the hull, not the view
+    const facing = this.mounted ? this.bodyYaw : this.yaw;
+    a.root.rotation.y = facing + Math.PI;
     a.update(dt, {
       speed: this.speed,
       moving: this.speed > 0.4,
@@ -436,9 +443,15 @@ export class Player extends Emitter {
     const focusX = target.x + rightV.x * shoulder * this.viewBlend;
     const focusZ = target.z + rightV.z * shoulder * this.viewBlend;
 
+    const aboard = !!this.mounted;
+    // Aboard a boat the boom sits a little longer and higher so the hull is
+    // framed from above-behind instead of filling the screen. The extra is
+    // kept OUT of `_cameraDistance` — feeding it back in made the boom creep.
+    const extra = aboard ? 1.25 : 0;
+    const lift = aboard ? 0.95 : 0;
     const dist = this._cameraDistance;
     const idealX = focusX - fwd.x * dist;
-    const idealY = target.y + 0.55 - fwd.y * dist;
+    const idealY = target.y + 0.55 + lift - fwd.y * dist;
     const idealZ = focusZ - fwd.z * dist;
 
     // ---- collision: shorten the boom if terrain or water blocks it
@@ -459,9 +472,10 @@ export class Player extends Emitter {
     this._thirdTargetDist = allowed;
     this._cameraDistance = damp(this._cameraDistance, this._thirdTargetDist, 10, dt);
 
-    const camX = focusX - fwd.x * this._cameraDistance;
-    const camY = target.y + 0.35 - fwd.y * this._cameraDistance;
-    const camZ = focusZ - fwd.z * this._cameraDistance;
+    const boom = this._cameraDistance + extra;
+    const camX = focusX - fwd.x * boom;
+    const camY = target.y + 0.35 + lift - fwd.y * boom;
+    const camZ = focusZ - fwd.z * boom;
 
     // ---- blend between first and third
     const b = smoothstep(this.viewBlend);
@@ -473,6 +487,13 @@ export class Player extends Emitter {
     const lookAtZ = lerp(eye.z - fwd.z * 10, focusZ + fwd.z * 6, b);
     camera.up.set(0, 1, 0);
     camera.lookAt(lookAtX, lookAtY, lookAtZ);
+
+    // ---- aboard a boat the hull's motion reaches the camera a little
+    if (this.mounted) {
+      const tilt = this.mounted;
+      camera.rotateZ(tilt.roll * 0.4);
+      camera.rotateX(clamp(-tilt.pitch * 0.35, -0.06, 0.06));
+    }
 
     // ---- subtle first-person head roll from strafing
     if (b < 0.5 && this.grounded) {

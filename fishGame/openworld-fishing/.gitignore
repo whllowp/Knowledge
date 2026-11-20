@@ -13,3 +13,5 @@ probe-shots/
 # verification screenshots are large; keep the reports, drop the images
 verify-*/*.png
 verify-*/*.jpg
+probe-*.json
+probe-out.txt

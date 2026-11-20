@@ -57,6 +57,8 @@ Click the canvas to lock the mouse, then walk to the lake and press **F**.
 | Right mouse | Pump the rod: dumps tension, wins a little line back |
 | `Z` / `X` | Relax / tighten the drag during a fight |
 | `B` | Board / leave the boat |
+| `W` / `S` / `A` / `D` | Row forward / back-water / steer (only while aboard) |
+| `Space` | Anchor / hard brake while rowing |
 | `G` | Summon a rowboat to the nearest water and climb in |
 | `T` | Charter out to an offshore mark (press again to come home) |
 | `C` | Campfire cooking |
@@ -111,6 +113,18 @@ regions, dive, surface and blow — get within 130 m of a surfacing one and it i
 recorded in your sighting log. The catchable roster includes six sharks and rays
 (nurse, hammerhead, tiger, megamouth, whale shark, giant manta) plus the blue
 marlin, so the deep marks are a different fishery, not just bigger fish.
+
+**Boathandling (v6.4.0).** The rowboat is a 22-station lofted hull with a keel
+model instead of a sliding board: six buoyancy samples read the same CPU wave
+field the water is drawn from, so the boat pitches and rolls with every swell;
+longitudinal and lateral drag are decomposed (the keel resists sideways slip far
+harder than forward motion), steering authority scales with speed, and the hull
+planes above 2.5 m/s to cut drag by 42%. Three collision circles test terrain,
+dock props and other hulls — hitting something costs hull integrity, shakes the
+camera and sounds a thud; below 34% the hull is **breached** (half speed, more
+drag, water sound), and grounding scrapes the keel. Space anchors. A boat HUD
+under the crosshair shows knots, compass heading, depth under the keel and hull
+integrity, and the angler's third-person camera rides with the roll.
 
 **Survival rules (v4.0–v4.3).** Four meters, Don't Starve style, all saved with the
 profile:
@@ -219,6 +233,11 @@ aquarium showing your three biggest catches, photo mode with five filters and a
 lantern and fireflies, localStorage saves with schema migration, gamepad rumble,
 camera shake, procedural audio (no sound files at all) and an adaptive-quality
 fallback if the frame rate drops.
+
+**Boats.** Three moored rowboats (lake, pond, estuary) plus summoned and
+chartered ones, all on the same physics: lofted hull, six-point buoyancy on the
+live wave field, keel-based drag and steering, planing, hull damage with breach,
+grounding, impact shake and a dedicated boat HUD.
 
 ## Verification
 

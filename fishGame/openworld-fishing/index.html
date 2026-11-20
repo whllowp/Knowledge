@@ -122,6 +122,21 @@
     <div id="prompt" class="hidden"><kbd id="promptKey">F</kbd><span id="promptText"></span></div>
     <div id="seaWay" class="hidden"></div>
 
+    <!-- boat instrument panel (v6.4.0) -->
+    <div id="boatHud" class="hidden">
+      <div class="bh-row">
+        <span class="bh-lbl">航速</span><b id="bhSpeed">0.0</b><span class="bh-u">节</span>
+        <span class="bh-lbl">航向</span><b id="bhHead">N</b>
+        <span class="bh-lbl">水深</span><b id="bhDepth">0.0</b><span class="bh-u">m</span>
+      </div>
+      <div class="bh-row">
+        <span class="bh-lbl">船体</span>
+        <div class="bh-bar"><i id="bhHull"></i></div>
+        <span id="bhHullPct">100%</span>
+        <span id="bhState" class="bh-state">划桨中</span>
+      </div>
+    </div>
+
     <!-- Fishing UI -->
     <div id="fishing" class="hidden">
       <div id="fishState">准备抛竿</div>

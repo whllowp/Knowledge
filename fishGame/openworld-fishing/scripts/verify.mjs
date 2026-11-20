@@ -555,6 +555,31 @@ async function main() {
   await splog('cleanup-whales', `(() => { __DEBUG.home(); return 1; })()`);
   step('species-v520', { spFlow });
 
+  // ---- v6.4.0: boat hull rebuild, buoyancy, impact damage, boat HUD
+  const btFlow = [];
+  const btlog = async (label, expr) => {
+    const r = await cdp.evaluate(expr);
+    btFlow.push({ label, ok: r.ok, value: r.value, error: r.error });
+  };
+  await btlog('mount', `(() => { __DEBUG.teleport('lake_dock'); __GAME.profile.level = 22; __GAME.profile.coins = 4000; if (__GAME.player.mounted) __DEBUG.home(); const r = __DEBUG.charter(); return JSON.stringify({ok: r.ok, boat: r.boat, aboard: !!__GAME.boats.mounted, mode: __GAME.player.viewMode, frames: __DIAG.frames, playing: __GAME.playing}); })()`);
+  await sleep(1200);
+  await btlog('loop-alive', `(() => JSON.stringify({frames: __DIAG.frames, mounted: !!__GAME.boats.mounted, hidden: document.getElementById('boatHud').classList.contains('hidden'), cSpeed: __GAME.hud._cBoatSpeed ?? null, panel: __GAME.panels.isOpen}))()`);
+  await btlog('hull-mesh', `(() => { const b = __GAME.boats.mounted; if (!b) return 'no-boat'; let verts = 0, meshes = 0; b.hull.traverse(o => { if (o.isMesh) { meshes++; verts += o.geometry.attributes.position.count; } }); return JSON.stringify({meshes, verts, hullIntegrity: b.hullIntegrity, hasDamage: typeof b.damage === 'function', oars: b.oars.length, buoyPoints: b.constructor.BUOY_POINTS ? b.constructor.BUOY_POINTS.length : null}); })()`);
+  await btlog('float-a', `(() => { const b = __GAME.boats.mounted; const s = __GAME.world.surfaceHeight(b.position.x, b.position.z); return JSON.stringify({y: +b.position.y.toFixed(3), surf: +s.toFixed(3), gap: +(b.position.y - s).toFixed(3), pitch: +b.pitch.toFixed(3), roll: +b.roll.toFixed(3)}); })()`);
+  await btlog('accelerate', `JSON.stringify(__DEBUG.boat('row', 150, 1, 0))`);
+  await btlog('speed', `(() => { const b = __GAME.boats.mounted; return JSON.stringify({speed: +b.speed.toFixed(2), knots: +(b.speed * 1.94384).toFixed(1), planing: +(b.planing ?? 0).toFixed(2), wake: +(b._wake ?? 0).toFixed(2)}); })()`);
+  await btlog('turn', `(() => { const b = __GAME.boats.mounted; const before = b.angularVel; __DEBUG.boat('row', 70, 1, 1); return JSON.stringify({before: +before.toFixed(3), after: +b.angularVel.toFixed(3), roll: +b.roll.toFixed(3), speed: +b.speed.toFixed(2)}); })()`);
+  await btlog('coast', `(() => { const b = __GAME.boats.mounted; const v0 = b.speed; __DEBUG.boat('row', 120, 0, 0); return JSON.stringify({from: +v0.toFixed(2), to: +b.speed.toFixed(2), decayed: b.speed < v0}); })()`);
+  await btlog('hud-live', `(() => { const el = document.getElementById('boatHud'); return JSON.stringify({hidden: el.classList.contains('hidden'), speed: document.getElementById('bhSpeed').textContent, head: document.getElementById('bhHead').textContent, depth: document.getElementById('bhDepth').textContent, hull: document.getElementById('bhHullPct').textContent, state: document.getElementById('bhState').textContent}); })()`);
+  await btlog('impact-damage', `(() => { const b = __GAME.boats.mounted; const ev = []; b.on('impact', (e) => ev.push('impact:' + (e && e.impact ? e.impact.toFixed(2) : '?'))); b.on('breach', () => ev.push('breach')); const before = b.hullIntegrity; b.damage(0.7); return JSON.stringify({before: +before.toFixed(2), after: +b.hullIntegrity.toFixed(2), breached: b.hullIntegrity < 0.34, events: ev}); })()`);
+  await sleep(700);
+  await btlog('hud-damaged', `(() => { const b = __GAME.boats.mounted; return JSON.stringify({hull: document.getElementById('bhHullPct').textContent, cls: document.getElementById('bhHull').className, state: document.getElementById('bhState').textContent}); })()`);
+  await btlog('repair', `(() => { const b = __GAME.boats.mounted; b.repair(0.7); return JSON.stringify({hull: +b.hullIntegrity.toFixed(2)}); })()`);
+  await btlog('hud-off', `(() => { __DEBUG.home(); return 1; })()`);
+  await sleep(600);
+  await btlog('hud-gone', `(() => { const el = document.getElementById('boatHud'); return JSON.stringify({hidden: el.classList.contains('hidden')}); })()`);
+  step('boat-v640', { btFlow });
+
   // ---- v6.0.0: RSI (dream-evaluated, Pareto-front, gated rival evolution)
   const rsiFlow = [];
   const rsilog = async (label, expr) => {

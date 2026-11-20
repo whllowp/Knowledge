@@ -36,7 +36,7 @@ import { Survival } from './systems/survival.js';
 import { RivalRSI } from './systems/rsi.js';
 import { BAITS, LURES, baitById, lureById } from './data/gear.js';
 
-const VERSION = '6.3.0';
+const VERSION = '6.4.0';
 
 /** Photo-mode colour grades, applied to the canvas and baked into captures. */
 const PHOTO_FILTERS = {
@@ -193,6 +193,7 @@ class Game {
     });
     this.boats = new BoatManager(this.world, this.world.spots);
     this.world.boats = this.boats;
+    for (const b of this.boats.boats) this._wireBoat(b);
     this.minimap = new Minimap($('minimap'), {      worldSize: WORLD_CONST.size,
       waterLevel: WATER_LEVEL,
       heightAt: (x, z) => this.world.terrain.heightAt(x, z),
@@ -924,6 +925,7 @@ class Game {
         fishing: this.fishing,
         profile: this.profile,
         survival: this.survival ? this.survival.snapshot() : null,
+        boat: this.boats.mounted,
         fps,
         frameMs: avg * 1000,
         renderer: this.engine.resourceStats(),
@@ -1248,6 +1250,33 @@ class Game {
   }
 
   /**
+   * 小船反馈 (v6.4.0): 撞击/搁浅/进水/划桨 都接到声音、提示和镜头抖动上。
+   */
+  _wireBoat(boat) {
+    if (!boat || boat._wired) return;
+    boat._wired = true;
+    boat.on('impact', (e) => {
+      const force = e?.force ?? 1;
+      const vol = Math.min(1, force / 6);
+      this.audio.play('hull_thud', { volume: 0.3 + vol * 0.5, rate: 0.9 + Math.random() * 0.16 });
+      this.player.addShake(0.06 + vol * 0.2);
+      this.hud.notify(force > 1.7 ? '船身重重地撞了一下' : '船身擦到了东西', force > 1.7 ? 'bad' : '');
+    });
+    boat.on('grounding', () => {
+      this.audio.play('keel_scrape', { volume: 0.45, rate: 0.92 });
+      this.player.addShake(0.1);
+      this.hud.notify('搁浅了 · 朝深水方向划', 'bad');
+    });
+    boat.on('breach', () => {
+      this.audio.play('wood_creak', { volume: 0.55, rate: 0.8 });
+      this.hud.notify('船底进水了 · 靠岸下船可修补', 'bad');
+    });
+    boat.on('stroke', () => {
+      this.audio.play('oar_dip', { volume: 0.2, rate: 0.95 + Math.random() * 0.12 });
+    });
+  }
+
+  /**
    * 出海 (v3.2.0): charter a boat straight out to the best offshore mark you can
    * reach. The fare scales with the sea state, because rough water is exactly
    * when the market pays best — and exactly when the trip is dangerous.
@@ -1275,7 +1304,9 @@ class Game {
     if (this._charterBoat && this.player.mounted === this._charterBoat) return this.returnToDock();
 
     const a = spot.anchor;
-    const boat = new Boat(w, { id: 'charter', x: a[0], z: a[1], angle: (spot.dockAngle ?? 0) + Math.PI });    this.boats.boats.push(boat);
+    const boat = new Boat(w, { id: 'charter', x: a[0], z: a[1], angle: (spot.dockAngle ?? 0) + Math.PI });
+    this.boats.boats.push(boat);
+    this._wireBoat(boat);
     this._charterBoat = boat;
     this._charterSpot = spot;
     this._charterOrigin = { x: this.player.position.x, z: this.player.position.z };
@@ -1350,6 +1381,7 @@ class Game {
     if (!boat) {
       boat = new Boat(w, { id: `row-${this.boats.boats.length}`, x: spot.x, z: spot.z });
       this.boats.boats.push(boat);
+      this._wireBoat(boat);
     } else {
       boat.placeAt(spot.x, spot.z, Math.atan2(px - spot.x, pz - spot.z));
     }

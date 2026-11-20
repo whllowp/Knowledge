@@ -75,6 +75,13 @@ export class HUD {
       sizebanner: $('sizebanner'),
       grade: $('grade'),
       seaWay: $('seaWay'),
+      boatHud: $('boatHud'),
+      bhSpeed: $('bhSpeed'),
+      bhHead: $('bhHead'),
+      bhDepth: $('bhDepth'),
+      bhHull: $('bhHull'),
+      bhHullPct: $('bhHullPct'),
+      bhState: $('bhState'),
     };
     this.notes = [];
     this.perfVisible = false;
@@ -310,8 +317,59 @@ export class HUD {
       ${info.locked ? `<span class="warn">需 ${info.minLevel} 级</span>` : ''}`;
   }
 
-  /** Full-screen death card (v4.3.0). */
-  showDeath(info) {
+  /**
+   * Boat instruments (v6.4.0): knots, heading, depth under the keel and hull
+   * integrity. Pass null when the angler is on foot.
+   */
+  setBoat(info) {
+    const el = this.el.boatHud;
+    if (!el) return;
+    if (!info) {
+      if (!el.classList.contains('hidden')) el.classList.add('hidden');
+      this._cBoat = null;
+      return;
+    }
+    if (el.classList.contains('hidden')) el.classList.remove('hidden');
+    const knots = (info.speed * 1.94384).toFixed(1);
+    if (knots !== this._cBoatSpeed) {
+      this._cBoatSpeed = knots;
+      this.el.bhSpeed.textContent = knots;
+    }
+    const deg = ((-info.angle * 180) / Math.PI % 360 + 360) % 360;
+    const head = this._compass8(deg);
+    if (head !== this._cBoatHead) {
+      this._cBoatHead = head;
+      this.el.bhHead.textContent = head;
+    }
+    const depth = info.depth.toFixed(1);
+    const depthTxt = info.depth < 0.8 ? `${depth} ⚠` : depth;
+    if (depthTxt !== this._cBoatDepth) {
+      this._cBoatDepth = depthTxt;
+      this.el.bhDepth.textContent = depthTxt;
+    }
+    const hull = info.hullIntegrity ?? 1;
+    const pct = Math.round(hull * 100);
+    if (pct !== this._cBoatHull) {
+      this._cBoatHull = pct;
+      const bar = this.el.bhHull;
+      bar.style.width = `${pct}%`;
+      bar.className = pct < 35 ? 'bad' : pct < 70 ? 'warn' : '';
+      this.el.bhHullPct.textContent = `${pct}%`;
+    }
+    const state = info.aground ? '搁浅' : hull < 0.35 ? '进水' : info.speed > 1.4 ? '全速' : info.speed > 0.25 ? '航行中' : '漂着';
+    if (state !== this._cBoatState) {
+      this._cBoatState = state;
+      this.el.bhState.textContent = state;
+      this.el.bhState.classList.toggle('danger', state === '搁浅' || state === '进水');
+    }
+  }
+
+  _compass8(deg) {
+    const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+    return dirs[Math.round(deg / 45) % 8];
+  }
+
+  /** Full-screen death card (v4.3.0). */  showDeath(info) {
     const el = this.el.deathcard;
     if (!el) return;
     const cause = [];
@@ -549,6 +607,9 @@ export class HUD {
       this._hintTimer -= dt;
       if (this._hintTimer <= 0) this.el.hintbar.textContent = '';
     }
+
+    // ---- boat instruments only while the angler is aboard (v6.4.0)
+    this.setBoat(ctx.boat || null);
 
     // ---- perf
     if (this.perfVisible) this._updatePerf(ctx);

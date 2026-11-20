@@ -304,6 +304,33 @@ kbd {
 #seaWay .dist { color: var(--c-dim); font-variant-numeric: tabular-nums; }
 #seaWay .warn { color: #ff9f45; }
 
+/* boat instrument panel (v6.4.0) */
+#boatHud {
+  position: absolute; left: 50%; bottom: 92px; transform: translateX(-50%);
+  display: flex; flex-direction: column; gap: 4px; padding: 7px 14px;
+  font-size: 11.5px; letter-spacing: .06em; color: var(--c-text);
+  background: rgba(9, 24, 34, 0.78); border: 1px solid rgba(127, 216, 255, 0.3);
+  border-radius: 12px; backdrop-filter: blur(4px); white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+#boatHud .bh-row { display: flex; align-items: center; gap: 7px; }
+#boatHud .bh-lbl { color: var(--c-dim); }
+#boatHud b { color: #cfe9f7; font-weight: 700; min-width: 30px; }
+#boatHud .bh-u { color: var(--c-dim); margin-left: -5px; }
+#boatHud .bh-bar {
+  width: 84px; height: 5px; border-radius: 3px; overflow: hidden;
+  background: rgba(255, 255, 255, 0.12);
+}
+#boatHud .bh-bar i {
+  display: block; height: 100%; width: 100%;
+  background: linear-gradient(90deg, #66d9a6, #b7e77c); border-radius: 3px;
+  transition: width .18s linear, background .18s linear;
+}
+#boatHud .bh-bar i.warn { background: linear-gradient(90deg, #ffcf6b, #ff9f45); }
+#boatHud .bh-bar i.bad { background: linear-gradient(90deg, #ff8a6b, #ff5f5f); }
+#boatHud .bh-state { color: #7fd8ff; }
+#boatHud .bh-state.danger { color: #ff7b7b; }
+
 .cc-badge.grade { border-color: rgba(255, 209, 102, 0.5); color: #ffd166; font-weight: 700; }
 
 /* RSI panel (v6.0.0) */

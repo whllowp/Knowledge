@@ -640,6 +640,24 @@ const BUILDERS = {
     burst(ctx, out, t0, 0.4, { type: 'bandpass', freq: 700 * p.rate, q: 3.2, vol: 0.07 * p.volume, attack: 0.15 });
   },
 
+  // ---- boat body sounds (v6.4.0)
+  hull_thud: (ctx, out, t0, p) => {
+    tone(ctx, out, t0, 0.34, { freq: 96 * p.rate, to: 58 * p.rate, type: 'triangle', vol: 0.3 * p.volume, attack: 0.004, linear: true });
+    tone(ctx, out, t0, 0.22, { freq: 172 * p.rate, to: 120 * p.rate, type: 'sine', vol: 0.16 * p.volume, attack: 0.006 });
+    burst(ctx, out, t0, 0.16, { type: 'lowpass', freq: 520 * p.rate, q: 0.7, vol: 0.28 * p.volume, attack: 0.002 });
+  },
+
+  keel_scrape: (ctx, out, t0, p) => {
+    tone(ctx, out, t0, 0.5, { freq: 74 * p.rate, to: 52 * p.rate, type: 'sawtooth', vol: 0.16 * p.volume, attack: 0.01, linear: true });
+    burst(ctx, out, t0, 0.55, { type: 'bandpass', freq: 880 * p.rate, q: 1.6, vol: 0.22 * p.volume, attack: 0.01, sweepTo: 380, sweepAt: 0.8 });
+    burst(ctx, out, t0 + 0.04, 0.3, { type: 'highpass', freq: 2400 * p.rate, q: 0.6, vol: 0.1 * p.volume, attack: 0.02 });
+  },
+
+  oar_dip: (ctx, out, t0, p) => {
+    burst(ctx, out, t0, 0.26, { type: 'bandpass', freq: 1400 * p.rate, q: 0.9, vol: 0.12 * p.volume, attack: 0.012, sweepTo: 700, sweepAt: 0.7 });
+    tone(ctx, out, t0, 0.18, { freq: 320 * p.rate, to: 180 * p.rate, type: 'sine', vol: 0.05 * p.volume, attack: 0.008 });
+  },
+
   bell: (ctx, out, t0, p) => {
     const partials = [1, 2.01, 2.98, 4.2, 5.4];
     const amps = [0.22, 0.1, 0.07, 0.04, 0.025];
@@ -1729,6 +1747,9 @@ export const SFX = Object.freeze([
   'thunder',
   'wind_gust',
   'wood_creak',
+  'hull_thud',
+  'keel_scrape',
+  'oar_dip',
   'bell',
 ]);
 
