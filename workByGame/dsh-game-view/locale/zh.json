@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Agent 游戏视图",
+    "description": "在输入框上方把 Agent 的活动渲染成一座实时蜂巢：每次工具调用是一个 NPC 动作，每个子 Agent 是一只离巢又归来的工蜂。",
+    "detail": "docs/DETAIL.md"
+  }
+}

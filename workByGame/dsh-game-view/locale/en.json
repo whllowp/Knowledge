@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Agent game view",
+    "description": "Renders the agent's activity as a live hive scene beside the composer: every tool call is an NPC action, every subagent is a bee that leaves and lands.",
+    "detail": "docs/DETAIL.md"
+  }
+}
