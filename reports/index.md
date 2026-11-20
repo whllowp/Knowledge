@@ -3984,3 +3984,18 @@
 - **注意**：safetensors PR 与 PyTorch issue 为社区记录；HF 论坛耗时为用户自测；量化博客/Unsloth 有工具推广背景；本文不构成选型建议。
 - **落盘**：`reports/AI-SRE技术洞察-20261120-0831.md`
 - **下期候选**：Agent 恢复信号、多活写冲突合并策略、上下文窗口与压缩语义、模型卡与行为声明。
+
+## 第 300 期（2026-11-20 09:31）· 迁移面／在线 schema 变更与回滚——迁移是唯一同时改代码和数据的变更，而“回滚”本身也是一次迁移
+
+- **期号说明**：本期为系列第 300 期；295、296 期各有同号并存条目（并行实例另发），300 未被占用。
+- **报告**：`reports/AI-SRE技术洞察-20261120-0931.md`
+- **主线**：主线第 243 条——结构可以 downgrade、数据不能；回滚要拿的锁可能正被迁移拖垮的查询持有；迁移可靠性取决于 downgrade 在最坏时刻还拿不拿得到锁。
+- **时间线证据**：Autumn 2026-03-15（collation 迁移 `customer_entitlements`/`customer_products`，15:00 起 CPU 飙升、约 10% API 失败；15:05 回滚被活跃查询持有的锁挡住、反复死锁；15:48 停全部应用连接回退并 ANALYZE；16:15 恢复）；RavenClaude 2026-06-05（6,000 万行 orders 表加 NOT NULL 列，AccessExclusiveLock 持到整表重写完，lock_timeout/statement_timeout 刷屏，停机约 6 分钟）；pgfence 2026-03-04（五类危险迁移，先加约束后 VALIDATE CONSTRAINT 的拆分配方）；caura 2026-04-26（advisory-lock 用 pg_try_advisory_lock 轮询、每 30 秒进度日志、CI 禁止大表普通 CREATE INDEX）；cogentrex 课程 2026-08-20（存在 downgrade 不保证生产数据回滚安全；单机编排不证明两版本可安全重叠）；BridgeBench（复盘称“表被重写”，锁日志显示没有）。
+- **四个新提法**：① 回滚是另一次迁移，同样要拿锁；② 迁移拖垮的查询会反过来锁住回滚，形成死结；③ 数据不可逆性（删列/改类型/错误回填）与结构不可逆是两件事；④ 滚动发布的重叠窗口需要“旧代码×新 schema、新代码×旧 schema”两组兼容用例。
+- **市场空白**：第 212 个——迁移锁剖面预演、分段迁移进度与暂停语义、回滚锁可得性检查、数据可逆性声明与备份门禁、迁移取证字段。
+- **判词**：「迁移框架／在线 DDL 工具／锁监控／backfill 库／双写框架／CI 规则」全部可采购，「这条迁移在目标表上的锁剖面、回填覆盖到哪一行、回滚时锁是否可得、已改数据能否还原、新旧版本重叠窗口有多长」不可采购。
+- **本地原型**：本地 173／173-kb 连续第 167 期成组启用（陶炳哲 30：迁移先算锁）；`migration_plan{table, rows_est, ddl, lock_level, lock_hold_est_s, rewrite, backfill_batches, backfill_done, rollback_lock_available, data_reversible, overlap_tested, evidence_log}`；大表迁移必须有锁估算，`data_reversible=false` 必须备份+双人签。
+- **建议**：迁移前锁剖面预演；拆 expand/backfill/contract 可停步骤；回滚前查锁可得性、必要时摘流量；不可逆操作备份+双人确认；两版本兼容用例进 CI；取证含锁日志与回填进度。
+- **注意**：Autumn 为厂商自述；RavenClaude 为构造案例（机制符合 Postgres 行为）；pgfence 有产品推广；caura 为单项目实践；cogentrex 为课程文档；BridgeBench 为评测对局。
+- **落盘**：`reports/AI-SRE技术洞察-20261120-0931.md`
+- **下期候选**：Agent 恢复信号、多活写冲突合并策略、上下文窗口与压缩语义、模型卡与行为声明。
