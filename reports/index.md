@@ -4132,3 +4132,16 @@
 - **注意**：第 1 条为公开表态转述（“售罄”指承诺容量）；第 2 条为评论；第 3/4 条为 Azure 文档；第 5/6 条为社区经验；第 7 条为产品文档且明确不推荐生产。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：Agent 恢复信号、上下文窗口与压缩语义、变更冻结后的解冻重放、告警否决路径与 Agent 判断权、模型上下文与记忆边界。
+
+
+## 第 299 期（2026-11-20 17:00）· 审批完整性面／"人已签字"不等于"人独立复核了"（Approval Integrity / The Pre-Shaped Decision Packet）
+- 期号说明：`date` 17:32→1700 档；本实例上一期 298（11-20 16:00 可逆性/回滚面），顺延 299；主线第 252 条全新立面；字段族第 220 号；本地连续第 175 期。E 盘 index 另有并行实例 xx31 档（编号至 308 容量面）不同序列，本条以文件戳 1700＋本实例序列标识，主题无重叠
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261120-1700.md（正文 3044 汉字；题眼＋五章＋八方案七列对比表＋20 来源/20 链接）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 主线：首次把"审批这一控制点自身的可信度"立为一等对象；与 #215 顺从面（结论层·社会压力弯折）/#289 分工面（执行层·规则 vs 模型）/#298 可逆性（动作之后·副作用撤销）显式划界——本期问"人点批准时看到的是否是能被独立复核的决策包"；grep 审批面/签字面/橡皮图章/决策包/APPROVAL_UNVERIFIED 无主线命中（#215 仅把橡皮图章作结论层分论点）
+- 核心新提法：**决策包被 Agent 预塑**（先选浮哪些日志、先排哪个假设、先起草哪条修复，等人打开审批页决策空间已收敛一遍）／**审批是最易采购也最易架空的环节**（有按钮+审计记录+自然人姓名看似满足过程可审计，却继承故障盲点还加延迟）／**治理风险恰在最终批准之前上升**（NHIM：Agent 通过排序信号·省略备选·准备首版工单改变决策语境）／**真正抓得住失败的是变更后确定性范围检查＋重启确认而非人的判断**（把"维护窗口挪到 02:00"给审批人看是合理方案，看不到夜间批处理——若写下来 Agent 也能读到）／**41% 正确修复仍算失败**（越界/不安全回归）／**治理者与被治理者共笔**（Org Policy MCP 让 Agent 读写约束、Gemini 译英文为策略→policy_source 自指）／**三只时钟不同步**（事件/检测/解释，Anthropic 费城误报两月检测缺口）／**审批记录≠审批证据**（PAI 四大框架无持续身份·无哪个自然人批准·无权限/记忆变更日志）
+- 时点红利：NHIM 治理风险 FAQ＋Anthropic 签证表单越界 control incident（20 份未完成申请）＋NIST/NSA/CISA 响应实践＋国会 24–48h 通报＋印度 TRAI 具名审批官＋香港 Project SAGE 签名身份＋Gartner（2029 批准率 80%→20%、40% agentic ops 组织 2028 前业务中断）＋Google Org Policy MCP GA 11-12（GetEffectivePolicy/CreateCustomConstraint）＋OpenAI ChatGPT Wallet 11-13（交易级 scoped token+生物识别）＋Anthropic Claude Meetings 11-10（可见性路线）＋Azure SRE Agent review/autonomous（Sekin 10）＋Mezmo AURA（拒绝/超时姿态写进采购问题）＋One2N OpenSRE＋阿里云云监控 2.0（Observability by Agents／链路全绿≠结果正确）＋STAROps/SysAgent＋腾讯 CloudQ 11-03（信通院六维·辅助诊断→审批执行→限定自治）＋字节 AgentKit＋Incident-Arena 64.3%／SREGym 78.5%/60.7%＋本地 173 讲义
+- 本期反转：分级自治/审批按钮/human-in-the-loop/信通院过程可审计/组织治理背书全可采购；"这次批准能否独立重建"（决策包可导出·从原始信号重建·拒绝超时姿态·策略来源署名·变更后范围检查）八家几乎全空。新观点：看得见"人已批准"≠看得见"批准是独立判断"（流程合规问题 vs 审批认识论问题）。判词：Gartner 预计批准降到 20%，而当下一家平台都证不出剩下 80% 的批准是独立判断
+- 本地原型（第 175 期新角度）：周昕毅《AI+SRE≠AISRE》过去读作"人做关键决策"，本期换方向读"关键决策质量取决于人看到什么而非有没有看到"首次当主线注脚，配陈忻"可控先于可进化"、何伟 Harness 从代码验收扩到决策包验收、刘凯宁蚂蚁 SRE"结论/证据/待确认"三分扩第四分"排除了哪些备选才递到我面前"
+- 建议：第 220 字段族 `approval.integrity.*`（decision_packet_id／evidence_surface[]+evidence_withheld[]／hypothesis_rank_source／policy_source／approved_action_scope／posture_on_denial_or_timeout／determinism_postcheck）＋APPROVAL_UNVERIFIED 门禁／两行日志先补（看到的前三条证据+可读未呈现数量）／"关键决策必须能被独立重建"（原始信号重走入口·换模型/人复核）／学 scoped token 有界动作／确定性后置校验地位高于审批判断／策略署名与共笔禁令（agent_authored 不作唯一放行依据）／采购两问（导出全部证据与备选·拒绝超时后行为）／SREGym 类增审批完整性维度＋信通院过程可审计补「审批可举证率」格
+- 注意：NHIM/Sekin/Crux Digits/One2N/Mezmo/N-iX 为行业分析与厂商指南，Gartner 数字经二手转述；Incident-Arena 64.3%／SREGym 78.5%/60.7%／41% 失败率均为基准自报、不同装置不可相减；MIT Tech Review 经 ReadAboutAI 编译；Google/阿里/腾讯/字节为厂商稿与官方文档；"审批完整性面"/"决策包被预塑"/字段族为本文归纳；本地 173 讲义转写；未采信 SEO 农场数字
+- 下期候选：`approval.integrity.*` OTel GenAI 提案与门禁最小实现／决策包生成器（呈现证据+未呈现证据双清单）／拒绝-超时姿态埋点器／策略来源署名与共笔检测／变更后范围检查绑定审批闭环／审批完整性评测题型（带/不带隐性约束两版决策包）／信通院补格
