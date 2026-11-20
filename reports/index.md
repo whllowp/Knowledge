@@ -4145,3 +4145,18 @@
 - 建议：第 220 字段族 `approval.integrity.*`（decision_packet_id／evidence_surface[]+evidence_withheld[]／hypothesis_rank_source／policy_source／approved_action_scope／posture_on_denial_or_timeout／determinism_postcheck）＋APPROVAL_UNVERIFIED 门禁／两行日志先补（看到的前三条证据+可读未呈现数量）／"关键决策必须能被独立重建"（原始信号重走入口·换模型/人复核）／学 scoped token 有界动作／确定性后置校验地位高于审批判断／策略署名与共笔禁令（agent_authored 不作唯一放行依据）／采购两问（导出全部证据与备选·拒绝超时后行为）／SREGym 类增审批完整性维度＋信通院过程可审计补「审批可举证率」格
 - 注意：NHIM/Sekin/Crux Digits/One2N/Mezmo/N-iX 为行业分析与厂商指南，Gartner 数字经二手转述；Incident-Arena 64.3%／SREGym 78.5%/60.7%／41% 失败率均为基准自报、不同装置不可相减；MIT Tech Review 经 ReadAboutAI 编译；Google/阿里/腾讯/字节为厂商稿与官方文档；"审批完整性面"/"决策包被预塑"/字段族为本文归纳；本地 173 讲义转写；未采信 SEO 农场数字
 - 下期候选：`approval.integrity.*` OTel GenAI 提案与门禁最小实现／决策包生成器（呈现证据+未呈现证据双清单）／拒绝-超时姿态埋点器／策略来源署名与共笔检测／变更后范围检查绑定审批闭环／审批完整性评测题型（带/不带隐性约束两版决策包）／信通院补格
+
+## 第 309 期（2026-11-20 18:31）· 噪声邻居面／共享资源上的相互干扰与归因——“谁在吃我的余量”是证据问题，不是隔离问题
+
+- **期号说明**：第 308 期（17:31，容量面）后最新为 308；309 未被占用。
+- **报告**：reports/AI-SRE技术洞察-20261120-1831.md（正文 2407 汉字，7 条来源，8 行六表）。
+- **主线**：隔离与归因是两件事——隔离防干扰（cgroup/MIG/Kata），归因回答“这次 p99 是谁造成的”；干扰信号（LLC/PSI/块 I/O/PCIe）是间接的，单看必误判；共享批处理把延迟摊平到 step，请求级归因失效；事故复盘要的是“受害请求—加害任务—调度事件”三方时间重叠证据；超卖比是财务参数、干扰是技术后果。
+- **时间线证据**：openFuyao MCO 2026-08-25（混部中 LLC 冲刷、块 I/O 队列挤占、内存回收压力 Cgroup 无法完全隔离；采集 LLC miss/occupancy、块 I/O P95/P99、PSI I/O 与 memory；Volcano 干扰感知调度 + Kata 隔离）；GPUMachines 2026-08-10（Attribution is not isolation；共享批处理下按 step 估份额，不是证据）；ElastiCo 2026-08-08（训练与离线推理混部；GPU 利用率约 25%→46%，JCT 最多 1/2.94，吞吐 2.02 倍；干扰感知成对下降预测）；Elastic MIG 论文 2026（按租户采 p95/p99/p999、NVML、PCIe 计数，驻留时间与冷却期防抖）；HAMi Lab 18（共享 GPU 噪声邻居；nvidia-smi 看不到真实分配）；美团容器云 2026-04-24（裸机容器超卖导致资源竞争；CPI 方案只适用 CPU 密集型；eBPF SLI）；Stealthium 2026-09-07（共享 GPU 时序侧信道识别邻居模型：单卡 0.60 倍噪声底、张量并行 2.02 倍）。
+- **四个新提法**：①先建归因，再谈隔离；②干扰事件立案需三条件同时成立（p99 超基线、争用信号、时间重叠）；③超卖比与干扰率要放在同一视图；④共享资源隔离级别同时是性能与保密边界。
+- **市场空白**：第 221 个市场空白——三方关联（受害/加害/调度事件）；干扰事件立案标准；超卖比与干扰率联合视图；尾延迟敏感业务的放置标签；共享资源侧信道风险评估。
+- **判词**：「cgroup／MIG／Kata／混部调度器／PSI 采集／GPU 共享／尾延迟监控」全部可采购，「这次 p99 是谁造成的、干扰从哪个共享资源进来、超卖比多少、受害请求与加害任务的时间重叠证据、下一次调度是否还会把两者放一起」不可采购。
+- **本地原型**：`interference.*`／`noisy_neighbor.*` 第 188 次无人提字段族（`interference.victim_request`、`interference.aggressor_task`、`interference.shared_resource`、`interference.overlap_window`、`interference.overcommit_ratio`）；本地 173／173-kb 连续第 176 期成组启用（朱革 15：容量不足是买得不够，干扰是放得不对）。
+- **建议**：建干扰基线与调度事件关联；定义干扰立案三条件；尾延迟敏感业务打放置标签；隔离分层并记录密度代价；评估共享资源侧信道风险。
+- **注意**：第 1 条为社区博客；第 2 条含厂商立场；第 3 条实验规模与生产有差距；第 4 条依赖特定 GPU/MIG；第 5 条限实验配置；第 6 条为案例；第 7 条为研究性安全测量。
+- **落盘**：报告 + index 已提交；commit 见本轮 git log。
+- **下期候选**：Agent 恢复信号、上下文窗口与压缩语义、变更冻结后的解冻重放、告警否决路径与 Agent 判断权、共享队列的公平与优先级反转。
