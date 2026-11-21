@@ -4233,3 +4233,16 @@
 - **注意**：第 1 条为经验笔记；第 2 条为观点指南；第 3 条为单项目审计；第 4 条引用 Prometheus 文档需按版本核对；第 5 条为产品文档；第 6 条为单产品排查条目。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：Agent 恢复信号、模型上下文与记忆边界、契约测试的覆盖面、观测查询的语义（“这条告警为何没到”的下游）、跨层队列治理。
+
+
+## 2026-11-22 第 302 期（AI-SRE技术洞察-20261122-0000.md）· 升级回归面／"越新越强"的证伪面（Upgrade Regression / Newer-Is-Not-Better & Confounded Score Gains）
+- 期号：`date` 00:51→0000 档；本实例权威历史（automation b0686167 memory）上一期 301（11-21 23:00 完成声明面），顺延 302；主线第 255 条全新立面；字段族第 223 号；本地连续第 178 期。并行实例 xx31 档（0031 否决面/静默抑制、主线313）不同序列，本条以文件戳 0000＋本实例序列标识，主题无重叠
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261122-0000.md（正文 2415 汉字；题眼＋五章＋十方案七列对比表＋30 来源/30 链接，16860 字节）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 主线：首次把"升级决策本身"立为有事故风险的线上变更事件、而非能力进步的天然同义词；与 #296 底座漂移（问此刻谁在推理·身份层）/#218 评测装置面（问分数在什么装置产生·测量层）显式划界——本期问升级决策是否经同装置同切片证伪。grep 升级回归/越新越差/版本倒退/换尺/领域回归 两处 index 全 0，全新立面确认
+- 核心新提法：ITBench-AA 11-17 GPT-5.6 Sol 56.2%＞继任 GPT-6 Sol 49.4%、Fable 5.1 49.5%/Opus 4.7 46.7%＞新旗舰 Opus 5.5 38.2%（newest is not best 首次量化）／分数跳涨归因歧义（Qwen4-Max +18.39、Hy4 +18.05 与超时 69.23%/26.92%→0 同报，能力与"题终于跑完"未拆）／AA 指数 v5.0 私有题权重 45%→60%、Mistral Large 4 38→26 是换尺非换模型／ORCA-bench 真实 25.3%难 10.0%、最弱 40%编造根因、去掉源码全员变差／钉住 ID≠行为冻结（路由/安全分类/采样仍可变）／别名升级把迁移时点交给供应商（字节统一 Model ID 无感升级 vs Anthropic 静默降级 Opus5.5→5 同构）／回滚不等于撤销（缓存与下游写入、自动晋级覆盖回退）；第223空白 `model.upgrade.regression.*`（from/to_version_id 禁别名＋evaluation_binding{bench/harness/effort/attempt/scored_at}＋domain_slice_delta[]{cluster,before,after,ci}＋confound_flags[]{ruler_change,timeout_fix,effort_change,prompt_patch,serving_infra_change}＋refusal/tool_call_shape/p95/thinking_cost_delta＋shadow_canary＋rollback＋verdict∈VALIDATED|REGRESSED|CONFOUNDED|UNVERIFIED）缺省 UPGRADE_UNVERIFIED
+- 时点红利：ITBench-AA＋BenchLM 11-19 核验（24/24 行"上游携带"无独立运行记录）＋ORCA-bench arXiv2607.28545＋AA v5.0 换榜 11-01＋SuperCLUE 11-16/18 Qwen4-Max 61.61/Hy4 61.01＋Copilot 11-16 退役＋AIES 生命周期 11-06（Opus5.5 拒 prefill、GPT-6 拒 temperature、Gemini4 Argon 不能关思考）＋Anthropic 两份 postmortem（57.8% max vs 52% 默认、评测未捕捉退化）＋Opus5.5 nerf 争议（追踪器无下降 vs GitHub#105112 纠错 5.2%→25.4%、10-27 两句提示词无开关）＋Twarx 六类漂移/70-30 pin＋TechnoLynx warm standby/5%mirror＋字节 Seed-Evolving 统一 ID/11-13 评测切自研＋火山 RCA Harness＋New Relic Autopilot K8s 11-10＋OpenObserve 盲点清单＋腾讯 AIOps OTel78%＋本地173讲义
+- 本期反转：影子/灰度/可回退/HITL/置信度几乎每家可采购；"升级前后同装置同切片回归量做成一等可导出字段、混淆项单独打旗"全表空白。新观点：#218"分数是装置的函数"＋#296"身份是地基"＋本期"升级是事件不是属性"——不绑事件的分数增长不构成能力进步证据
+- 本地原型（第178期新角度）：陶炳哲《智能路由不只是选模型》过去读作"路由决策即运行时变量"，本期首次读作"升级路由到新版本是一次未经评测的线上变更"，配孙鹏探测式评测跨版本同题对照、何伟 Harness 可回退、刘凯宁三分扩第十四分、赵恒版本 ID 权威来源=response serving 字段
+- 建议：第223字段族＋UPGRADE_UNVERIFIED 门禁（未同装置回归不得自治晋级/结案）／升级按变更管理逐场景簇报差值+置信区间+中止阈值、旧版保温一个发布周期／日志记 model_requested+model_answered 两列禁 latest、滚动 ID 必落 served_model_id／采购两问／评测增 seeded 部分成功+该拒答没拒题并把超时/effort/工具权限写进脚注／信通院补「升级可举证率」格成十二层治理
+- 注意：ITBench-AA/SuperCLUE/ORCA-bench 分数来自榜单与厂商自报、装置不同不可相减；BenchLM 指 24 行无独立运行记录；Opus5.5 nerf 追踪器与用户自测口径不同均未独立复现；本地173按目录级引用
+- 下期候选：`model.upgrade.regression.*` OTel GenAI 提案与 UPGRADE_UNVERIFIED 门禁最小实现／from-to 同题 A/B 计分器与混淆项打旗器／model_answered 双列埋点与滚动 ID 解析／旧版保温与流量回切演练／seeded 部分成功跨版本题库／信通院补格
