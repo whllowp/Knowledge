@@ -4246,3 +4246,18 @@
 - 建议：第223字段族＋UPGRADE_UNVERIFIED 门禁（未同装置回归不得自治晋级/结案）／升级按变更管理逐场景簇报差值+置信区间+中止阈值、旧版保温一个发布周期／日志记 model_requested+model_answered 两列禁 latest、滚动 ID 必落 served_model_id／采购两问／评测增 seeded 部分成功+该拒答没拒题并把超时/effort/工具权限写进脚注／信通院补「升级可举证率」格成十二层治理
 - 注意：ITBench-AA/SuperCLUE/ORCA-bench 分数来自榜单与厂商自报、装置不同不可相减；BenchLM 指 24 行无独立运行记录；Opus5.5 nerf 追踪器与用户自测口径不同均未独立复现；本地173按目录级引用
 - 下期候选：`model.upgrade.regression.*` OTel GenAI 提案与 UPGRADE_UNVERIFIED 门禁最小实现／from-to 同题 A/B 计分器与混淆项打旗器／model_answered 双列埋点与滚动 ID 解析／旧版保温与流量回切演练／seeded 部分成功跨版本题库／信通院补格
+
+## 第 314 期（2026-11-22 01:31）· 供应商切换面／跨供应商故障转移——可用性保住了，行为保不住
+
+- **期号说明**：第 313 期（11-22 00:31）后 index 最新为 313；314 未被占用。
+- **报告**：reports/AI-SRE技术洞察-20261122-0131.md（正文 2432 汉字，7 条来源，6 行六表）。
+- **主线**：故障转移有两个产物——可用性与行为；前者可买，后者只能验证。路由分三层（部署/供应商/模型），风险递增；fallback 是产品决策，不是运维动作；连续性不止会话，还包括工具状态、半截流、缓存键与来源戳。
+- **时间线证据**：AWS Builder 2026-09-27（fallback 需要验收判据：触发、质量下限、成本、禁止静默降级的项）；clawrush devlog 2026-06-27（弱模型输出“合理邻词”：low-code→Claude Code、commits→compactions、deploys→deep researches、PRs→peers，错误通过评审；来源戳）；ContinuityBench 2026 arXiv（无状态 failover 保住 uptime 却丢会话历史；CPR/CLO 两指标；历史前送有状态代理）；OpenRouter 路由文档 2026-08-27（provider vs model fallback 两层；Auto Exacto 按工具调用有效性重排；质量重排与 prompt cache 冲突）；腾讯云 2026-09-30（三层路由风险递增；能力目录硬约束含上下文/JSON Schema/tool calling/数据区域/版本 pin）；awesome-ai-gateway 2026-07-29（六个网关仅一家默认重试；仅一家能首 token 后切换并重 prompt 残缺文本；其余返回“看起来很成功的截断流”）；CSA 2026-10-24（同模型多云托管集中度；备用模型错误与主模型相似）。
+- **四个新提法**：①fallback 需验收判据（触发/质量下限/成本/禁降级能力）；②工具兼容矩阵是硬约束不是软评分；③连续性前送（历史+工具状态+半截流+缓存键+幂等键）；④降级来源戳与“哪些请求被降级”查询。
+- **市场空白**：第 226 个市场空白——切换验收判据；工具兼容矩阵；连续性前送协议；降级来源戳；配对回放平台。
+- **判词**：「多端点／路由策略／重试／熔断／网关／模型目录／评测平台」全部可采购，「这次切换后行为偏了多少、哪些能力被静默降级、会话与工具状态是否连续、半截流是否被当成成功、降级由谁批准」不可采购。
+- **本地原型**：`fallback.*`／`provider_switch.*` 第 193 次无人提字段族（`fallback.trigger`、`fallback.capability_delta`、`fallback.continuity_state`、`fallback.source_stamp`、`fallback.approved_by`）；本地 173／173-kb 连续第 181 期成组启用（李东东 16：可用性与行为分开记账）。
+- **建议**：三层路由分治；能力目录硬约束；验收判据先行；配对回放；连续性前送；来源戳与审计；演练主故障/半截流/工具不兼容/缓存失效。
+- **注意**：第 1 条为厂商社区观点文；第 2 条为单项目日志；第 3 条为 arXiv 摘要，实验规模待全文；第 4、5 条默认策略会变；第 6 条限定六个网关与当日 commit；第 7 条为研究笔记。
+- **落盘**：报告 + index 已提交；commit 见本轮 git log。
+- **下期候选**：Agent 恢复信号、模型上下文与记忆边界、契约测试的覆盖面、观测查询语义、跨层队列治理。
