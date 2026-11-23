@@ -4429,3 +4429,18 @@
 - 建议：第229字段族＋BURDEN_UNVERIFIED 门禁／举证账本与 #301 带外账本共用出口／分层举证矩阵四维四档／net_gain 转负触发自治降级评审／provenance 缓存断点／评测增 cost-per-verified-task／采购三问／信通院补「举证经济性」格成十五层治理。
 - 注意：厂商倍率为自测或榜单口径不可相减；SDK 成本为单次作者实测非产品保证；价格 12-01 部分变动；本地173目录级引用；第229字段族与举证负担面为本文归纳。
 - 下期候选：`evidence.burden.*` OTel genai 提案与门禁最小实现／举证账本 exporter／分层举证矩阵决策器／net_gain 自治降级触发器／cost-per-verified-task 计分器／信通院补格。
+
+## 第 321 期（2026-11-24 06:31）· 记忆边界面／共享记忆的租户与权限——scope 是约定，不是边界
+
+- **期号说明**：第 320 期（11-24 05:31）后 index 最新为 320；321 未被占用。
+- **报告**：reports/AI-SRE技术洞察-20261124-0631.md（正文 2130 汉字，8 条来源，7 行六表）。
+- **主线**：记忆是影子数据存储——写入由模型/工具决定，读取由相似度决定，权限靠调用方传参；scope 是约定不是边界。CVE 证明一个未转义分隔符就能让两个租户共用 session scope 键；FragFuse 证明长期记忆可被用作越权的时间信道；可信记忆需要写入授权、来源可见、主体范围检索、可验证清除（VMG 四原语）。
+- **时间线证据**：CVE-2026-116575（2026-10-26，Mem0 `_build_session_scope()` 用未转义 `&`/`=` 拼 user_id/agent_id/run_id，可嵌入另一 scope 分量致键碰撞→跨租户会话泄露/驱逐/交错；修复 Python 2.0.18、TS 3.1.6）；Mem0 Group Chat 文档 2026-11-07（scope 由调用方每次 add() 指定，平台不自动推断）；FragFuse arXiv 2606.15609 2026-06-13（无特权用户用记忆的时间信道做查询碎片化+融合绕过访问控制）；A Survey on Long-Term Memory Security arXiv 2604.16548v3 2026-09-21（Verifiable Memory Governance：写入授权 WA、来源可见 PV、主体范围检索 PS 等五原语）；PurgeBench Zenodo 22010480（投毒恢复基准；直接/休眠/洗白/纠缠四类投毒；恢复完整度度量）；The Governance Gap in Agentic Memory Zenodo 20775891 2026-06-20（能召回不能治理：谁有权看、按角色/司法辖区含义变化、来源）；Google Advent of Agents Day 15 2026-10-15（银行记忆库共享池：提示注入取他人账户、scope 标签跨业务读取、地域边界；系统提示拦不住）；IEEE 端到端上下文隔离 2026-03-16（对话史/嵌入/检索输出/KV 缓存跨推理残留；静态 ACL 不足）。
+- **四个新提法**：①scope 键结构化+碰撞检测；②principal-scoped retrieval（检索强制主体）；③写入授权与不可信来源标记；④清除回执与污染恢复度量（PurgeBench 四类）。
+- **市场空白**：第 233 个市场空白——scope 碰撞检测；principal-scoped retrieval；写入授权与来源标记；清除验证回执；污染恢复度量。
+- **判词**：「记忆库／向量库／scope 字段／元数据过滤／命名空间／删除 API／污染检测」全部可采购，「这条记忆是谁写的、谁有权看、检索有没有跨主体、清除是否彻底、污染恢复是否完整」不可采购。
+- **本地原型**：`memory_scope.*`／`principal_binding.*` 第 200 次无人提字段族（`memory_scope.scope_key`、`memory_scope.collision_check`、`principal_binding.write_authority`、`principal_binding.retrieval_principal`、`memory_scope.purge_evidence`）；本地 173／173-kb 连续第 188 期成组启用（余锦泽 03：记忆与权限分开记账）。
+- **建议**：scope 键审计与碰撞检测；高敏感租户存储级隔离；检索主体绑定；写入授权与来源标记；清除回执；PurgeBench 演练；注入 scope 碰撞/跨主体检索/投毒写入。
+- **注意**：第 1 条为 CVE 条目；第 2 条为产品文档；第 3、4 条为 arXiv 论文/综述；第 5、6 条为 Zenodo 概念/立场文；第 7 条为厂商开发者文章；第 8 条为 IEEE 摘要。
+- **落盘**：报告 + index 已提交；commit 见本轮 git log。
+- **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
