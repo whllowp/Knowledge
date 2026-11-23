@@ -4416,3 +4416,16 @@
 - **注意**：第 1 条为安全科普；第 2、3 条为厂商文章；第 4 条为媒体报道，数字需核对原文；第 5 条为操作指南；第 6 条为产品文档；第 7 条为中文技术文章。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：模型上下文与记忆边界、副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理。
+
+
+## 2026-11-24 第 308 期（AI-SRE技术洞察-20261124-0500.md）· 举证负担面／可举证性的边际成本（Evidence Burden / Verification Overhead）
+- 期号：`date` 05:46→0500 档；本实例（automation b0686167）上一期 307（撤销生效延迟面）顺延 308；主线第 261 全新立面；字段族第 229 号；本地连续第 184 期。E 盘并行实例 xx31 档已至 320（撤销面）等不同序列，本条以文件戳 0500＋本实例序列标识，主题无重叠
+- 产物：reports/AI-SRE技术洞察-20261124-0500.md（正文 2934 汉字；题眼＋五章＋11 方案七列对比表＋15 来源/15 链接，16080 字节）。
+- 主线：首次把「举证本身的边际成本」立为一等对象；对 #294～#307 连续十四期「可举证率」门禁做元层收敛——过去逐层加门禁，本期反向指出可举证性是有最优解的凸函数，举证强度超过自治收益则治理扼杀自治；grep 举证成本/举证负荷/分层举证/verification overhead 两处 index 全 0，全新立面确认。
+- 核心新提法：举证有方向之分——给证据减负 vs 逼自证加负（Causely 因果上下文工具调用 19→4、token 308K→123K、误报 4/12→1/12）／token 单价跌但任务成本涨（11 月三家降价 20–50%，ProcessRaven 中位 $0.47＝chat 20 倍、Fable 5.2 最大 effort $26.54 vs 5.1 $12.99、Accenture 95% 降价即扩用例＝Jevons 悖论）／缓存是隐性依赖（三 SDK 同模型 24 次实测 $1.44/$3.73/$4.43、2.6–3.1x 来自默认缓存断点）／举证与调查质量互相打架／硬上限掐断收敛中调查损失大于超支／负担最终转移到人（#102 值班台空转的经济学根源）；第 229 字段族 `evidence.burden.*`（burden_ledger[]/evidence_direction/evidence_tier/tier_basis/marginal_cost_per_verification_usd/net_gain_usd/burden_share_of_total/provenance_cache_hit_rate/verdict）缺省 BURDEN_UNVERIFIED。
+- 时点红利：Causely OTel Astronomy Shop 基准＋ResolveAI SRE-1 11-18＋Jimmy Nguyen 三 SDK 实测＋LLM Digest cost controls 11-19＋11 月价格战＋New Relic Autopilot K8s 11-10＋ScienceLogic 2.8＋ControlTheory Dstl8 2.0＋腾讯云 CloudQ 11-03＋阿里云 AgenticOps/Gartner 挑战者＋字节 AgentKit＋本地173讲义。
+- 本期反转：metering/caps/缓存/因果图/专用模型/自研评测全可采购；「把举证当一等成本对象、按可逆性与爆炸半径分级举证、net_gain 是否仍为正」全表空白。新观点：看得见「每一层都可举证」≠看得见「举证没有把自治收益吃光」。
+- 本地原型（第184期新角度）：陶炳哲《智能路由不只是选模型》首次读作「每次路由选择也是成本与举证的取舍」，配刘凯宁三分第十九分、蒋烁淼「对可以很贵贵在举证」、余锦泽「缓存命中即记忆经济学」、孙鹏「探测要被计价」。
+- 建议：第229字段族＋BURDEN_UNVERIFIED 门禁／举证账本与 #301 带外账本共用出口／分层举证矩阵四维四档／net_gain 转负触发自治降级评审／provenance 缓存断点／评测增 cost-per-verified-task／采购三问／信通院补「举证经济性」格成十五层治理。
+- 注意：厂商倍率为自测或榜单口径不可相减；SDK 成本为单次作者实测非产品保证；价格 12-01 部分变动；本地173目录级引用；第229字段族与举证负担面为本文归纳。
+- 下期候选：`evidence.burden.*` OTel genai 提案与门禁最小实现／举证账本 exporter／分层举证矩阵决策器／net_gain 自治降级触发器／cost-per-verified-task 计分器／信通院补格。
