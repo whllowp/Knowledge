@@ -4289,3 +4289,16 @@
 - **注意**：第 1 条为 Zenodo 预印本；第 2 条为合成研究数据集；第 3 条为单一框架文档；第 4 条为未成标准草案；第 5 条为 PR 页面；第 6 条为作者自报且基准未发布。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：模型上下文与记忆边界、契约测试的覆盖面、观测查询语义、跨层队列治理、副作用账本的审计与留存。
+
+
+## 2026-11-24 第 304 期（AI-SRE技术洞察-20261124-0100.md）· 调查污染面／你查得越多越可能找到一个看起来对的错答案（Investigation Contamination / Search-Induced Spurious Causality / Over-Search）
+- 期号：`date` 01:24→0100 档；本实例权威历史（automation b0686167 memory）上一期 303（11-22 02:00 关联键面），顺延 304；主线第 257 条全新立面；字段族第 225 号；本地连续第 180 期。E 盘 index 有并行实例第304期（2026-11-20 13:31 采集面）等不同序列，本条以文件戳 0100＋本实例序列标识，主题无重叠
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261124-0100.md（正文 2998 汉字；题眼＋五章＋九方案七列对比表＋22 来源/22 链接）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 主线：首次把「调查行为本身」（查多少·按什么顺序查·看到什么才停）立为一等治理对象；与 #294 证据保真面（单条证据真不真）/#303 关联键面（证据是否同一事故）/#295 置信度校准/#299 审批完整性划界；grep 调查污染/过度搜索/探针预算/拟合/确认偏误/排除了什么 两处 index 无主线命中，全新立面确认
+- 核心新提法：**探针次数即多重比较次数，查得越多偶然拟合出逻辑通顺错因果的概率越大**／Causely 判词「每一次额外查询或探针都给 Agent 多一次找到拟合解释的机会」／**满意即停 vs 证伪后停**／支付案例重启是真的·引用可点开·推理合理却指向错误修改对象，缺的是搜索开始前就知道故障如何传播的那张图／**少发现反而多答对**（Chiron 143 万→15.4 万 token、30.9%→46.2%；Causely 调用19→4、误报4/12→1/12）／省查询与多查询各有各的错法（廉价模型解最难却因跳一条命令漏最简单）／历史备注当先验会把旧错流水线化复制／工具目录膨胀本身是污染源（30-50 工具后选择退化·107 工具幻觉不存在的工具名）；第225字段族 `investigation.contamination.*`（probe_budget{allowed,consumed,stop_rule}／probe_log[]{hypothesis,basis,result,changed_conclusion}／hypothesis_count+spurious_fit_risk／ruled_out[]／lead_source∈PREMISE|SEARCH_FOUND／order_independence／cost_per_solved_task／verdict∈VALIDATED|OVERSEARCHED|CONTAMINATED|UNVERIFIED）缺省 INVESTIGATION_UNVERIFIED
+- 时点红利（2026 年内，重点近30天）：Causely Your agents trust your telemetry 九项自查＋OTel Astronomy Shop 基准＋ResolveAI SRE-1 11-18（27B RL·no peeking 工具钉告警时刻·6.9%→38.8%·约80%寻呼不升级自测）＋Chiron ORCA-bench（526 工单+138 静默对照）＋New Relic Autopilot K8s 11-10（90+探测器·Ground Truth·OTel·HITL）＋ITBench-AA/ORCA-bench 榜单（best 56.2%/真实25.3%难10.0%）＋Akmatori token 成本＋三十工具 cliffs（Anthropic 30-50/OpenAI<20/Speakeasy/MCP-Bench）＋阿里 STAROps 云监控2.0 AgentLoop＋腾讯 CloudQ 全景图谱 11-03＋Google BigQuery/Looker 统一可观测与 token 配额 11-14＋Google 内部 Gemini 四步法 11-18＋Google SRE 书二版 11-15（质疑单一根因·contributing factors）＋字节 AgentKit 11-13 自研评测/11-19 固定 Skill 版本＋本地173讲义
+- 本期反转：因果图/关联上下文/知识图谱/OTel轨迹/成本配额/版本固定几乎每项可采购；「把调查过程本身当一等污染对象——导出探针预算与停止规则·记录查询假设与证据顺序·给出排除了什么与顺序无关性检验·以 cost-per-solved-task 结算」全表几乎空白。新观点：看得见「它查了什么」≠看得见「它为什么查这条·查得够不够」，是自愈率高却 Badcase 反复的结构来源
+- 本地原型（第180期新角度）：孙鹏《探测式评测管线》首次读作「探测本身应被计分而非只被消耗」，配刘凯宁蚂蚁SRE调查步骤可复盘·蒋烁淼秒查前提是查的对象正确·刘杨 trace 覆盖率决定猜测起点
+- 建议：第225字段族＋INVESTIGATION_UNVERIFIED 门禁（未声明停止规则/无排除项/顺序敏感不得 write≥act·不计干预信用·不沉淀语义记忆）／停止条件从硬上限改证据充分性（可证伪因果链+≥2排除项+客户面信号·token上限只熔断）／评测增 with/without 双轨+顺序敏感性配对题+欠搜索题／工具目录按场景切片≤20·SKILL文件外置／采购三问／信通院补「调查可举证率」格
+- 注意：Causely/Chiron/ResolveAI 数字为厂商自测与公开基准、装置样本不同不可相减；Google 内部四步法来自二手报道；本地173按目录级引用；第225字段族与调查污染面为本文归纳
+- 下期候选：`investigation.contamination.*` OTel genai 提案与门禁最小实现／探针日志与停止规则导出器／顺序无关性检验器与排除项计分器／cost-per-solved-task 埋点／with-without 双轨评测计分器／信通院补格
