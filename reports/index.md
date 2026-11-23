@@ -4471,3 +4471,16 @@
 - **注意**：第 1 条为 OWASP 研究条目，事件细节需核对原始报道；第 2 条为未成标准草案；第 3、8 条为云文档；第 4 条为内部规范；第 5 条为预印本；第 6 条为项目 ADR；第 7 条为服务自述。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
+
+
+## 第 310 期（2026-11-24 07:00）· 知识腐化面／过期但确定的知识比缺失的知识更危险（Knowledge Decay / Stale Grounding / Runbook Rot）
+- 产物：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261124-0700.md（正文 2331 汉字；题眼＋五章＋十一方案七列对比表＋30 来源/29 链接，15510 字节）；报告已复制 E:/Knowledge/Knowledge/reports/
+- 期号：`date` 07:56→0700 档；本实例上一期 309（11-24 06:00 入场保真面）顺延 310；主线第 263 全新立面；字段族 231；本地连续第 186 期。E 盘并行实例 xx31 档已至 322（审计日志完整性面）等不同序列，本条以文件戳 0700＋本实例序列标识，主题无重叠
+- 主线：首次把「Agent 推理踩着的静态前提（runbook／知识图谱边／历史复盘／组织记忆／Skill）随时间腐化」立为一等对象；与 #294 证据保真（观测真不真）/#309 入场保真（问题陈述真不真）/#296 底座漂移（谁在推理）/#302 升级回归（版本变了分数怎么变）/#304 调查污染（搜索行为）/#308 举证负担（举证成本）逐条划界——前六者管观测陈述与成本，本期管静态前提的时效。grep 知识腐化/knowledge decay/runbook rot/知识时效 两处 index 无主线命中，全新立面确认
+- 核心新提法：Mastering Observability 判词「grounding 在过期 runbook 上，Agent 会以完全确定语气告诉你系统过去是怎么工作的」／缺失知识触发追问、过期知识触发确定性错误／one2n OpenSRE「stale knowledge is removed regularly」删除成一等动作／OpenAI 11-21 211 分钟中断：「只读副本=闲置备份」是没随架构更新的组织知识，副本其实承重且 Primary API 提供全栈认证、跨区拉起失败／Radar SREGym CoreDNS 案例：任务指向 shop 命名空间全是症状、真因在未提及的 kube-system，按旧地图找到的每条错误都真却属别人的事故／阿里云 AgentLoop 反馈回写知识库＋STAROps 处置轨迹转经验，但回写假成功即加速腐化／Chiron 把「最新数据 1 秒前＋看不见什么」写进上下文＝新鲜度显式化／OTel Weaver `expected_violations` 停止报告即失效＝知识到期复验雏形／Google 11-23 Agent Compute Engine 把密钥留沙箱外由 Gateway 注入（凭据分层共识，知识无对应网关）／OTel GenAI 11-05 全 Development、79 变更 17 破坏性、Schema URL TODO、无 runbook.version/validated_at；第 231 空白 `knowledge.decay.*` 缺省 KNOWLEDGE_STALE_UNVERIFIED
+- 时点红利（2026 年内，重点近30天）：One2N OpenSRE／Mastering Observability 评测指南／Qiita 2026 实操（Stale runbook 首要失效模式＋每次变更后重跑 replay）／Vedcraft 五条经验（知识库 Freshness）／Unblocked「去年 wiki 只有被链接才被知道」＋Stack Overflow 2026（61% 调试/20% 生产运维/93% 要来源）／OpenAI 11-21 复盘＋Google Agent Compute Engine 11-23＋Google ProdAgent／OpenAI Sevbot（二手）／Anthropic Claude OTel→Databricks MLflow 11-03/04＋Message Threads beta 11-02（非持久记忆）／阿里云 AgentLoop＋AgentTeams 公测/STAROps 商业化/五步实验回归/归因到知识·记忆／腾讯云 CloudQ 全景图谱＋AIOps 共创计划＋信通院六维五要求 11-02/03／字节 AgentKit 固定 Skill 版本＋Trace 回流／Radar SREGym 95.2% 11-05／Chiron 100% 277K token／SREGym arXiv2605.07161v4 90 故障（题饱和即退役）／OTel GenAI 11-05＋OTel Agent Harness Weaver／本地173讲义
+- 本期反转：知识库／回写闭环／Skill 版本／上下文新鲜度／记忆删除／题退役各有在做；「每条被引知识带版本号＋上次现网校验时刻＋绑定变更ID，现网不符即降级待确认，回写带来源事故与验证者可回滚」全表无人填满。新观点：看得见「它引用了一条 runbook」≠看得见「那条 runbook 今天还成立」
+- 本地原型（第186期新角度）：余锦泽《Agent 的记忆不在对话里》首次读作「记忆若只进不出、只写不验，就是确定性错误的生产线」，配刘凯宁三分扩第二十一分「这条结论依据的知识上次被现网校验是什么时候」、赵恒「知识权威来源之外还要有失效日期」、蒋烁淼「秒查前提是那张表还在」
+- 建议：第231字段族＋KNOWLEDGE_STALE_UNVERIFIED 门禁／runbook 步骤绑变更ID与现网校验时刻、重大变更后强制重验／引用前 live-state probe 不符即降级待确认不得 write≥act／回写带来源事故＋验证者可回滚／到期复验＋无人引用即删除（借 Weaver expected_violations 自净）／评测增「过期 runbook 注入」配对题报 false-confidence rate 与跨运行一致性／采购三问／信通院「数据可信」扩「数据与知识新鲜可信」成十七层治理
+- 注意：Radar 95.2%／Chiron 100%／阿里云 90%+ 为厂商自测或榜单口径、装置题库版本不同不可相减；OpenAI「副本=备份」认知为本文解读；Google ProdAgent/Sevbot 为二手报道；OTel GenAI 属性名与 Schema URL 仍在变；本地173按目录级引用
+- 下期候选：`knowledge.decay.*` OTel genai 提案与门禁最小实现／知识条目版本与校验时刻导出器／live-state probe 降级器／回写来源与回滚账本／到期复验清理器／过期 runbook 注入配对题生成器／信通院补格
