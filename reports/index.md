@@ -4387,3 +4387,17 @@
 - **注意**：第 1、3、6、7 条为厂商博客/文章；第 2 条为经验指南；第 4 条为产品文档；第 5 条为服务商页面、方法细节未公开。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：模型上下文与记忆边界、副作用账本审计与留存、变更冻结后的解冻重放、权限撤销的生效延迟。
+
+
+## 第 307 期（2026-11-24 04:00）· 撤销生效延迟面／"令牌已吊销"≠"所有会话、派生凭据与后台循环都已失效"（Revocation Propagation Latency / Credential Revocation Effective Delay）
+
+- **期号**：`date` 04:40→0400 档；本实例上一期 306（11-24 03:00 事故边界面），顺延 307；主线第 260 全新立面；字段族 228；本地连续第 183 期。E 盘并行实例 xx31 档已至 319（数据面）等不同序列，本条以文件戳 0400＋本实例序列标识，主题无重叠。
+- **报告**：C:/Users/13423/WorkBuddy/2026-10-21-01-40-13/reports/AI-SRE技术洞察-20261124-0400.md（正文 2999 汉字；五章＋十方案六列对比表＋22 来源/22 链接）。
+- **主线**：首次把"撤销从发出到全层生效之间的延迟"立为一等对象；与 #298 可逆性面（动作之后副作用是否撤销）、#199 身份面（用谁的凭据）、#281 开关面（功能对谁生效）划界；grep 撤销生效/撤销延迟/凭据撤销/吊销/失效延迟/kill switch 两处 index 均无本主线（仅作他题分论点），全新立面确认。
+- **核心新提法**：三只钟不同步（Okta/AWS 实测阻断新请求 1 秒·已发令牌 5 分钟·beta API 停用排队 86 分钟，自家租户非产品保证）／撤销是向前止损非向后撤回（token 层到过期·上下文层已读数据擦不掉·动作层排队动作重试/绕路/静默跳过）／RFC 7009 只管注销不管通知资源服务器、连带作废仅 SHOULD／四张牌延迟阶梯（短TTL→缓存TTL→下次动作前凭证代理→受众绑定只缩爆炸半径）／权限版本号查语义变更（读写→只读 token 仍有效）／401 应挂起重协商非重试／kill switch 分不清好坏（KillBench 最好 AutoGuard 平均 47.1%、模型差 5 倍、GPT-5.2 良性完成率 78.7%→0.8%）／签名回执≠真停（AgenTrust 三类反例）／WIMSE AIMS -01 弃用阶段+长会话+SSF 信号 MUST without undue delay；第 228 空白 `revocation.effective.*`（requested_at/effective_at/propagation_seconds／three_clocks{}／credentials[]／stale_session_inventory[]／context_residual／permission_version+task_permission_version／bearer_scope／revoke_verified_by∈independent_gateway|introspection|issuer_signal 禁自报／kill_switch_drill_at／verdict∈REVOKED_EVERYWHERE|PARTIAL|STALE|UNVERIFIED）缺省 REVOCATION_UNVERIFIED。
+- **时点红利**：Artificial Curiosity Labs 11-18 跨云撤销＋Okta/AWS XAA+AgentCore 实测＋WIMSE AIMS -01 11-02＋Credential Delegation/AIID 草案＋KillBench EMNLP 2026 Findings＋Resilient Cyber 11 月 kill switch 梳理＋AgenTrust v2 网关实验＋VentureBeat 4/5 无法遏制＋CSA 11-19 五天四平台＋MIT Tech Review 10-29＋阿里 AgenticOps＋腾讯云 AIOps 受控自愈＋本地173讲义。
+- **本期反转**：短TTL/内省/凭证代理/受众绑定/CAE/kill switch/审批墙全可采购；"撤销发出后哪几类凭据会话后台循环仍认旧票·最坏多久失效·由谁独立验证"全表几乎无人做成可导出证据字段。新观点：看得见"按钮已变灰"≠看得见"它真的停了且所有派生凭据都已失效"（被展示的状态 vs 被证明的事实）。
+- **本地原型（第183期新角度）**：朱革《百度 SRE Agent 规模化落地实践》"安全托管"首次读作"试金石不在发权限而在撤权限之后能否证明全层失效"，配刘凯宁三分扩第十八分、赵恒"权威来源是网关独立观测非身份平台自报"。
+- **建议**：第228字段族＋REVOCATION_UNVERIFIED 门禁／停止做成三态（已发命令/已观察效果/后续无效果）分别落账／强动作走凭证代理+权限版本号、401 挂起交还人／季度演练三类场景＋采购三问／基准增三类题报 stop-latency+benign-false-stop／OTel GenAI 与 WIMSE 提案撤销时效属性＋信通院补「撤销可举证率」格成十四层治理。
+- **注意**：Okta/AWS 时间为作者租户实测非产品保证；KillBench 为单次运行学术研究仅网页 Agent；IETF 草案为进行中工作属性仍在变；装置样本不同数值不可相减；本地173按目录级引用。
+- **下期候选**：`revocation.effective.*` OTel genai 提案与门禁最小实现／三态停止事件账本与独立观测接口／跨云派生凭据失效探测器／kill switch 良性误停率计分器／401 挂起重协商状态机／信通院补格。
