@@ -4902,3 +4902,17 @@
 - **注意**：第 1 条为厂商指南；第 2 条为泛化场景；第 3/4 条为社区排查（版本相关）；第 5 条为云文档；第 6/7 条为厂商博客（含倾向/经验叙述）；第 8 条为问答非规范；本期不构成选型建议。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界、数据保留与删除义务。
+
+## 第 319 期（2026-11-25 07:00）· 判定函数面／谁定义"失败"（Failure-Definition Integrity / The Unverified SLI Contract）
+- **产物**：reports/AI-SRE技术洞察-20261125-0700.md（正文 2462 汉字不含表格与参考；题眼＋五章＋十一方案七列对比表＋18 来源/18 链接，17150 字节）。
+- **期号**：07:00 档；本实例上一期 318（空窗期自治面）顺延 319；主线第 272 全新立面；字段族 240；本地连续 195 期；与并行实例 342/343/344 等不同序列主题无重叠。
+- **主线**：首次把「Agent SLO 中判定这一次算不算失败的 evaluate_outcome() 函数本身」立为一等对象；与 #98 计分面/#114 表计面/#156 bench.provenance/#176 决策质量 SLO/#260 置信度校准/#285 静默面/#290 证据通道面/#310~#318 可举证率系列逐条划界——本期证据到了结论也出了，问题是判定边界没人验收。
+- **四个新提法**：①判定函数是可观测链上唯一没有可观测性的组件（SLO 的 SLO）；②四种失效＝永不响/总在响/重试污染/评委漂移；③判定覆盖率≠判定边界；④状态成功·结果可用·用户可感三层被压成一层（200 只证明受理）。
+- **市场空白**：第 240 个——`failure.definition.*` 十字段，缺省 FAILURE_DEFINITION_UNVERIFIED，verdict∈CONTRACT_VALIDATED|NEVER_FIRES|ALWAYS_FIRES|EVALUATOR_DRIFT|UNVERIFIED。
+- **时点证据**：Grafana 行为 SLO（多维拒绝单一质量总分/95%×30 天/5% 预算）＋CSDN 50 项清单（别设 99.99%）＋kubai SLOs beyond latency（四种失效＋合成 trace 自检＋pin evaluator）＋zicode Agent 服务 SLA（degraded 分钟单独扣预算哪怕全 200、用户侧黑盒探针双口径对账）＋Google《SRE》二版 11-15（自信答错可用性识别不了）＋Mastering Observability 11-13（outcome 非 status code、从用户位置探测）＋Gemini 内部 IT 四步法（The Information 11-18 转述）＋Anthropic OTel→Databricks MLflow 11-03/04（团队仍要决定哪种行为算失败）＋OpenAI Control Room 11-09（35s/fail-closed）＋腾讯 CloudQ 11-03 与信通院六维＋火山 RCA Harness/IAM。
+- **判词**：行为 SLO/错误预算/OTel 导出/scorer 基线/受控执行/分级放行/用户侧探针全可采购；「这个 99.9% 按谁写的函数判出、判了多少次、裁判换版本有没有重定基线、200 但不可用算不算失败」不可采购。
+- **本地原型**：施宏斌《金融 Agent 开放问题 Eval》首次改读为「判定式本身也要可验证持续改进」；配刘凯宁三分判定卡、赵恒状态权威来源、何伟验证环境可信；本地 173 目录级引用。
+- **建议**：第 240 字段族＋FAILURE_DEFINITION_UNVERIFIED 门禁（承 #310~#318 叠加）／四条最小动作（evaluate_outcome 当契约 CI 合成断言、口径变更视为 SLO 变更重定基线、判定附依据层次行禁把 200 当结果、作者不得是唯一验收者）／评测配对题报判定一致率与用户可感失败漏判率／信通院六维补「判定可举证率」格。
+- **注意**：厂商数值为自测/演示/二手转述口径不可相减；伦敦区根因经 The Register 转述；Gemini 四步法无一手文档；OpenAI 35 秒自报上限不覆盖排队工具调用；「判定函数面」与字段族为本文归纳。
+- **落盘**：报告 + C/E 两处 index 已更新；git 提交见本轮 log。
+- **下期候选**：`failure.definition.*` OTel 提案与门禁最小实现／合成好/坏 trace 自检器／evaluator 版本钉版与自动重基线器／用户侧结果判定层标记器／信通院补格。
