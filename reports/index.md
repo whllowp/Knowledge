@@ -4601,3 +4601,18 @@
 - **注意**：第 1 条为技术博客；第 2 条为失败模式目录；第 3、4 条为中文技术文章；第 5、6 条为处置指南；第 7 条为开源框架文档；第 8 条为 newsletter。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
+
+## 第 329 期（2026-11-24 14:31）· 停机面／优雅终止与排空——三个时钟没对齐，SIGTERM 就是一次小型事故
+
+- **期号说明**：第 328 期（11-24 13:31）后 index 最新为 328；329 未被占用。
+- **报告**：reports/AI-SRE技术洞察-20261124-1431.md（正文 1896 汉字，9 条来源，7 行六表）。
+- **主线**：优雅终止不是“收到 SIGTERM 后等一会儿”，而是三个时钟对齐：路由摘除的传播（EndpointSlice/kube-proxy/客户端缓存 TTL）、连接排空（in-flight/长连接/流）、任务完成（写队列/后台任务）。terminationGracePeriodSeconds 是上限不是保证；多容器 Pod 终止顺序竞态会让 preStop 失效、提前 SIGKILL；两段式（先停写再停读）更稳。
+- **时间线证据**：Envoy Gateway issue #9484 2026-10-30（K8s 1.33+ envoy 与 shutdown-manager 为无顺序保证的兄弟容器，同时收到 SIGTERM；shutdown-manager 先于 preStop 轮询退出→FailedPreStopHook→kubelet 杀掉仍有在途连接的 envoy→每次滚动发布 5xx；修复=原生 sidecar）；Ray PR #63995 2026-06-09（quiesce 逐步 drain，每步耗时最长一个 timeout，控制器只允许一个 timeout 后 ray.kill→强制 kill 落在排空中途；修复=入口算单一 deadline）；Ray PR #63620 2026-05-24（HAProxy is_drained() 曾只看 drain 时间+当前 worker idle，旧 worker soft-stop 仍服务长请求→在途 TCP 被 RST→上游 LB 502；修复=等旧 worker 退出）；bex serve 包 2026-10-29（两半竞态：SIGTERM 后排空在途而非继续服务整个 grace period；SIGTERM 后继续接受新请求一个排空窗口并让就绪探针报 draining，因为 Traefik/kube-proxy 在 Pod terminating 后仍路由几秒；2026-07-18 502 事故）；firebolt operator 提交 2026-06-10（preStop 先让健康检查失败，保持 admission 打开 propagationSeconds，等 Service 停止路由，再排空查询监听器；EndpointSlice 控制器与 kube-proxy 需约一秒量级传播；注释“传播下限是承重的”）；阿里 SAE 文档 2026-04-01（停机丢流量两根因：应用收到 SIGTERM 立即退出、客户端服务列表缓存未过期）；华为云 2026-10-30（两段式：先停写并给写排空窗口与网关空闲超时对齐、就绪通过但标 draining；确认写队列清空/事务落盘后停读，最后 SIGTERM；就绪与存活探针分开、TTL 对齐、幂等键贯穿写链路）；fak issue #14454 2026-11-12（默认排空 5s，流式 90s+；清单无 grace period/preStop/drain env/PDB；每次滚动更新截断 SSE）；AWS ECS 连接排空文档 2026-11-22（deregistration delay、keep-alive、UNUSED 状态）。
+- **四个新提法**：①摘流传播测量（EndpointSlice→kube-proxy/客户端停止路由的时间）；②两段式下线（停写→draining→传播等待→排空→停读→SIGTERM）；③长请求排空契约（按最长流/任务设窗口，与网关空闲超时对齐）；④终止顺序保证（原生 sidecar/preStop 不依赖先退出的容器）。
+- **市场空白**：第 241 个市场空白——摘流传播测量；两段式下线；长请求排空契约；终止顺序保证；排空观测。
+- **判词**：「LB 排空／preStop／PDB／grace period／sidecar／服务网格」全部可采购，「这个实例何时真正停止被路由、在途请求还有多少、最老请求等了多久、迟到请求会否撞上关闭的监听器」不可采购。
+- **本地原型**：`drain.*`／`shutdown.*` 第 208 次无人提字段族（`drain.propagation_seconds`、`drain.inflight_oldest_age`、`drain.draining_ready`、`shutdown.order_guarantee`、`drain.retry_idempotent`）；本地 173／173-kb 连续第 196 期成组启用（周昕毅 10：进程退出与停止被路由分开记账）。
+- **建议**：测量传播；两段式；长请求契约；终止顺序；排空观测；幂等贯穿；注入慢请求/长流/sidecar 提前退出/缓存 TTL 过期演练。
+- **注意**：第 1 条为 GitHub issue（版本相关）；第 2、3 条为 PR（代码级）；第 4 条为包文档；第 5 条为提交记录；第 6、9 条为云文档；第 7 条为中文实践文章；第 8 条为单项目 issue。
+- **落盘**：报告 + index 已提交；commit 见本轮 git log。
+- **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
