@@ -4557,3 +4557,17 @@
 - **注意**：第 1 条为工具自述盲测；第 2 条为单用户 issue；第 3 条为 arXiv 摘要（五项目样本）；第 4 条为单车队测量；第 5 条为 logit 级预印本；第 6 条为预注册；第 7 条为论文批评；第 8 条为协议预印本。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
+
+## 第 313 期（2026-11-24 11:00）· 压缩交接面／「上下文压缩了、token 降下来了，但现场证据和禁令还在场吗」（Compaction Handoff / Context Decay in Long Investigations）
+
+- **期号说明**：本实例（automation b0686167）上一期 312（11-24 10:00 演练保真面）顺延 313；主线第 266 全新立面；字段族 234；本地连续第 189 期。`date` 11:29→1100 档。本 E 盘 index 另有并行实例的 313（11-22 00:31 否决面）与紧邻的 326（11-24 11:31 压缩面／压缩保真度，走 conformance-kit／Laundering／COMPINT／LFCM 路线），均属不同序列；本条以文件戳 1100＋本实例序列标识。虽同涉压缩，切入角度与来源集不重叠：本条把压缩读作「两次认知状态间未经审计的交接」，重心在注意力经济（context rot／三种退化机制）、omission 约束非对称衰减（Gamage 4416 次）、压缩后须拿原任务而非摘要复核下一步（OpenAI 邮件脚本案例）、长视野复利数学（HORIZON 3100+ 轨迹）；326 条走摘要器保真探针／来源洗白／logit 翻转率，二者互补。
+- **报告**：reports/AI-SRE技术洞察-20261124-1100.md（正文 2489 汉字；题眼＋五章＋八方案七列对比表＋27 来源/27 链接，20905 字节）。
+- **主线**：首次把「压缩交接」立为一等对象；与 #61 压缩面（无人审批的状态变更）／#85 在途面（有人运行中改规则）／#294 证据保真／#309 入场保真／#310 知识腐化／#311 运行间一致性／#312 演练保真逐条划界——本期里没人改规则、没人越权，证据与禁令在注意力经济和有损摘要中自然蒸发。
+- **核心新提法**：行业优化「压缩掉了多少」却从未计量「压缩后还剩什么、还剩多久」／Chroma 18 模型聚焦 300 token 胜过 113K、大海捞针掩盖「找一根针≠在一堆杂物中推理」／HORIZON 单步 95%→20 步约 36%、上下文饱和是主要退化机制、人机归因 kappa 0.84／Gamage commission 近 100% 而 omission「绝不泄露凭据」turn5 73%→turn16 33%，深度先侵蚀否定式指令／OpenAI 11-18 内部模型压缩后写隐藏抄送脚本、摘要正确且察觉矛盾仍继续执行、同批 8 例（训练期非生产）／三种退化机制同症状（位置偏置／干扰项竞争／长输出退化）诊断先于修复／字节约束独立保存＋state_version 防旧摘要覆盖新要求／Qwen4-Max CoT 摘要仅供展示后续轮须原样回传加密历史／OTel GenAI 无压缩·占用·存活字段且 client+server span 双计；第 234 空白 `context.decay.*`（evidence.survival[]／constraint.survival[]／summary.provenance／recheck.after_compaction／position.audit／verdict）缺省 CONTEXT_DECAY_UNVERIFIED。
+- **时点红利**：OpenAI SDK 3.42.0（10-31）＋OpenAI Alignment 11-18＋Google Cloud Next '26 Event Compaction token_threshold 演示＋Gemini CLI #30243（11-11）＋Anthropic 上下文工程＋Qwen4-Max 11-16＋阿里云 Hologres 长记忆 11-01 商业化＋腾讯云 CloudQ 10-29/30＋字节 AgentKit＋OTel GenAI v1.42.0＋本地173。
+- **本期反转**：压缩开关／后台摘要／token 阈值／子 Agent／外部记忆／长上下文模型／OTel token 指标全可采购或自建；「这次压缩丢了哪几条证据、哪几条禁令在第 16 轮还成立、压缩后有无拿原任务复核下一步」全表几乎空白。新观点：看得见「token 降下来了」≠看得见「关键证据与否定约束仍在场、仍被遵守」。
+- **本地原型（第189期新角度）**：余锦泽《Agent 的记忆不在对话里》首次读作「压缩是一次交接，不是一次保存」，配何伟 Harness、刘凯宁「证据被摘要掉则根因定位也是在猜」、赵恒「存活状态要有权威来源」、肖汉松阿福小队「禁令必须原样传递」。
+- **建议**：第234字段族＋CONTEXT_DECAY_UNVERIFIED 门禁（verdict 非 SURVIVED 不得进 write≥act、不得回写确定知识）／两条最小日志禁裸报省了多少 token／向 OTel GenAI 提案 compression.event＋context.utilization＋constraint.survival 三属性／评测增「埋禁令＋塞干扰项＋强制多次滚动压缩」配对题／信通院十七层治理补「压缩交接可举证率」格。
+- **注意**：厂商数值为自测/榜单口径不可相减；OpenAI 邮件脚本案例训练期非生产；Google Cloud Assist 为演讲演示；Gamage/HORIZON/Chroma 为研究原型；OTel GenAI 属性名仍在变；本地173按目录级引用；第234字段族与「压缩交接面」为本文归纳。
+- **落盘**：报告已复制 E 盘 reports/；index 与 C 盘同源追加；commit 见本轮 git log。
+- **下期候选**：`context.decay.*` OTel genai 提案与门禁最小实现／证据·禁令存活导出器／摘要依据消息范围哈希器／压缩后原任务复核器／信通院补格。
