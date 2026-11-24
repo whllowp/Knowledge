@@ -4748,3 +4748,18 @@
 - 建议：第235字段族＋DILUTION_UNVERIFIED 门禁（verdict=DILUTED 不得回写确定知识/升自治等级/进 write≥act，承 #310/#311/#312/#313 叠加）／两条最小日志（证据条数·相关性判定·采样策略与选择依据／同题全量 vs 选择性配对 RCA 结论差）禁裸报「保留 100% 错误 trace」／向 semantic-conventions-genai 提案 gen_ai.evidence.offered_count＋gen_ai.evidence.relevance＋gen_ai.diagnosis.dilution.verdict 复用 messages_ref／评测增「全量·选择性·掺高相似干扰」三版配对题报 rca.delta_vs_full 与 dilution sensitivity，采购两问／知识回写加 signal.density 阈且配对差为正才沉淀／信通院十七层补「诊断稀释可举证率」格
 - 注意：Gleaner 为研究原型、Google 为内部遥测、云厂商数值为自测/厂商/榜单口径装置不同不可相减；尾采样 78% 与 MTTD 18min→40s 为厂商或作者自述未独立复现；OpenAI 文件名注入为训练/评测期非生产；OTel GenAI 属性名与 Schema URL 11 月仍在变；本地173按目录级引用；第235字段族与「诊断稀释面」为本文归纳
 - 下期候选：`diagnosis.dilution.*` OTel genai 提案与门禁最小实现／证据密度与相关性导出器／全量-选择性配对 RCA 计分器／被动工件注意力稀释探针／signal.density 知识回写闸器／信通院补格
+
+## 第 338 期（2026-11-25 01:31）· 账本面／副作用账本的留存与重放——留存期不是存储策略，是重放窗口
+
+- **期号说明**：第 337 期（11-24 22:31）后 index 最新为 337；338 未被占用。
+- **报告**：reports/AI-SRE技术洞察-20261125-0131.md（正文 1839 汉字，6 条来源，6 行六表）。
+- **主线**：账本是副作用的唯一证人；留存期由三个窗口取最大值——恢复窗口、重放窗口、审计/争议窗口。删除资源不能释放幂等键；账本压缩必须先证明快照覆盖；删除与不可变账本冲突时走摘要/墓碑/密钥销毁，而不是直接删记录。
+- **时间线证据**：AdCP DR-0021 2026-11-20（幂等账本比资源活得久：每个已提交键记录 + 规范化请求哈希保留整个 `replay_ttl_seconds`，从持久提交时刻起算；删资源不释放键；资源行 UNIQUE 不合规；变更已提交但资源先被清理→`COMMITTED_RESOURCE_PURGED` + 墓碑保留到窗口结束；等价重放返回同结果）；Effect Ledger 研究简报 2026.10.3（证据只存摘要/引用；清除时 DSSE 载荷换墓碑，保留 effectId/kind/目标摘要/记录哈希/原签名 keyid/purged_at/策略引用；链用原记录哈希故仍可验证；effect-ID 索引保留 ≥最大续跑窗口+宽限期，否则被清 ID 可重放；未决意图不能清）；事件日志压缩 ADR 2026（`CompactBelow` 仅在读取内联快照并验证 `snapshot.EventSequence >= throughSequence` 后执行；无快照/未覆盖不截断；全量重放路径必须快照感知）；IEEE 11695140（擦除权与不可变账本冲突）；g8e 存储架构 2026-08-30（审计存储 append-only；ActionReceipt；保留窗口外归档）；Sanity CompleteEffectArgs（first-writer-wins；幂等键记入 processedRequests[]；重试返回 changed:false）。
+- **四个新提法**：①三窗口留存（恢复/重放/审计取最大）；②墓碑规范（标识/哈希/签名 keyid/策略引用）；③effect-ID 索引保留期；④压缩门禁（快照覆盖证明后才截断）。
+- **市场空白**：第 250 个市场空白——三窗口留存；墓碑规范；索引保留；压缩门禁；删除演练。
+- **判词**：「对象存储／WORM／事件存储／哈希链库／TTL 策略」全部可采购，「这条记录在留存期内能否重放、删除后链是否仍可验证、幂等键是否随资源释放、压缩是否被快照覆盖」不可采购。
+- **本地原型**：`ledger_retention.*`／`tombstone.*` 第 217 次无人提字段族（`ledger_retention.replay_ttl`、`tombstone.policy_ref`、`tombstone.original_hash`、`ledger_retention.index_horizon`）；本地 173／173-kb 连续第 205 期成组启用（蒋炎炳 23：资源删除与幂等键释放分开记账）。
+- **建议**：定义三窗口；摘要化；墓碑；索引保留；压缩门禁；备份与留存联动；重放/删除演练。
+- **注意**：第 1 条为项目规范；第 2 条为研究简报；第 3 条为项目 ADR；第 4 条为 IEEE 法律-技术交叉论文；第 5 条为项目文档；第 6 条为产品文档。
+- **落盘**：报告 + index 已提交；commit 见本轮 git log。
+- **下期候选**：变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界、数据保留与删除义务。
