@@ -4514,3 +4514,16 @@
 - **注意**：第 1 条为 Zenodo 预印本；第 2、4 条为厂商文章；第 3 条为中文技术长文（以官方文档为准）；第 5 条为成本建模文章（数字随市场变）；第 6 条为 SYSTOR '26 论文；第 7 条为模拟环境论文。
 - **落盘**：报告 + index 已提交；commit 见本轮 git log。
 - **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
+
+
+## 第 312 期（2026-11-24 10:00）· 演练保真面／沙盒满分不等于生产及格（Drill Fidelity / The Simulation-to-Production Gap）
+- 产物：reports/AI-SRE技术洞察-20261124-1000.md（正文 2527 汉字；题眼＋五章＋七方案六列对比表＋16 来源/15 链接，13204 字节）。
+- 期号说明：`date` 10:25→1000 档；本实例权威历史（automation b0686167 memory）上一期 311（11-24 09:00 运行间一致性面）顺延 312；主线第 265 全新立面；字段族 233；本地连续第 188 期。E 盘 index 另有并行实例更早的「第 312 期（11-21 23:31 优先级面）」等不同序列，本条以文件戳 1000＋本实例序列标识，主题无重叠。
+- 主线：首次把「用来训练/评测/发放自治许可证的演练环境本身与生产差多少」立为一等对象；与 #311 运行间一致性（同环境重跑是否一致）、#294 证据保真（单条证据真不真）、#308 举证负担（保真有成本）、#310 知识腐化（假成功回写固化）逐条划界；grep 演练保真/保真度/fidelity/迁移落差/GenSim/reward hacking 两处 index 无本主线，全新立面确认。
+- 核心新提法：演练成绩＝能力×环境保真度，低保真演练是发假通行证／SREGym 移植题缓解>80% 但独特高保真（亚稳态/硬件）Stratus+Sonnet-4.6 从 63.7%→17.9%、整体 clean 最高 60.7%（Claude Code+Sonnet-4.6）最低 27.4%（Stratus+Kimi K2.5）、噪声注入使每对组合诊断成功率下降、贪婪 Agent 抓第一个异常即停、通用编码 Agent token 达专用 SRE agent 3.6 倍、诊断失败则缓解成功率降 25–46%／旧基准「注入症状非缺陷，关掉混沌工具就算修好」＝假阳性／Datadog GenSim CausalGen（真跑系统高保真吃算力）vs SynthTel（生成遥测快但失真）、harness fuzzing 防记忆固定接口、直接对 judge 训练诱发 reward hacking（rubric 涨 benchmark 不涨）、训练仿真评估真实 AlertEval 做迁移测试／腾讯云 Chaos Loop+AIOps Score 六维绑 L0–L5 自治升级／CloudQ 自定位观测层不注入＝保真责任全链路无人认领／Production Purity Trap 指「必须在生产做」是把目标与地点混淆；第 233 空白 `drill.fidelity.*`（environment_tier/injection.type∈symptom|real_defect/layers[]/noise_profile/oracle.type∈state_based|llm_judge|hybrid/oracle.gaming_checked/transfer_delta＝production_score−drill_score/verdict∈TRANSFERABLE|GAP_LARGE|ORACLE_GAMED|UNVERIFIED）缺省 DRILL_FIDELITY_UNVERIFIED。
+- 时点红利：SREGym arXiv2605.07161（9月更新，90 题/47 原语/139 服务/3623 场景/eBPF 多层）＋Datadog Scout 1.0 GenSim＋DEV《Simulator Not Archive》＋腾讯云 Chaos Engineering+Autonomous SRE 10-12（AIOps Score 六维/Chaos Loop/三连击/false_remediation·rollback·human_intervention 率）＋腾讯云 CloudQ 混沌演练观测层＋Chaos Monkey Production Purity Trap＋阿里云 AgenticOps/BRiSE（764 故障/145 类/20+产品，11 源 1576 信号，根因集 58→838）＋ITBench-AA（GPT-5.6 Sol 56.2%）＋CloudOpsBench 1.0（45 场景，Claude 60%/GPT 53%，20% 失败不可逆）＋OTel GenAI 仍 Development（缺 drill.* 属性）＋生产 Agent 监控在线评测方法系列 11-18＋本地173讲义。
+- 本期反转：故障注入工具（Chaos Mesh/Litmus/ChaosBlade）、AIOps Score、Chaos Loop、基准（SREGym/ITBench/AIOpsLab/AlertEval）、仿真工厂 GenSim、RL 训练 SkyRL、harness fuzzing 全可采购或自建；但「把演练环境保真度作为一等字段导出、把迁移落差当能力置信度、证明裁判没被 gaming、区分症状注入与真实缺陷」全表几乎空白。新观点：看得见「它演练满分」≠看得见「它能在生产的脏故障里及格」。
+- 本地原型（第188期新角度）：刘凯宁《蚂蚁 SRE 应急根因定位实践与踩坑》首次读作「演练场定位准不代表真实脏证据下也准」，配何伟 Harness「可验证持续改进前提是验证环境本身可信」、赵恒「保真度字段要有权威来源不能由被评测方自报」、刘杨 Trace 实时评估、孙鹏探测式评测管线。
+- 建议：第233字段族＋DRILL_FIDELITY_UNVERIFIED 门禁（verdict 非 TRANSFERABLE 不得据演练成绩升自治等级、不得进 write≥act，承 #311 叠加环境闸）／两条最小日志（环境四轴参数+裁判类型与防 gaming 措施／同题生产迁移成绩或标记未测）禁裸报单一通过率／向 OTel GenAI 提案 drill.environment_tier+injection.type+transfer.delta 三属性／评测采购两问／知识回写加 state-based 真实恢复且 transfer_delta 在阈内才沉淀确定知识（承 #310/#311）／信通院十七层治理补「演练保真可举证率」格。
+- 注意：SREGym/Datadog/阿里/腾讯云数值为研究原型或厂商自测或榜单口径，装置与题库版本不同不可相减；Datadog 成本为估算且训练评测同厂；生产纯净陷阱为观点文章；本地173按目录级引用；第233字段族与「演练保真面」为本文归纳。
+- 下期候选：`drill.fidelity.*` OTel genai 提案与门禁最小实现／transfer_delta 计分器／四格分数导出器／oracle gaming 检测器／知识回写 state-based 闸器／信通院补格。
