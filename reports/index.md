@@ -4527,3 +4527,18 @@
 - 建议：第233字段族＋DRILL_FIDELITY_UNVERIFIED 门禁（verdict 非 TRANSFERABLE 不得据演练成绩升自治等级、不得进 write≥act，承 #311 叠加环境闸）／两条最小日志（环境四轴参数+裁判类型与防 gaming 措施／同题生产迁移成绩或标记未测）禁裸报单一通过率／向 OTel GenAI 提案 drill.environment_tier+injection.type+transfer.delta 三属性／评测采购两问／知识回写加 state-based 真实恢复且 transfer_delta 在阈内才沉淀确定知识（承 #310/#311）／信通院十七层治理补「演练保真可举证率」格。
 - 注意：SREGym/Datadog/阿里/腾讯云数值为研究原型或厂商自测或榜单口径，装置与题库版本不同不可相减；Datadog 成本为估算且训练评测同厂；生产纯净陷阱为观点文章；本地173按目录级引用；第233字段族与「演练保真面」为本文归纳。
 - 下期候选：`drill.fidelity.*` OTel genai 提案与门禁最小实现／transfer_delta 计分器／四格分数导出器／oracle gaming 检测器／知识回写 state-based 闸器／信通院补格。
+
+## 第 325 期（2026-11-24 10:31）· 门禁面／发布门禁到底验证了什么——绿色是一个状态，不是一份证据
+
+- **期号说明**：第 324 期（11-24 09:31）后 index 最新为 324；325 未被占用。
+- **报告**：reports/AI-SRE技术洞察-20261124-1031.md（正文 1923 汉字，8 条来源，7 行六表）。
+- **主线**：门禁绿≠验证过；六种“绿”的来源：跳过（skipped 算 success）、重试（until green）、选择性执行（TIA 盲区）、缓存命中（跑在旧产物上）、绕过（admin/bypass）、过期（required checks 名单漂移）。门禁的输出应是证据包（SHA、执行/跳过/重试计数、缓存命中、执行者），而不是一个布尔值。
+- **时间线证据**：CVE-2026-66874 2026-10-26（Gitea 从 PR 头读工作流；分支/路径过滤排除执行时伪造 skipped 状态；skipped 在分支保护中算成功→fork 作者可让必需检查“看起来满足”而工作流未执行）；safeguard.sh 2026-10-17（GitHub 分支保护默认对管理员与 bypass 角色豁免；需勾选禁止绕过）；分支保护审计快照 2026-07-05（enforce_admins=false、required checks 名单过期，新 secret-scan/workflow-sast 未列入）；RavenClaude 2026-06-05（必需检查 30% 概率失败、重跑就绿；两个真 bug 被噪声掩盖；加自动重试会一起藏）；rsync PR #7845 2026-09-14（nextest 重试把重试后通过报成普通通过→改为 FLAKY n/m 并在步骤摘要显示计数）；pytest-tia 2026-06-19（TIA 按函数/模块/数据依赖选择；动态派发不可判定，需定期全量）；GitHub Actions 缓存污染 2026-03-16/11-20（缓存跨分支共享、非信任边界；2026-06-26 起不可信事件用只读缓存 token）。
+- **四个新提法**：①门禁证据包（executed/skipped/retried/cache-hit）；②skipped 不计 success；③重试计数显式化（FLAKY n/m）；④bypass 审计与 required checks 自动派生。
+- **市场空白**：第 237 个市场空白——门禁证据包；skipped 语义修正；重试计数；TIA 校准；绕过审计。
+- **判词**：「required checks／merge queue／分支保护／TIA／重试／缓存」全部可采购，「这次门禁实际执行了哪些检查、跳过与重试各多少、缓存是否命中、谁批准绕过、名单是否覆盖当前工作流」不可采购。
+- **本地原型**：`gate_evidence.*`／`verification_receipt.*` 第 204 次无人提字段族（`gate_evidence.executed_checks`、`gate_evidence.skipped_checks`、`gate_evidence.retry_counts`、`gate_evidence.cache_hits`、`verification_receipt.bypass_approver`）；本地 173／173-kb 连续第 192 期成组启用（李东东 16：状态与证据分开记账）。
+- **建议**：skipped 语义修正；重试点清点与 FLAKY 标记；证据包；TIA 保守化+定期全量；bypass 最小化与审计；required checks 自动派生；注入跳过/重试/缓存污染/绕过演练。
+- **注意**：第 1 条为 CVE 条目；第 2、7、8 条为安全分析（平台行为随时间变）；第 3 条为单仓库审计；第 4 条为单团队记录；第 5 条为开源 PR；第 6 条为工具自述。
+- **落盘**：报告 + index 已提交；commit 见本轮 git log。
+- **下期候选**：副作用账本审计与留存、变更冻结后的解冻重放、跨层队列治理、模型上下文与记忆边界。
