@@ -5111,3 +5111,18 @@
 - 落盘：正文 1826 汉字，6 条来源，6 行六表。
 - 下期候选：解冻重放、模型上下文与记忆边界、回执对账、缓存分层。
 
+## 第 356 期（2026-11-25 18:31）· 序列化面／字段号与协议兼容
+
+- 期号说明：本期为第 356 期；与并行实例编号互不覆盖。
+- 报告：reports/AI-SRE技术洞察-20261125-1831.md
+- 主线：第二百九十九条——删掉的字段，地址还在；字段号是线格式身份，复用编号等于让旧数据被读成新含义，而且不会报错。
+- 时间线证据：火山引擎 2026-11-08（C++ work@ID=4 被 Java 读成 currency@ID=4，静默串值，ID=5 保持默认空；无序列化错误）；awesome-copilot 兼容性清单 2026-11-19（复用已删除字段号/枚举号、移入 oneof、string↔整数均为二进制线格式不安全；旧二进制/日志/队列/回滚产物可能仍带旧 tag）；agent-engineering-handbook 2025-12-12（wire format 编码 (field_number, wire_type, value)，字段名不上线）；telepresence 评审 2026-11-21（int32→int64 静默损坏）；protobuf Editions（IMPLICIT/EXPLICIT presence、OPEN/CLOSED enum、PACKED/EXPANDED 逐项开关）；gRPC-JSON 网关 2026-03-29（allow_unknown_fields=true、strict_mode=false，未知字段可能被丢）。
+- 四个新提法：①兼容性是地址簿问题，不是 schema 问题；②删除字段只是搬走住户，编号仍是已用地址，必须 reserved；③存量数据（队列/日志/备份/回滚产物）不在 CI 视野里；④presence 语义决定“未设置”与“零值”不可区分。
+- 市场空白（第 268 个，五项）：字段号登记与 reserved 审计；存量 payload 扫描；presence 语义声明；unknown fields 策略；回滚兼容演练。
+- 判词：「Buf/protolock/Schema Registry/契约测试/网关/CI」全部可采购，「这个编号曾经属于谁、现在还有谁按旧含义读它、旧数据会被新 schema 读成什么、回滚时新字段会不会被覆盖」不可采购。
+- 本地原型：173／173-kb 连续第 223 期（周昕毅 10：协议兼容不是让新代码读懂旧 schema，是让旧数据不被新代码读错）。
+- 建议：0–30 天字段号登记表+CI 阻断编号复用；31–60 天扫描队列与归档中的旧 payload；61–90 天声明 presence 与 unknown fields 策略，做跨版本回滚演练。
+- 注意：社区文档非官方规范；火山引擎为技术问答（用户描述案例）；protobuf.com 为第三方解释页；网关条目为配置摘要；非协议设计/法律建议。
+- 落盘：正文 1809 汉字，6 条来源，6 行六表。
+- 下期候选：解冻重放、模型上下文与记忆边界、回执对账、缓存分层。
+
