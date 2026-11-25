@@ -5171,3 +5171,18 @@
 - 落盘：正文 1994 汉字，6 条来源，6 行六表。
 - 下期候选：解冻重放、模型上下文与记忆边界、回执对账、影子数据。
 
+## 第 360 期（2026-11-25 22:31）· 时钟面／XID 回卷与清理债务
+
+- 期号说明：本期为第 360 期；与并行实例编号互不覆盖。
+- 报告：reports/AI-SRE技术洞察-20261125-2231.md
+- 主线：第三百零三条——数据库有自己的时钟，它不在任何仪表盘上；走到尽头时不是变慢，是停写。
+- 时间线证据：autovacuum 落后 11 天复盘 2026-07-18/21（order_items 8.47 亿死元组、186 GB 堆 vs 约 22 GB 活数据；一次批量 UPDATE 触发 38 分钟结账中断、1,847 笔失败、约 19,200 美元损失；事故前 CPU 34%、连接未满、复制延迟 200ms、无告警）；netdata 回卷指南（32 位 XID、约 20 亿事务、剩约 4000 万告警、剩约 300 万停写、单用户 vacuum 数小时）；netdata frozen XID 监控（age(datfrozenxid)/age(relfrozenxid) 分档，提前数月）；GitLab pg_xid_wraparound runbook（先终止超老事务含副本 hot_standby_feedback）；DEV 2026-08-02（回卷停机是设计行为、找谁钉住 freeze horizon）；CERN PGDay 2026-02-06（真实回卷事故复盘、vacuum 双重目的）。
+- 四个新提法：①XID 是数据库的第二个时钟，常规仪表盘不覆盖；②膨胀与回卷是同一笔债务的两面（磁盘与写入截止时间）；③长事务/复制槽/副本 feedback 是 freeze horizon 的钉子；④监控要看 dead tuple ratio/last_autovacuum/age(datfrozenxid)/vacuum lag，而不是 CPU 与连接数。
+- 市场空白（第 272 个，五项）：XID 年龄与冻结进度；死元组/膨胀指标；freeze horizon 钉子清单；按表 autovacuum 参数；回卷恢复演练。
+- 判词：「Postgres／autovacuum／pg_repack／监控／云托管平台」全部可采购，「这个库离回卷还有多少事务、谁在阻止冻结、表里多少死元组、autovacuum 落后多久、恢复要停几小时」不可采购。
+- 本地原型：173／173-kb 连续第 227 期（余锦泽 03：数据库的第二个时钟不在墙上，在计数器里；它走到尽头时，不是变慢，是停写）。
+- 建议：0–30 天接入 age(datfrozenxid)/死元组比例/last_autovacuum/vacuum lag 四指标并分档；31–60 天逐表调参、清理复制槽与超长事务；61–90 天做回卷恢复演练并把批量更新纳入变更窗口。
+- 注意：autovacuum 复盘为个人博客自述；netdata 为产品文档；GitLab runbook 为内部文档公开版；DEV 为个人分析；CERN 为会议摘要；默认参数以官方文档为准，非生产调参建议。
+- 落盘：正文 1812 汉字，6 条来源，6 行六表。
+- 下期候选：解冻重放、模型上下文与记忆边界、回执对账、影子数据。
+
