@@ -1,19 +1,32 @@
 /**
- * Game view — host half.
+ * Game view — host half (v2).
  *
  * Registers a session projection `gameView` that folds committed session events
  * (tool calls/results, turn/step boundaries) into a compact "scene": a bounded
  * beat log (one beat per tool call) plus a "bee" log (one bee per subagent
- * launch). The Client renders that scene as a game view beside the composer:
- * every tool call is an NPC action, every subagent launch is a bee that leaves
- * the hive and lands when it finishes.
+ * launch) — and now a lightweight *score game* on top:
+ *
+ *   - every completed tool result scores points (weighted by tool category),
+ *     scaled by a combo multiplier (GOOD ×1 / GREAT ×2 / PERFECT ×3) like a
+ *     rhythm game's judgment line;
+ *   - a failed result is a MISS and resets the combo to 0;
+ *   - score drives a level (LV) and an XP bar toward the next level.
+ *
+ * The Client renders that scene as a live animated game view beside the
+ * composer: every tool call is an NPC action, every subagent launch is a bee
+ * that leaves the hive, flies, and lands; every result pops a judgment
+ * (PERFECT/GREAT/GOOD/MISS) with particles.
  *
  * Reference: workByGame (CrommaCode) — "one tool call = one beat/NPC action;
- * subagent = a bee that leaves, works, lands".
+ * subagent = a bee that leaves, works, lands" + the Rhythm/Factory game feel.
  */
 
 const MAX_BEATS = 40;
 const MAX_BEES = 16;
+
+// Score game tuning.
+const POINTS = { read: 5, search: 5, skill: 8, write: 10, execute: 15, agent: 25, other: 3 };
+const LEVEL_STEP = 150; // score points per level
 
 // Tool name -> category. Category drives glyph + accent color in the Client.
 // Matched in order; first match wins; fallback 'other'.
@@ -34,6 +47,13 @@ function categorize(name) {
     if (re.test(name)) return category;
   }
   return 'other';
+}
+
+// Rhythm-style judgment: tier depends on the current combo streak.
+function tierOf(combo) {
+  if (combo >= 4) return { text: 'PERFECT', mult: 3 };
+  if (combo >= 2) return { text: 'GREAT', mult: 2 };
+  return { text: 'GOOD', mult: 1 };
 }
 
 // Pull a short human label from a tool's raw arguments JSON where the tool
@@ -67,6 +87,15 @@ function initialState() {
     bees: [],
     toolCounts: {},
     categoryCounts: {},
+    // Score game.
+    score: 0,
+    combo: 0,
+    bestCombo: 0,
+    level: 1,
+    xp: 0,
+    xpToNext: LEVEL_STEP,
+    judgmentSeq: 0,
+    judgment: null,
   };
 }
 
@@ -140,27 +169,59 @@ function fold(state, event) {
       if (!callId) return state;
       const isError = !!msg.isError || !!d.error;
 
+      // Update the matched beat/bee status (best effort: they may have been
+      // trimmed out of the bounded window).
       let beats = state.beats;
       let bees = state.bees;
-      let changed = false;
-
       const bi = beats.findIndex((b) => b.id === callId);
-      const nextStatus = isError ? 'error' : 'done';
-      if (bi >= 0 && beats[bi].status !== nextStatus) {
+      if (bi >= 0 && beats[bi].status !== (isError ? 'error' : 'done')) {
         beats = beats.slice();
-        beats[bi] = { ...beats[bi], status: nextStatus };
-        changed = true;
+        beats[bi] = { ...beats[bi], status: isError ? 'error' : 'done' };
       }
-
       const ei = bees.findIndex((b) => b.id === callId);
       if (ei >= 0) {
         bees = bees.slice();
         bees[ei] = { ...bees[ei], status: isError ? 'error' : 'landed', landedAt: event.time };
-        changed = true;
       }
 
-      if (!changed) return state;
-      return { ...state, beats, bees, lastActivity: event.time };
+      const beat = bi >= 0 ? beats[bi] : null;
+      const category = beat ? beat.category : 'other';
+      const tool = beat ? beat.name : 'tool';
+
+      // Score the result (rhythm judgment).
+      let combo = state.combo;
+      let score = state.score;
+      let text;
+      let points;
+      if (isError) {
+        combo = 0;
+        text = 'MISS';
+        points = 0;
+      } else {
+        combo = state.combo + 1;
+        const tier = tierOf(combo);
+        points = (POINTS[category] || POINTS.other) * tier.mult;
+        score = state.score + points;
+        text = tier.text;
+      }
+      const bestCombo = Math.max(state.bestCombo, combo);
+      const level = 1 + Math.floor(score / LEVEL_STEP);
+      const xp = score % LEVEL_STEP;
+      const judgmentSeq = state.judgmentSeq + 1;
+
+      return {
+        ...state,
+        beats,
+        bees,
+        combo,
+        score,
+        bestCombo,
+        level,
+        xp,
+        judgmentSeq,
+        judgment: { seq: judgmentSeq, text, points, category, tool, time: event.time },
+        lastActivity: event.time,
+      };
     }
     default:
       return state;
@@ -181,7 +242,7 @@ export async function apply(ctx) {
   await ctx.sessionProjections.register({
     key: 'gameView',
     stateSchema: passthrough,
-    stateVersion: 1,
+    stateVersion: 2,
     init,
     apply: fold,
     wire: {
