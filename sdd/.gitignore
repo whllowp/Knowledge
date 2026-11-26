@@ -1,6 +1,7 @@
 # scratch / measurement output
 bench/
 examples/
+repos/
 # third-party source checkouts
 gbrain-whllow/
 skills-main/
